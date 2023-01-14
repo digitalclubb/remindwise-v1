@@ -8,9 +8,18 @@
   "license": "MIT",
   "scripts": {
     "lint": "prettier --check . && eslint \".\"",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage --config ../vitest.config.ts",
+    "test:watch": "vitest --config ../vitest.config.ts"
   },
   "devDependencies": {
-    "svelte": "^3.55.1"
+    "@sveltejs/kit": "^1.1.0",
+    "@sveltejs/vite-plugin-svelte": "^2.0.2",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/svelte": "^3.2.2",
+    "jsdom": "^21.0.0",
+    "svelte": "^3.55.1",
+    "vitest": "^0.27.1"
   }
 }

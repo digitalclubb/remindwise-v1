@@ -5,8 +5,12 @@
       "dependsOn": ["^build"],
       "outputs": [".svelte-kit/**", ".vercel/**"]
     },
+    "test": {},
     "lint": {
       "outputs": []
+    },
+    "test:watch": {
+      "cache": false
     },
     "dev": {
       "cache": false
