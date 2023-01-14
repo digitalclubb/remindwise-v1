@@ -9,10 +9,17 @@
     "test:watch": "turbo run test:watch"
   },
   "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^2.0.2",
     "eslint": "^8.31.0",
     "prettier": "^2.8.3",
     "prettier-plugin-svelte": "^2.9.0",
-    "turbo": "^1.7.0"
+    "turbo": "^1.7.0",
+    "vitest": "^0.27.1",
+    "@sveltejs/kit": "^1.1.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/svelte": "^3.2.2",
+    "jsdom": "^21.0.0",
+    "svelte": "^3.55.1"
   },
   "packageManager": "pnpm@7.16.1"
 }

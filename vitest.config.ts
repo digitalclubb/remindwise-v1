@@ -6,9 +6,9 @@ export default defineConfig({
   test: {
     globals: true,
     include: ["**/*.{test,spec}.ts"],
-    exclude: ["**/tests/**"],
+    exclude: ["**/node_modules/**", "**/tests/**"],
     environment: "jsdom",
-    setupFiles: "./vitest.setup.ts",
+    setupFiles: "../vitest.setup.ts",
     onConsoleLog(log) {
       if (process.env.CI) {
         // Any test logging must contain the string: 'test'
