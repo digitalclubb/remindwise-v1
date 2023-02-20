@@ -1,8 +1,6 @@
 <script lang="ts">
-  import { Button } from 'components';
+  import Navigation from '../components/navigation/Navigation.svelte';
 </script>
 
 <h1>Reminder App</h1>
-<Button />
-
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<Navigation />
