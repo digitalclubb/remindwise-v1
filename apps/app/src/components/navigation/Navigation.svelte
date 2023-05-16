@@ -42,6 +42,7 @@
             }
         `,
         });
+        showForm = false;
     };
 </script>
 
