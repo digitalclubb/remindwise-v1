@@ -52,6 +52,13 @@
         <p>someemail@domain.com</p>
     </div>
 
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li>Search</li>
+        <li>Help</li>
+        <li>Settings</li>
+    </ul>
+
     {#if $categories.fetching}
         <p>Loading...</p>
     {:else if $categories.error}
@@ -59,7 +66,7 @@
     {:else}
         <ul>
             {#each $categories.data.categoriesCollection.edges as category}
-                <li>{category.node.name}</li>
+                <li><a href="/category/{category.node.name}">{category.node.name}</a></li>
             {/each}
             {#if showForm}
             <li>
@@ -74,10 +81,6 @@
             </li>
         </ul>
     {/if}
-    <ul>
-        <li>Help</li>
-        <li>Settings</li>
-    </ul>
 </nav>
 
 <style>
