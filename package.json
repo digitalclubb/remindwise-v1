@@ -9,6 +9,7 @@
     "test:watch": "turbo run test:watch"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^3.3.1",
     "@sveltejs/kit": "^1.16.3",
     "@sveltejs/vite-plugin-svelte": "^2.2.0",
     "@testing-library/jest-dom": "^5.16.5",
