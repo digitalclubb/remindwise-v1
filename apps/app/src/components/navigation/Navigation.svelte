@@ -1,8 +1,11 @@
 <script lang="ts">
-    import { getContextClient, gql, queryStore  } from '@urql/svelte';
+    import { getContextClient, gql, queryStore, mutationStore  } from '@urql/svelte';
+
+    let client = getContextClient();
+    let result;
 
     const categories = queryStore({
-        client: getContextClient(),
+        client,
         query: gql`
         query {
             categoriesCollection {
@@ -19,8 +22,26 @@
 
     let showForm = false;
 
-    const addCategory = () => {
-        showForm = !showForm;
+    const updateCategories = (event) => {
+        const category = event.target.category.value;
+        result = mutationStore({
+        client,
+        query: gql`
+            mutation {
+                insertIntocategoriesCollection(
+                    objects: [
+                    {name: "${category}", isLocked:false, iconId:"lols"}
+                    ]
+                ) {
+                    affectedCount
+                    records {
+                    id
+                    name
+                    }
+                }
+            }
+        `,
+        });
     };
 </script>
 
@@ -41,14 +62,14 @@
             {/each}
             {#if showForm}
             <li>
-                <form>
+                <form on:submit={updateCategories}>
                     <input type="text" name="category" required />
                     <button type="submit">Add</button>
                 </form>
             </li>
             {/if}
             <li>
-                <button on:click={addCategory}>Add category</button>
+                <button on:click={() => showForm = true}>Add category</button>
             </li>
         </ul>
     {/if}
