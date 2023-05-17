@@ -1,5 +1,3 @@
 <script lang="ts"></script>
 
-<header>
-    Project Reminder
-</header>
+<header>Project Reminder</header>
