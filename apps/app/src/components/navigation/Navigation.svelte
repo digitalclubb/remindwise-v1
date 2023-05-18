@@ -1,29 +1,10 @@
 <script lang="ts">
-  import {
-    getContextClient,
-    gql,
-    queryStore,
-    mutationStore,
-  } from "@urql/svelte";
+  export let data;
+  import { gql, mutationStore, getContextClient } from "@urql/svelte";
 
-  let client = getContextClient();
+  // TODO: sort context in layout?
+  //let client = getContextClient();
   let result;
-
-  const categories = queryStore({
-    client,
-    query: gql`
-      query {
-        categoriesCollection {
-          edges {
-            node {
-              id
-              name
-            }
-          }
-        }
-      }
-    `,
-  });
 
   let showForm = false;
 
@@ -49,6 +30,8 @@
     });
     showForm = false;
   };
+
+  const categories = data.categories.list;
 </script>
 
 <nav>
@@ -64,30 +47,24 @@
     <li>Settings</li>
   </ul>
 
-  {#if $categories.fetching}
-    <p>Loading...</p>
-  {:else if $categories.error}
-    <p>Oh no... {$categories.error.message}</p>
-  {:else}
-    <ul>
-      {#each $categories.data.categoriesCollection.edges as category}
-        <li>
-          <a href="/category/{category.node.name}">{category.node.name}</a>
-        </li>
-      {/each}
-      {#if showForm}
-        <li>
-          <form on:submit={updateCategories}>
-            <input type="text" name="category" required />
-            <button type="submit">Add</button>
-          </form>
-        </li>
-      {/if}
+  <ul>
+    {#each categories as object}
       <li>
-        <button on:click={() => (showForm = true)}>Add category</button>
+        <a href="/category/{object.category.name}">{object.category.name}</a>
       </li>
-    </ul>
-  {/if}
+    {/each}
+    {#if showForm}
+      <li>
+        <form on:submit={updateCategories}>
+          <input type="text" name="category" required />
+          <button type="submit">Add</button>
+        </form>
+      </li>
+    {/if}
+    <li>
+      <button on:click={() => (showForm = true)}>Add category</button>
+    </li>
+  </ul>
 </nav>
 
 <style>
