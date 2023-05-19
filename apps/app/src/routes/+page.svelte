@@ -1,6 +1,6 @@
 <script lang="ts">
   export let data;
-  const reminders = data.reminders.list;
+  const reminders = data.reminders;
 </script>
 
 <h1>Dashboard</h1>

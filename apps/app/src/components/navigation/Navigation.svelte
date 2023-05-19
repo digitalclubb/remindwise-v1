@@ -1,6 +1,8 @@
 <script lang="ts">
-  export let data;
   import { gql, mutationStore, getContextClient } from "@urql/svelte";
+  import { getContext } from "svelte";
+
+  const categories = getContext("categories");
 
   // TODO: sort context in layout?
   //let client = getContextClient();
@@ -30,8 +32,6 @@
     });
     showForm = false;
   };
-
-  const categories = data.categories.list;
 </script>
 
 <nav>
@@ -46,9 +46,8 @@
     <li>Help</li>
     <li>Settings</li>
   </ul>
-
   <ul>
-    {#each categories as object}
+    {#each $categories as object}
       <li>
         <a href="/category/{object.category.name}">{object.category.name}</a>
       </li>
