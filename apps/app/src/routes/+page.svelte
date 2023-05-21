@@ -13,10 +13,10 @@
 
 <h1>Dashboard</h1>
 
+<h2>Most used categories</h2>
 <ChartBar data={dummyData} />
 
 <h2>Upcoming reminders</h2>
-
 <table>
   <thead>
     <tr>
