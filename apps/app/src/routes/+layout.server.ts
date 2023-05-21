@@ -21,24 +21,24 @@ export async function load() {
             gql`
             query {
                 categories: categoriesCollection {
-                list: edges {
-                    category: node {
-                        id
-                        name
-                        iconId
+                    list: edges {
+                        category: node {
+                            id
+                            name
+                            iconId
+                        }
                     }
-                }
                 }
                 reminders: remindersCollection {
-                list: edges {
-                    reminder: node {
-                        categoryId
-                        company
-                        cost
-                        dateOfRenewal
-                        autoRenewal
+                    list: edges {
+                        reminder: node {
+                            categoryId
+                            company
+                            cost
+                            dateOfRenewal
+                            autoRenewal
+                        }
                     }
-                }
                 }
             }
             `,
