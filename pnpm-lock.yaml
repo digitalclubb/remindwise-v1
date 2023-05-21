@@ -49,6 +49,9 @@ importers:
       components:
         specifier: workspace:*
         version: link:../../components
+      d3-scale:
+        specifier: ^4.0.2
+        version: 4.0.2
       layercake:
         specifier: ^7.4.0
         version: 7.4.0(svelte@3.59.1)(typescript@4.9.5)

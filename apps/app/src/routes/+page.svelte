@@ -1,9 +1,19 @@
 <script lang="ts">
+  import ChartBar from "../components/charts/bar/Bar.svelte";
+
+  const dummyData = [
+    { category: "insurance", value: 2 },
+    { category: "entertainment", value: 7 },
+    { category: "something", value: 5 },
+  ];
+
   /** @type {import('./$types').LayoutData} */
   export let data;
 </script>
 
 <h1>Dashboard</h1>
+
+<ChartBar data={dummyData} />
 
 <h2>Upcoming reminders</h2>
 
