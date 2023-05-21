@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { gql, mutationStore, getContextClient } from "@urql/svelte";
-
+  import { gql, mutationStore } from "@urql/svelte";
   export let categories;
 
-  //let client = getContextClient();
   let result;
 
   let showForm = false;
+
+  // how to get client?
 
   const updateCategories = (event) => {
     const category = event.target.category.value;
