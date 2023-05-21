@@ -16,7 +16,7 @@ export async function load() {
         },
     });
 
-    const data = client
+    const result = client
         .query(
             gql`
             query {
@@ -44,16 +44,10 @@ export async function load() {
             `,
             {}
         )
-        .toPromise()
-        .then((result) => {
-            return {
-                categories: result.data.categories.list,
-                reminders: result.data.reminders.list,
-            };
-        });
+        .toPromise();
 
     return {
-        categories: (await data).categories,
-        reminders: (await data).reminders,
+        categories: (await result).data.categories.list,
+        reminders: (await result).data.reminders.list,
     };
 }
