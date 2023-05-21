@@ -27,15 +27,15 @@ export async function load() {
                 categories: categoriesCollection {
                 list: edges {
                     category: node {
-                    name
-                    iconId
+                        name
+                        iconId
                     }
                 }
                 }
                 reminders: remindersCollection {
                 list: edges {
                     reminder: node {
-                    company
+                        company
                     }
                 }
                 }
@@ -46,8 +46,8 @@ export async function load() {
         .toPromise()
         .then((result) => {
             return {
-            categories: result.data.categories.list,
-            reminders: result.data.reminders.list,
+                categories: result.data.categories.list,
+                reminders: result.data.reminders.list,
             };
         });
 
