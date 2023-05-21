@@ -9,6 +9,8 @@
 
   /** @type {import('./$types').LayoutData} */
   export let data;
+
+  // console.log("DATA", data);
 </script>
 
 <h1>Dashboard</h1>

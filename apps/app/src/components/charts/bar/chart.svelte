@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { getContext } from "svelte";
 
   const { data, xGet, yGet, xScale, yScale } = getContext("LayerCake");

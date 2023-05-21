@@ -1,8 +1,8 @@
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY } from "$env/static/public";
 import {createClient,gql,cacheExchange,fetchExchange} from "@urql/svelte";
+import type { LayoutServerLoad } from "./$types";
 
-/** @type {import('./$types').LayoutServerLoad} */
-export async function load() {
+export const load: LayoutServerLoad = async ({ locals: { getSession } }) => {
     const headers = {
         apikey: PUBLIC_SUPABASE_KEY,
         authorization: `Bearer ${PUBLIC_SUPABASE_KEY}`,
@@ -49,5 +49,6 @@ export async function load() {
     return {
         categories: (await result).data.categories.list,
         reminders: (await result).data.reminders.list,
+        session: await getSession(),
     };
 }

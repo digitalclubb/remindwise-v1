@@ -1,0 +1,8 @@
+# generated files
+node_modules/
+**/*.css.d.ts
+
+# configs
+.vscode/
+
+.svelte-kit

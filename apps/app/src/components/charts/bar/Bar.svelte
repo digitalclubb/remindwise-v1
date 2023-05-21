@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { LayerCake, ScaledSvg, Html } from "layercake";
   import { scaleBand } from "d3-scale";
 
