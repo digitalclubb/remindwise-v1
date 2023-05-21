@@ -1,6 +1,6 @@
 <script lang="ts">
   import { gql, mutationStore } from "@urql/svelte";
-  export let categories;
+  import { page } from "$app/stores";
 
   let result;
 
@@ -45,7 +45,7 @@
     <li>Settings</li>
   </ul>
   <ul>
-    {#each categories as category}
+    {#each $page.data.categories as category}
       <li>
         <a href="/category/{category.category.name}">{category.category.name}</a
         >

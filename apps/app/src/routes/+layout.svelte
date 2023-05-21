@@ -4,6 +4,6 @@
   import Navigation from "../components/navigation/Navigation.svelte";
 </script>
 
-<Navigation categories={data.categories} />
+<Navigation />
 
 <slot />
