@@ -6,6 +6,7 @@ cacheExchange,
 fetchExchange,
 } from "@urql/svelte";
 
+/** @type {import('./$types').LayoutServerLoad} */
 export async function load() {
     const headers = {
     apikey: PUBLIC_SUPABASE_KEY,
