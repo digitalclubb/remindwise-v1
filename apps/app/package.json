@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "@urql/svelte": "^4.0.1",
-    "components": "workspace:*"
+    "components": "workspace:*",
+    "layercake": "^7.4.0"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^1.0.3",
