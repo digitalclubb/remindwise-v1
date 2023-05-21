@@ -1,45 +1,21 @@
-<style>
-	/*
-      The wrapper div needs to have an explicit width and height in CSS.
-      It can also be a flexbox child or CSS grid element.
-      The point being it needs dimensions since the <LayerCake> element will
-      expand to fill it.
-    */
-	.chart-container {
-		width: 100%;
-		height: 250px;
-	}
-</style>
-
 <script lang="ts">
-	import { LayerCake, ScaledSvg, Html } from 'layercake';
-	import { scaleBand } from 'd3-scale';
+	import { getContext } from 'svelte';
 
-	export let data;
+	const { data, xGet, yGet, xScale, yScale } = getContext('LayerCake');
 
-	import Bar from './chart.svelte';
-	import AxisX from './axisX.svelte';
-	import AxisY from './axisY.svelte';
+	/** @type {String} [fill='#00bbff'] - The shape's fill color. This is technically optional because it comes with a default value but you'll likely want to replace it with your own color. */
+	export let fill = '#00bbff';
 </script>
 
-<div class="chart-container">
-	<LayerCake
-		ssr="{true}"
-		percentRange="{true}"
-		padding="{{ top: 0, right: 20, bottom: 20, left: 35 }}"
-		x="value"
-		y="category"
-		yScale="{scaleBand().paddingInner([0.05]).round(true)}"
-		yDomain="{['insurance', 'entertainment', 'something']}"
-		xDomain="{[0, null]}"
-		data="{data}"
-	>
-		<Html>
-			<AxisX gridlines="{true}" baseline="{true}" snapTicks="{true}" />
-			<AxisY gridlines="{false}" />
-		</Html>
-		<ScaledSvg>
-			<Bar />
-		</ScaledSvg>
-	</LayerCake>
-</div>
+<g class="bar-group">
+	{#each $data as d, i}
+		<rect
+			class="group-rect"
+			data-id="{i}"
+			x="{$xScale.range()[0]}"
+			y="{$yGet(d)}"
+			height="{$yScale.bandwidth()}"
+			width="{$xGet(d)}"
+			fill="{fill}"></rect>
+	{/each}
+</g>
