@@ -1,19 +1,19 @@
 {
-  "name": "components",
-  "version": "0.0.0",
-  "description": "Shared components for all applications",
-  "type": "module",
-  "module": "index.ts",
-  "svelte": "index.ts",
-  "license": "MIT",
-  "scripts": {
-    "lint": "prettier --check . && eslint \".\"",
-    "format": "prettier --write .",
-    "test": "vitest run --config ../vitest.config.ts",
-    "test:coverage": "vitest run --coverage --config ../vitest.config.ts",
-    "test:watch": "vitest --config ../vitest.config.ts"
-  },
-  "devDependencies": {
-    "svelte": "^3.59.1"
-  }
+	"name": "components",
+	"version": "0.0.0",
+	"description": "Shared components for all applications",
+	"type": "module",
+	"module": "index.ts",
+	"svelte": "index.ts",
+	"license": "MIT",
+	"scripts": {
+		"lint": "prettier --check . && eslint \".\"",
+		"format": "prettier --write .",
+		"test": "vitest run --config ../vitest.config.ts",
+		"test:coverage": "vitest run --coverage --config ../vitest.config.ts",
+		"test:watch": "vitest --config ../vitest.config.ts"
+	},
+	"devDependencies": {
+		"svelte": "^3.59.1"
+	}
 }

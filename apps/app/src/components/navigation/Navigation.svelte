@@ -1,18 +1,29 @@
+<style>
+	nav {
+		background-color: #e5e4e2;
+		font-size: 1.6rem;
+		grid-area: navigation;
+	}
+	li {
+		text-transform: capitalize;
+	}
+</style>
+
 <script lang="ts">
-  import { gql, mutationStore } from "@urql/svelte";
-  import { page } from "$app/stores";
+	import { gql, mutationStore } from '@urql/svelte';
+	import { page } from '$app/stores';
 
-  let result;
+	let result;
 
-  let showForm = false;
+	let showForm = false;
 
-  // how to get client?
-
-  const updateCategories = (event) => {
-    const category = event.target.category.value;
-    result = mutationStore({
-      client,
-      query: gql`
+	// how to get client?
+	let client = {};
+	const updateCategories = (event) => {
+		const category = event.target.category.value;
+		result = mutationStore({
+			client,
+			query: gql`
             mutation {
                 insertIntocategoriesCollection(
                     objects: [
@@ -27,51 +38,41 @@
                 }
             }
         `,
-    });
-    showForm = false;
-  };
+		});
+		showForm = false;
+	};
+	console.log(result);
 </script>
 
 <nav>
-  <div class="profile">
-    <h2>Gareth Clubb</h2>
-    <p>someemail@domain.com</p>
-  </div>
+	<div class="profile">
+		<h2>Gareth Clubb</h2>
+		<p>someemail@domain.com</p>
+	</div>
 
-  <ul>
-    <li><a href="/">Home</a></li>
-    <li>Search</li>
-    <li>Help</li>
-    <li>Settings</li>
-  </ul>
-  <ul>
-    {#each $page.data.categories as category}
-      <li>
-        <a href="/category/{category.category.name}">{category.category.name}</a
-        >
-      </li>
-    {/each}
-    {#if showForm}
-      <li>
-        <form on:submit={updateCategories}>
-          <input type="text" name="category" required />
-          <button type="submit">Add</button>
-        </form>
-      </li>
-    {/if}
-    <li>
-      <button on:click={() => (showForm = true)}>Add category</button>
-    </li>
-  </ul>
+	<ul>
+		<li><a href="/">Home</a></li>
+		<li>Search</li>
+		<li>Help</li>
+		<li>Settings</li>
+	</ul>
+	<ul>
+		{#each $page.data.categories as category}
+			<li>
+				<a href="/category/{category.category.name}">{category.category.name}</a
+				>
+			</li>
+		{/each}
+		{#if showForm}
+			<li>
+				<form on:submit="{updateCategories}">
+					<input type="text" name="category" required />
+					<button type="submit">Add</button>
+				</form>
+			</li>
+		{/if}
+		<li>
+			<button on:click="{() => (showForm = true)}">Add category</button>
+		</li>
+	</ul>
 </nav>
-
-<style>
-  nav {
-    background-color: #e5e4e2;
-    font-size: 1.6rem;
-    grid-area: navigation;
-  }
-  li {
-    text-transform: capitalize;
-  }
-</style>
