@@ -1,46 +1,3 @@
-<style>
-	.axis,
-	.tick,
-	.tick-mark,
-	.gridline,
-	.baseline {
-		position: absolute;
-	}
-	.axis {
-		width: 100%;
-		height: 100%;
-	}
-	.tick {
-		font-size: 0.725em;
-		font-weight: 200;
-	}
-
-	.gridline {
-		border-left: 1px dashed #aaa;
-	}
-
-	.tick-mark {
-		border-left: 1px solid #aaa;
-	}
-	.baseline {
-		border-top: 1px solid #aaa;
-	}
-
-	.tick .text {
-		color: #666;
-		position: relative;
-		white-space: nowrap;
-		transform: translateX(-50%);
-	}
-	/* This looks a little better at 40 percent than 50 */
-	.axis.snapTicks .tick:last-child {
-		transform: translateX(-40%);
-	}
-	.axis.snapTicks .tick.tick-0 {
-		transform: translateX(40%);
-	}
-</style>
-
 <script lang="ts">
 	import { getContext } from 'svelte';
 
@@ -107,3 +64,46 @@
 		<div class="baseline" style="top: 100%;width: 100%;"></div>
 	{/if}
 </div>
+
+<style>
+	.axis,
+	.tick,
+	.tick-mark,
+	.gridline,
+	.baseline {
+		position: absolute;
+	}
+	.axis {
+		width: 100%;
+		height: 100%;
+	}
+	.tick {
+		font-size: 0.725em;
+		font-weight: 200;
+	}
+
+	.gridline {
+		border-left: 1px dashed #aaa;
+	}
+
+	.tick-mark {
+		border-left: 1px solid #aaa;
+	}
+	.baseline {
+		border-top: 1px solid #aaa;
+	}
+
+	.tick .text {
+		color: #666;
+		position: relative;
+		white-space: nowrap;
+		transform: translateX(-50%);
+	}
+	/* This looks a little better at 40 percent than 50 */
+	.axis.snapTicks .tick:last-child {
+		transform: translateX(-40%);
+	}
+	.axis.snapTicks .tick.tick-0 {
+		transform: translateX(40%);
+	}
+</style>

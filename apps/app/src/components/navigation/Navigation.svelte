@@ -1,14 +1,3 @@
-<style>
-	nav {
-		background-color: #e5e4e2;
-		font-size: 1.6rem;
-		grid-area: navigation;
-	}
-	li {
-		text-transform: capitalize;
-	}
-</style>
-
 <script lang="ts">
 	import { gql, mutationStore } from '@urql/svelte';
 	import { page } from '$app/stores';
@@ -76,3 +65,14 @@
 		</li>
 	</ul>
 </nav>
+
+<style>
+	nav {
+		background-color: #e5e4e2;
+		font-size: 1.6rem;
+		grid-area: navigation;
+	}
+	li {
+		text-transform: capitalize;
+	}
+</style>

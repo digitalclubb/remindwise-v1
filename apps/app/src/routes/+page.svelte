@@ -1,13 +1,3 @@
-<style>
-	div {
-		display: grid;
-		padding-left: 4rem;
-		padding-right: 4rem;
-		grid-template-columns: 1fr 1fr;
-		grid-gap: 5rem;
-	}
-</style>
-
 <script lang="ts">
 	import ChartBar from '../components/charts/bar/Index.svelte';
 	import ChartStacked from '../components/charts/stacked/Index.svelte';
@@ -98,3 +88,13 @@
 		</tbody>
 	</table>
 </section>
+
+<style>
+	div {
+		display: grid;
+		padding-left: 4rem;
+		padding-right: 4rem;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 5rem;
+	}
+</style>

@@ -3,7 +3,7 @@ module.exports = {
 	useTabs: true,
 	singleQuote: true,
 	plugins: ['prettier-plugin-svelte'],
-	svelteSortOrder: 'options-styles-scripts-markup',
+	svelteSortOrder: 'scripts-markup-styles',
 	svelteStrictMode: true,
 	svelteBracketNewLine: true,
 	svelteAllowShorthand: true,

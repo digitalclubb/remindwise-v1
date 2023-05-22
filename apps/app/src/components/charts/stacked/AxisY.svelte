@@ -1,38 +1,3 @@
-<style>
-	.axis,
-	.tick,
-	.tick-mark,
-	.gridline,
-	.baseline,
-	.text {
-		position: absolute;
-	}
-	.axis {
-		width: 100%;
-		height: 100%;
-	}
-	.tick {
-		font-size: 12px;
-		width: 100%;
-		font-weight: 100;
-	}
-
-	.gridline {
-		border-top: 1px dashed #aaa;
-	}
-	.tick-mark {
-		border-top: 1px solid #aaa;
-	}
-
-	.baseline.gridline {
-		border-top-style: solid;
-	}
-
-	.tick .text {
-		color: #666;
-	}
-</style>
-
 <script>
 	import { getContext } from 'svelte';
 
@@ -114,3 +79,38 @@
 		</div>
 	{/each}
 </div>
+
+<style>
+	.axis,
+	.tick,
+	.tick-mark,
+	.gridline,
+	.baseline,
+	.text {
+		position: absolute;
+	}
+	.axis {
+		width: 100%;
+		height: 100%;
+	}
+	.tick {
+		font-size: 12px;
+		width: 100%;
+		font-weight: 100;
+	}
+
+	.gridline {
+		border-top: 1px dashed #aaa;
+	}
+	.tick-mark {
+		border-top: 1px solid #aaa;
+	}
+
+	.baseline.gridline {
+		border-top-style: solid;
+	}
+
+	.tick .text {
+		color: #666;
+	}
+</style>
