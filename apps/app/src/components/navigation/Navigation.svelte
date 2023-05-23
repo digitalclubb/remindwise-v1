@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { gql, mutationStore } from '@urql/svelte';
-	import { page } from '$app/stores';
+	import { gql, mutationStore } from "@urql/svelte";
+	import { page } from "$app/stores";
 
 	let result;
 
@@ -30,7 +30,6 @@
 		});
 		showForm = false;
 	};
-	console.log(result);
 </script>
 
 <nav>
