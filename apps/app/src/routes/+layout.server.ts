@@ -9,7 +9,7 @@ export const load: LayoutServerLoad = async ({ locals: { getSession } }) => {
 	};
 
 	const client = createClient({
-		url: PUBLIC_SUPABASE_URL,
+		url: `${PUBLIC_SUPABASE_URL}/graphql/v1`,
 		exchanges: [cacheExchange, fetchExchange],
 		fetchOptions: function createFetchOptions() {
 			return { headers };
