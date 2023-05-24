@@ -28,23 +28,24 @@
 	let showForm = false;
 	const updateCategories = (event) => {
 		const category = event.target.category.value;
+		const isLocked = false;
+		const iconId = '123';
 		mutationStore({
 			client,
 			query: gql`
-            mutation {
-                insertIntocategoriesCollection(
-                    objects: [
-                    {name: "${category}", isLocked:false, iconId:"lols"}
-                    ]
-                ) {
-                    affectedCount
-                    records {
-                    id
-                    name
-                    }
-                }
-            }
-        `,
+				mutation ($category: String!, $isLocked: Bool!, $iconId: String!) {
+					insertIntocategoriesCollection(
+						objects: [{ name: $category, isLocked: $isLocked, iconId: $iconId }]
+					) {
+						affectedCount
+						records {
+							id
+							name
+						}
+					}
+				}
+			`,
+			variables: { category, isLocked, iconId },
 		});
 		showForm = false;
 	};
