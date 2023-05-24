@@ -1,11 +1,19 @@
 <script lang="ts">
+	import {
+		createClient,
+		cacheExchange,
+		fetchExchange,
+		setContextClient,
+	} from '@urql/svelte';
+	import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY } from '$env/static/public';
+
 	import Navigation from '../components/navigation/Navigation.svelte';
+
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 
 	export let data;
 	$: ({ supabase, session } = data);
-
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange((event, _session) => {
 			if (_session?.expires_at !== session?.expires_at) {
@@ -15,6 +23,22 @@
 
 		return () => data.subscription.unsubscribe();
 	});
+
+	// URQL stuff below
+	const headers = {
+		apikey: PUBLIC_SUPABASE_KEY,
+		authorization: `Bearer ${PUBLIC_SUPABASE_KEY}`,
+	};
+
+	const client = createClient({
+		url: `${PUBLIC_SUPABASE_URL}/graphql/v1`,
+		exchanges: [cacheExchange, fetchExchange],
+		fetchOptions: function createFetchOptions() {
+			return { headers };
+		},
+	});
+
+	setContextClient(client);
 </script>
 
 <main>

@@ -38,9 +38,6 @@
 			reminder4: 400,
 		},
 	];
-
-	/** @type {import('./$types').LayoutData} */
-	export let data;
 </script>
 
 <h1>Dashboard</h1>
@@ -75,7 +72,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each data.reminders as reminders}
+			<!-- {#each data.reminders as reminders}
 				<tr>
 					<td>{reminders.reminder.company}</td>
 					<td>{reminders.reminder.categoryId}</td>
@@ -84,7 +81,7 @@
 					<td></td>
 					<td></td>
 				</tr>
-			{/each}
+			{/each} -->
 		</tbody>
 	</table>
 </section>

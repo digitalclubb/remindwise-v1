@@ -1,16 +1,32 @@
 <script lang="ts">
-	import { gql, mutationStore } from "@urql/svelte";
-	import { page } from "$app/stores";
+	import {
+		getContextClient,
+		gql,
+		queryStore,
+		mutationStore,
+	} from '@urql/svelte';
 
-	let result;
+	const categories = queryStore({
+		client: getContextClient(),
+		query: gql`
+			query {
+				categories: categoriesCollection {
+					list: edges {
+						category: node {
+							id
+							name
+							iconId
+						}
+					}
+				}
+			}
+		`,
+	});
 
 	let showForm = false;
-
-	// how to get client?
-	let client = {};
 	const updateCategories = (event) => {
 		const category = event.target.category.value;
-		result = mutationStore({
+		mutationStore({
 			client,
 			query: gql`
             mutation {
@@ -45,12 +61,19 @@
 		<li>Settings</li>
 	</ul>
 	<ul>
-		{#each $page.data.categories as category}
-			<li>
-				<a href="/category/{category.category.name}">{category.category.name}</a
-				>
-			</li>
-		{/each}
+		{#if $categories.fetching}
+			<li>Loading...</li>
+		{:else if $categories.error}
+			<li>{$categories.error.message}</li>
+		{:else}
+			{#each $categories.data.categories.list as category}
+				<li>
+					<a href="/category/{category.category.name}"
+						>{category.category.name}</a
+					>
+				</li>
+			{/each}
+		{/if}
 		{#if showForm}
 			<li>
 				<form on:submit="{updateCategories}">
