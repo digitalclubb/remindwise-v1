@@ -6,8 +6,10 @@
 		mutationStore,
 	} from '@urql/svelte';
 
+	const client = getContextClient();
+
 	const categories = queryStore({
-		client: getContextClient(),
+		client,
 		query: gql`
 			query {
 				categories: categoriesCollection {
