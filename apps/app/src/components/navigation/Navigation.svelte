@@ -5,7 +5,6 @@
 		queryStore,
 		mutationStore,
 	} from '@urql/svelte';
-	import logoActivity from '$lib/assets/icons/activity.svg';
 
 	const client = getContextClient();
 
@@ -57,14 +56,8 @@
 		<h2>Gareth Clubb</h2>
 		<p>someemail@domain.com</p>
 	</div>
-
 	<ul>
-		<li><a href="/">Home</a></li>
-		<li>Search</li>
-		<li>Help</li>
-		<li>Settings</li>
-	</ul>
-	<ul>
+		<li><a href="/">Dashboard</a></li>
 		{#if $categories.fetching}
 			<li>Loading...</li>
 		{:else if $categories.error}
@@ -73,7 +66,7 @@
 			{#each $categories.data.categories.list as category}
 				<li>
 					<a href="/category/{category.category.name}"
-						><img src="{logoActivity}" alt="" /> {category.category.name}</a
+						>{category.category.name}</a
 					>
 				</li>
 			{/each}
@@ -89,6 +82,11 @@
 		<li>
 			<button on:click="{() => (showForm = true)}">Add category</button>
 		</li>
+	</ul>
+	<ul>
+		<li>Help</li>
+		<li>Settings</li>
+		<li>Log out</li>
 	</ul>
 </nav>
 
