@@ -8,8 +8,7 @@
 
 	import Sprite from '../icons/Sprite.svelte';
 	import Modal from '../modal/Modal.svelte';
-
-	const icons = [{ name: '500px' }, { name: 'add-to-list' }];
+	import { icons } from '../icons/icons';
 
 	const client = getContextClient();
 
@@ -99,9 +98,11 @@
 
 		<h3>Pick an icon</h3>
 		<div class="icons">
-			{#each icons as { name }}
-				<input type="radio" name="icon" value="{name}" id="{name}" />
-				<label for="{name}"><svg><use xlink:href="#{name}"></use></svg></label>
+			{#each icons as icon}
+				<input type="radio" name="icon" value="{icon}" id="{icon}-icon" />
+				<label for="{icon}-icon"
+					><svg><use xlink:href="#{icon}"></use></svg></label
+				>
 			{/each}
 		</div>
 
@@ -134,17 +135,28 @@
 		height: 15px;
 	}
 
+	.icons {
+		height: 200px;
+		overflow-y: auto;
+	}
+
+	.icons label {
+		border: solid 1px #6a6c7026;
+		display: inline-block;
+		padding: 5px;
+	}
+
 	input[type='radio'] {
 		opacity: 0;
 		width: 0;
 		height: 0;
 	}
 
-	input[type='radio']:active ~ label {
+	input[type='radio']:active + label {
 		opacity: 1;
 	}
 
-	input[type='radio']:checked ~ label {
+	input[type='radio']:checked + label {
 		opacity: 1;
 		border: 1px solid red;
 	}
