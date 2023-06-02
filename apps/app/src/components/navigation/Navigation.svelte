@@ -5,6 +5,7 @@
 		queryStore,
 		mutationStore,
 	} from '@urql/svelte';
+	import Sprite from '../icons/Sprite.svelte';
 
 	const client = getContextClient();
 
@@ -57,7 +58,11 @@
 		<p>someemail@domain.com</p>
 	</div>
 	<ul>
-		<li><a href="/">Dashboard</a></li>
+		<li>
+			<a href="/" class="selected"
+				><svg><use xlink:href="#bar-graph"></use></svg> Dashboard</a
+			>
+		</li>
 		{#if $categories.fetching}
 			<li>Loading...</li>
 		{:else if $categories.error}
@@ -84,19 +89,33 @@
 		</li>
 	</ul>
 	<ul>
-		<li>Help</li>
-		<li>Settings</li>
-		<li>Log out</li>
+		<li><svg><use xlink:href="#help"></use></svg> Help</li>
+		<li><svg><use xlink:href="#cog"></use></svg> Settings</li>
+		<li><svg><use xlink:href="#log-out"></use></svg> Log out</li>
 	</ul>
+	<svelte:component this="{Sprite}" />
 </nav>
 
 <style>
 	nav {
-		background-color: #e5e4e2;
+		background-color: #f8fafb;
 		font-size: 1.6rem;
 		grid-area: navigation;
 	}
 	li {
 		text-transform: capitalize;
+	}
+
+	a {
+		color: #6a6c70;
+	}
+
+	.selected a {
+		color: #2f3034;
+	}
+
+	svg {
+		width: 15px;
+		height: 15px;
 	}
 </style>
