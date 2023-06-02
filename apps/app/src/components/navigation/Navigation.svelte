@@ -5,7 +5,11 @@
 		queryStore,
 		mutationStore,
 	} from '@urql/svelte';
+
 	import Sprite from '../icons/Sprite.svelte';
+	import Modal from '../modal/Modal.svelte';
+
+	const icons = [{ name: '500px' }, { name: 'add-to-list' }];
 
 	const client = getContextClient();
 
@@ -26,7 +30,7 @@
 		`,
 	});
 
-	let showForm = false;
+	let showModal = false;
 	const updateCategories = (event) => {
 		const category = event.target.category.value;
 		const isLocked = false;
@@ -48,7 +52,7 @@
 			`,
 			variables: { category, isLocked, iconId },
 		});
-		showForm = false;
+		showModal = false;
 	};
 </script>
 
@@ -76,16 +80,8 @@
 				</li>
 			{/each}
 		{/if}
-		{#if showForm}
-			<li>
-				<form on:submit="{updateCategories}">
-					<input type="text" name="category" required />
-					<button type="submit">Add</button>
-				</form>
-			</li>
-		{/if}
 		<li>
-			<button on:click="{() => (showForm = true)}">Add category</button>
+			<button on:click="{() => (showModal = true)}">Add category</button>
 		</li>
 	</ul>
 	<ul>
@@ -93,8 +89,27 @@
 		<li><svg><use xlink:href="#cog"></use></svg> Settings</li>
 		<li><svg><use xlink:href="#log-out"></use></svg> Log out</li>
 	</ul>
-	<svelte:component this="{Sprite}" />
 </nav>
+
+<Modal bind:showModal="{showModal}">
+	<h2>Add a category!</h2>
+	<form on:submit="{updateCategories}">
+		<label for="category">Add a name</label>
+		<input type="text" name="category" id="category" required />
+
+		<h3>Pick an icon</h3>
+		<div class="icons">
+			{#each icons as { name }}
+				<input type="radio" name="icon" value="{name}" id="{name}" />
+				<label for="{name}"><svg><use xlink:href="#{name}"></use></svg></label>
+			{/each}
+		</div>
+
+		<button type="submit">Add</button>
+	</form>
+</Modal>
+
+<svelte:component this="{Sprite}" />
 
 <style>
 	nav {
@@ -117,5 +132,20 @@
 	svg {
 		width: 15px;
 		height: 15px;
+	}
+
+	input[type='radio'] {
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+
+	input[type='radio']:active ~ label {
+		opacity: 1;
+	}
+
+	input[type='radio']:checked ~ label {
+		opacity: 1;
+		border: 1px solid red;
 	}
 </style>
