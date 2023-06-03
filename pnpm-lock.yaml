@@ -88,7 +88,7 @@ importers:
         version: 3.2.0
       layercake:
         specifier: ^7.4.0
-        version: 7.4.0(svelte@3.59.1)(typescript@5.0.4)
+        version: 7.4.0(svelte@3.59.1)(typescript@5.1.3)
     devDependencies:
       '@sveltejs/adapter-auto':
         specifier: ^1.0.3
@@ -110,7 +110,7 @@ importers:
         version: 3.3.2(@babel/core@7.22.1)(postcss@8.4.23)(svelte@3.59.1)
       svelte-preprocess:
         specifier: ^5.0.3
-        version: 5.0.3(@babel/core@7.22.1)(postcss@8.4.23)(svelte@3.59.1)(typescript@5.0.4)
+        version: 5.0.3(@babel/core@7.22.1)(postcss@8.4.23)(svelte@3.59.1)(typescript@5.1.3)
       tslib:
         specifier: ^2.5.0
         version: 2.5.0
@@ -1968,7 +1968,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001492
-      electron-to-chromium: 1.4.414
+      electron-to-chromium: 1.4.419
       node-releases: 2.0.12
       update-browserslist-db: 1.0.11(browserslist@4.21.7)
     dev: true
@@ -2508,8 +2508,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /electron-to-chromium@1.4.414:
-    resolution: {integrity: sha512-RRuCvP6ekngVh2SAJaOKT/hxqc9JAsK+Pe0hP5tGQIfonU2Zy9gMGdJ+mBdyl/vNucMG6gkXYtuM4H/1giws5w==}
+  /electron-to-chromium@1.4.419:
+    resolution: {integrity: sha512-jdie3RiEgygvDTyS2sgjq71B36q2cDSBfPlwzUyuOrfYTNoYWyBxxjGJV/HAu3A2hB0Y+HesvCVkVAFoCKwCSw==}
     dev: true
 
   /emoji-regex@8.0.0:
@@ -3652,7 +3652,7 @@ packages:
     resolution: {integrity: sha512-uMCj6+hZYDoffuvAJjFAPz56E9uoowFHmTkqRtRq5WyC5Q6Cu/fTZKNQpX/RbzChBYLLl3lo8CjFZBAZXq9qFg==}
     dev: true
 
-  /layercake@7.4.0(svelte@3.59.1)(typescript@5.0.4):
+  /layercake@7.4.0(svelte@3.59.1)(typescript@5.1.3):
     resolution: {integrity: sha512-45i1hmybOICpxk66lUEY4dQ044K3G+vSi82xSMEM19K1TtTJOaFget5M39jss6s5Wbf4Df4oIUKtov8bV1bivw==}
     peerDependencies:
       svelte: ^3.54.0
@@ -3663,7 +3663,7 @@ packages:
       d3-scale: 4.0.2
       d3-shape: 3.2.0
       svelte: 3.59.1
-      typescript: 5.0.4
+      typescript: 5.1.3
     dev: false
 
   /levn@0.3.0:
@@ -4813,6 +4813,55 @@ packages:
       typescript: 5.0.4
     dev: true
 
+  /svelte-preprocess@5.0.3(@babel/core@7.22.1)(postcss@8.4.23)(svelte@3.59.1)(typescript@5.1.3):
+    resolution: {integrity: sha512-GrHF1rusdJVbOZOwgPWtpqmaexkydznKzy5qIC2FabgpFyKN57bjMUUUqPRfbBXK5igiEWn1uO/DXsa2vJ5VHA==}
+    engines: {node: '>= 14.10.0'}
+    requiresBuild: true
+    peerDependencies:
+      '@babel/core': ^7.10.2
+      coffeescript: ^2.5.1
+      less: ^3.11.3 || ^4.0.0
+      postcss: ^7 || ^8
+      postcss-load-config: ^2.1.0 || ^3.0.0 || ^4.0.0
+      pug: ^3.0.0
+      sass: ^1.26.8
+      stylus: ^0.55.0
+      sugarss: ^2.0.0 || ^3.0.0 || ^4.0.0
+      svelte: ^3.23.0
+      typescript: '>=3.9.5 || ^4.0.0 || ^5.0.0'
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      coffeescript:
+        optional: true
+      less:
+        optional: true
+      postcss:
+        optional: true
+      postcss-load-config:
+        optional: true
+      pug:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@babel/core': 7.22.1
+      '@types/pug': 2.0.6
+      detect-indent: 6.1.0
+      magic-string: 0.27.0
+      postcss: 8.4.23
+      sorcery: 0.11.0
+      strip-indent: 3.0.0
+      svelte: 3.59.1
+      typescript: 5.1.3
+    dev: true
+
   /svelte@3.59.1:
     resolution: {integrity: sha512-pKj8fEBmqf6mq3/NfrB9SLtcJcUvjYSWyePlfCqN9gujLB25RitWK8PvFzlwim6hD/We35KbPlRteuA6rnPGcQ==}
     engines: {node: '>= 8'}
@@ -5039,6 +5088,12 @@ packages:
   /typescript@5.0.4:
     resolution: {integrity: sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==}
     engines: {node: '>=12.20'}
+    hasBin: true
+    dev: true
+
+  /typescript@5.1.3:
+    resolution: {integrity: sha512-XH627E9vkeqhlZFQuL+UsyAXEnibT0kWR2FWONlr4sTjvxyJYnyefgrkyECLzM5NenmKzRAy2rR/OlYLA1HkZw==}
+    engines: {node: '>=14.17'}
     hasBin: true
 
   /ufo@1.1.2:
