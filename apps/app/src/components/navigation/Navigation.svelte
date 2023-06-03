@@ -5,7 +5,6 @@
 		queryStore,
 		mutationStore,
 	} from '@urql/svelte';
-	import { user } from '../../stores';
 
 	import Modal from '../modal/Modal.svelte';
 	import { icons } from '../icons/icons';
@@ -14,12 +13,6 @@
 
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-
-	let userId = '';
-
-	user.subscribe((value) => {
-		userId = value.id;
-	});
 
 	const categories = queryStore({
 		client,
@@ -70,7 +63,12 @@
 					}
 				}
 			`,
-			variables: { category, isLocked, iconId, userId },
+			variables: {
+				category,
+				isLocked,
+				iconId,
+				userId: $page.data.session?.user.id,
+			},
 		});
 		showModal = false;
 	};

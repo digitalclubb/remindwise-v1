@@ -12,7 +12,6 @@
 
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import { user } from '../../stores';
 
 	export let data;
 	$: ({ supabase, session } = data);
@@ -42,8 +41,6 @@
 		});
 
 		setContextClient(client);
-
-		user.set(session.user);
 	}
 </script>
 
