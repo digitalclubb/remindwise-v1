@@ -11,6 +11,7 @@
 
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import { user } from '../stores';
 
 	export let data;
 	$: ({ supabase, session } = data);
@@ -24,25 +25,32 @@
 		return () => data.subscription.unsubscribe();
 	});
 
-	// URQL stuff below
-	const headers = {
-		apikey: PUBLIC_SUPABASE_KEY,
-		authorization: `Bearer ${PUBLIC_SUPABASE_KEY}`,
-	};
+	$: if (session) {
+		// URQL stuff below
+		const headers = {
+			apikey: PUBLIC_SUPABASE_KEY,
+			authorization: `Bearer ${session?.access_token}`,
+		};
 
-	const client = createClient({
-		url: `${PUBLIC_SUPABASE_URL}/graphql/v1`,
-		exchanges: [cacheExchange, fetchExchange],
-		fetchOptions: function createFetchOptions() {
-			return { headers };
-		},
-	});
+		const client = createClient({
+			url: `${PUBLIC_SUPABASE_URL}/graphql/v1`,
+			exchanges: [cacheExchange, fetchExchange],
+			fetchOptions: function createFetchOptions() {
+				return { headers };
+			},
+		});
 
-	setContextClient(client);
+		setContextClient(client);
+
+		user.set(session.user);
+	}
 </script>
 
 <main>
 	<Navigation />
+	<button on:click="{async () => await supabase.auth.signOut()}"
+		>Sign out</button
+	>
 	<div>
 		<slot />
 	</div>

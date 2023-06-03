@@ -6,8 +6,15 @@
 		mutationStore,
 	} from '@urql/svelte';
 	import logoActivity from '$lib/assets/icons/activity.svg';
+	import { user } from '../../stores';
 
 	const client = getContextClient();
+
+	let userId = '';
+
+	user.subscribe((value) => {
+		userId = value.id;
+	});
 
 	const categories = queryStore({
 		client,
@@ -34,9 +41,21 @@
 		mutationStore({
 			client,
 			query: gql`
-				mutation ($category: String!, $isLocked: Bool!, $iconId: String!) {
+				mutation (
+					$category: String!
+					$isLocked: Bool!
+					$iconId: String!
+					$userId: uuid!
+				) {
 					insertIntocategoriesCollection(
-						objects: [{ name: $category, isLocked: $isLocked, iconId: $iconId }]
+						objects: [
+							{
+								name: $category
+								isLocked: $isLocked
+								iconId: $iconId
+								userid: $userId
+							}
+						]
 					) {
 						affectedCount
 						records {
@@ -46,7 +65,7 @@
 					}
 				}
 			`,
-			variables: { category, isLocked, iconId },
+			variables: { category, isLocked, iconId, userId },
 		});
 		showForm = false;
 	};
