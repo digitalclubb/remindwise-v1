@@ -49,9 +49,6 @@
 
 <main>
 	<Navigation />
-	<button on:click="{async () => await supabase.auth.signOut()}"
-		>Sign out</button
-	>
 	<div>
 		<slot />
 	</div>
