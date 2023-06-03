@@ -1,5 +1,5 @@
 <header>
-	<a href="">LOGO</a>
+	<a href="">remindwise.io</a>
 	<nav>
 		<ul>
 			<li>
