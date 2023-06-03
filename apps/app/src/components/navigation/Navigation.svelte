@@ -33,9 +33,9 @@
 
 	let showModal = false;
 	const updateCategories = (event) => {
-		const category = event.target.category.value;
+		const category = event.target.category.value.toLowerCase();
+		const iconId = event.target.icon.value;
 		const isLocked = false;
-		const iconId = '123';
 		mutationStore({
 			client,
 			query: gql`
@@ -80,8 +80,9 @@
 </script>
 
 <nav>
+	<h2>remindwise.io</h2>
 	<div class="profile">
-		<h2>Gareth Clubb</h2>
+		<h3>Gareth Clubb</h3>
 		<p>someemail@domain.com</p>
 	</div>
 	<ul class="categories">
@@ -98,7 +99,8 @@
 			{#each $categories.data.categories.list as category}
 				<li>
 					<a href="/category/{category.category.name}"
-						>{category.category.name}</a
+						><svg><use xlink:href="#{category.category.iconId}"></use></svg>
+						{category.category.name}</a
 					>
 				</li>
 			{/each}
@@ -130,7 +132,7 @@
 					>
 				{/each}
 			</div>
-
+			<button autofocus on:click="{() => dialog.close()}">asd</button>
 			<button type="submit">Add</button>
 		</form>
 	</Modal>
@@ -151,7 +153,7 @@
 		margin-bottom: 2.6rem;
 	}
 
-	.profile h2 {
+	.profile h3 {
 		margin-bottom: 0;
 	}
 

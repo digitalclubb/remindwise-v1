@@ -1,6 +1,5 @@
 <script lang="ts">
-	export let showModal; // boolean
-
+	export let showModal;
 	let dialog;
 
 	$: if (dialog && showModal) dialog.showModal();
