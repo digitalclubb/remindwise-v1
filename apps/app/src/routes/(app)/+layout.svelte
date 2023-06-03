@@ -7,12 +7,12 @@
 	} from '@urql/svelte';
 	import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY } from '$env/static/public';
 
-	import Sprite from '../components/icons/Sprite.svelte';
-	import Navigation from '../components/navigation/Navigation.svelte';
+	import Sprite from '../../components/icons/Sprite.svelte';
+	import Navigation from '../../components/navigation/Navigation.svelte';
 
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import { user } from '../stores';
+	import { user } from '../../stores';
 
 	export let data;
 	$: ({ supabase, session } = data);
