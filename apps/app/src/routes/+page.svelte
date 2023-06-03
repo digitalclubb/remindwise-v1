@@ -73,16 +73,14 @@
 </section>
 
 <section>
-	<h2>Categories</h2>
-
 	<div class="charts">
 		<section>
-			<h3>Most used</h3>
+			<h3>Most used categories</h3>
 			<ChartBar data="{dummyBarData}" />
 		</section>
 
 		<section>
-			<h3>Outgoings</h3>
+			<h3>Total spent by category</h3>
 			<ChartStacked data="{dummyStackedData}" />
 		</section>
 	</div>
@@ -119,8 +117,6 @@
 <style>
 	.charts {
 		display: grid;
-		padding-left: 4rem;
-		padding-right: 4rem;
 		grid-template-columns: 1fr 1fr;
 		grid-gap: 5rem;
 	}
