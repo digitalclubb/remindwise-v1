@@ -26,7 +26,6 @@
 	});
 
 	$: if (session) {
-		// URQL stuff below
 		const headers = {
 			apikey: PUBLIC_SUPABASE_KEY,
 			authorization: `Bearer ${session?.access_token}`,
