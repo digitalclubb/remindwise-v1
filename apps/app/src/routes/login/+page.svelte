@@ -23,6 +23,7 @@
 
 <style>
 	main {
+		background-color: #d1d1d1;
 		display: grid;
 		place-items: center;
 		min-height: 100vh;
@@ -30,8 +31,8 @@
 
 	main > div {
 		width: 40rem;
-		border: solid 1px #d1d1d1;
-		border-radius: 0.2rem;
+		background-color: #ffff;
 		padding: 4rem;
+		box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
 	}
 </style>
