@@ -40,12 +40,42 @@
 	];
 </script>
 
-<h1>Dashboard</h1>
+<h1>Reminders</h1>
+
+<section class="boxes">
+	<article class="box">
+		<div class="icon">
+			<svg><use xlink:href="#bell"></use></svg>
+		</div>
+		<div>
+			<h2>No. reminders</h2>
+			<p>10</p>
+		</div>
+	</article>
+	<article class="box">
+		<div class="icon icon-categories">
+			<svg><use xlink:href="#archive"></use></svg>
+		</div>
+		<div>
+			<h2>No. categories</h2>
+			<p>10</p>
+		</div>
+	</article>
+	<article class="box">
+		<div class="icon icon-spent">
+			<svg><use xlink:href="#wallet"></use></svg>
+		</div>
+		<div>
+			<h2>Total spent</h2>
+			<p>£1000</p>
+		</div>
+	</article>
+</section>
 
 <section>
 	<h2>Categories</h2>
 
-	<div>
+	<div class="charts">
 		<section>
 			<h3>Most used</h3>
 			<ChartBar data="{dummyBarData}" />
@@ -87,11 +117,61 @@
 </section>
 
 <style>
-	div {
+	.charts {
 		display: grid;
 		padding-left: 4rem;
 		padding-right: 4rem;
 		grid-template-columns: 1fr 1fr;
 		grid-gap: 5rem;
+	}
+
+	.boxes {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2rem;
+		margin-top: 4rem;
+		margin-bottom: 4rem;
+	}
+
+	.box {
+		background-color: #f8fafb;
+		padding-top: 3rem;
+		padding-bottom: 3rem;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 1.6rem;
+	}
+
+	.box h2 {
+		font-size: 1.6rem;
+		font-weight: normal;
+		font-family: 'Roboto';
+		margin-bottom: 0;
+	}
+
+	.box p {
+		font-weight: bold;
+		font-size: 2rem;
+	}
+
+	.icon {
+		background-color: #c7f6d6;
+		border-radius: 50%;
+		padding: 1rem;
+		align-self: center;
+	}
+
+	.icon svg {
+		width: 2rem;
+		height: 2rem;
+	}
+
+	.icon-categories {
+		background-color: #fcd6f1;
+	}
+
+	.icon-spent {
+		background-color: #cee2ff;
 	}
 </style>

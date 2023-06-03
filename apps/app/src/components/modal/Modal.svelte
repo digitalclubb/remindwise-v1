@@ -20,8 +20,9 @@
 
 <style>
 	dialog {
-		max-width: 32em;
-		border-radius: 0.2em;
+		width: 80%;
+		height: 80%;
+		border-radius: 0.5rem;
 		border: none;
 		padding: 0;
 	}

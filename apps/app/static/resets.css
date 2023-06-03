@@ -1,3 +1,24 @@
+@font-face {
+	font-family: "Roboto";
+	font-style: normal;
+	font-weight: 400;
+	src: url("./Roboto-Regular.woff2") format("woff2")
+}
+
+@font-face {
+	font-family: "Roboto";
+	font-style: normal;
+	font-weight: 700;
+	src: url("./Roboto-Bold.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Poppins";
+	font-style: normal;
+	font-weight: 700;
+	src: url("./Poppins-Bold.woff2") format("woff2");
+}
+
 /* Box sizing rules */
 *,
 *::before,
@@ -20,9 +41,11 @@ dd {
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
-ul[role='list'],
-ol[role='list'] {
+ul[class],
+ol[class] {
 	list-style: none;
+	padding: 0;
+	margin: 0;
 }
 
 /* Set core root defaults */
@@ -39,6 +62,7 @@ body {
 	min-height: 100vh;
 	text-rendering: optimizeSpeed;
 	line-height: 1.5;
+	font-family: 'Roboto', Helvetica, Arial, Lucida, sans-serif;
 }
 
 /* A elements that don't have a class get default styles */
@@ -59,6 +83,41 @@ button,
 textarea,
 select {
 	font: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: 'Poppins',Helvetica,Arial,Lucida,sans-serif;
+	line-height:1.17;
+	margin-bottom: 2rem;
+}
+
+h1 {
+	font-size:2.6rem;
+}
+
+h2 {
+	font-size:2.2rem;
+}
+
+h3 {
+	font-size:2.2rem;
+}
+
+h4 {
+	font-size:2.2rem;
+}
+
+h5 {
+	font-size:2rem;
+}
+
+h6 {
+	font-size:1.7rem;
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
