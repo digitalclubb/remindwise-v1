@@ -11,6 +11,9 @@
 
 	const client = getContextClient();
 
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
+
 	const categories = queryStore({
 		client,
 		query: gql`
@@ -36,9 +39,21 @@
 		mutationStore({
 			client,
 			query: gql`
-				mutation ($category: String!, $isLocked: Bool!, $iconId: String!) {
+				mutation (
+					$category: String!
+					$isLocked: Bool!
+					$iconId: String!
+					$userId: uuid!
+				) {
 					insertIntocategoriesCollection(
-						objects: [{ name: $category, isLocked: $isLocked, iconId: $iconId }]
+						objects: [
+							{
+								name: $category
+								isLocked: $isLocked
+								iconId: $iconId
+								userid: $userId
+							}
+						]
 					) {
 						affectedCount
 						records {
@@ -48,9 +63,19 @@
 					}
 				}
 			`,
-			variables: { category, isLocked, iconId },
+			variables: {
+				category,
+				isLocked,
+				iconId,
+				userId: $page.data.session?.user.id,
+			},
 		});
 		showModal = false;
+	};
+
+	const signOut = async () => {
+		await $page.data.supabase.auth.signOut();
+		await goto('/login');
 	};
 </script>
 
@@ -85,7 +110,10 @@
 	<ul class="settings">
 		<li><svg><use xlink:href="#help"></use></svg> Help</li>
 		<li><svg><use xlink:href="#cog"></use></svg> Settings</li>
-		<li><svg><use xlink:href="#log-out"></use></svg> Log out</li>
+		<li>
+			<svg><use xlink:href="#log-out"></use></svg>
+			<button on:click="{signOut}">Log out</button>
+		</li>
 	</ul>
 	<Modal bind:showModal="{showModal}">
 		<h2>Add a category for your reminders</h2>

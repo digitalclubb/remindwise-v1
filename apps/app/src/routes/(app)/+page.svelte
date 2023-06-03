@@ -1,6 +1,6 @@
 <script lang="ts">
-	import ChartBar from '../components/charts/bar/Index.svelte';
-	import ChartStacked from '../components/charts/stacked/Index.svelte';
+	import ChartBar from '../../components/charts/bar/Index.svelte';
+	import ChartStacked from '../../components/charts/stacked/Index.svelte';
 
 	const dummyBarData = [
 		{ category: 'insurance', value: 2 },

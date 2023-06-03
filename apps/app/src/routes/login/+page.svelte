@@ -4,8 +4,6 @@
 	import { ThemeSupa } from '@supabase/auth-ui-shared';
 
 	export let data;
-
-	// console.log("hey", data);
 </script>
 
 <div class="row flex-center flex">
