@@ -7,6 +7,7 @@
 	} from '@urql/svelte';
 	import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY } from '$env/static/public';
 
+	import Sprite from '../components/icons/Sprite.svelte';
 	import Navigation from '../components/navigation/Navigation.svelte';
 
 	import { invalidate } from '$app/navigation';
@@ -55,11 +56,12 @@
 		<slot />
 	</div>
 </main>
+<svelte:component this="{Sprite}" />
 
 <style>
 	main {
 		display: grid;
-		grid-template-columns: 10% 90%;
+		grid-template-columns: 15% 85%;
 		grid-template-rows: auto;
 		grid-template-areas: 'navigation content';
 		min-height: 100vh;
@@ -67,5 +69,6 @@
 
 	div {
 		grid-area: content;
+		padding: 1.8rem 2.6rem;
 	}
 </style>
