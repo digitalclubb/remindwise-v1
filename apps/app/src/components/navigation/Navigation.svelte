@@ -132,7 +132,6 @@
 					>
 				{/each}
 			</div>
-			<button autofocus on:click="{() => dialog.close()}">asd</button>
 			<button type="submit">Add</button>
 		</form>
 	</Modal>
