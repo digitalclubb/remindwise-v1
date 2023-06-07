@@ -32,7 +32,7 @@
 		query: gql`
 			query ($categoryId: String!) {
 				reminders: remindersCollection(
-					filter: { categoryId: { eq: $category } }
+					filter: { categoryId: { eq: $categoryId } }
 				) {
 					list: edges {
 						reminder: node {
@@ -47,7 +47,7 @@
 			}
 		`,
 		variables: {
-			categoryId,
+			$categoryId,
 		},
 		//pause: true,
 	});
