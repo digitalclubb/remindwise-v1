@@ -1,82 +1,75 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/stores';
 	import { getContextClient, gql, queryStore } from '@urql/svelte';
 
 	const client = getContextClient();
 
-	$: category = $page.params.slug;
-
-	// TODO: Can we query reminders based on the response of the category Id
-	// https://stackoverflow.com/questions/47240085/pass-obtained-field-to-another-nested-query-in-graphql
-	$: categoryId = queryStore({
-		client,
-		query: gql`
-			query ($category: String!) {
-				categories: categoriesCollection(filter: { name: { eq: $category } }) {
-					list: edges {
-						category: node {
-							id
+	const getCategoryId = async () => {
+		return await client
+			.query(
+				`query ($category: String!) {
+					categories: categoriesCollection(
+						filter: { name: { eq: $category } }
+					) {
+						list: edges {
+							category: node {
+								id
+							}
 						}
 					}
+				}`,
+				{
+					category: $page.params.slug,
 				}
-			}
-		`,
-		variables: {
-			category,
-		},
-	});
+			)
+			.toPromise()
+			.then((result) => {
+				return result.data.categories.list[0].category.id;
+			});
+	};
 
-	// TODO: unpause this once we have the Id back?
-	$: reminders = queryStore({
-		client,
-		query: gql`
-			query ($categoryId: String!) {
-				reminders: remindersCollection(
-					filter: { categoryId: { eq: $categoryId } }
-				) {
-					list: edges {
-						reminder: node {
-							company
-							cost
-							dateOfRenewal
-							autoRenewal
-							reminderTypes
+	const getReminders = async () => {
+		const categoryId = await getCategoryId();
+		return await client
+			.query(
+				`query ($categoryId: String!) {
+					reminders: remindersCollection(
+						filter: { categoryId: { eq: $categoryId } }
+					) {
+						list: edges {
+							reminder: node {
+								company
+								cost
+								dateOfRenewal
+								autoRenewal
+								reminderTypes
+							}
 						}
 					}
+				}`,
+				{
+					categoryId,
 				}
-			}
-		`,
-		variables: {
-			$categoryId,
-		},
-		//pause: true,
-	});
+			)
+			.toPromise()
+			.then((result) => {
+				return result.data.reminders.list;
+			});
+	};
+
+	$: reminders = getReminders();
 </script>
 
-<h1>{category}</h1>
+<h1>{$page.params.slug}</h1>
 
-<p>
-	id:
+<p>reminders:</p>
 
-	{#if $categoryId.fetching}
-		Loading...
-	{:else if $categoryId.error}
-		{$categoryId.error.message}
-	{:else}
-		{$categoryId.data.categories.list[0].category.id}
-	{/if}
-</p>
-
-<p>
-	reminders:
-
-	{#if $reminders.fetching}
-		Loading...
-	{:else if $reminders.error}
-		{$reminders.error.message}
-	{:else}
-		{#each $reminders.data.reminders.list as reminder}
-			{reminder.reminder.company}
-		{/each}
-	{/if}
-</p>
+{#await reminders}
+	Loading reminders
+{:then reminders}
+	{#each reminders as reminder}
+		{reminder.reminder.company}
+	{/each}
+{:catch error}
+	System error: {error.message}.
+{/await}
