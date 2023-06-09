@@ -67,9 +67,13 @@
 {#await reminders}
 	Loading reminders
 {:then reminders}
-	{#each reminders as reminder}
-		{reminder.reminder.company}
-	{/each}
+	{#if reminders.length > 0}
+		{#each reminders as reminder}
+			{reminder.reminder.company}
+		{/each}
+	{:else}
+		No reminders!!
+	{/if}
 {:catch error}
 	System error: {error.message}.
 {/await}
