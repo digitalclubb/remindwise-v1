@@ -4,7 +4,7 @@
 
 	const client = getContextClient();
 
-	const getCategoryId = async () => {
+	$: getCategoryId = async () => {
 		return await client
 			.query(
 				`query ($category: String!) {
@@ -28,8 +28,9 @@
 			});
 	};
 
-	const getReminders = async () => {
+	$: getReminders = async () => {
 		const categoryId = await getCategoryId();
+
 		return await client
 			.query(
 				`query ($categoryId: String!) {
