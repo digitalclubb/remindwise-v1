@@ -107,7 +107,7 @@
 				</li>
 			{/each}
 		{/if}
-		<li>
+		<li class="add">
 			<Button on:click="{() => (showModal = true)}">Add category</Button>
 		</li>
 		<li>
@@ -222,5 +222,30 @@
 	input[type='radio']:active + label,
 	input[type='radio']:checked + label {
 		border-color: #ffbb00;
+	}
+
+	.add {
+		margin-top: 10rem;
+		margin-bottom: 1.6rem;
+	}
+
+	.button {
+		display: inline-block;
+		outline: none;
+		cursor: pointer;
+		border-style: solid;
+		border-width: 0.1rem;
+		border-radius: 0.3rem;
+		padding: 1.2rem 2.4rem;
+		line-height: 1.15;
+		font-size: 1.6rem;
+		color: #000000;
+		background-color: #ffffff;
+		border-color: #373c61;
+		text-align: center;
+	}
+	.button:hover {
+		transition: all 0.1s ease;
+		border-color: #9a0202;
 	}
 </style>
