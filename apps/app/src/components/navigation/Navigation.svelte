@@ -19,7 +19,7 @@
 	const categories = queryStore({
 		client,
 		query: gql`
-			query {
+			query getCategories {
 				categories: categoriesCollection {
 					list: edges {
 						category: node {
@@ -122,7 +122,7 @@
 		<li><svg><use xlink:href="#cog"></use></svg> Settings</li>
 		<li>
 			<svg><use xlink:href="#log-out"></use></svg>
-			<Button on:click="{signOut}" type="secondary">Log out</Button>
+			<Button on:click="{signOut}" style="secondary">Log out</Button>
 		</li>
 	</ul>
 	<Modal bind:showModal="{showModal}">
@@ -140,7 +140,7 @@
 					>
 				{/each}
 			</div>
-			<button type="submit">Add</button>
+			<Button type="submit">Add</Button>
 		</form>
 	</Modal>
 </nav>

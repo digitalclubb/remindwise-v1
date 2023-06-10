@@ -13,7 +13,7 @@
 >
 	<div on:click|stopPropagation>
 		<slot />
-		<button on:click="{() => dialog.close()}">Cancel</button>
+		<button autofocus on:click="{() => dialog.close()}">Cancel</button>
 	</div>
 </dialog>
 

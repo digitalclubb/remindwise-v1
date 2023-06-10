@@ -1,10 +1,12 @@
 <script lang="ts">
-	export let type = 'primary';
+	export let style = 'primary';
+	export let type;
 </script>
 
 <button
-	class:primary="{type !== 'secondary'}"
-	class:secondary="{type === 'secondary'}"
+	class:primary="{style !== 'secondary'}"
+	class:secondary="{style === 'secondary'}"
+	type="{type}"
 	on:click
 >
 	<slot />
@@ -21,6 +23,7 @@
 		padding: 1.2rem 2.4rem;
 		line-height: 1.15;
 		font-size: 1.6rem;
+		font-weight: bold;
 	}
 	.primary {
 		color: #ffffff;
