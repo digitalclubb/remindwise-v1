@@ -35,13 +35,6 @@
 			<label for="auto-no">No</label>
 			<input type="radio" id="auto-no" value="No" name="auto" />
 		</fieldset>
-		<fieldset>
-			<legend>Reminder type</legend>
-			<label for="type-email">Email</label>
-			<input type="checkbox" id="type-email" name="type-email" value="Email" />
-			<label for="type-phone">Phone</label>
-			<input type="checkbox" id="type-phone" name="type-phone" value="Phone" />
-		</fieldset>
 	</fieldset>
 
 	<div>

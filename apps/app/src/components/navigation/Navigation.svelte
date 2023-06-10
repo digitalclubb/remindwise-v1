@@ -9,6 +9,8 @@
 	import Modal from '../modal/Modal.svelte';
 	import { icons } from '../icons/icons';
 
+	import { Button } from 'components';
+
 	const client = getContextClient();
 
 	import { page } from '$app/stores';
@@ -106,7 +108,10 @@
 			{/each}
 		{/if}
 		<li>
-			<button on:click="{() => (showModal = true)}">Add category</button>
+			<Button on:click="{() => (showModal = true)}">Add category</Button>
+		</li>
+		<li>
+			<a class="button" href="/reminder/add">Add reminder</a>
 		</li>
 	</ul>
 	<ul class="settings">
@@ -114,7 +119,7 @@
 		<li><svg><use xlink:href="#cog"></use></svg> Settings</li>
 		<li>
 			<svg><use xlink:href="#log-out"></use></svg>
-			<button on:click="{signOut}">Log out</button>
+			<Button on:click="{signOut}" type="secondary">Log out</Button>
 		</li>
 	</ul>
 	<Modal bind:showModal="{showModal}">
