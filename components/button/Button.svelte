@@ -1,9 +1,9 @@
 <script lang="ts">
-	export let type: 'primary' | 'secondary';
+	export let type = 'primary';
 </script>
 
 <button
-	class:primary="{type !== 'primary'}"
+	class:primary="{type !== 'secondary'}"
 	class:secondary="{type === 'secondary'}"
 	on:click
 >
