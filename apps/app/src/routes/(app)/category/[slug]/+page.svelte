@@ -30,6 +30,7 @@
 
 	$: getReminders = async () => {
 		const categoryId = await getCategoryId();
+
 		return await client
 			.query(
 				`query ($categoryId: String!) {
