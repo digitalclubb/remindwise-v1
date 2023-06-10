@@ -115,6 +115,9 @@
 		</li>
 	</ul>
 	<ul class="settings">
+		<li>
+			<a href="/account"><svg><use xlink:href="#user"></use></svg> Account</a>
+		</li>
 		<li><svg><use xlink:href="#help"></use></svg> Help</li>
 		<li><svg><use xlink:href="#cog"></use></svg> Settings</li>
 		<li>
