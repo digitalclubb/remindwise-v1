@@ -1,5 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
+import { getContextClient } from '@urql/svelte';
 
 export const load: PageServerLoad = async ({ url, locals: { getSession } }) => {
 	const session = await getSession();
@@ -18,7 +19,7 @@ export const actions = {
 		const email = formData.get('email') as string;
 		const password = formData.get('password') as string;
 		const options = { emailRedirectTo: `${url}/` };
-		const { error } = await supabase.auth.signInWithPassword({
+		const { error } = await supabase.auth.signUp({
 			email,
 			password,
 			options,

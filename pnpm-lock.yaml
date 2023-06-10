@@ -62,12 +62,6 @@ importers:
       '@supabase/auth-helpers-sveltekit':
         specifier: ^0.9.4
         version: 0.9.4(@supabase/supabase-js@2.22.0)(@sveltejs/kit@1.16.3)
-      '@supabase/auth-ui-shared':
-        specifier: ^0.1.6
-        version: 0.1.6(@supabase/supabase-js@2.22.0)
-      '@supabase/auth-ui-svelte':
-        specifier: ^0.2.2
-        version: 0.2.2(@supabase/supabase-js@2.22.0)
       '@supabase/supabase-js':
         specifier: ^2.22.0
         version: 2.22.0
@@ -1300,10 +1294,6 @@ packages:
     resolution: {integrity: sha512-XJfwUVUKDHF5ugKwIcxEgc9k8b7HbznCp6eUfWgu710hMPNIO4aw4/zB5RogDQz8nd6gyCDpU9O/m6qYEWY6yQ==}
     dev: true
 
-  /@stitches/core@1.2.8:
-    resolution: {integrity: sha512-Gfkvwk9o9kE9r9XNBmJRfV8zONvXThnm1tcuojL04Uy5uRyqg93DC83lDebl0rocZCfKSjUv+fWYtMQmEDJldg==}
-    dev: false
-
   /@supabase/auth-helpers-shared@0.3.4(@supabase/supabase-js@2.22.0):
     resolution: {integrity: sha512-8I3D0SPHHexkFTSfPg0nZgJSVazWoB3tZDpT6IjRv6w89vDMUzO99Lit4H9anVLF4teW8c/nJJxawDNbDlgbgg==}
     peerDependencies:
@@ -1322,25 +1312,6 @@ packages:
       '@supabase/auth-helpers-shared': 0.3.4(@supabase/supabase-js@2.22.0)
       '@supabase/supabase-js': 2.22.0
       '@sveltejs/kit': 1.16.3(svelte@3.59.1)(vite@4.3.6)
-    dev: false
-
-  /@supabase/auth-ui-shared@0.1.6(@supabase/supabase-js@2.22.0):
-    resolution: {integrity: sha512-dBlP2XR5KSSCBMgkWJMkc2UVA21V5AobKmekwIiHVvyVtzAiFqE5XWJiPV+kMlnRLzFXDeA0Z/CqdKTL/Kbs4A==}
-    peerDependencies:
-      '@supabase/supabase-js': ^2.21.0
-    dependencies:
-      '@supabase/supabase-js': 2.22.0
-    dev: false
-
-  /@supabase/auth-ui-svelte@0.2.2(@supabase/supabase-js@2.22.0):
-    resolution: {integrity: sha512-LDXpyus3wjjqLCuZgneVZuPtNvE6ztDAEOgsojpCGSjHLkM5RrKOPBFGTiLlN6awu055v2OFHS2EV5N6Fba0sQ==}
-    peerDependencies:
-      '@supabase/supabase-js': ^2.21.0
-    dependencies:
-      '@stitches/core': 1.2.8
-      '@supabase/auth-ui-shared': 0.1.6(@supabase/supabase-js@2.22.0)
-      '@supabase/supabase-js': 2.22.0
-      svelte: 3.59.1
     dev: false
 
   /@supabase/functions-js@2.1.1:

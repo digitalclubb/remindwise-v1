@@ -6,20 +6,15 @@
 
 <main>
 	<div>
-		<h1>Login</h1>
+		<h1>Register</h1>
 		<form method="post" use:enhance>
 			<label for="email">Email Address</label>
-			<input id="email" name="email" type="email" value="{form?.email ?? ''}" />
+			<input name="email" type="email" value="{form?.email ?? ''}" />
 			<label for="password">Password</label>
-			<input
-				id="password"
-				name="password"
-				type="password"
-				autocomplete="current-password"
-			/>
+			<input name="password" type="password" />
 
-			<button>Sign in</button>
-			<a href="/register">Don't have an account? Sign up</a>
+			<button>Register</button>
+			<a href="/login">Already have an account? Sign in</a>
 		</form>
 	</div>
 </main>
