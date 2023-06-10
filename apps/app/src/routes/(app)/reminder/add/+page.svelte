@@ -5,11 +5,13 @@
 		queryStore,
 		mutationStore,
 	} from '@urql/svelte';
-
+	import { page } from '$app/stores';
 	import { Button } from 'components';
 
+	const client = getContextClient();
+
 	const categories = queryStore({
-		client: getContextClient(),
+		client,
 		query: gql`
 			query getCategories {
 				categories: categoriesCollection {
@@ -24,14 +26,69 @@
 			}
 		`,
 	});
+
+	const addReminder = (event) => {
+		mutationStore({
+			client,
+			query: gql`
+				mutation (
+					$categoryId: Int!
+					$company: String!
+					$cost: Float
+					$dateOfRenewal: String
+					$autoRenewal: Bool
+					$notes: String
+					$userid: uuid!
+					$enabled: Bool
+					$notes: String
+				) {
+					insertIntoremindersCollection(
+						objects: [
+							{
+								company: $company
+								cost: $cost
+								dateOfRenewal: $dateOfRenewal
+								categoryId: $categoryId
+								enabled: $enabled
+								userid: $userid
+								notes: $notes
+							}
+						]
+					) {
+						affectedCount
+						records {
+							id
+							company
+							cost
+							dateOfRenewal
+							categoryId
+							enabled
+							userid
+							notes
+						}
+					}
+				}
+			`,
+			variables: {
+				categoryId: event.target.category.value,
+				company: event.target.company.value,
+				cost: event.target.cost.value,
+				dateOfRenewal: event.target.renewal.value,
+				autoRenewal: event.target.auto.value,
+				notes: event.target.notes.value,
+				userid: $page.data.session?.user.id,
+				enabled: true,
+			},
+		});
+	};
 </script>
 
 <h1>Add a reminder</h1>
 
-<form>
+<form on:submit="{addReminder}">
 	<div>
 		<label for="category">Which category?</label>
-		<select id="category">
+		<select id="category" required>
 			{#if $categories.fetching}
 				<option value="">Loading...</option>
 			{:else}
@@ -48,11 +105,11 @@
 
 	<div>
 		<label for="company">What is the company?</label>
-		<input type="text" id="company" />
+		<input type="text" id="company" required />
 	</div>
 	<div>
 		<label for="cost">How much did it cost?</label>
-		<input type="number" min="1" step="any" id="cost" />
+		<input type="number" min="0" step="any" id="cost" />
 	</div>
 	<div>
 		<div>
@@ -62,9 +119,9 @@
 		<fieldset>
 			<legend>Will it auto renew?</legend>
 			<div class="toggle">
-				<input type="radio" id="auto-yes" value="Yes" name="auto" />
+				<input type="radio" id="auto-yes" value="true" name="auto" />
 				<label for="auto-yes">Yes</label>
-				<input type="radio" id="auto-no" value="No" name="auto" checked />
+				<input type="radio" id="auto-no" value="false" name="auto" checked />
 				<label for="auto-no">No</label>
 			</div>
 		</fieldset>

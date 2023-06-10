@@ -34,7 +34,7 @@
 	});
 
 	let showModal = false;
-	const updateCategories = (event) => {
+	const addCategory = (event) => {
 		const category = event.target.category.value.toLowerCase();
 		const iconId = event.target.icon.value;
 		const isLocked = false;
@@ -61,6 +61,9 @@
 						records {
 							id
 							name
+							isLocked
+							iconId
+							userid
 						}
 					}
 				}
@@ -127,7 +130,7 @@
 	</ul>
 	<Modal bind:showModal="{showModal}">
 		<h2>Add a category for your reminders</h2>
-		<form on:submit="{updateCategories}">
+		<form on:submit="{addCategory}">
 			<label for="category">Category name</label>
 			<input type="text" name="category" id="category" required />
 
