@@ -5,10 +5,19 @@
 		queryStore,
 		mutationStore,
 	} from '@urql/svelte';
-	import { page } from '$app/stores';
+	import { page, navigating } from '$app/stores';
+	import { goto } from '$app/navigation';
+
 	import { Button } from 'components';
 
 	const client = getContextClient();
+
+	const previousPage = $navigating ? $navigating.from.url.pathname : '/';
+	const previousCategory = previousPage.substring(
+		previousPage.indexOf('category') + 9
+	);
+
+	console.log(previousPage);
 
 	const categories = queryStore({
 		client,
@@ -77,6 +86,16 @@
 				userid: $page.data.session?.user.id,
 				enabled: true,
 			},
+		}).subscribe((result) => {
+			if (result.error) {
+				// Error
+				console.log('Error');
+			}
+
+			if (result.data) {
+				// Success
+				goto(previousPage);
+			}
 		});
 	};
 </script>
@@ -92,7 +111,9 @@
 			{:else}
 				<option value=""></option>
 				{#each $categories.data.categories.list as category}
-					<option value="{category.category.id}"
+					<option
+						value="{category.category.id}"
+						selected="{previousCategory === category.category.name}"
 						>{category.category.name}</option
 					>
 				{/each}
