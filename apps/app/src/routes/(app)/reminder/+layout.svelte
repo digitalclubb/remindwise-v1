@@ -7,6 +7,7 @@
 	} from '@urql/svelte';
 	import { page, navigating } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import { Button } from 'components';
 
 	const client = getContextClient();
 
@@ -115,8 +116,9 @@
 				{/each}
 			{/if}
 		</select>
-		<!-- Show 'Add new category' only on /add -->
-		<svelte:component this="{$page.data.category}" />
+
+		<p>Want to add a new category?</p>
+		<Button style="secondary">Add new category</Button>
 	</div>
 
 	<div>
@@ -194,6 +196,12 @@
 	select {
 		display: block;
 		margin-bottom: 1.6rem;
+	}
+
+	p {
+		font-size: 1.4rem;
+		display: inline-block;
+		margin-right: 1.2rem;
 	}
 
 	.toggle {
