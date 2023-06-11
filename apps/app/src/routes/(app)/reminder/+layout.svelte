@@ -17,8 +17,6 @@
 		previousPage.indexOf('category') + 9
 	);
 
-	console.log(previousPage);
-
 	const categories = queryStore({
 		client,
 		query: gql`
