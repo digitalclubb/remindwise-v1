@@ -72,7 +72,7 @@
 	{:else if $settings.error}
 		<li>{$settings.error.message}</li>
 	{:else}
-		<form on:submit="{updateAccount}">
+		<form on:submit|preventDefault="{updateAccount}">
 			<label for="email">Email address</label>
 			<input
 				type="text"
