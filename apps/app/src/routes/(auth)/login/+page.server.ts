@@ -17,7 +17,7 @@ export const actions = {
 		const formData = await request.formData();
 		const email = formData.get('email') as string;
 		const password = formData.get('password') as string;
-		const options = { emailRedirectTo: `${url}/` };
+		const options = { emailRedirectTo: `${url.origin}/` };
 		const { error } = await supabase.auth.signInWithPassword({
 			email,
 			password,
