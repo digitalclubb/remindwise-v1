@@ -115,11 +115,10 @@
 		</li>
 	</ul>
 	<ul class="settings">
+		<li><a href="/help"><svg><use xlink:href="#help"></use></svg> Help</a></li>
 		<li>
-			<a href="/account"><svg><use xlink:href="#user"></use></svg> Account</a>
+			<a href="/settings"><svg><use xlink:href="#cog"></use></svg> Settings</a>
 		</li>
-		<li><svg><use xlink:href="#help"></use></svg> Help</li>
-		<li><svg><use xlink:href="#cog"></use></svg> Settings</li>
 		<li>
 			<svg><use xlink:href="#log-out"></use></svg>
 			<Button on:click="{signOut}" style="secondary">Log out</Button>
