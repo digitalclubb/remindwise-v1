@@ -66,10 +66,14 @@
 			variables: {
 				categoryId: event.target.category.value,
 				company: event.target.company.value,
-				// cost: event.target.cost.value,
-				// dateOfRenewal: event.target.renewal.value,
-				// autoRenewal: event.target.auto.value,
-				// notes: event.target.notes.value,
+				cost: (event.target.cost.value =
+					parseFloat(event.target.cost.value) || undefined),
+				dateOfRenewal: (event.target.renewal.value =
+					event.target.renewal.value || undefined),
+				autoRenewal: (event.target.auto.value =
+					event.target.auto.value === 'true' || undefined),
+				notes: (event.target.notes.value =
+					event.target.notes.value || undefined),
 				userid: $page.data.session?.user.id,
 				enabled: true,
 			},
