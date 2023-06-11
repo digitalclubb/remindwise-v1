@@ -94,6 +94,7 @@
 				{/each}
 			{/if}
 		</select>
+		<p>Want to add a new category?</p>
 		<Button style="secondary">Add new category</Button>
 	</div>
 
@@ -153,6 +154,12 @@
 		display: block;
 		user-select: none;
 		font-weight: bold;
+	}
+
+	p {
+		font-size: 1.4rem;
+		display: inline-block;
+		margin-right: 1.2rem;
 	}
 
 	select,
