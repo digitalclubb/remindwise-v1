@@ -39,6 +39,7 @@
 					) {
 						list: edges {
 							reminder: node {
+								id
 								company
 								cost
 								dateOfRenewal
@@ -113,8 +114,8 @@
 					<th>Renewal date</th>
 					<th>Auto renewal</th>
 					<th>Reminder enabled</th>
-					<th>Edit</th>
 					<th>Notes</th>
+					<th>Edit</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -125,8 +126,10 @@
 						<td>{reminder.reminder.dateOfRenewal}</td>
 						<td>{reminder.reminder.autoRenewal}</td>
 						<td>{reminder.reminder.enabled}</td>
-						<td></td>
 						<td>View notes</td>
+						<td>
+							<a href="/reminder/edit/{reminder.reminder.id}"> Edit</a>
+						</td>
 					</tr>
 				{/each}
 			</tbody>

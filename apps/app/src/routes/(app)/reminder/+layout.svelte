@@ -8,8 +8,6 @@
 	import { page, navigating } from '$app/stores';
 	import { goto } from '$app/navigation';
 
-	import { Button } from 'components';
-
 	const client = getContextClient();
 
 	const previousPage = $navigating ? $navigating.from.url.pathname : '/';
@@ -117,8 +115,8 @@
 				{/each}
 			{/if}
 		</select>
-		<p>Want to add a new category?</p>
-		<Button style="secondary">Add new category</Button>
+		<!-- Show 'Add new category' only on /add -->
+		<svelte:component this="{$page.data.category}" />
 	</div>
 
 	<div>
@@ -150,7 +148,8 @@
 		<textarea id="notes" name="notes"></textarea>
 	</div>
 
-	<slot />
+	<!-- Add on /add, Save on /edit-->
+	<svelte:component this="{$page.data.submit}" />
 </form>
 
 <style>
@@ -177,12 +176,6 @@
 		display: block;
 		user-select: none;
 		font-weight: bold;
-	}
-
-	p {
-		font-size: 1.4rem;
-		display: inline-block;
-		margin-right: 1.2rem;
 	}
 
 	select,
