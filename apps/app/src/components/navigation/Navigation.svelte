@@ -33,6 +33,24 @@
 		`,
 	});
 
+	const settings = queryStore({
+		client,
+		query: gql`
+			query getSettings {
+				settings: settingsCollection {
+					list: edges {
+						setting: node {
+							id
+							first_name
+							last_name
+							email
+						}
+					}
+				}
+			}
+		`,
+	});
+
 	let showModal = false;
 	const addCategory = (event) => {
 		mutationStore({
@@ -84,8 +102,18 @@
 <nav>
 	<h2>remindwise.io</h2>
 	<div class="profile">
-		<h3>Gareth Clubb</h3>
-		<p>someemail@domain.com</p>
+		{#if $settings.fetching}
+			<li>Loading...</li>
+		{:else if $settings.error}
+			<li>{$settings.error.message}</li>
+		{:else}
+			<h3>
+				{$settings.data.settings.list[0].setting.first_name +
+					' ' +
+					$settings.data.settings.list[0].setting.last_name}
+			</h3>
+			<p>{$settings.data.settings.list[0].setting.email}</p>
+		{/if}
 	</div>
 	<ul class="categories">
 		<li>
