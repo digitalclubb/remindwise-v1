@@ -35,15 +35,12 @@
 
 	let showModal = false;
 	const addCategory = (event) => {
-		const category = event.target.category.value.toLowerCase();
-		const iconId = event.target.icon.value;
-		const isLocked = false;
 		mutationStore({
 			client,
 			query: gql`
 				mutation (
 					$category: String!
-					$isLocked: Bool!
+					$isLocked: Boolean!
 					$iconId: String!
 					$userId: uuid!
 				) {
@@ -69,9 +66,9 @@
 				}
 			`,
 			variables: {
-				category,
-				isLocked,
-				iconId,
+				category: event.target.category.value.toLowerCase(),
+				isLocked: false,
+				iconId: event.target.icon.value,
 				userId: $page.data.session?.user.id,
 			},
 		});

@@ -35,12 +35,11 @@
 					$categoryId: Int!
 					$company: String!
 					$cost: Float
-					$dateOfRenewal: String
-					$autoRenewal: Bool
+					$dateOfRenewal: Date
+					$autoRenewal: Boolean
 					$notes: String
-					$userid: uuid!
-					$enabled: Bool
-					$notes: String
+					$userid: UUID!
+					$enabled: Boolean
 				) {
 					insertIntoremindersCollection(
 						objects: [
@@ -49,9 +48,10 @@
 								cost: $cost
 								dateOfRenewal: $dateOfRenewal
 								categoryId: $categoryId
-								enabled: $enabled
+								autoRenewal: $autoRenewal
 								userid: $userid
 								notes: $notes
+								enabled: $enabled
 							}
 						]
 					) {
@@ -59,12 +59,6 @@
 						records {
 							id
 							company
-							cost
-							dateOfRenewal
-							categoryId
-							enabled
-							userid
-							notes
 						}
 					}
 				}
@@ -72,10 +66,10 @@
 			variables: {
 				categoryId: event.target.category.value,
 				company: event.target.company.value,
-				cost: event.target.cost.value,
-				dateOfRenewal: event.target.renewal.value,
-				autoRenewal: event.target.auto.value,
-				notes: event.target.notes.value,
+				// cost: event.target.cost.value,
+				// dateOfRenewal: event.target.renewal.value,
+				// autoRenewal: event.target.auto.value,
+				// notes: event.target.notes.value,
 				userid: $page.data.session?.user.id,
 				enabled: true,
 			},
