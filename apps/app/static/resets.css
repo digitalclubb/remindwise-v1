@@ -1,22 +1,22 @@
 @font-face {
-	font-family: "Roboto";
+	font-family: 'Roboto';
 	font-style: normal;
 	font-weight: 400;
-	src: url("./Roboto-Regular.woff2") format("woff2")
+	src: url('./Roboto-Regular.woff2') format('woff2');
 }
 
 @font-face {
-	font-family: "Roboto";
+	font-family: 'Roboto';
 	font-style: normal;
 	font-weight: 700;
-	src: url("./Roboto-Bold.woff2") format("woff2");
+	src: url('./Roboto-Bold.woff2') format('woff2');
 }
 
 @font-face {
-	font-family: "Poppins";
+	font-family: 'Poppins';
 	font-style: normal;
 	font-weight: 700;
-	src: url("./Poppins-Bold.woff2") format("woff2");
+	src: url('./Poppins-Bold.woff2') format('woff2');
 }
 
 /* Box sizing rules */
@@ -91,33 +91,33 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: 'Poppins',Helvetica,Arial,Lucida,sans-serif;
-	line-height:1.17;
+	font-family: 'Poppins', Helvetica, Arial, Lucida, sans-serif;
+	line-height: 1.17;
 	margin-bottom: 2rem;
 }
 
 h1 {
-	font-size:2.6rem;
+	font-size: 2.6rem;
 }
 
 h2 {
-	font-size:2.2rem;
+	font-size: 2.2rem;
 }
 
 h3 {
-	font-size:2.2rem;
+	font-size: 2.2rem;
 }
 
 h4 {
-	font-size:2.2rem;
+	font-size: 2.2rem;
 }
 
 h5 {
-	font-size:2rem;
+	font-size: 2rem;
 }
 
 h6 {
-	font-size:1.7rem;
+	font-size: 1.7rem;
 }
 
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
