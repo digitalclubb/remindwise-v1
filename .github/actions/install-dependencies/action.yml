@@ -5,9 +5,6 @@ runs:
   using: 'composite'
   steps:
     - uses: actions/setup-node@v3
-      with:
-        node-version: 18.4.0
-
     - uses: pnpm/action-setup@v2.2.4
 
     - name: node_modules cache
@@ -26,6 +23,10 @@ runs:
         key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
         restore-keys: |
           ${{ runner.os }}-pnpm-
+
+    - name: List dir
+      run: ls -la
+      shell: bash
 
     - name: Install dependencies
       run: pnpm i --frozen-lockfile
