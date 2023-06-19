@@ -32,8 +32,8 @@ module.exports = {
 	ignorePatterns: [
 		'!.github',
 		'.vscode/',
-		'node_modules/',
-		'.svelte-kit/',
-		'.turbo/',
+		'**/node_modules/',
+		'**/.svelte-kit/',
+		'**/.turbo/',
 	],
 };
