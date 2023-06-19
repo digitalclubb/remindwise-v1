@@ -4,9 +4,9 @@
 
 	export let data;
 
-	import Bar from './RBar.svelte';
-	import AxisX from './RAxisX.svelte';
-	import AxisY from './RAxisY.svelte';
+	import Bar from './Bar.svelte';
+	import AxisX from './AxisX.svelte';
+	import AxisY from './AxisY.svelte';
 </script>
 
 <div class="chart-container">
