@@ -266,7 +266,7 @@ packages:
       '@babel/compat-data': 7.22.5
       '@babel/core': 7.22.5
       '@babel/helper-validator-option': 7.22.5
-      browserslist: 4.21.7
+      browserslist: 4.21.9
       lru-cache: 5.1.1
       semver: 6.3.0
     dev: true
@@ -2058,15 +2058,15 @@ packages:
       fill-range: 7.0.1
     dev: true
 
-  /browserslist@4.21.7:
-    resolution: {integrity: sha512-BauCXrQ7I2ftSqd2mvKHGo85XR0u7Ru3C/Hxsy/0TkfCtjrmAbPdzLGasmoiBxplpDXlPvdjX9u7srIMfgasNA==}
+  /browserslist@4.21.9:
+    resolution: {integrity: sha512-M0MFoZzbUrRU4KNfCrDLnvyE7gub+peetoTid3TBIqtunaDJyXlwhakT+/VkvSXcfIzFfK/nkCs4nmyTmxdNSg==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001497
-      electron-to-chromium: 1.4.426
+      caniuse-lite: 1.0.30001504
+      electron-to-chromium: 1.4.433
       node-releases: 2.0.12
-      update-browserslist-db: 1.0.11(browserslist@4.21.7)
+      update-browserslist-db: 1.0.11(browserslist@4.21.9)
     dev: true
 
   /buffer-crc32@0.2.13:
@@ -2122,8 +2122,8 @@ packages:
       tslib: 2.5.0
     dev: true
 
-  /caniuse-lite@1.0.30001497:
-    resolution: {integrity: sha512-I4/duVK4wL6rAK/aKZl3HXB4g+lIZvaT4VLAn2rCgJ38jVLb0lv2Xug6QuqmxXFVRJMF74SPPWPJ/1Sdm3vCzw==}
+  /caniuse-lite@1.0.30001504:
+    resolution: {integrity: sha512-5uo7eoOp2mKbWyfMXnGO9rJWOGU8duvzEiYITW+wivukL7yHH4gX9yuRaobu6El4jPxo6jKZfG+N6fB621GD/Q==}
     dev: true
 
   /capital-case@1.0.4:
@@ -2627,8 +2627,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /electron-to-chromium@1.4.426:
-    resolution: {integrity: sha512-dWuNH+XUT9hdFHASfMpcZGW5kUyJvllumJkXaXiswuCkoaFIFI89aykBPuHEi1YUWQGRCqvIO0BUdmeFJ4W4Ww==}
+  /electron-to-chromium@1.4.433:
+    resolution: {integrity: sha512-MGO1k0w1RgrfdbLVwmXcDhHHuxCn2qRgR7dYsJvWFKDttvYPx6FNzCGG0c/fBBvzK2LDh3UV7Tt9awnHnvAAUQ==}
     dev: true
 
   /emoji-regex@8.0.0:
@@ -4596,8 +4596,8 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
 
-  /rollup@3.24.0:
-    resolution: {integrity: sha512-OgraHOIg2YpHQTjl0/ymWfFNBEyPucB7lmhXrQUh38qNOegxLapSPFs9sNr0qKR75awW41D93XafoR2QfhBdUQ==}
+  /rollup@3.25.1:
+    resolution: {integrity: sha512-tywOR+rwIt5m2ZAWSe5AIJcTat8vGlnPFAv15ycCrw33t6iFsXZ6mzHVFh2psSjxQPmI+xgzMZZizUAukBI4aQ==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -5338,13 +5338,13 @@ packages:
       normalize-path: 2.1.1
     dev: true
 
-  /update-browserslist-db@1.0.11(browserslist@4.21.7):
+  /update-browserslist-db@1.0.11(browserslist@4.21.9):
     resolution: {integrity: sha512-dCwEFf0/oT85M1fHBg4F0jtLwJrutGoHSQXCh7u4o2t1drG+c0a9Flnqww6XUKSfQMPpJBRjU8d4RXB09qtvaA==}
     hasBin: true
     peerDependencies:
       browserslist: '>= 4.21.0'
     dependencies:
-      browserslist: 4.21.7
+      browserslist: 4.21.9
       escalade: 3.1.1
       picocolors: 1.0.0
     dev: true
@@ -5477,7 +5477,7 @@ packages:
     dependencies:
       esbuild: 0.17.19
       postcss: 8.4.24
-      rollup: 3.24.0
+      rollup: 3.25.1
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
