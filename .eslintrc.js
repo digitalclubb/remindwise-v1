@@ -29,4 +29,11 @@ module.exports = {
 		es2017: true,
 		node: true,
 	},
+	ignorePatterns: [
+		'!.github',
+		'.vscode/',
+		'node_modules/',
+		'.svelte-kit/',
+		'.turbo/',
+	],
 };
