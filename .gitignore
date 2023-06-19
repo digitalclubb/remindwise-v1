@@ -1,11 +1,8 @@
-# misc
 .DS_Store
-
-# dependencies
-node_modules
-
-# turbo
-.turbo
-
-# svelte
-.svelte-kit
+**/node_modules
+**/build
+**/.svelte-kit
+**/.turbo
+.env
+.env.*
+!.env.example
