@@ -13,6 +13,7 @@
 >
 	<div on:click|stopPropagation>
 		<slot />
+		<!-- svelte-ignore a11y-autofocus -->
 		<button autofocus on:click="{() => dialog.close()}">Cancel</button>
 	</div>
 </dialog>
