@@ -66,8 +66,8 @@ importers:
         specifier: 2.22.0
         version: 2.22.0
       '@urql/svelte':
-        specifier: 4.0.1
-        version: 4.0.1(graphql@16.6.0)(svelte@3.59.1)
+        specifier: 4.0.2
+        version: 4.0.2(graphql@16.6.0)(svelte@3.59.1)
       components:
         specifier: workspace:*
         version: link:../../components
@@ -1633,8 +1633,8 @@ packages:
       - graphql
     dev: false
 
-  /@urql/svelte@4.0.1(graphql@16.6.0)(svelte@3.59.1):
-    resolution: {integrity: sha512-WbsVjuK7IUNlJlvXAgevjQunoso0T+AngFlb0zafDvay6HN47Zc3CSVbAlP8KjETjERUMJLuiqknmPFFm2GEFQ==}
+  /@urql/svelte@4.0.2(graphql@16.6.0)(svelte@3.59.1):
+    resolution: {integrity: sha512-/JvkffZ/RDCK3CihRJu35AhObHdShpm+aNHu/95ocHYSsnLKt2rPo/ccaEhfMAh9Umrhf74b6rjaGfd285x28w==}
     peerDependencies:
       svelte: ^3.0.0
     dependencies:
