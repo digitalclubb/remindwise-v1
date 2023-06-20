@@ -13,7 +13,7 @@
 		"format": "prettier --write --ignore-path=../../.prettierignore ."
 	},
 	"dependencies": {
-		"@supabase/auth-helpers-sveltekit": "^0.9.4",
+		"@supabase/auth-helpers-sveltekit": "^0.10.1",
 		"@supabase/supabase-js": "^2.22.0",
 		"@urql/svelte": "^4.0.1",
 		"components": "workspace:*",
