@@ -18,7 +18,6 @@ module.exports = {
 		},
 	],
 	parserOptions: {
-		project: './tsconfig.json',
 		extraFileExtensions: ['.svelte'],
 		sourceType: 'module',
 		ecmaVersion: 2020,
