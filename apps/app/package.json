@@ -14,26 +14,26 @@
 		"format:write": "prettier --write --ignore-path=../../.prettierignore ."
 	},
 	"dependencies": {
-		"@supabase/auth-helpers-sveltekit": "^0.10.1",
-		"@supabase/supabase-js": "^2.22.0",
-		"@urql/svelte": "^4.0.1",
+		"@supabase/auth-helpers-sveltekit": "0.10.1",
+		"@supabase/supabase-js": "2.22.0",
+		"@urql/svelte": "4.0.1",
 		"components": "workspace:*",
-		"d3-format": "^3.1.0",
-		"d3-scale": "^4.0.2",
-		"d3-shape": "^3.2.0",
-		"layercake": "^7.4.0"
+		"d3-format": "3.1.0",
+		"d3-scale": "4.0.2",
+		"d3-shape": "3.2.0",
+		"layercake": "7.4.0"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-vercel": "^3.0.1",
-		"@sveltejs/kit": "^1.16.3",
-		"@testing-library/svelte": "^3.2.2",
-		"happy-dom": "^8.9.0",
-		"svelte": "^3.59.1",
-		"svelte-check": "^3.3.2",
-		"svelte-preprocess": "^5.0.3",
-		"tslib": "^2.5.0",
-		"vite": "^4.3.6",
-		"vitest": "^0.27.3"
+		"@sveltejs/adapter-vercel": "3.0.1",
+		"@sveltejs/kit": "1.16.3",
+		"@testing-library/svelte": "3.2.2",
+		"happy-dom": "8.9.0",
+		"svelte": "3.59.1",
+		"svelte-check": "3.3.2",
+		"svelte-preprocess": "5.0.3",
+		"tslib": "2.5.0",
+		"vite": "4.3.6",
+		"vitest": "0.27.3"
 	},
 	"type": "module"
 }
