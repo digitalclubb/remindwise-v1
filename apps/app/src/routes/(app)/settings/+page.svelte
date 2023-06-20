@@ -26,7 +26,9 @@
 		`,
 	});
 
-	const updateAccount = (event) => {
+	const updateAccount = (event: SubmitEvent) => {
+		const formData = new FormData(event.target as HTMLFormElement);
+
 		mutationStore({
 			client,
 			query: gql`
@@ -48,9 +50,9 @@
 				}
 			`,
 			variables: {
-				firstName: event.target.firstName.value,
-				lastName: event.target.lastName.value,
-				email: event.target.email.value,
+				firstName: formData.get('firstName'),
+				lastName: formData.get('lastName'),
+				email: formData.get('email'),
 				id: $settings.data.settings.list[0].setting.id,
 			},
 		}).subscribe((data) => {
