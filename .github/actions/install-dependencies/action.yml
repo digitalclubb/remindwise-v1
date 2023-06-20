@@ -1,0 +1,29 @@
+name: 'Install dependencies'
+description: 'Install dependencies (node_modules)'
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-node@v3
+    - uses: pnpm/action-setup@v2.2.4
+
+    - name: node_modules cache
+      uses: actions/cache@v3
+      id: node_modules-cache
+      with:
+        path: ./node_modules
+        key: ${{ runner.os }}-node_modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+    - name: pnpm cache
+      if: steps.node_modules-cache.outputs.cache-hit != 'true'
+      uses: actions/cache@v3
+      id: pnpm-store
+      with:
+        path: ~/.pnpm-store/v3
+        key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-
+
+    - name: Install dependencies
+      run: pnpm i --frozen-lockfile
+      shell: bash

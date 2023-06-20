@@ -7,7 +7,6 @@ module.exports = {
 		'plugin:@typescript-eslint/recommended',
 	],
 	plugins: ['@typescript-eslint'],
-	ignorePatterns: ['*.cjs'],
 	overrides: [
 		{
 			files: ['*.svelte'],
@@ -19,7 +18,6 @@ module.exports = {
 		},
 	],
 	parserOptions: {
-		project: './tsconfig.json',
 		extraFileExtensions: ['.svelte'],
 		sourceType: 'module',
 		ecmaVersion: 2020,
@@ -29,4 +27,11 @@ module.exports = {
 		es2017: true,
 		node: true,
 	},
+	ignorePatterns: [
+		'!.github',
+		'.vscode/',
+		'**/node_modules/',
+		'**/.svelte-kit/',
+		'**/.turbo/',
+	],
 };

@@ -1,6 +1,5 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { getContextClient } from '@urql/svelte';
 
 export const load: PageServerLoad = async ({ url, locals: { getSession } }) => {
 	const session = await getSession();
