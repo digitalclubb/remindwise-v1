@@ -18,5 +18,6 @@
 		"dev": {
 			"cache": false
 		}
-	}
+	},
+	"globalDependencies": ["**/pnpm-lock.yaml"]
 }
