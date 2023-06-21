@@ -22,7 +22,7 @@
 		"jsdom": "22.1.0",
 		"prettier": "2.8.8",
 		"prettier-plugin-svelte": "2.10.1",
-		"svelte": "3.59.1",
+		"svelte": "3.59.2",
 		"turbo": "1.10.3",
 		"typescript": "5.1.3",
 		"vitest": "0.32.2"
