@@ -33,7 +33,7 @@ jobs:
         run: pnpm test
   e2e:
     name: End to end tests
-    runs-on: ununtu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies
