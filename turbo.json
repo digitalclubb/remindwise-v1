@@ -10,7 +10,7 @@
 		"lint": {
 			"outputs": []
 		},
-		"check": {},
+		"types": {},
 		"test:watch": {
 			"cache": false
 		},
