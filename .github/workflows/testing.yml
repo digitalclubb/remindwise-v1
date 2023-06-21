@@ -40,6 +40,8 @@ jobs:
         uses: ./.github/actions/install-dependencies
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
+      - name: Build applications
+        run: pnpm build
       - name: Playwright tests
         run: pnpm test:e2e
       - uses: actions/upload-artifact@v3
