@@ -31,3 +31,20 @@ jobs:
         uses: ./.github/actions/install-dependencies
       - name: Unit tests
         run: pnpm test
+  e2e:
+    name: End to end (browser)
+    runs-on: ununtu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        uses: ./.github/actions/install-dependencies
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps
+      - name: Playwright tests
+        run: pnpm test:e2e
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 10

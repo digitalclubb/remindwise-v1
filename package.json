@@ -7,7 +7,8 @@
 		"format": "turbo run format",
 		"format:write": "prettier --write . '**/*.{css,ts,tsx,js,json,md,svelte}'",
 		"test": "turbo run test",
-		"test:watch": "turbo run test:watch"
+		"test:watch": "turbo run test:watch",
+		"test:e2e": "turbo run test:e2e"
 	},
 	"devDependencies": {
 		"@graphql-codegen/cli": "4.0.1",
