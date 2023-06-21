@@ -32,7 +32,7 @@ jobs:
       - name: Unit tests
         run: pnpm test
   e2e:
-    name: End to end (browser)
+    name: End to end tests
     runs-on: ununtu-latest
     steps:
       - uses: actions/checkout@v3
