@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
 	import { LayerCake, ScaledSvg, Html, flatten, uniques } from 'layercake';
 	import { stack } from 'd3-shape';
 	import { scaleBand, scaleOrdinal } from 'd3-scale';
 	import { format, precisionFixed } from 'd3-format';
 
-	export let data;
+	export let data: { [key: string]: number }[];
 
 	import ColumnStacked from './Stacked.svelte';
 	import AxisX from './AxisX.svelte';
@@ -14,6 +14,8 @@
 	const yKey = [0, 1];
 	const zKey = 'key';
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const xHandle = (d: { data: { [x: string]: any } }) => d.data[xKey];
 	const seriesNames = Object.keys(data[0]).filter((d) => d !== xKey);
 	const seriesColors = ['#00e047', '#7ceb68', '#b7f486', '#ecfda5'];
 
@@ -21,7 +23,7 @@
 
 	const series = stackData(data);
 
-	const formatTickY = (d) => format(`.${precisionFixed(d)}s`)(d);
+	const formatTickY = (d: number) => format(`.${precisionFixed(d)}s`)(d);
 </script>
 
 <div class="chart-container">
@@ -29,10 +31,10 @@
 		ssr="{true}"
 		percentRange="{true}"
 		padding="{{ top: 0, right: 0, bottom: 20, left: 20 }}"
-		x="{(d) => d.data[xKey]}"
+		x="{xHandle}"
 		y="{yKey}"
 		z="{zKey}"
-		xScale="{scaleBand().paddingInner([0.028]).round(true)}"
+		xScale="{scaleBand().paddingInner(0.028).round(true)}"
 		xDomain="{uniques(data, xKey)}"
 		zScale="{scaleOrdinal()}"
 		zDomain="{seriesNames}"
