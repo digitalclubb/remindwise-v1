@@ -23,7 +23,7 @@
 
 	const series = stackData(data);
 
-	const formatTickY = (d: number) => format(`.${precisionFixed(d)}s`)(d);
+	const formatTickY = (d: number) => precisionFixed(d); //format(`.${precisionFixed(d)}s`)(d);
 </script>
 
 <div class="chart-container">

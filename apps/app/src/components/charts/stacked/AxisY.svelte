@@ -6,7 +6,7 @@
 	export let gridlines = true;
 	export let tickMarks = false;
 	export let baseline = false;
-	export let formatTick = (d: number) => d.toString();
+	export let formatTick = (d: number) => d;
 	//eslint-disable-next-line @typescript-eslint/ban-types
 	export let ticks: number | number[] | Function = 4;
 	export let xTick = -4;

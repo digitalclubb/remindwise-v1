@@ -8,7 +8,7 @@
 	export let tickMarks = false;
 	export let baseline = false;
 	export let snapTicks = false;
-	export let formatTick = (d: number) => d.toString();
+	export let formatTick = (d: number) => d;
 	//eslint-disable-next-line @typescript-eslint/ban-types
 	export let ticks: number | number[] | Function | undefined = undefined;
 	export let yTick = 7;
