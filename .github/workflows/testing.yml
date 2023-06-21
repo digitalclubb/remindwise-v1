@@ -22,7 +22,7 @@ jobs:
       - name: Build apps
         run: pnpm build
       - name: Check types
-        run: pnpm check
+        run: pnpm types
       - name: Check linting
         run: pnpm lint
       - name: Check formatting
