@@ -18,7 +18,7 @@
 		y="category"
 		yScale="{scaleBand().paddingInner(0.05).round(true)}"
 		yDomain="{['insurance', 'entertainment', 'something']}"
-		xDomain="{[0, 0]}"
+		xDomain="{[0, 10]}"
 		data="{data}"
 	>
 		<Html>

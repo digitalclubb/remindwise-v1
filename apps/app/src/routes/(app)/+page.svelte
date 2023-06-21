@@ -10,28 +10,28 @@
 
 	const dummyStackedData = [
 		{
-			// category: 'insurance',
+			category: 1,
 			reminder1: 3840,
 			reminder2: 1920,
 			reminder3: 960,
 			reminder4: 400,
 		},
 		{
-			// category: 'entertainment',
+			category: 2,
 			reminder1: 1600,
 			reminder2: 1440,
 			reminder3: 960,
 			reminder4: 400,
 		},
 		{
-			// category: 'something',
+			category: 3,
 			reminder1: 820,
 			reminder2: 1000,
 			reminder3: 640,
 			reminder4: 400,
 		},
 		{
-			// category: 'else',
+			category: 4,
 			reminder1: 820,
 			reminder2: 560,
 			reminder3: 720,
