@@ -1,27 +1,15 @@
-<script>
+<script lang="ts">
 	import { getContext } from 'svelte';
+	import type { LayerCakeContext } from '../layercake-context';
 
-	const { padding, xRange, yScale } = getContext('LayerCake');
-
-	/** @type {Boolean} [gridlines=true] - Extend lines from the ticks into the chart space */
+	const { padding, xRange, yScale } = getContext<LayerCakeContext>('LayerCake');
 	export let gridlines = true;
-
-	/** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
 	export let tickMarks = false;
-
-	/** @type {Boolean} [baseline=false] – Show a solid line at the bottom. */
 	export let baseline = false;
-
-	/** @type {Function} [formatTick=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
-	export let formatTick = (d) => d;
-
-	/** @type {Number|Array|Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. */
-	export let ticks = 4;
-
-	/** @type {Number} [xTick=-4] - How far over to position the text marker. */
+	export let formatTick = (d: number) => d;
+	//eslint-disable-next-line @typescript-eslint/ban-types
+	export let ticks: number | number[] | Function = 4;
 	export let xTick = -4;
-
-	/** @type {Number} [yTick=-1] - How far up and down to position the text marker. */
 	export let yTick = -1;
 
 	$: isBandwidth = typeof $yScale.bandwidth === 'function';

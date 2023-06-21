@@ -13,15 +13,13 @@ export const load: PageServerLoad = async ({ url, locals: { getSession } }) => {
 };
 
 export const actions = {
-	default: async ({ request, url, locals: { supabase } }) => {
+	default: async ({ request, locals: { supabase } }) => {
 		const formData = await request.formData();
 		const email = formData.get('email') as string;
 		const password = formData.get('password') as string;
-		const options = { emailRedirectTo: `${url.origin}/` };
 		const { error } = await supabase.auth.signInWithPassword({
 			email,
 			password,
-			options,
 		});
 
 		if (error) {

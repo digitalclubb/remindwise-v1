@@ -52,7 +52,8 @@
 	});
 
 	let showModal = false;
-	const addCategory = (event) => {
+	const addCategory = (event: SubmitEvent) => {
+		const formData = new FormData(event.target as HTMLFormElement);
 		mutationStore({
 			client,
 			query: gql`
@@ -84,9 +85,9 @@
 				}
 			`,
 			variables: {
-				category: event.target.category.value.toLowerCase(),
+				category: formData.get('category')?.toString().toLowerCase(),
 				isLocked: false,
-				iconId: event.target.icon.value,
+				iconId: formData.get('icon'),
 				userId: $page.data.session?.user.id,
 			},
 		});

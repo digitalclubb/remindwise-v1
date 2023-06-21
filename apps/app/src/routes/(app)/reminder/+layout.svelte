@@ -11,7 +11,7 @@
 
 	const client = getContextClient();
 
-	const previousPage = $navigating ? $navigating.from.url.pathname : '/';
+	const previousPage = $navigating?.from ? $navigating.from.url.pathname : '/';
 	const previousCategory = previousPage.substring(
 		previousPage.indexOf('category') + 9
 	);
@@ -33,7 +33,10 @@
 		`,
 	});
 
-	const addReminder = (event) => {
+	const addReminder = (event: SubmitEvent) => {
+		const formData = new FormData(event.target as HTMLFormElement);
+		const cost = formData.get('cost')?.toString();
+		const auto = formData.get('auto')?.toString() === 'true';
 		mutationStore({
 			client,
 			query: gql`
@@ -70,16 +73,12 @@
 				}
 			`,
 			variables: {
-				categoryId: event.target.category.value,
-				company: event.target.company.value,
-				cost: (event.target.cost.value =
-					parseFloat(event.target.cost.value) || undefined),
-				dateOfRenewal: (event.target.renewal.value =
-					event.target.renewal.value || undefined),
-				autoRenewal: (event.target.auto.value =
-					event.target.auto.value === 'true' || undefined),
-				notes: (event.target.notes.value =
-					event.target.notes.value || undefined),
+				categoryId: formData.get('category'),
+				company: formData.get('company'),
+				cost: cost || undefined,
+				dateOfRenewal: formData.get('renewal'),
+				autoRenewal: auto || undefined,
+				notes: formData.get('notes'),
 				userid: $page.data.session?.user.id,
 				enabled: true,
 			},

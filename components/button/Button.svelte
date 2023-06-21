@@ -1,12 +1,16 @@
 <script lang="ts">
+	import type { HTMLButtonAttributes } from 'svelte/elements';
+
+	interface $$Props extends HTMLButtonAttributes {
+		style?: 'primary' | 'secondary';
+	}
 	export let style = 'primary';
-	export let type;
 </script>
 
 <button
+	{...$$restProps}
 	class:primary="{style !== 'secondary'}"
 	class:secondary="{style === 'secondary'}"
-	type="{type}"
 	on:click
 >
 	<slot />

@@ -10,6 +10,7 @@
 		"lint": {
 			"outputs": []
 		},
+		"types": {},
 		"test:watch": {
 			"cache": false
 		},
@@ -17,5 +18,6 @@
 		"dev": {
 			"cache": false
 		}
-	}
+	},
+	"globalDependencies": ["**/pnpm-lock.yaml"]
 }

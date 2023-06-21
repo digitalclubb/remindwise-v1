@@ -16,12 +16,17 @@ jobs:
   quality-static:
     name: Static code analysis
     runs-on: ubuntu-latest
+    env:
+      PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
+      PUBLIC_SUPABASE_KEY: ${{ secrets.PUBLIC_SUPABASE_KEY }}
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies
         uses: ./.github/actions/install-dependencies
-      # - name: Check types
-      #   run: pnpm types
+      - name: Build apps
+        run: pnpm build
+      - name: Check types
+        run: pnpm types
       - name: Check linting
         run: pnpm lint
       - name: Check formatting

@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
 	import { LayerCake, ScaledSvg, Html } from 'layercake';
 	import { scaleBand } from 'd3-scale';
 
-	export let data;
+	export let data: { [key: string]: number | string }[];
 
 	import Bar from './Bar.svelte';
 	import AxisX from './AxisX.svelte';
@@ -16,9 +16,9 @@
 		padding="{{ top: 0, right: 20, bottom: 20, left: 35 }}"
 		x="value"
 		y="category"
-		yScale="{scaleBand().paddingInner([0.05]).round(true)}"
+		yScale="{scaleBand().paddingInner(0.05).round(true)}"
 		yDomain="{['insurance', 'entertainment', 'something']}"
-		xDomain="{[0, null]}"
+		xDomain="{[0, 0]}"
 		data="{data}"
 	>
 		<Html>
