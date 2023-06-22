@@ -49,7 +49,7 @@
 		<slot />
 	</div>
 </main>
-<svelte:component this="{Sprite}" />
+<svelte:component this={Sprite} />
 
 <style>
 	main {

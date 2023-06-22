@@ -9,8 +9,8 @@
 
 <button
 	{...$$restProps}
-	class:primary="{style !== 'secondary'}"
-	class:secondary="{style === 'secondary'}"
+	class:primary={style !== 'secondary'}
+	class:secondary={style === 'secondary'}
 	on:click
 >
 	<slot />

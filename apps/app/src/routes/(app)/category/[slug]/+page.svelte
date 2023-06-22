@@ -81,7 +81,7 @@
 	<section class="boxes">
 		<article class="box">
 			<div class="icon">
-				<svg><use xlink:href="#bell"></use></svg>
+				<svg><use xlink:href="#bell" /></svg>
 			</div>
 			<div>
 				<h2>No. reminders</h2>
@@ -90,7 +90,7 @@
 		</article>
 		<article class="box">
 			<div class="icon icon-spent">
-				<svg><use xlink:href="#wallet"></use></svg>
+				<svg><use xlink:href="#wallet" /></svg>
 			</div>
 			<div>
 				<h2>Total spent</h2>

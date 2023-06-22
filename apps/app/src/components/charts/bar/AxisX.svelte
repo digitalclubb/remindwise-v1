@@ -24,13 +24,10 @@
 		: $xScale.ticks(ticks);
 </script>
 
-<div class="axis x-axis" class:snapTicks="{snapTicks}">
+<div class="axis x-axis" class:snapTicks>
 	{#each tickVals as tick, i (tick)}
 		{#if gridlines !== false}
-			<div
-				class="gridline"
-				style="left:{$xScale(tick)}%;top: 0px;bottom: 0;"
-			></div>
+			<div class="gridline" style="left:{$xScale(tick)}%;top: 0px;bottom: 0;" />
 		{/if}
 		{#if tickMarks === true}
 			<div
@@ -39,7 +36,7 @@
 					(isBandwidth
 						? $xScale.bandwidth() / 2
 						: 0)}%;height:6px;bottom: -6px;"
-			></div>
+			/>
 		{/if}
 		<div
 			class="tick tick-{i}"
@@ -50,7 +47,7 @@
 		</div>
 	{/each}
 	{#if baseline === true}
-		<div class="baseline" style="top: 100%;width: 100%;"></div>
+		<div class="baseline" style="top: 100%;width: 100%;" />
 	{/if}
 </div>
 
