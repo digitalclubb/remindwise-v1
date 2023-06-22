@@ -40,13 +40,13 @@
 
 <h1>Edit <span>{$page.params.slug}</span> category</h1>
 
-<Button on:click="{() => (showModal = true)}">Delete Category</Button>
+<Button on:click={() => (showModal = true)}>Delete Category</Button>
 
-<Modal bind:showModal="{showModal}">
+<Modal bind:showModal>
 	<h2>Are you sure you want to delete this category?</h2>
 	<p>
 		Deleting this category will delete all of the reminders associated with it.
 	</p>
 
-	<Button on:click="{onDelete}">Delete</Button>
+	<Button on:click={onDelete}>Delete</Button>
 </Modal>

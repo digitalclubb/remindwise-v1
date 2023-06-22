@@ -71,9 +71,7 @@
 <h1><span>{$page.params.slug}</span> reminders</h1>
 
 <a class="button" href="/reminder/add">Add reminder</a>
-<a class="button" href="{`/category/edit/${$page.params.slug}`}"
-	>Edit Category</a
->
+<a class="button" href={`/category/edit/${$page.params.slug}`}>Edit Category</a>
 
 {#await reminders}
 	<p>Fetching reminders...</p>
