@@ -51,6 +51,9 @@
 				}`,
 				{
 					categoryId,
+				},
+				{
+					requestPolicy: 'cache-and-network',
 				}
 			)
 			.toPromise()
