@@ -1,0 +1,9 @@
+query getCategoryId($category: String!) {
+	categories: categoriesCollection(filter: { name: { eq: $category } }) {
+		list: edges {
+			category: node {
+				id
+			}
+		}
+	}
+}

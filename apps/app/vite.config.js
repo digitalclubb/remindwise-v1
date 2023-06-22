@@ -1,8 +1,9 @@
 import { sveltekit } from '@sveltejs/kit/vite';
+import { vitePluginGraphqlLoader } from 'vite-plugin-graphql-loader';
 
 /** @type {import('vite').UserConfig} */
 const config = {
-	plugins: [sveltekit()],
+	plugins: [sveltekit(), vitePluginGraphqlLoader()],
 	optimizeDeps: {
 		exclude: ['@urql/svelte'],
 	},

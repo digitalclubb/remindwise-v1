@@ -120,6 +120,9 @@ importers:
       vite:
         specifier: 4.3.9
         version: 4.3.9(@types/node@20.3.1)
+      vite-plugin-graphql-loader:
+        specifier: ^2.0.0
+        version: 2.0.0
       vitest:
         specifier: 0.32.2
         version: 0.32.2(jsdom@22.1.0)
@@ -3202,6 +3205,16 @@ packages:
       - encoding
     dev: true
 
+  /graphql-tag@2.12.6(graphql@16.6.0):
+    resolution: {integrity: sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      graphql: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      graphql: 16.6.0
+      tslib: 2.5.3
+    dev: true
+
   /graphql-ws@5.13.1(graphql@16.6.0):
     resolution: {integrity: sha512-eiX7ES/ZQr0q7hSM5UBOEIFfaAUmAY9/CSDyAnsETuybByU7l/v46drRg9DQoTvVABEHp3QnrvwgTRMhqy7zxQ==}
     engines: {node: '>=10'}
@@ -5303,6 +5316,13 @@ packages:
       - sugarss
       - supports-color
       - terser
+    dev: true
+
+  /vite-plugin-graphql-loader@2.0.0:
+    resolution: {integrity: sha512-NyZUwwoH7rfSt6rEauLxjqfwTFr3tKxGSmNnb7CqeCgxmB06sQn11WPOwdNak+EkRloG1qfZIioXYYXBmnry0Q==}
+    dependencies:
+      graphql: 16.6.0
+      graphql-tag: 2.12.6(graphql@16.6.0)
     dev: true
 
   /vite@4.3.9(@types/node@20.3.1):
