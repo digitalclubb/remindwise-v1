@@ -29,23 +29,23 @@
 
 <div class="chart-container">
 	<LayerCake
-		ssr="{true}"
-		percentRange="{true}"
-		padding="{{ top: 0, right: 0, bottom: 20, left: 20 }}"
-		x="{xHandle}"
-		y="{yKey}"
-		z="{zKey}"
-		xScale="{scaleBand().paddingInner(0.028).round(true)}"
-		xDomain="{uniques(data, xKey)}"
-		zScale="{scaleOrdinal()}"
-		zDomain="{seriesNames}"
-		zRange="{seriesColors}"
-		flatData="{flatten(series)}"
-		data="{series}"
+		ssr={true}
+		percentRange={true}
+		padding={{ top: 0, right: 0, bottom: 20, left: 20 }}
+		x={xHandle}
+		y={yKey}
+		z={zKey}
+		xScale={scaleBand().paddingInner(0.028).round(true)}
+		xDomain={uniques(data, xKey)}
+		zScale={scaleOrdinal()}
+		zDomain={seriesNames}
+		zRange={seriesColors}
+		flatData={flatten(series)}
+		data={series}
 	>
 		<Html>
-			<AxisX gridlines="{false}" />
-			<AxisY ticks="{4}" gridlines="{false}" formatTick="{formatTickY}" />
+			<AxisX gridlines={false} />
+			<AxisY ticks={4} gridlines={false} formatTick={formatTickY} />
 		</Html>
 		<ScaledSvg>
 			<ColumnStacked />

@@ -45,7 +45,7 @@
 <section class="boxes">
 	<article class="box">
 		<div class="icon">
-			<svg><use xlink:href="#bell"></use></svg>
+			<svg><use xlink:href="#bell" /></svg>
 		</div>
 		<div>
 			<h2>No. reminders</h2>
@@ -54,7 +54,7 @@
 	</article>
 	<article class="box">
 		<div class="icon icon-categories">
-			<svg><use xlink:href="#archive"></use></svg>
+			<svg><use xlink:href="#archive" /></svg>
 		</div>
 		<div>
 			<h2>No. categories</h2>
@@ -63,7 +63,7 @@
 	</article>
 	<article class="box">
 		<div class="icon icon-spent">
-			<svg><use xlink:href="#wallet"></use></svg>
+			<svg><use xlink:href="#wallet" /></svg>
 		</div>
 		<div>
 			<h2>Total spent</h2>
@@ -76,12 +76,12 @@
 	<div class="charts">
 		<section>
 			<h3>Most used categories</h3>
-			<ChartBar data="{dummyBarData}" />
+			<ChartBar data={dummyBarData} />
 		</section>
 
 		<section>
 			<h3>Total spent by category</h3>
-			<ChartStacked data="{dummyStackedData}" />
+			<ChartStacked data={dummyStackedData} />
 		</section>
 	</div>
 </section>

@@ -11,19 +11,19 @@
 
 <div class="chart-container">
 	<LayerCake
-		ssr="{true}"
-		percentRange="{true}"
-		padding="{{ top: 0, right: 20, bottom: 20, left: 35 }}"
+		ssr={true}
+		percentRange={true}
+		padding={{ top: 0, right: 20, bottom: 20, left: 35 }}
 		x="value"
 		y="category"
-		yScale="{scaleBand().paddingInner(0.05).round(true)}"
-		yDomain="{['insurance', 'entertainment', 'something']}"
-		xDomain="{[0, 10]}"
-		data="{data}"
+		yScale={scaleBand().paddingInner(0.05).round(true)}
+		yDomain={['insurance', 'entertainment', 'something']}
+		xDomain={[0, 10]}
+		{data}
 	>
 		<Html>
-			<AxisX gridlines="{true}" baseline="{true}" snapTicks="{true}" />
-			<AxisY gridlines="{false}" />
+			<AxisX gridlines={true} baseline={true} snapTicks={true} />
+			<AxisY gridlines={false} />
 		</Html>
 		<ScaledSvg>
 			<Bar />
