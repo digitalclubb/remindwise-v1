@@ -35,8 +35,8 @@
 
 	const addReminder = (event: SubmitEvent) => {
 		const formData = new FormData(event.target as HTMLFormElement);
-		const cost = formData.get('cost')?.toString();
-		const auto = formData.get('auto')?.toString() === 'true';
+		const cost = formData.get('cost');
+
 		mutationStore({
 			client,
 			query: gql`
@@ -75,9 +75,9 @@
 			variables: {
 				categoryId: formData.get('category'),
 				company: formData.get('company'),
-				cost: cost || undefined,
+				cost: cost ? parseFloat(cost.toString()) : undefined,
 				dateOfRenewal: formData.get('renewal'),
-				autoRenewal: auto || undefined,
+				autoRenewal: formData.get('auto') === 'true',
 				notes: formData.get('notes'),
 				userid: $page.data.session?.user.id,
 				enabled: true,
@@ -85,7 +85,7 @@
 		}).subscribe((result) => {
 			if (result.error) {
 				// Error
-				console.log('Error');
+				console.log('Error', result);
 			}
 
 			if (result.data) {
@@ -101,7 +101,7 @@
 <form on:submit="{addReminder}">
 	<div>
 		<label for="category">Which category?</label>
-		<select id="category" required>
+		<select name="category" required>
 			{#if $categories.fetching}
 				<option value="">Loading...</option>
 			{:else}
@@ -122,16 +122,16 @@
 
 	<div>
 		<label for="company">What is the company?</label>
-		<input type="text" id="company" required />
+		<input type="text" name="company" required />
 	</div>
 	<div>
 		<label for="cost">How much did it cost?</label>
-		<input type="number" min="0" step="any" id="cost" />
+		<input type="number" min="0" step="any" name="cost" />
 	</div>
 	<div>
 		<div>
 			<label for="renewal">When is it due for renewal?</label>
-			<input type="date" id="renewal" />
+			<input type="date" name="renewal" />
 		</div>
 		<fieldset>
 			<legend>Will it auto renew?</legend>
@@ -146,7 +146,7 @@
 
 	<div>
 		<label for="notes">Any thing else to remember?</label>
-		<textarea id="notes" name="notes"></textarea>
+		<textarea name="notes"></textarea>
 	</div>
 
 	<!-- Add on /add, Save on /edit-->
