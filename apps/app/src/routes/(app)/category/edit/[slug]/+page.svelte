@@ -4,7 +4,10 @@
 	import Modal from '../../../../../components/modal/Modal.svelte';
 	import { goto } from '$app/navigation';
 	import { getContextClient, gql, mutationStore } from '@urql/svelte';
-
+	// TODO
+	// - Navigation doesnt update deletion
+	// - Tidy up styles (modal, buttons, etc)
+	// - Edit category name and icon?
 	const client = getContextClient();
 
 	let showModal = false;
