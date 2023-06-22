@@ -36,7 +36,7 @@
 					style="top:0;left:{isBandwidth
 						? $padding.left
 						: 0}px;right:-{$padding.left + $padding.right}px;"
-				></div>
+				/>
 			{/if}
 			{#if baseline !== false && i === 0}
 				<div
@@ -44,13 +44,13 @@
 					style="top:0;left:{isBandwidth
 						? $padding.left
 						: 0};right:-{$padding.left + $padding.right}px;"
-				></div>
+				/>
 			{/if}
 			{#if tickMarks === true}
 				<div
 					class="tick-mark"
 					style="top:0;left:{isBandwidth ? $padding.left - 6 : 0}px;width:6px;"
-				></div>
+				/>
 			{/if}
 			<div
 				class="text"
