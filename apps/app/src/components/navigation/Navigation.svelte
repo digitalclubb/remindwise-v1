@@ -119,7 +119,7 @@
 	<ul class="categories">
 		<li>
 			<a href="/" class="selected"
-				><svg><use xlink:href="#bar-graph"></use></svg> Dashboard</a
+				><svg><use xlink:href="#bar-graph" /></svg> Dashboard</a
 			>
 		</li>
 		{#if $categories.fetching}
@@ -130,41 +130,41 @@
 			{#each $categories.data.categories.list as category}
 				<li>
 					<a href="/category/{category.category.name}"
-						><svg><use xlink:href="#{category.category.iconId}"></use></svg>
+						><svg><use xlink:href="#{category.category.iconId}" /></svg>
 						{category.category.name}</a
 					>
 				</li>
 			{/each}
 		{/if}
 		<li class="add">
-			<Button on:click="{() => (showModal = true)}">Add category</Button>
+			<Button on:click={() => (showModal = true)}>Add category</Button>
 		</li>
 		<li>
 			<a class="button" href="/reminder/add">Add reminder</a>
 		</li>
 	</ul>
 	<ul class="settings">
-		<li><a href="/help"><svg><use xlink:href="#help"></use></svg> Help</a></li>
+		<li><a href="/help"><svg><use xlink:href="#help" /></svg> Help</a></li>
 		<li>
-			<a href="/settings"><svg><use xlink:href="#cog"></use></svg> Settings</a>
+			<a href="/settings"><svg><use xlink:href="#cog" /></svg> Settings</a>
 		</li>
 		<li>
-			<svg><use xlink:href="#log-out"></use></svg>
-			<Button on:click="{signOut}" style="secondary">Log out</Button>
+			<svg><use xlink:href="#log-out" /></svg>
+			<Button on:click={signOut} style="secondary">Log out</Button>
 		</li>
 	</ul>
-	<Modal bind:showModal="{showModal}">
+	<Modal bind:showModal>
 		<h2>Add a category for your reminders</h2>
-		<form on:submit="{addCategory}">
+		<form on:submit={addCategory}>
 			<label for="category">Category name</label>
 			<input type="text" name="category" id="category" required />
 
 			<h3>Pick an icon</h3>
 			<div class="icons">
 				{#each icons as icon}
-					<input type="radio" name="icon" value="{icon}" id="{icon}-icon" />
+					<input type="radio" name="icon" value={icon} id="{icon}-icon" />
 					<label for="{icon}-icon"
-						><svg><use xlink:href="#{icon}"></use></svg></label
+						><svg><use xlink:href="#{icon}" /></svg></label
 					>
 				{/each}
 			</div>

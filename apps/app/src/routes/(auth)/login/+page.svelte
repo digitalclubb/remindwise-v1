@@ -7,7 +7,7 @@
 <h1>Login</h1>
 <form method="post" use:enhance>
 	<label for="email">Email Address</label>
-	<input id="email" name="email" type="email" value="{form?.email ?? ''}" />
+	<input id="email" name="email" type="email" value={form?.email ?? ''} />
 	<label for="password">Password</label>
 	<input
 		id="password"

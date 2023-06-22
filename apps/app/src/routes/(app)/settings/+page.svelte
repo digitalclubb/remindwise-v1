@@ -51,27 +51,27 @@
 	{:else if $settings.error}
 		<li>{$settings.error.message}</li>
 	{:else}
-		<form on:submit|preventDefault="{updateAccount}">
+		<form on:submit|preventDefault={updateAccount}>
 			<label for="email">Email address</label>
 			<input
 				type="text"
 				id="email"
 				required
-				value="{$settings.data.settings.list[0].setting.email ?? ''}"
+				value={$settings.data.settings.list[0].setting.email ?? ''}
 			/>
 
 			<label for="firstName">First name</label>
 			<input
 				type="text"
 				id="firstName"
-				value="{$settings.data.settings.list[0].setting.first_name ?? ''}"
+				value={$settings.data.settings.list[0].setting.first_name ?? ''}
 			/>
 
 			<label for="lastName">Last name</label>
 			<input
 				type="text"
 				id="lastName"
-				value="{$settings.data.settings.list[0].setting.last_name ?? ''}"
+				value={$settings.data.settings.list[0].setting.last_name ?? ''}
 			/>
 
 			<Button>Update account</Button>
