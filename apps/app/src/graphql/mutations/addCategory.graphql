@@ -2,7 +2,7 @@ mutation addCategory(
 	$category: String!
 	$isLocked: Boolean!
 	$iconId: String!
-	$userId: uuid!
+	$userId: UUID
 ) {
 	insertIntocategoriesCollection(
 		objects: [

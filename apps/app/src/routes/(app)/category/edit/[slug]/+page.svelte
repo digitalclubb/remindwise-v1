@@ -14,13 +14,21 @@
 	} from '@urql/svelte';
 	import { refresh } from '../../../../../stores';
 	import { icons } from '../../../../../components/icons/icons';
+	import type {
+		DeleteCategoryMutation,
+		DeleteCategoryMutationVariables,
+		GetCategoryIdQuery,
+		GetCategoryIdQueryVariables,
+		UpdateCategoryMutation,
+		UpdateCategoryMutationVariables,
+	} from '@graphql/types';
 
 	const client = getContextClient();
 	const previousPage = $navigating?.from ? $navigating.from.url.pathname : '/';
 
 	let showModal = false;
 
-	const category = queryStore({
+	const category = queryStore<GetCategoryIdQuery, GetCategoryIdQueryVariables>({
 		client,
 		query: gql`
 			${getCategoryId}
@@ -31,7 +39,7 @@
 	});
 
 	const onDelete = async () => {
-		mutationStore({
+		mutationStore<DeleteCategoryMutation, DeleteCategoryMutationVariables>({
 			client,
 			query: gql`
 				${deleteCategory}
@@ -54,15 +62,15 @@
 
 	const editCategory = (event: SubmitEvent) => {
 		const formData = new FormData(event.target as HTMLFormElement);
-		mutationStore({
+		mutationStore<UpdateCategoryMutation, UpdateCategoryMutationVariables>({
 			client,
 			query: gql`
 				${updateCategory}
 			`,
 			variables: {
 				name: formData.get('category')?.toString().toLowerCase(),
-				iconId: formData.get('icons'),
-				id: $category.data.categories.list[0].category.id,
+				iconId: formData.get('icons')?.toString(),
+				id: $category.data?.categories?.list[0].category.id,
 			},
 		}).subscribe((result) => {
 			//TODO error handling
@@ -88,7 +96,7 @@
 			name="category"
 			id="category"
 			required
-			value={$category.data.categories.list[0].category.name ?? ''}
+			value={$category.data?.categories?.list[0].category.name ?? ''}
 		/>
 
 		<h3>Pick an icon</h3>
@@ -99,7 +107,7 @@
 					name="icons"
 					value={icon}
 					id="{icon}-icons"
-					checked={icon === $category.data.categories.list[0].category.iconId}
+					checked={icon === $category.data?.categories?.list[0].category.iconId}
 				/>
 				<label for="{icon}-icons"><svg><use xlink:href="#{icon}" /></svg></label
 				>

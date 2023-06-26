@@ -19,6 +19,12 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { refresh } from '../../stores';
+	import type {
+		GetCategoriesQuery,
+		GetCategoriesQueryVariables,
+		GetSettingsQuery,
+		GetSettingsQueryVariables,
+	} from '@graphql/types';
 
 	$: categories = queryStore({
 		client,
@@ -28,7 +34,7 @@
 	});
 
 	const refreshCategories = () => {
-		queryStore({
+		queryStore<GetCategoriesQuery, GetCategoriesQueryVariables>({
 			client,
 			query: gql`
 				${getCategories}
@@ -44,7 +50,7 @@
 		}
 	});
 
-	$: settings = queryStore({
+	$: settings = queryStore<GetSettingsQuery, GetSettingsQueryVariables>({
 		client,
 		query: gql`
 			${getSettings}
@@ -84,11 +90,11 @@
 			<li>{$settings.error.message}</li>
 		{:else}
 			<h3>
-				{$settings.data.settings.list[0].setting.first_name +
+				{$settings.data?.settings?.list[0].setting.first_name +
 					' ' +
-					$settings.data.settings.list[0].setting.last_name}
+					$settings.data?.settings?.list[0].setting.last_name}
 			</h3>
-			<p>{$settings.data.settings.list[0].setting.email}</p>
+			<p>{$settings.data?.settings?.list[0].setting.email}</p>
 		{/if}
 	</div>
 	<ul class="categories">
