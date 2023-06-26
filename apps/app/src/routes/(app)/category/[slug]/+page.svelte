@@ -4,17 +4,23 @@
 
 	import getCategoryId from '@graphql/queries/getCategoryId.graphql';
 	import getReminders from '@graphql/queries/getReminders.graphql';
+	import type {
+		GetCategoryIdQuery,
+		GetCategoryIdQueryVariables,
+		GetRemindersQuery,
+		GetRemindersQueryVariables,
+	} from '@graphql/types';
 
 	const client = getContextClient();
 
 	$: getCategory = async () => {
 		return await client
-			.query(getCategoryId, {
+			.query<GetCategoryIdQuery, GetCategoryIdQueryVariables>(getCategoryId, {
 				category: $page.params.slug,
 			})
 			.toPromise()
 			.then((result) => {
-				return result.data.categories.list[0].category.id;
+				return result.data?.categories?.list[0].category.id;
 			});
 	};
 
@@ -22,7 +28,7 @@
 		const categoryId = await getCategory();
 
 		return await client
-			.query(
+			.query<GetRemindersQuery, GetRemindersQueryVariables>(
 				getReminders,
 				{
 					categoryId,
@@ -34,8 +40,8 @@
 			.toPromise()
 			.then((result) => {
 				return {
-					list: result.data.reminders.list,
-					total: result.data.reminders.list.length,
+					list: result.data?.reminders?.list ?? [],
+					total: result.data?.reminders?.list.length ?? 0,
 				};
 			});
 	};

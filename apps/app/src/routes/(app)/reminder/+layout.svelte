@@ -11,6 +11,12 @@
 
 	import getCategories from '@graphql/queries/getCategories.graphql';
 	import addReminder from '@graphql/mutations/addReminder.graphql';
+	import type {
+		AddReminderMutation,
+		AddReminderMutationVariables,
+		GetCategoriesQuery,
+		GetCategoriesQueryVariables,
+	} from '@graphql/types';
 
 	const client = getContextClient();
 
@@ -19,7 +25,10 @@
 		previousPage.indexOf('category') + 9
 	);
 
-	const categories = queryStore({
+	const categories = queryStore<
+		GetCategoriesQuery,
+		GetCategoriesQueryVariables
+	>({
 		client,
 		query: gql`
 			${getCategories}
@@ -30,18 +39,18 @@
 		const formData = new FormData(event.target as HTMLFormElement);
 		const cost = formData.get('cost');
 
-		mutationStore({
+		mutationStore<AddReminderMutation, AddReminderMutationVariables>({
 			client,
 			query: gql`
 				${addReminder}
 			`,
 			variables: {
 				categoryId: formData.get('category'),
-				company: formData.get('company'),
+				company: formData.get('company')?.toString() ?? '',
 				cost: cost ? parseFloat(cost.toString()) : undefined,
 				dateOfRenewal: formData.get('renewal'),
 				autoRenewal: formData.get('auto') === 'true',
-				notes: formData.get('notes'),
+				notes: formData.get('notes')?.toString(),
 				userid: $page.data.session?.user.id,
 				enabled: true,
 			},
@@ -67,8 +76,8 @@
 		<select name="category-select" id="category-select" required>
 			{#if $categories.fetching}
 				<option value="">Loading...</option>
-			{:else}
-				{#each $categories.data.categories.list as category}
+			{:else if $categories.data?.categories}
+				{#each $categories.data?.categories?.list as category}
 					<option
 						value={category.category.id}
 						selected={previousCategory === category.category.name}
