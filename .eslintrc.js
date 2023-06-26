@@ -33,5 +33,6 @@ module.exports = {
 		'**/node_modules/',
 		'**/.svelte-kit/',
 		'**/.turbo/',
+		'**/graphql/types.ts',
 	],
 };
