@@ -1,26 +1,40 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { navigating, page } from '$app/stores';
+	import getCategoryId from '@graphql/queries/getCategoryId.graphql';
+	import deleteCategory from '@graphql/mutations/deleteCategory.graphql';
+	import updateCategory from '@graphql/mutations/updateCategory.graphql';
 	import Button from 'components/button/Button.svelte';
 	import Modal from '../../../../../components/modal/Modal.svelte';
 	import { goto } from '$app/navigation';
-	import { getContextClient, gql, mutationStore } from '@urql/svelte';
+	import {
+		getContextClient,
+		gql,
+		mutationStore,
+		queryStore,
+	} from '@urql/svelte';
 	import { refresh } from '../../../../../stores';
-	// TODO
-	// - Tidy up styles (modal, buttons, etc)
-	// - Edit category name and icon?
+	import { icons } from '../../../../../components/icons/icons';
+
 	const client = getContextClient();
+	const previousPage = $navigating?.from ? $navigating.from.url.pathname : '/';
 
 	let showModal = false;
+
+	const category = queryStore({
+		client,
+		query: gql`
+			${getCategoryId}
+		`,
+		variables: {
+			category: $page.params.slug,
+		},
+	});
 
 	const onDelete = async () => {
 		mutationStore({
 			client,
 			query: gql`
-				mutation ($category: String!) {
-					deleteFromcategoriesCollection(filter: { name: { eq: $category } }) {
-						affectedCount
-					}
-				}
+				${deleteCategory}
 			`,
 			variables: {
 				category: $page.params.slug,
@@ -37,9 +51,63 @@
 			}
 		});
 	};
+
+	const editCategory = (event: SubmitEvent) => {
+		const formData = new FormData(event.target as HTMLFormElement);
+		mutationStore({
+			client,
+			query: gql`
+				${updateCategory}
+			`,
+			variables: {
+				name: formData.get('category')?.toString().toLowerCase(),
+				iconId: formData.get('icons'),
+				id: $category.data.categories.list[0].category.id,
+			},
+		}).subscribe((result) => {
+			//TODO error handling
+			if (result.data) {
+				refresh.update((n) => !n);
+				goto(previousPage);
+			}
+		});
+	};
 </script>
 
 <h1>Edit <span>{$page.params.slug}</span> category</h1>
+
+{#if $category.fetching}
+	<li>Loading...</li>
+{:else if $category.error}
+	<li>{$category.error.message}</li>
+{:else}
+	<form on:submit|preventDefault={editCategory}>
+		<label for="category" class="input-label">Category name</label>
+		<input
+			type="text"
+			name="category"
+			id="category"
+			required
+			value={$category.data.categories.list[0].category.name ?? ''}
+		/>
+
+		<h3>Pick an icon</h3>
+		<div class="icons">
+			{#each icons as icon}
+				<input
+					type="radio"
+					name="icons"
+					value={icon}
+					id="{icon}-icons"
+					checked={icon === $category.data.categories.list[0].category.iconId}
+				/>
+				<label for="{icon}-icons"><svg><use xlink:href="#{icon}" /></svg></label
+				>
+			{/each}
+		</div>
+		<Button type="submit">Update</Button>
+	</form>
+{/if}
 
 <Button on:click={() => (showModal = true)}>Delete Category</Button>
 
@@ -48,7 +116,65 @@
 	<p>
 		Deleting this category will delete all of the reminders associated with it.
 	</p>
-	<form on:submit|preventDefault={onDelete}>
-		<Button type="submit">Delete</Button>
-	</form>
+	<Button on:click={onDelete}>Delete</Button>
 </Modal>
+
+<style>
+	.input-label {
+		font-size: 1.8rem;
+		margin-bottom: 0.5rem;
+		width: 100%;
+		display: block;
+		user-select: none;
+		font-weight: bold;
+	}
+
+	input[type='text'] {
+		height: 5rem;
+		border-radius: 0.5rem;
+		border: 1px solid #ced6e0;
+		transition: all 0.3s ease-in-out;
+		font-size: 1.6rem;
+		padding: 0.5rem 1.5rem;
+		width: 100%;
+	}
+	svg {
+		width: 1.8rem;
+		height: 1.8rem;
+		vertical-align: middle;
+		margin-right: 0.6rem;
+	}
+
+	.icons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		height: 20%;
+		overflow-y: auto;
+	}
+
+	.icons label {
+		border: solid 2px #6a6c7026;
+		border-radius: 0.3rem;
+		display: inline-block;
+		padding: 5px;
+		cursor: pointer;
+	}
+
+	.icons label:hover {
+		border-color: #ffbb00;
+	}
+
+	.icons svg {
+		margin-right: 0;
+	}
+
+	input[type='radio'] {
+		display: none;
+	}
+
+	input[type='radio']:active + label,
+	input[type='radio']:checked + label {
+		border-color: #ffbb00;
+	}
+</style>
