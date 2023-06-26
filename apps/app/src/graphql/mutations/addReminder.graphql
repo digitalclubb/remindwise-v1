@@ -1,5 +1,5 @@
 mutation addReminder(
-	$categoryId: Int!
+	$categoryId: BigInt
 	$company: String!
 	$cost: Float
 	$dateOfRenewal: Date
