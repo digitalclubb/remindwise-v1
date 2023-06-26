@@ -2,53 +2,28 @@
 	import { page } from '$app/stores';
 	import { getContextClient } from '@urql/svelte';
 
+	import getCategoryId from '@graphql/queries/getCategoryId.graphql';
+	import getReminders from '@graphql/queries/getReminders.graphql';
+
 	const client = getContextClient();
 
-	$: getCategoryId = async () => {
+	$: getCategory = async () => {
 		return await client
-			.query(
-				`query ($category: String!) {
-					categories: categoriesCollection(
-						filter: { name: { eq: $category } }
-					) {
-						list: edges {
-							category: node {
-								id
-							}
-						}
-					}
-				}`,
-				{
-					category: $page.params.slug,
-				}
-			)
+			.query(getCategoryId, {
+				category: $page.params.slug,
+			})
 			.toPromise()
 			.then((result) => {
 				return result.data.categories.list[0].category.id;
 			});
 	};
 
-	$: getReminders = async () => {
-		const categoryId = await getCategoryId();
+	$: getRemindersList = async () => {
+		const categoryId = await getCategory();
 
 		return await client
 			.query(
-				`query ($categoryId: String!) {
-					reminders: remindersCollection(
-						filter: { categoryId: { eq: $categoryId } }
-					) {
-						list: edges {
-							reminder: node {
-								id
-								company
-								cost
-								dateOfRenewal
-								autoRenewal
-								enabled
-							}
-						}
-					}
-				}`,
+				getReminders,
 				{
 					categoryId,
 				},
@@ -65,7 +40,7 @@
 			});
 	};
 
-	$: reminders = getReminders();
+	$: reminders = getRemindersList();
 </script>
 
 <h1><span>{$page.params.slug}</span> reminders</h1>

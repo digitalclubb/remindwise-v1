@@ -7,22 +7,14 @@
 	} from '@urql/svelte';
 	import { Button } from 'components';
 
+	import getSettings from '@graphql/queries/getSettings.graphql';
+	import updateSettings from '@graphql/mutations/updateSettings.graphql';
+
 	const client = getContextClient();
 	const settings = queryStore({
 		client,
 		query: gql`
-			query getSettings {
-				settings: settingsCollection {
-					list: edges {
-						setting: node {
-							id
-							first_name
-							last_name
-							email
-						}
-					}
-				}
-			}
+			${getSettings}
 		`,
 	});
 
@@ -32,22 +24,7 @@
 		mutationStore({
 			client,
 			query: gql`
-				mutation (
-					$id: UUID
-					$firstName: String
-					$lastName: String
-					$email: String
-				) {
-					updatesettingsCollection(
-						filter: { id: { eq: $id } }
-						set: { first_name: $firstName, last_name: $lastName, email: $email }
-					) {
-						affectedCount
-						records {
-							id
-						}
-					}
-				}
+				${updateSettings}
 			`,
 			variables: {
 				firstName: formData.get('firstName'),
