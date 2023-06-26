@@ -1,0 +1,11 @@
+query getCategories {
+	categories: categoriesCollection {
+		list: edges {
+			category: node {
+				id
+				name
+				iconId
+			}
+		}
+	}
+}

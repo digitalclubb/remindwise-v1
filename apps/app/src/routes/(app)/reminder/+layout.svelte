@@ -9,6 +9,9 @@
 	import { goto } from '$app/navigation';
 	import { Button } from 'components';
 
+	import getCategories from '@graphql/queries/getCategories.graphql';
+	import addReminder from '@graphql/mutations/addReminder.graphql';
+
 	const client = getContextClient();
 
 	const previousPage = $navigating?.from ? $navigating.from.url.pathname : '/';
@@ -19,58 +22,18 @@
 	const categories = queryStore({
 		client,
 		query: gql`
-			query getCategories {
-				categories: categoriesCollection {
-					list: edges {
-						category: node {
-							id
-							name
-							iconId
-						}
-					}
-				}
-			}
+			${getCategories}
 		`,
 	});
 
-	const addReminder = (event: SubmitEvent) => {
+	const createReminder = (event: SubmitEvent) => {
 		const formData = new FormData(event.target as HTMLFormElement);
 		const cost = formData.get('cost');
 
 		mutationStore({
 			client,
 			query: gql`
-				mutation (
-					$categoryId: Int!
-					$company: String!
-					$cost: Float
-					$dateOfRenewal: Date
-					$autoRenewal: Boolean
-					$notes: String
-					$userid: UUID!
-					$enabled: Boolean
-				) {
-					insertIntoremindersCollection(
-						objects: [
-							{
-								company: $company
-								cost: $cost
-								dateOfRenewal: $dateOfRenewal
-								categoryId: $categoryId
-								autoRenewal: $autoRenewal
-								userid: $userid
-								notes: $notes
-								enabled: $enabled
-							}
-						]
-					) {
-						affectedCount
-						records {
-							id
-							company
-						}
-					}
-				}
+				${addReminder}
 			`,
 			variables: {
 				categoryId: formData.get('category'),
@@ -98,18 +61,18 @@
 
 <h1>Add a reminder</h1>
 
-<form on:submit={addReminder}>
+<form on:submit="{createReminder}">
 	<div>
 		<label for="category">Which category?</label>
 		<select name="category" required>
 			{#if $categories.fetching}
 				<option value="">Loading...</option>
 			{:else}
-				<option value="" />
+				<option value=""></option>
 				{#each $categories.data.categories.list as category}
 					<option
-						value={category.category.id}
-						selected={previousCategory === category.category.name}
+						value="{category.category.id}"
+						selected="{previousCategory === category.category.name}"
 						>{category.category.name}</option
 					>
 				{/each}
@@ -146,11 +109,11 @@
 
 	<div>
 		<label for="notes">Any thing else to remember?</label>
-		<textarea name="notes" />
+		<textarea name="notes"></textarea>
 	</div>
 
 	<!-- Add on /add, Save on /edit-->
-	<svelte:component this={$page.data.submit} />
+	<svelte:component this="{$page.data.submit}" />
 </form>
 
 <style>

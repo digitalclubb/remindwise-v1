@@ -1,0 +1,16 @@
+mutation updateSettings(
+	$id: UUID
+	$firstName: String
+	$lastName: String
+	$email: String
+) {
+	updatesettingsCollection(
+		filter: { id: { eq: $id } }
+		set: { first_name: $firstName, last_name: $lastName, email: $email }
+	) {
+		affectedCount
+		records {
+			id
+		}
+	}
+}
