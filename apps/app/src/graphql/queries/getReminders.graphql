@@ -1,0 +1,14 @@
+query getReminders($categoryId: String!) {
+	reminders: remindersCollection(filter: { categoryId: { eq: $categoryId } }) {
+		list: edges {
+			reminder: node {
+				id
+				company
+				cost
+				dateOfRenewal
+				autoRenewal
+				enabled
+			}
+		}
+	}
+}

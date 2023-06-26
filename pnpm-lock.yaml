@@ -135,6 +135,9 @@ importers:
       vite:
         specifier: 4.3.9
         version: 4.3.9(@types/node@20.3.1)
+      vite-plugin-graphql-loader:
+        specifier: ^2.0.0
+        version: 2.0.0
       vitest:
         specifier: 0.32.2
         version: 0.32.2(jsdom@22.1.0)
@@ -6068,6 +6071,13 @@ packages:
       - sugarss
       - supports-color
       - terser
+    dev: true
+
+  /vite-plugin-graphql-loader@2.0.0:
+    resolution: {integrity: sha512-NyZUwwoH7rfSt6rEauLxjqfwTFr3tKxGSmNnb7CqeCgxmB06sQn11WPOwdNak+EkRloG1qfZIioXYYXBmnry0Q==}
+    dependencies:
+      graphql: 16.6.0
+      graphql-tag: 2.12.6(graphql@16.6.0)
     dev: true
 
   /vite@4.3.9(@types/node@20.3.1):
