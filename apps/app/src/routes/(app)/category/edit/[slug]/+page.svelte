@@ -4,8 +4,8 @@
 	import Modal from '../../../../../components/modal/Modal.svelte';
 	import { goto } from '$app/navigation';
 	import { getContextClient, gql, mutationStore } from '@urql/svelte';
+	import { refresh } from '../../../../../stores';
 	// TODO
-	// - Navigation doesnt update deletion
 	// - Tidy up styles (modal, buttons, etc)
 	// - Edit category name and icon?
 	const client = getContextClient();
@@ -32,6 +32,7 @@
 			}
 
 			if (result.data) {
+				refresh.update((n) => !n);
 				goto('/');
 			}
 		});
@@ -47,6 +48,7 @@
 	<p>
 		Deleting this category will delete all of the reminders associated with it.
 	</p>
-
-	<Button on:click={onDelete}>Delete</Button>
+	<form on:submit|preventDefault={onDelete}>
+		<Button type="submit">Delete</Button>
+	</form>
 </Modal>

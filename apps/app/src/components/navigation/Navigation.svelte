@@ -6,6 +6,9 @@
 		mutationStore,
 	} from '@urql/svelte';
 
+	import addCategory from '@graphql/mutations/addCategory.graphql';
+	import getCategories from '@graphql/queries/getCategories.graphql';
+	import getSettings from '@graphql/queries/getSettings.graphql';
 	import Modal from '../modal/Modal.svelte';
 	import { icons } from '../icons/icons';
 
@@ -15,74 +18,46 @@
 
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import { refresh } from '../../stores';
 
-	const categories = queryStore({
+	$: categories = queryStore({
 		client,
 		query: gql`
-			query getCategories {
-				categories: categoriesCollection {
-					list: edges {
-						category: node {
-							id
-							name
-							iconId
-						}
-					}
-				}
-			}
+			${getCategories}
 		`,
 	});
 
-	const settings = queryStore({
+	const refreshCategories = () => {
+		queryStore({
+			client,
+			query: gql`
+				${getCategories}
+			`,
+			requestPolicy: 'network-only',
+		});
+	};
+
+	refresh.subscribe((value) => {
+		if (value) {
+			refreshCategories();
+			refresh.set(false);
+		}
+	});
+
+	$: settings = queryStore({
 		client,
 		query: gql`
-			query getSettings {
-				settings: settingsCollection {
-					list: edges {
-						setting: node {
-							id
-							first_name
-							last_name
-							email
-						}
-					}
-				}
-			}
+			${getSettings}
 		`,
 	});
 
 	let showModal = false;
-	const addCategory = (event: SubmitEvent) => {
+	const onAddCategory = (event: SubmitEvent) => {
 		const formData = new FormData(event.target as HTMLFormElement);
 		mutationStore({
 			client,
 			query: gql`
-				mutation (
-					$category: String!
-					$isLocked: Boolean!
-					$iconId: String!
-					$userId: uuid!
-				) {
-					insertIntocategoriesCollection(
-						objects: [
-							{
-								name: $category
-								isLocked: $isLocked
-								iconId: $iconId
-								userid: $userId
-							}
-						]
-					) {
-						affectedCount
-						records {
-							id
-							name
-							isLocked
-							iconId
-							userid
-						}
-					}
-				}
+				${addCategory}
 			`,
 			variables: {
 				category: formData.get('category')?.toString().toLowerCase(),
@@ -155,7 +130,7 @@
 	</ul>
 	<Modal bind:showModal>
 		<h2>Add a category for your reminders</h2>
-		<form on:submit={addCategory}>
+		<form on:submit|preventDefault={onAddCategory}>
 			<label for="category">Category name</label>
 			<input type="text" name="category" id="category" required />
 
