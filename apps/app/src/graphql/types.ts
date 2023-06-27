@@ -615,6 +615,29 @@ export type SettingsUpdateResponse = {
 	records: Array<Settings>;
 };
 
+export type AddCategoryMutationVariables = Exact<{
+	category: Scalars['String']['input'];
+	isLocked: Scalars['Boolean']['input'];
+	iconId: Scalars['String']['input'];
+	userId?: InputMaybe<Scalars['UUID']['input']>;
+}>;
+
+export type AddCategoryMutation = {
+	__typename?: 'Mutation';
+	insertIntocategoriesCollection?: {
+		__typename?: 'categoriesInsertResponse';
+		affectedCount: number;
+		records: Array<{
+			__typename?: 'categories';
+			id: any;
+			name: string;
+			isLocked?: boolean | null;
+			iconId?: string | null;
+			userid?: any | null;
+		}>;
+	} | null;
+};
+
 export type AddReminderMutationVariables = Exact<{
 	categoryId?: InputMaybe<Scalars['BigInt']['input']>;
 	company: Scalars['String']['input'];
@@ -637,6 +660,32 @@ export type AddReminderMutation = {
 			company?: string | null;
 		}>;
 	} | null;
+};
+
+export type DeleteCategoryMutationVariables = Exact<{
+	category: Scalars['String']['input'];
+}>;
+
+export type DeleteCategoryMutation = {
+	__typename?: 'Mutation';
+	deleteFromcategoriesCollection: {
+		__typename?: 'categoriesDeleteResponse';
+		affectedCount: number;
+	};
+};
+
+export type UpdateCategoryMutationVariables = Exact<{
+	id?: InputMaybe<Scalars['BigInt']['input']>;
+	name?: InputMaybe<Scalars['String']['input']>;
+	iconId?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+export type UpdateCategoryMutation = {
+	__typename?: 'Mutation';
+	updatecategoriesCollection: {
+		__typename?: 'categoriesUpdateResponse';
+		affectedCount: number;
+	};
 };
 
 export type UpdateSettingsMutationVariables = Exact<{
@@ -683,7 +732,12 @@ export type GetCategoryIdQuery = {
 		__typename?: 'categoriesConnection';
 		list: Array<{
 			__typename?: 'categoriesEdge';
-			category: { __typename?: 'categories'; id: any };
+			category: {
+				__typename?: 'categories';
+				id: any;
+				name: string;
+				iconId?: string | null;
+			};
 		}>;
 	} | null;
 };
@@ -730,6 +784,157 @@ export type GetSettingsQuery = {
 	} | null;
 };
 
+export const AddCategoryDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'mutation',
+			name: { kind: 'Name', value: 'addCategory' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: {
+						kind: 'Variable',
+						name: { kind: 'Name', value: 'category' },
+					},
+					type: {
+						kind: 'NonNullType',
+						type: {
+							kind: 'NamedType',
+							name: { kind: 'Name', value: 'String' },
+						},
+					},
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: {
+						kind: 'Variable',
+						name: { kind: 'Name', value: 'isLocked' },
+					},
+					type: {
+						kind: 'NonNullType',
+						type: {
+							kind: 'NamedType',
+							name: { kind: 'Name', value: 'Boolean' },
+						},
+					},
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: {
+						kind: 'Variable',
+						name: { kind: 'Name', value: 'iconId' },
+					},
+					type: {
+						kind: 'NonNullType',
+						type: {
+							kind: 'NamedType',
+							name: { kind: 'Name', value: 'String' },
+						},
+					},
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: {
+						kind: 'Variable',
+						name: { kind: 'Name', value: 'userId' },
+					},
+					type: { kind: 'NamedType', name: { kind: 'Name', value: 'UUID' } },
+				},
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'insertIntocategoriesCollection' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'objects' },
+								value: {
+									kind: 'ListValue',
+									values: [
+										{
+											kind: 'ObjectValue',
+											fields: [
+												{
+													kind: 'ObjectField',
+													name: { kind: 'Name', value: 'name' },
+													value: {
+														kind: 'Variable',
+														name: { kind: 'Name', value: 'category' },
+													},
+												},
+												{
+													kind: 'ObjectField',
+													name: { kind: 'Name', value: 'isLocked' },
+													value: {
+														kind: 'Variable',
+														name: { kind: 'Name', value: 'isLocked' },
+													},
+												},
+												{
+													kind: 'ObjectField',
+													name: { kind: 'Name', value: 'iconId' },
+													value: {
+														kind: 'Variable',
+														name: { kind: 'Name', value: 'iconId' },
+													},
+												},
+												{
+													kind: 'ObjectField',
+													name: { kind: 'Name', value: 'userid' },
+													value: {
+														kind: 'Variable',
+														name: { kind: 'Name', value: 'userId' },
+													},
+												},
+											],
+										},
+									],
+								},
+							},
+						],
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'affectedCount' },
+								},
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'records' },
+									selectionSet: {
+										kind: 'SelectionSet',
+										selections: [
+											{ kind: 'Field', name: { kind: 'Name', value: 'id' } },
+											{ kind: 'Field', name: { kind: 'Name', value: 'name' } },
+											{
+												kind: 'Field',
+												name: { kind: 'Name', value: 'isLocked' },
+											},
+											{
+												kind: 'Field',
+												name: { kind: 'Name', value: 'iconId' },
+											},
+											{
+												kind: 'Field',
+												name: { kind: 'Name', value: 'userid' },
+											},
+										],
+									},
+								},
+							],
+						},
+					},
+				],
+			},
+		},
+	],
+} as unknown as DocumentNode<AddCategoryMutation, AddCategoryMutationVariables>;
 export const AddReminderDocument = {
 	kind: 'Document',
 	definitions: [
@@ -924,6 +1129,185 @@ export const AddReminderDocument = {
 		},
 	],
 } as unknown as DocumentNode<AddReminderMutation, AddReminderMutationVariables>;
+export const DeleteCategoryDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'mutation',
+			name: { kind: 'Name', value: 'deleteCategory' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: {
+						kind: 'Variable',
+						name: { kind: 'Name', value: 'category' },
+					},
+					type: {
+						kind: 'NonNullType',
+						type: {
+							kind: 'NamedType',
+							name: { kind: 'Name', value: 'String' },
+						},
+					},
+				},
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'deleteFromcategoriesCollection' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'filter' },
+								value: {
+									kind: 'ObjectValue',
+									fields: [
+										{
+											kind: 'ObjectField',
+											name: { kind: 'Name', value: 'name' },
+											value: {
+												kind: 'ObjectValue',
+												fields: [
+													{
+														kind: 'ObjectField',
+														name: { kind: 'Name', value: 'eq' },
+														value: {
+															kind: 'Variable',
+															name: { kind: 'Name', value: 'category' },
+														},
+													},
+												],
+											},
+										},
+									],
+								},
+							},
+						],
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'affectedCount' },
+								},
+							],
+						},
+					},
+				],
+			},
+		},
+	],
+} as unknown as DocumentNode<
+	DeleteCategoryMutation,
+	DeleteCategoryMutationVariables
+>;
+export const UpdateCategoryDocument = {
+	kind: 'Document',
+	definitions: [
+		{
+			kind: 'OperationDefinition',
+			operation: 'mutation',
+			name: { kind: 'Name', value: 'updateCategory' },
+			variableDefinitions: [
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+					type: { kind: 'NamedType', name: { kind: 'Name', value: 'BigInt' } },
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: { kind: 'Variable', name: { kind: 'Name', value: 'name' } },
+					type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+				},
+				{
+					kind: 'VariableDefinition',
+					variable: {
+						kind: 'Variable',
+						name: { kind: 'Name', value: 'iconId' },
+					},
+					type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+				},
+			],
+			selectionSet: {
+				kind: 'SelectionSet',
+				selections: [
+					{
+						kind: 'Field',
+						name: { kind: 'Name', value: 'updatecategoriesCollection' },
+						arguments: [
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'filter' },
+								value: {
+									kind: 'ObjectValue',
+									fields: [
+										{
+											kind: 'ObjectField',
+											name: { kind: 'Name', value: 'id' },
+											value: {
+												kind: 'ObjectValue',
+												fields: [
+													{
+														kind: 'ObjectField',
+														name: { kind: 'Name', value: 'eq' },
+														value: {
+															kind: 'Variable',
+															name: { kind: 'Name', value: 'id' },
+														},
+													},
+												],
+											},
+										},
+									],
+								},
+							},
+							{
+								kind: 'Argument',
+								name: { kind: 'Name', value: 'set' },
+								value: {
+									kind: 'ObjectValue',
+									fields: [
+										{
+											kind: 'ObjectField',
+											name: { kind: 'Name', value: 'name' },
+											value: {
+												kind: 'Variable',
+												name: { kind: 'Name', value: 'name' },
+											},
+										},
+										{
+											kind: 'ObjectField',
+											name: { kind: 'Name', value: 'iconId' },
+											value: {
+												kind: 'Variable',
+												name: { kind: 'Name', value: 'iconId' },
+											},
+										},
+									],
+								},
+							},
+						],
+						selectionSet: {
+							kind: 'SelectionSet',
+							selections: [
+								{
+									kind: 'Field',
+									name: { kind: 'Name', value: 'affectedCount' },
+								},
+							],
+						},
+					},
+				],
+			},
+		},
+	],
+} as unknown as DocumentNode<
+	UpdateCategoryMutation,
+	UpdateCategoryMutationVariables
+>;
 export const UpdateSettingsDocument = {
 	kind: 'Document',
 	definitions: [
@@ -1192,6 +1576,14 @@ export const GetCategoryIdDocument = {
 														{
 															kind: 'Field',
 															name: { kind: 'Name', value: 'id' },
+														},
+														{
+															kind: 'Field',
+															name: { kind: 'Name', value: 'name' },
+														},
+														{
+															kind: 'Field',
+															name: { kind: 'Name', value: 'iconId' },
 														},
 													],
 												},

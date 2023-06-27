@@ -72,12 +72,11 @@
 
 <form on:submit={createReminder}>
 	<div>
-		<label for="category">Which category?</label>
-		<select name="category" required>
+		<label for="category-select">Which category?</label>
+		<select name="category-select" id="category-select" required>
 			{#if $categories.fetching}
 				<option value="">Loading...</option>
 			{:else if $categories.data?.categories}
-				<option value="" />
 				{#each $categories.data?.categories?.list as category}
 					<option
 						value={category.category.id}
@@ -94,16 +93,16 @@
 
 	<div>
 		<label for="company">What is the company?</label>
-		<input type="text" name="company" required />
+		<input type="text" name="company" id="company" required />
 	</div>
 	<div>
 		<label for="cost">How much did it cost?</label>
-		<input type="number" min="0" step="any" name="cost" />
+		<input type="number" min="0" step="any" name="cost" id="cost" />
 	</div>
 	<div>
 		<div>
 			<label for="renewal">When is it due for renewal?</label>
-			<input type="date" name="renewal" />
+			<input type="date" name="renewal" id="renewal" />
 		</div>
 		<fieldset>
 			<legend>Will it auto renew?</legend>

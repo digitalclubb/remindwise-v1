@@ -51,6 +51,9 @@
 
 <h1><span>{$page.params.slug}</span> reminders</h1>
 
+<a class="button" href="/reminder/add">Add reminder</a>
+<a class="button" href={`/category/edit/${$page.params.slug}`}>Edit Category</a>
+
 {#await reminders}
 	<p>Fetching reminders...</p>
 {:then reminders}
@@ -223,5 +226,29 @@
 
 	.icon-spent {
 		background-color: #cee2ff;
+	}
+
+	a {
+		color: #6a6c70;
+		text-decoration: none;
+	}
+	.button {
+		display: inline-block;
+		outline: none;
+		cursor: pointer;
+		border-style: solid;
+		border-width: 0.1rem;
+		border-radius: 0.3rem;
+		padding: 1.2rem 2.4rem;
+		line-height: 1.15;
+		font-size: 1.6rem;
+		color: #000000;
+		background-color: #ffffff;
+		border-color: #373c61;
+		text-align: center;
+	}
+	.button:hover {
+		transition: all 0.1s ease;
+		border-color: #9a0202;
 	}
 </style>

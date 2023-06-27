@@ -3,6 +3,8 @@ query getCategoryId($category: String!) {
 		list: edges {
 			category: node {
 				id
+				name
+				iconId
 			}
 		}
 	}
