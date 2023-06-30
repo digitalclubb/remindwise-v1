@@ -22,7 +22,7 @@
 		"d3-format": "3.1.0",
 		"d3-scale": "4.0.2",
 		"d3-shape": "3.2.0",
-		"layercake": "7.5.0"
+		"layercake": "7.6.0"
 	},
 	"devDependencies": {
 		"@graphql-codegen/cli": "^4.0.1",
@@ -31,7 +31,7 @@
 		"@graphql-codegen/typescript-operations": "^4.0.1",
 		"@graphql-typed-document-node/core": "^3.2.0",
 		"@sveltejs/adapter-vercel": "3.0.1",
-		"@sveltejs/kit": "1.20.5",
+		"@sveltejs/kit": "1.21.0",
 		"@testing-library/svelte": "3.2.2",
 		"@types/d3-format": "3.0.1",
 		"@types/d3-scale": "4.0.3",
