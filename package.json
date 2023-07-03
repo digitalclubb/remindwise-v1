@@ -20,16 +20,16 @@
 		"@testing-library/svelte": "3.2.2",
 		"@typescript-eslint/eslint-plugin": "5.60.1",
 		"@typescript-eslint/parser": "5.60.1",
-		"eslint": "8.43.0",
-		"eslint-plugin-svelte": "2.32.1",
+		"eslint": "8.44.0",
+		"eslint-plugin-svelte": "2.32.2",
 		"jsdom": "22.1.0",
 		"prettier": "2.8.8",
 		"prettier-plugin-svelte": "2.10.1",
 		"svelte": "3.59.2",
-		"turbo": "1.10.6",
+		"turbo": "1.10.7",
 		"typescript": "5.1.6",
-		"vitest": "0.32.2"
+		"vitest": "0.32.4"
 	},
 	"prepare": "svelte-kit sync",
-	"packageManager": "pnpm@8.6.5"
+	"packageManager": "pnpm@8.6.6"
 }
