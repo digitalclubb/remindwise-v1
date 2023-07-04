@@ -1,9 +1,4 @@
 <script lang="ts">
-	import type { HTMLButtonAttributes } from 'svelte/elements';
-
-	interface $$Props extends HTMLButtonAttributes {
-		style?: 'primary' | 'secondary';
-	}
 	export let style = 'primary';
 </script>
 
