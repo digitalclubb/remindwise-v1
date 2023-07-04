@@ -3,6 +3,7 @@
 </script>
 
 <button
+	{...$$restProps}
 	class:primary={style !== 'secondary'}
 	class:secondary={style === 'secondary'}
 	on:click
