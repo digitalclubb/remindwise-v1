@@ -87,6 +87,9 @@ importers:
         specifier: 7.6.0
         version: 7.6.0(svelte@4.0.5)(typescript@5.1.6)
     devDependencies:
+      '@axe-core/playwright':
+        specifier: ^4.7.3
+        version: 4.7.3(playwright-core@1.35.1)
       '@graphql-codegen/cli':
         specifier: ^4.0.1
         version: 4.0.1(@babel/core@7.22.6)(graphql@16.7.1)
@@ -151,6 +154,9 @@ importers:
         specifier: workspace:*
         version: link:../../components
     devDependencies:
+      '@axe-core/playwright':
+        specifier: ^4.7.3
+        version: 4.7.3(playwright-core@1.35.1)
       '@playwright/test':
         specifier: 1.35.1
         version: 1.35.1
@@ -262,6 +268,15 @@ packages:
       node-fetch: 2.6.12
     transitivePeerDependencies:
       - encoding
+    dev: true
+
+  /@axe-core/playwright@4.7.3(playwright-core@1.35.1):
+    resolution: {integrity: sha512-v2PRgAyGvop7bamrTpNJtc5b1R7giAPnMzZXrS/VDZBCY5+uwVYtCNgDvBsqp5P1QMZxUMoBN+CERJUTMjFN0A==}
+    peerDependencies:
+      playwright-core: '>= 1.0.0'
+    dependencies:
+      axe-core: 4.7.2
+      playwright-core: 1.35.1
     dev: true
 
   /@babel/code-frame@7.22.5:
@@ -2823,6 +2838,11 @@ packages:
   /available-typed-arrays@1.0.5:
     resolution: {integrity: sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==}
     engines: {node: '>= 0.4'}
+    dev: true
+
+  /axe-core@4.7.2:
+    resolution: {integrity: sha512-zIURGIS1E1Q4pcrMjp+nnEh+16G56eG/MUllJH8yEvw7asDo7Ac9uhC9KIH5jzpITueEZolfYglnCGIuSBz39g==}
+    engines: {node: '>=4'}
     dev: true
 
   /axobject-query@3.2.1:

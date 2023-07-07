@@ -14,7 +14,8 @@
 		"test:watch": {
 			"cache": false
 		},
-		"test:e2e": {},
+		"test:a11y": {},
+		"test:functional": {},
 		"dev": {
 			"cache": false
 		}
