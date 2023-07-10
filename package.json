@@ -31,5 +31,5 @@
 		"vitest": "0.33.0"
 	},
 	"prepare": "svelte-kit sync",
-	"packageManager": "pnpm@8.6.6"
+	"packageManager": "pnpm@8.6.7"
 }
