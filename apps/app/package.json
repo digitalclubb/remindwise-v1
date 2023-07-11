@@ -13,7 +13,8 @@
 		"format": "prettier --check --ignore-path=../../.prettierignore .",
 		"format:write": "prettier --write --ignore-path=../../.prettierignore .",
 		"graphql:codegen": "pnpm sync && graphql-codegen --require dotenv/config",
-		"test:e2e": "playwright test"
+		"test:a11y": "playwright test --grep @accessibility",
+		"test:functional": "playwright test --grep @functional"
 	},
 	"dependencies": {
 		"@supabase/auth-helpers-sveltekit": "0.10.1",
@@ -26,6 +27,7 @@
 		"layercake": "7.6.0"
 	},
 	"devDependencies": {
+		"@axe-core/playwright": "^4.7.3",
 		"@graphql-codegen/cli": "^4.0.1",
 		"@graphql-codegen/typed-document-node": "^5.0.1",
 		"@graphql-codegen/typescript": "^4.0.1",

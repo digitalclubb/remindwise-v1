@@ -4,6 +4,10 @@
 	export let form;
 </script>
 
+<svelte:head>
+	<title>remindwise.io - Login</title>
+</svelte:head>
+
 <h1>Login</h1>
 <form method="post" use:enhance>
 	<label for="email">Email Address</label>

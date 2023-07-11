@@ -8,7 +8,8 @@
 		"format:write": "prettier --write . '**/*.{css,ts,tsx,js,json,md,svelte}'",
 		"test": "turbo run test",
 		"test:watch": "turbo run test:watch",
-		"test:e2e": "turbo run test:e2e",
+		"test:a11y": "turbo run test:a11y",
+		"test:functional": "turbo run test:functional",
 		"types": "turbo run types"
 	},
 	"devDependencies": {

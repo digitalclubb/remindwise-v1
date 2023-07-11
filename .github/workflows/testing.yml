@@ -40,8 +40,8 @@ jobs:
         uses: ./.github/actions/install-dependencies
       - name: Unit tests
         run: pnpm test
-  e2e:
-    name: End to end tests
+  playwright:
+    name: Browser tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -51,8 +51,10 @@ jobs:
         run: pnpm exec playwright install --with-deps
       - name: Build applications
         run: pnpm build
-      - name: Playwright tests
-        run: pnpm test:e2e
+      - name: Accessbility tests
+        run: pnpm test:a11y
+      - name: Functional tests
+        run: pnpm test:functional
       - uses: actions/upload-artifact@v3
         if: always()
         with:
