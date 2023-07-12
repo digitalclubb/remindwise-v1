@@ -61,3 +61,16 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 10
+  lighthouse:
+    name: Lighthouse
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        uses: ./.github/actions/install-dependencies
+      - name: Build applications
+        run: pnpm build
+      - name: Lighthouse tests
+        run: pnpm --package=@lhci/cli dlx lhci autorun --config=./apps/marketing/lighthouserc.json
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

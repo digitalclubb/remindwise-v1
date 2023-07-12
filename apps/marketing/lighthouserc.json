@@ -1,0 +1,12 @@
+{
+	"ci": {
+		"collect": {
+			"url": ["http://localhost:4173/"],
+			"numberOfRuns": 1,
+			"startServerCommand": "pnpm preview"
+		},
+		"upload": {
+			"target": "temporary-public-storage"
+		}
+	}
+}
