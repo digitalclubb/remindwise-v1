@@ -72,3 +72,5 @@ jobs:
         run: pnpm build
       - name: Lighthouse tests
         run: pnpm --package=@lhci/cli dlx lhci autorun --config=./apps/marketing/lighthouserc.json
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
