@@ -12,7 +12,7 @@ importers:
         specifier: 4.0.1
         version: 4.0.1(@babel/core@7.22.6)(graphql@16.7.1)
       '@playwright/test':
-        specifier: ^1.35.1
+        specifier: 1.35.1
         version: 1.35.1
       '@sveltejs/kit':
         specifier: 1.22.2
@@ -89,7 +89,7 @@ importers:
     devDependencies:
       '@axe-core/playwright':
         specifier: ^4.7.3
-        version: 4.7.3(playwright-core@1.35.1)
+        version: 4.7.3(playwright-core@1.36.0)
       '@graphql-codegen/cli':
         specifier: ^4.0.1
         version: 4.0.1(@babel/core@7.22.6)(graphql@16.7.1)
@@ -156,7 +156,7 @@ importers:
     devDependencies:
       '@axe-core/playwright':
         specifier: ^4.7.3
-        version: 4.7.3(playwright-core@1.35.1)
+        version: 4.7.3(playwright-core@1.36.0)
       '@playwright/test':
         specifier: 1.36.0
         version: 1.36.0
@@ -270,13 +270,13 @@ packages:
       - encoding
     dev: true
 
-  /@axe-core/playwright@4.7.3(playwright-core@1.35.1):
+  /@axe-core/playwright@4.7.3(playwright-core@1.36.0):
     resolution: {integrity: sha512-v2PRgAyGvop7bamrTpNJtc5b1R7giAPnMzZXrS/VDZBCY5+uwVYtCNgDvBsqp5P1QMZxUMoBN+CERJUTMjFN0A==}
     peerDependencies:
       playwright-core: '>= 1.0.0'
     dependencies:
       axe-core: 4.7.2
-      playwright-core: 1.35.1
+      playwright-core: 1.36.0
     dev: true
 
   /@babel/code-frame@7.22.5:
