@@ -15,11 +15,11 @@ importers:
         specifier: 1.36.0
         version: 1.36.0
       '@sveltejs/kit':
-        specifier: 1.22.2
-        version: 1.22.2(svelte@4.0.5)(vite@4.4.3)
+        specifier: 1.22.3
+        version: 1.22.3(svelte@4.0.5)(vite@4.4.4)
       '@sveltejs/vite-plugin-svelte':
         specifier: 2.4.2
-        version: 2.4.2(svelte@4.0.5)(vite@4.4.3)
+        version: 2.4.2(svelte@4.0.5)(vite@4.4.4)
       '@testing-library/jest-dom':
         specifier: 5.16.5
         version: 5.16.5
@@ -64,13 +64,13 @@ importers:
     dependencies:
       '@supabase/auth-helpers-sveltekit':
         specifier: 0.10.1
-        version: 0.10.1(@supabase/supabase-js@2.26.0)(@sveltejs/kit@1.22.2)
+        version: 0.10.1(@supabase/supabase-js@2.26.0)(@sveltejs/kit@1.22.3)
       '@supabase/supabase-js':
         specifier: 2.26.0
         version: 2.26.0
       '@urql/svelte':
-        specifier: 4.0.2
-        version: 4.0.2(graphql@16.7.1)(svelte@4.0.5)
+        specifier: 4.0.3
+        version: 4.0.3(graphql@16.7.1)(svelte@4.0.5)
       components:
         specifier: workspace:*
         version: link:../../components
@@ -110,10 +110,10 @@ importers:
         version: 1.36.0
       '@sveltejs/adapter-vercel':
         specifier: 3.0.2
-        version: 3.0.2(@sveltejs/kit@1.22.2)
+        version: 3.0.2(@sveltejs/kit@1.22.3)
       '@sveltejs/kit':
-        specifier: 1.22.2
-        version: 1.22.2(svelte@4.0.5)(vite@4.4.3)
+        specifier: 1.22.3
+        version: 1.22.3(svelte@4.0.5)(vite@4.4.4)
       '@testing-library/svelte':
         specifier: 4.0.3
         version: 4.0.3(svelte@4.0.5)
@@ -139,8 +139,8 @@ importers:
         specifier: 2.6.0
         version: 2.6.0
       vite:
-        specifier: 4.4.3
-        version: 4.4.3(@types/node@20.3.3)
+        specifier: 4.4.4
+        version: 4.4.4(@types/node@20.3.3)
       vite-plugin-graphql-loader:
         specifier: ^2.0.0
         version: 2.0.0
@@ -162,10 +162,10 @@ importers:
         version: 1.36.0
       '@sveltejs/adapter-vercel':
         specifier: 3.0.2
-        version: 3.0.2(@sveltejs/kit@1.22.2)
+        version: 3.0.2(@sveltejs/kit@1.22.3)
       '@sveltejs/kit':
-        specifier: 1.22.2
-        version: 1.22.2(svelte@4.0.5)(vite@4.4.3)
+        specifier: 1.22.3
+        version: 1.22.3(svelte@4.0.5)(vite@4.4.4)
       '@testing-library/svelte':
         specifier: 4.0.3
         version: 4.0.3(svelte@4.0.5)
@@ -185,8 +185,8 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
       vite:
-        specifier: 4.4.3
-        version: 4.4.3(@types/node@20.3.3)
+        specifier: 4.4.4
+        version: 4.4.4(@types/node@20.3.3)
       vitest:
         specifier: 0.33.0
         version: 0.33.0(jsdom@22.1.0)
@@ -195,7 +195,7 @@ importers:
     devDependencies:
       '@sveltejs/adapter-vercel':
         specifier: 3.0.2
-        version: 3.0.2(@sveltejs/kit@1.22.2)
+        version: 3.0.2(@sveltejs/kit@1.22.3)
       svelte:
         specifier: 4.0.5
         version: 4.0.5
@@ -1895,7 +1895,7 @@ packages:
       jose: 4.14.4
     dev: false
 
-  /@supabase/auth-helpers-sveltekit@0.10.1(@supabase/supabase-js@2.26.0)(@sveltejs/kit@1.22.2):
+  /@supabase/auth-helpers-sveltekit@0.10.1(@supabase/supabase-js@2.26.0)(@sveltejs/kit@1.22.3):
     resolution: {integrity: sha512-28pXA76s7lhw5YSbfB8d8goh7UKHZk2GCU2lIsf3KQLfBhIeYtwO3SL7SNKa50x9enFGgIQjlHj6ukSYeeR+1A==}
     peerDependencies:
       '@supabase/supabase-js': ^2.19.0
@@ -1903,7 +1903,7 @@ packages:
     dependencies:
       '@supabase/auth-helpers-shared': 0.4.1(@supabase/supabase-js@2.26.0)
       '@supabase/supabase-js': 2.26.0
-      '@sveltejs/kit': 1.22.2(svelte@4.0.5)(vite@4.4.3)
+      '@sveltejs/kit': 1.22.3(svelte@4.0.5)(vite@4.4.4)
     dev: false
 
   /@supabase/functions-js@2.1.2:
@@ -1962,12 +1962,12 @@ packages:
       - supports-color
     dev: false
 
-  /@sveltejs/adapter-vercel@3.0.2(@sveltejs/kit@1.22.2):
+  /@sveltejs/adapter-vercel@3.0.2(@sveltejs/kit@1.22.3):
     resolution: {integrity: sha512-CQcLoKeVmF5Si+sJax0v8KMtXviJXfDXozJt3zfPHHYytCwMcGpJXsgqpqUbkdaF2xxgXuhTD7ClhQRFThbprw==}
     peerDependencies:
       '@sveltejs/kit': ^1.5.0
     dependencies:
-      '@sveltejs/kit': 1.22.2(svelte@4.0.5)(vite@4.4.3)
+      '@sveltejs/kit': 1.22.3(svelte@4.0.5)(vite@4.4.4)
       '@vercel/nft': 0.22.6
       esbuild: 0.18.11
     transitivePeerDependencies:
@@ -1975,8 +1975,8 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/kit@1.22.2(svelte@4.0.5)(vite@4.4.3):
-    resolution: {integrity: sha512-T6GY5jSfQgoDnNPNqAuDi9IK+ZW0TspzTV16UAN6GTsxbri67DGVIbw7QOXPg8FMrZQMmda1AtAxPMfXbOqCgw==}
+  /@sveltejs/kit@1.22.3(svelte@4.0.5)(vite@4.4.4):
+    resolution: {integrity: sha512-IpHD5wvuoOIHYaHQUBJ1zERD2Iz+fB/rBXhXjl8InKw6X4VKE9BSus+ttHhE7Ke+Ie9ecfilzX8BnWE3FeQyng==}
     engines: {node: ^16.14 || >=18}
     hasBin: true
     requiresBuild: true
@@ -1984,7 +1984,7 @@ packages:
       svelte: ^3.54.0 || ^4.0.0-next.0
       vite: ^4.0.0
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 2.4.2(svelte@4.0.5)(vite@4.4.3)
+      '@sveltejs/vite-plugin-svelte': 2.4.2(svelte@4.0.5)(vite@4.4.4)
       '@types/cookie': 0.5.1
       cookie: 0.5.0
       devalue: 4.3.2
@@ -1997,11 +1997,11 @@ packages:
       sirv: 2.0.3
       svelte: 4.0.5
       undici: 5.22.1
-      vite: 4.4.3(@types/node@20.3.3)
+      vite: 4.4.4(@types/node@20.3.3)
     transitivePeerDependencies:
       - supports-color
 
-  /@sveltejs/vite-plugin-svelte-inspector@1.0.3(@sveltejs/vite-plugin-svelte@2.4.2)(svelte@4.0.5)(vite@4.4.3):
+  /@sveltejs/vite-plugin-svelte-inspector@1.0.3(@sveltejs/vite-plugin-svelte@2.4.2)(svelte@4.0.5)(vite@4.4.4):
     resolution: {integrity: sha512-Khdl5jmmPN6SUsVuqSXatKpQTMIifoQPDanaxC84m9JxIibWvSABJyHpyys0Z+1yYrxY5TTEQm+6elh0XCMaOA==}
     engines: {node: ^14.18.0 || >= 16}
     peerDependencies:
@@ -2009,29 +2009,29 @@ packages:
       svelte: ^3.54.0 || ^4.0.0
       vite: ^4.0.0
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 2.4.2(svelte@4.0.5)(vite@4.4.3)
+      '@sveltejs/vite-plugin-svelte': 2.4.2(svelte@4.0.5)(vite@4.4.4)
       debug: 4.3.4
       svelte: 4.0.5
-      vite: 4.4.3(@types/node@20.3.3)
+      vite: 4.4.4(@types/node@20.3.3)
     transitivePeerDependencies:
       - supports-color
 
-  /@sveltejs/vite-plugin-svelte@2.4.2(svelte@4.0.5)(vite@4.4.3):
+  /@sveltejs/vite-plugin-svelte@2.4.2(svelte@4.0.5)(vite@4.4.4):
     resolution: {integrity: sha512-ePfcC48ftMKhkT0OFGdOyycYKnnkT6i/buzey+vHRTR/JpQvuPzzhf1PtKqCDQfJRgoPSN2vscXs6gLigx/zGw==}
     engines: {node: ^14.18.0 || >= 16}
     peerDependencies:
       svelte: ^3.54.0 || ^4.0.0
       vite: ^4.0.0
     dependencies:
-      '@sveltejs/vite-plugin-svelte-inspector': 1.0.3(@sveltejs/vite-plugin-svelte@2.4.2)(svelte@4.0.5)(vite@4.4.3)
+      '@sveltejs/vite-plugin-svelte-inspector': 1.0.3(@sveltejs/vite-plugin-svelte@2.4.2)(svelte@4.0.5)(vite@4.4.4)
       debug: 4.3.4
       deepmerge: 4.3.1
       kleur: 4.1.5
       magic-string: 0.30.1
       svelte: 4.0.5
       svelte-hmr: 0.15.2(svelte@4.0.5)
-      vite: 4.4.3(@types/node@20.3.3)
-      vitefu: 0.2.4(vite@4.4.3)
+      vite: 4.4.4(@types/node@20.3.3)
+      vitefu: 0.2.4(vite@4.4.4)
     transitivePeerDependencies:
       - supports-color
 
@@ -2348,10 +2348,10 @@ packages:
       - graphql
     dev: false
 
-  /@urql/svelte@4.0.2(graphql@16.7.1)(svelte@4.0.5):
-    resolution: {integrity: sha512-/JvkffZ/RDCK3CihRJu35AhObHdShpm+aNHu/95ocHYSsnLKt2rPo/ccaEhfMAh9Umrhf74b6rjaGfd285x28w==}
+  /@urql/svelte@4.0.3(graphql@16.7.1)(svelte@4.0.5):
+    resolution: {integrity: sha512-snb0qW3fhvVPkiTzkeQ5tu9IIjyfeH7cJMvu8a9wzdG7PALoy4DPn0E71N3HoFLjxpEa1g782bgt3ac05vepCw==}
     peerDependencies:
-      svelte: ^3.0.0
+      svelte: ^3.0.0 || ^4.0.0
     dependencies:
       '@urql/core': 4.0.10(graphql@16.7.1)
       svelte: 4.0.5
@@ -6164,7 +6164,7 @@ packages:
       mlly: 1.4.0
       pathe: 1.1.1
       picocolors: 1.0.0
-      vite: 4.4.3(@types/node@20.3.3)
+      vite: 4.4.4(@types/node@20.3.3)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -6183,8 +6183,8 @@ packages:
       graphql-tag: 2.12.6(graphql@16.7.1)
     dev: true
 
-  /vite@4.4.3(@types/node@20.3.3):
-    resolution: {integrity: sha512-IMnXQXXWgLi5brBQx/4WzDxdzW0X3pjO4nqFJAuNvwKtxzAmPzFE1wszW3VDpAGQJm3RZkm/brzRdyGsnwgJIA==}
+  /vite@4.4.4(@types/node@20.3.3):
+    resolution: {integrity: sha512-4mvsTxjkveWrKDJI70QmelfVqTm+ihFAb6+xf4sjEU2TmUCTlVX87tmg/QooPEMQb/lM9qGHT99ebqPziEd3wg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -6218,7 +6218,7 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
 
-  /vitefu@0.2.4(vite@4.4.3):
+  /vitefu@0.2.4(vite@4.4.4):
     resolution: {integrity: sha512-fanAXjSaf9xXtOOeno8wZXIhgia+CZury481LsDaV++lSvcU2R9Ch2bPh3PYFyoHW+w9LqAeYRISVQjUIew14g==}
     peerDependencies:
       vite: ^3.0.0 || ^4.0.0
@@ -6226,7 +6226,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 4.4.3(@types/node@20.3.3)
+      vite: 4.4.4(@types/node@20.3.3)
 
   /vitest@0.33.0(jsdom@22.1.0):
     resolution: {integrity: sha512-1CxaugJ50xskkQ0e969R/hW47za4YXDUfWJDxip1hwbnhUjYolpfUn2AMOulqG/Dtd9WYAtkHmM/m3yKVrEejQ==}
@@ -6281,7 +6281,7 @@ packages:
       strip-literal: 1.0.1
       tinybench: 2.5.0
       tinypool: 0.6.0
-      vite: 4.4.3(@types/node@20.3.3)
+      vite: 4.4.4(@types/node@20.3.3)
       vite-node: 0.33.0(@types/node@20.3.3)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
