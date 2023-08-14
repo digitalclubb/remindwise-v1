@@ -1,0 +1,695 @@
+"""A high precision floating point value represented as a string"""
+scalar BigFloat
+
+"""
+Boolean expression comparing fields on type "BigFloat"
+"""
+input BigFloatFilter {
+  eq: BigFloat
+  gt: BigFloat
+  gte: BigFloat
+  in: [BigFloat!]
+  is: FilterIs
+  lt: BigFloat
+  lte: BigFloat
+  neq: BigFloat
+}
+
+"""An arbitrary size integer represented as a string"""
+scalar BigInt
+
+"""
+Boolean expression comparing fields on type "BigInt"
+"""
+input BigIntFilter {
+  eq: BigInt
+  gt: BigInt
+  gte: BigInt
+  in: [BigInt!]
+  is: FilterIs
+  lt: BigInt
+  lte: BigInt
+  neq: BigInt
+}
+
+"""
+Boolean expression comparing fields on type "Boolean"
+"""
+input BooleanFilter {
+  eq: Boolean
+  is: FilterIs
+}
+
+"""
+An opaque string using for tracking a position in results during pagination
+"""
+scalar Cursor
+
+"""A date wihout time information"""
+scalar Date
+
+"""
+Boolean expression comparing fields on type "Date"
+"""
+input DateFilter {
+  eq: Date
+  gt: Date
+  gte: Date
+  in: [Date!]
+  is: FilterIs
+  lt: Date
+  lte: Date
+  neq: Date
+}
+
+"""A date and time"""
+scalar Datetime
+
+"""
+Boolean expression comparing fields on type "Datetime"
+"""
+input DatetimeFilter {
+  eq: Datetime
+  gt: Datetime
+  gte: Datetime
+  in: [Datetime!]
+  is: FilterIs
+  lt: Datetime
+  lte: Datetime
+  neq: Datetime
+}
+
+enum FilterIs {
+  NOT_NULL
+  NULL
+}
+
+"""
+Boolean expression comparing fields on type "Float"
+"""
+input FloatFilter {
+  eq: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  is: FilterIs
+  lt: Float
+  lte: Float
+  neq: Float
+}
+
+"""
+Boolean expression comparing fields on type "ID"
+"""
+input IDFilter {
+  eq: ID
+}
+
+"""
+Boolean expression comparing fields on type "Int"
+"""
+input IntFilter {
+  eq: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  is: FilterIs
+  lt: Int
+  lte: Int
+  neq: Int
+}
+
+"""A Javascript Object Notation value serialized as a string"""
+scalar JSON
+
+"""The root type for creating and mutating data"""
+type Mutation {
+  """Deletes zero or more records from the `categories` collection"""
+  deleteFromcategoriesCollection(
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: categoriesFilter
+  ): categoriesDeleteResponse!
+
+  """Deletes zero or more records from the `reminders` collection"""
+  deleteFromremindersCollection(
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: remindersFilter
+  ): remindersDeleteResponse!
+
+  """Deletes zero or more records from the `settings` collection"""
+  deleteFromsettingsCollection(
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: settingsFilter
+  ): settingsDeleteResponse!
+
+  """Adds one or more `categories` records to the collection"""
+  insertIntocategoriesCollection(objects: [categoriesInsertInput!]!): categoriesInsertResponse
+
+  """Adds one or more `reminders` records to the collection"""
+  insertIntoremindersCollection(objects: [remindersInsertInput!]!): remindersInsertResponse
+
+  """Adds one or more `settings` records to the collection"""
+  insertIntosettingsCollection(objects: [settingsInsertInput!]!): settingsInsertResponse
+
+  """Updates zero or more records in the `categories` collection"""
+  updatecategoriesCollection(
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: categoriesFilter
+
+    """
+    Fields that are set will be updated for all records matching the `filter`
+    """
+    set: categoriesUpdateInput!
+  ): categoriesUpdateResponse!
+
+  """Updates zero or more records in the `reminders` collection"""
+  updateremindersCollection(
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: remindersFilter
+
+    """
+    Fields that are set will be updated for all records matching the `filter`
+    """
+    set: remindersUpdateInput!
+  ): remindersUpdateResponse!
+
+  """Updates zero or more records in the `settings` collection"""
+  updatesettingsCollection(
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: settingsFilter
+
+    """
+    Fields that are set will be updated for all records matching the `filter`
+    """
+    set: settingsUpdateInput!
+  ): settingsUpdateResponse!
+}
+
+interface Node {
+  """Retrieves a record by `ID`"""
+  nodeId: ID!
+}
+
+"""Any type not handled by the type system"""
+scalar Opaque
+
+"""
+Boolean expression comparing fields on type "Opaque"
+"""
+input OpaqueFilter {
+  eq: Opaque
+  is: FilterIs
+}
+
+"""Defines a per-field sorting order"""
+enum OrderByDirection {
+  """Ascending order, nulls first"""
+  AscNullsFirst
+
+  """Ascending order, nulls last"""
+  AscNullsLast
+
+  """Descending order, nulls first"""
+  DescNullsFirst
+
+  """Descending order, nulls last"""
+  DescNullsLast
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+"""The root type for querying data"""
+type Query {
+  """A pagable collection of type `categories`"""
+  categoriesCollection(
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: categoriesFilter
+
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Sort order to apply to the collection"""
+    orderBy: [categoriesOrderBy!]
+  ): categoriesConnection
+
+  """Retrieve a record by its `ID`"""
+  node(
+    """The record's `ID`"""
+    nodeId: ID!
+  ): Node
+
+  """A pagable collection of type `reminders`"""
+  remindersCollection(
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: remindersFilter
+
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Sort order to apply to the collection"""
+    orderBy: [remindersOrderBy!]
+  ): remindersConnection
+
+  """A pagable collection of type `settings`"""
+  settingsCollection(
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: settingsFilter
+
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Sort order to apply to the collection"""
+    orderBy: [settingsOrderBy!]
+  ): settingsConnection
+}
+
+"""
+Boolean expression comparing fields on type "String"
+"""
+input StringFilter {
+  eq: String
+  gt: String
+  gte: String
+  ilike: String
+  in: [String!]
+  iregex: String
+  is: FilterIs
+  like: String
+  lt: String
+  lte: String
+  neq: String
+  regex: String
+  startsWith: String
+}
+
+"""A time without date information"""
+scalar Time
+
+"""
+Boolean expression comparing fields on type "Time"
+"""
+input TimeFilter {
+  eq: Time
+  gt: Time
+  gte: Time
+  in: [Time!]
+  is: FilterIs
+  lt: Time
+  lte: Time
+  neq: Time
+}
+
+"""A universally unique identifier"""
+scalar UUID
+
+"""
+Boolean expression comparing fields on type "UUID"
+"""
+input UUIDFilter {
+  eq: UUID
+  in: [UUID!]
+  is: FilterIs
+  neq: UUID
+}
+
+type categories implements Node {
+  created_at: Datetime
+  iconId: String
+  id: BigInt!
+  isLocked: Boolean
+  name: String!
+
+  """Globally Unique Record Identifier"""
+  nodeId: ID!
+  remindersCollection(
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: remindersFilter
+
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Sort order to apply to the collection"""
+    orderBy: [remindersOrderBy!]
+  ): remindersConnection
+  settings: settings
+  userid: UUID
+}
+
+type categoriesConnection {
+  edges: [categoriesEdge!]!
+  pageInfo: PageInfo!
+}
+
+type categoriesDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [categories!]!
+}
+
+type categoriesEdge {
+  cursor: String!
+  node: categories!
+}
+
+input categoriesFilter {
+  created_at: DatetimeFilter
+  iconId: StringFilter
+  id: BigIntFilter
+  isLocked: BooleanFilter
+  name: StringFilter
+  nodeId: IDFilter
+  userid: UUIDFilter
+}
+
+input categoriesInsertInput {
+  created_at: Datetime
+  iconId: String
+  isLocked: Boolean
+  name: String
+  userid: UUID
+}
+
+type categoriesInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [categories!]!
+}
+
+input categoriesOrderBy {
+  created_at: OrderByDirection
+  iconId: OrderByDirection
+  id: OrderByDirection
+  isLocked: OrderByDirection
+  name: OrderByDirection
+  userid: OrderByDirection
+}
+
+input categoriesUpdateInput {
+  created_at: Datetime
+  iconId: String
+  isLocked: Boolean
+  name: String
+  userid: UUID
+}
+
+type categoriesUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [categories!]!
+}
+
+type reminders implements Node {
+  autoRenewal: Boolean
+  category: categories
+  categoryId: BigInt
+  company: String
+  cost: Float
+  created_at: Datetime
+  dateOfRenewal: Date
+  enabled: Boolean!
+  id: BigInt!
+
+  """Globally Unique Record Identifier"""
+  nodeId: ID!
+  notes: String
+  settings: settings
+  userid: UUID
+}
+
+type remindersConnection {
+  edges: [remindersEdge!]!
+  pageInfo: PageInfo!
+}
+
+type remindersDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [reminders!]!
+}
+
+type remindersEdge {
+  cursor: String!
+  node: reminders!
+}
+
+input remindersFilter {
+  autoRenewal: BooleanFilter
+  categoryId: BigIntFilter
+  company: StringFilter
+  cost: FloatFilter
+  created_at: DatetimeFilter
+  dateOfRenewal: DateFilter
+  enabled: BooleanFilter
+  id: BigIntFilter
+  nodeId: IDFilter
+  notes: StringFilter
+  userid: UUIDFilter
+}
+
+input remindersInsertInput {
+  autoRenewal: Boolean
+  categoryId: BigInt
+  company: String
+  cost: Float
+  created_at: Datetime
+  dateOfRenewal: Date
+  enabled: Boolean
+  notes: String
+  userid: UUID
+}
+
+type remindersInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [reminders!]!
+}
+
+input remindersOrderBy {
+  autoRenewal: OrderByDirection
+  categoryId: OrderByDirection
+  company: OrderByDirection
+  cost: OrderByDirection
+  created_at: OrderByDirection
+  dateOfRenewal: OrderByDirection
+  enabled: OrderByDirection
+  id: OrderByDirection
+  notes: OrderByDirection
+  userid: OrderByDirection
+}
+
+input remindersUpdateInput {
+  autoRenewal: Boolean
+  categoryId: BigInt
+  company: String
+  cost: Float
+  created_at: Datetime
+  dateOfRenewal: Date
+  enabled: Boolean
+  notes: String
+  userid: UUID
+}
+
+type remindersUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [reminders!]!
+}
+
+type settings implements Node {
+  categoriesCollection(
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: categoriesFilter
+
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Sort order to apply to the collection"""
+    orderBy: [categoriesOrderBy!]
+  ): categoriesConnection
+  email: String
+  first_name: String
+  id: UUID!
+  last_name: String
+
+  """Globally Unique Record Identifier"""
+  nodeId: ID!
+  remindersCollection(
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: remindersFilter
+
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Sort order to apply to the collection"""
+    orderBy: [remindersOrderBy!]
+  ): remindersConnection
+  updated_at: Datetime
+}
+
+type settingsConnection {
+  edges: [settingsEdge!]!
+  pageInfo: PageInfo!
+}
+
+type settingsDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [settings!]!
+}
+
+type settingsEdge {
+  cursor: String!
+  node: settings!
+}
+
+input settingsFilter {
+  email: StringFilter
+  first_name: StringFilter
+  id: UUIDFilter
+  last_name: StringFilter
+  nodeId: IDFilter
+  updated_at: DatetimeFilter
+}
+
+input settingsInsertInput {
+  email: String
+  first_name: String
+  id: UUID
+  last_name: String
+  updated_at: Datetime
+}
+
+type settingsInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [settings!]!
+}
+
+input settingsOrderBy {
+  email: OrderByDirection
+  first_name: OrderByDirection
+  id: OrderByDirection
+  last_name: OrderByDirection
+  updated_at: OrderByDirection
+}
+
+input settingsUpdateInput {
+  email: String
+  first_name: String
+  id: UUID
+  last_name: String
+  updated_at: Datetime
+}
+
+type settingsUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [settings!]!
+}

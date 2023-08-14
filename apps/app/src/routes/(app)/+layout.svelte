@@ -1,12 +1,4 @@
 <script lang="ts">
-	import {
-		createClient,
-		cacheExchange,
-		fetchExchange,
-		setContextClient,
-	} from '@urql/svelte';
-	import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY } from '$env/static/public';
-
 	import Sprite from '../../components/icons/Sprite.svelte';
 	import Navigation from '../../components/navigation/Navigation.svelte';
 
@@ -26,20 +18,20 @@
 	});
 
 	$: if (session) {
-		const headers = {
-			apikey: PUBLIC_SUPABASE_KEY,
-			authorization: `Bearer ${session?.access_token}`,
-		};
+		// const headers = {
+		// 	apikey: PUBLIC_SUPABASE_KEY,
+		// 	authorization: `Bearer ${session?.access_token}`,
+		// };
 
-		const client = createClient({
-			url: `${PUBLIC_SUPABASE_URL}/graphql/v1`,
-			exchanges: [cacheExchange, fetchExchange],
-			fetchOptions: function createFetchOptions() {
-				return { headers };
-			},
-		});
+		// const client = createClient({
+		// 	url: `${PUBLIC_SUPABASE_URL}/graphql/v1`,
+		// 	exchanges: [cacheExchange, fetchExchange],
+		// 	fetchOptions: function createFetchOptions() {
+		// 		return { headers };
+		// 	},
+		// });
 
-		setContextClient(client);
+		// setContextClient(client);
 	}
 </script>
 

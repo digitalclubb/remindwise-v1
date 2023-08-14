@@ -1,4 +1,4 @@
-query getCategories {
+query x @load {
 	categories: categoriesCollection {
 		list: edges {
 			category: node {

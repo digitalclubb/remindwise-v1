@@ -1,4 +1,4 @@
-query getSettings {
+query xy {
 	settings: settingsCollection {
 		list: edges {
 			setting: node {

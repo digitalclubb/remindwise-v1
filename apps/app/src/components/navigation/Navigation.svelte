@@ -1,11 +1,4 @@
 <script lang="ts">
-	import {
-		getContextClient,
-		gql,
-		queryStore,
-		mutationStore,
-	} from '@urql/svelte';
-
 	import addCategory from '@graphql/mutations/addCategory.graphql';
 	import getCategories from '@graphql/queries/getCategories.graphql';
 	import getSettings from '@graphql/queries/getSettings.graphql';
@@ -13,8 +6,6 @@
 	import { icons } from '../icons/icons';
 
 	import { Button } from 'components';
-
-	const client = getContextClient();
 
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
@@ -26,52 +17,76 @@
 		GetSettingsQueryVariables,
 	} from '@graphql/types';
 
-	$: categories = queryStore({
-		client,
-		query: gql`
-			${getCategories}
-		`,
-	});
+    import { graphql } from '$houdini'
+    
+    
+    const categories = graphql(`
+		query getCategories @load {
+			categories: categoriesCollection {
+				list: edges {
+					category: node {
+						id
+						name
+						iconId
+					}
+				}
+			}
+		}`)
 
-	const refreshCategories = () => {
-		queryStore<GetCategoriesQuery, GetCategoriesQueryVariables>({
-			client,
-			query: gql`
-				${getCategories}
-			`,
-			requestPolicy: 'network-only',
-		});
-	};
 
-	refresh.subscribe((value) => {
-		if (value) {
-			refreshCategories();
-			refresh.set(false);
-		}
-	});
+	// $: categories = queryStore({
+	// 	client,
+	// 	query: gql`
+	// 		${getCategories}
+	// 	`,
+	// });
 
-	$: settings = queryStore<GetSettingsQuery, GetSettingsQueryVariables>({
-		client,
-		query: gql`
-			${getSettings}
-		`,
-	});
+	// const refreshCategories = () => {
+	// 	queryStore<GetCategoriesQuery, GetCategoriesQueryVariables>({
+	// 		client,
+	// 		query: gql`
+	// 			${getCategories}
+	// 		`,
+	// 		requestPolicy: 'network-only',
+	// 	});
+	// };
+
+	// refresh.subscribe((value) => {
+	// 	if (value) {
+	// 		refreshCategories();
+	// 		refresh.set(false);
+	// 	}
+	// });
+
+	const settings = graphql(`
+		query getSettings @load {
+			settings: settingsCollection {
+				list: edges {
+					setting: node {
+						id
+						first_name
+						last_name
+						email
+					}
+				}
+			}
+		}`)
 
 	let showModal = false;
 	const onAddCategory = (event: SubmitEvent) => {
 		const formData = new FormData(event.target as HTMLFormElement);
-		mutationStore({
-			client,
-			query: gql`
-				${addCategory}
-			`,
-			variables: {
-				category: formData.get('category')?.toString().toLowerCase(),
-				isLocked: false,
-				iconId: formData.get('icon'),
-				userId: $page.data.session?.user.id,
-			},
-		});
+		// mutationStore({
+		// 	client,
+		// 	query: gql`
+		// 		${addCategory}
+		// 	`,
+		// 	variables: {
+		// 		category: formData.get('category')?.toString().toLowerCase(),
+		// 		isLocked: false,
+		// 		iconId: formData.get('icon'),
+		// 		userId: $page.data.session?.user.id,
+		// 	},
+		// });
 		showModal = false;
 	};
 
@@ -86,9 +101,9 @@
 	<div class="profile">
 		{#if $settings.fetching}
 			<li>Loading...</li>
-		{:else if $settings.error}
-			<li>{$settings.error.message}</li>
-		{:else}
+		{:else if $settings.errors}
+			<li>{$settings.errors}</li>
+		{:else if $settings.data?.settings}
 			<h3>
 				{$settings.data?.settings?.list[0].setting.first_name +
 					' ' +
@@ -105,9 +120,9 @@
 		</li>
 		{#if $categories.fetching}
 			<li>Loading...</li>
-		{:else if $categories.error}
-			<li>{$categories.error.message}</li>
-		{:else}
+		{:else if $categories.errors}
+			<li>{$categories.errors}</li>
+		{:else if $categories.data?.categories}
 			{#each $categories.data.categories.list as category}
 				<li>
 					<a href="/category/{category.category.name}"
