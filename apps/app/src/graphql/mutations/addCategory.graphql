@@ -1,4 +1,4 @@
-mutation addCategory(
+mutation addCatxegory(
 	$category: String!
 	$isLocked: Boolean!
 	$iconId: String!

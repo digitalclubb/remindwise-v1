@@ -20,7 +20,7 @@
     import { graphql } from '$houdini'
     
     
-    const categories = graphql(`
+    $: categories = graphql(`
 		query getCategories @load {
 			categories: categoriesCollection {
 				list: edges {
@@ -32,14 +32,6 @@
 				}
 			}
 		}`)
-
-
-	// $: categories = queryStore({
-	// 	client,
-	// 	query: gql`
-	// 		${getCategories}
-	// 	`,
-	// });
 
 	// const refreshCategories = () => {
 	// 	queryStore<GetCategoriesQuery, GetCategoriesQueryVariables>({
@@ -58,7 +50,7 @@
 	// 	}
 	// });
 
-	const settings = graphql(`
+	$: settings = graphql(`
 		query getSettings @load {
 			settings: settingsCollection {
 				list: edges {
@@ -73,20 +65,40 @@
 		}`)
 
 	let showModal = false;
-	const onAddCategory = (event: SubmitEvent) => {
+
+	    
+    const addCategoryMutation = graphql(`mutation addCategory(
+		$category: String!
+		$isLocked: Boolean!
+		$iconId: String!
+		$userId: UUID
+	) {
+		insertIntocategoriesCollection(
+			objects: [
+				{ name: $category, isLocked: $isLocked, iconId: $iconId, userid: $userId }
+			]
+		) {
+			affectedCount
+			records {
+				id
+				name
+				isLocked
+				iconId
+				userid
+			}
+		}
+	}
+	`)
+
+	const onAddCategory = async (event: SubmitEvent) => {
 		const formData = new FormData(event.target as HTMLFormElement);
-		// mutationStore({
-		// 	client,
-		// 	query: gql`
-		// 		${addCategory}
-		// 	`,
-		// 	variables: {
-		// 		category: formData.get('category')?.toString().toLowerCase(),
-		// 		isLocked: false,
-		// 		iconId: formData.get('icon'),
-		// 		userId: $page.data.session?.user.id,
-		// 	},
-		// });
+
+		await addCategoryMutation.mutate({ 
+			category: formData.get('category')?.toString().toLowerCase() || '',
+			isLocked: false,
+			iconId: formData.get('icon')?.toString() || '',
+			userId: $page.data.session?.user.id,
+		 })
 		showModal = false;
 	};
 
