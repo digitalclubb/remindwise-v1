@@ -27,7 +27,7 @@
 		"layercake": "7.6.1"
 	},
 	"devDependencies": {
-		"@axe-core/playwright": "^4.7.3",
+		"@axe-core/playwright": "4.7.3",
 		"@graphql-codegen/cli": "^5.0.0",
 		"@graphql-codegen/typed-document-node": "^5.0.1",
 		"@graphql-codegen/typescript": "^4.0.1",
