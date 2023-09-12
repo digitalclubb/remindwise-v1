@@ -20,18 +20,18 @@
 		"@sveltejs/vite-plugin-svelte": "2.4.5",
 		"@testing-library/jest-dom": "6.1.3",
 		"@testing-library/svelte": "4.0.3",
-		"@typescript-eslint/eslint-plugin": "6.6.0",
-		"@typescript-eslint/parser": "6.6.0",
-		"eslint": "8.48.0",
-		"eslint-plugin-svelte": "2.33.0",
+		"@typescript-eslint/eslint-plugin": "6.7.0",
+		"@typescript-eslint/parser": "6.7.0",
+		"eslint": "8.49.0",
+		"eslint-plugin-svelte": "2.33.1",
 		"jsdom": "22.1.0",
 		"prettier": "3.0.3",
 		"prettier-plugin-svelte": "3.0.3",
 		"svelte": "4.2.0",
 		"turbo": "1.10.13",
 		"typescript": "5.2.2",
-		"vitest": "0.34.3"
+		"vitest": "0.34.4"
 	},
 	"prepare": "svelte-kit sync",
-	"packageManager": "pnpm@8.7.4"
+	"packageManager": "pnpm@8.7.5"
 }
