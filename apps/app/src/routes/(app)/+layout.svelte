@@ -6,7 +6,7 @@
 	import { onMount } from 'svelte';
 
 	export let data;
-	$: ({ supabase, session } = data);
+	$: ({ supabase, session, x } = data);
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange((event, _session) => {
 			if (_session?.expires_at !== session?.expires_at) {
@@ -22,7 +22,6 @@
 		// 	apikey: PUBLIC_SUPABASE_KEY,
 		// 	authorization: `Bearer ${session?.access_token}`,
 		// };
-
 		// const client = createClient({
 		// 	url: `${PUBLIC_SUPABASE_URL}/graphql/v1`,
 		// 	exchanges: [cacheExchange, fetchExchange],
@@ -30,13 +29,12 @@
 		// 		return { headers };
 		// 	},
 		// });
-
 		// setContextClient(client);
 	}
 </script>
 
 <main>
-	<Navigation />
+	<Navigation categoriesStore={x} />
 	<div>
 		<slot />
 	</div>

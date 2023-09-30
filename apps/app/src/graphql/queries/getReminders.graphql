@@ -1,4 +1,4 @@
-query getReminders($categoryId: BigInt) {
+query getRemindersY($categoryId: BigInt) {
 	reminders: remindersCollection(filter: { categoryId: { eq: $categoryId } }) {
 		list: edges {
 			reminder: node {

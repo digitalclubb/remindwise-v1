@@ -1,52 +1,14 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { getContextClient } from '@urql/svelte';
 
-	import getCategoryId from '@graphql/queries/getCategoryId.graphql';
-	import getReminders from '@graphql/queries/getReminders.graphql';
-	import type {
-		GetCategoryIdQuery,
-		GetCategoryIdQueryVariables,
-		GetRemindersQuery,
-		GetRemindersQueryVariables,
-	} from '@graphql/types';
+	export let data;
 
-	const client = getContextClient();
+	$: ({ getRemindersY } = data);
 
-	$: getCategory = async () => {
-		return await client
-			.query<GetCategoryIdQuery, GetCategoryIdQueryVariables>(getCategoryId, {
-				category: $page.params.slug,
-			})
-			.toPromise()
-			.then((result) => {
-				return result.data?.categories?.list[0].category.id;
-			});
-	};
-
-	$: getRemindersList = async () => {
-		const categoryId = await getCategory();
-
-		return await client
-			.query<GetRemindersQuery, GetRemindersQueryVariables>(
-				getReminders,
-				{
-					categoryId,
-				},
-				{
-					requestPolicy: 'cache-and-network',
-				}
-			)
-			.toPromise()
-			.then((result) => {
-				return {
-					list: result.data?.reminders?.list ?? [],
-					total: result.data?.reminders?.list.length ?? 0,
-				};
-			});
-	};
-
-	$: reminders = getRemindersList();
+	// TODO
+	// seems quite hard to get access to the stores. how to do multiple queries in one page? load thing is confusing
+	// If the layout exports categories, we can filter on those
+	// Current problem is that those aren't updating when we add a new category, I think
 </script>
 
 <h1><span>{$page.params.slug}</span> reminders</h1>
@@ -54,9 +16,9 @@
 <a class="button" href="/reminder/add">Add reminder</a>
 <a class="button" href={`/category/edit/${$page.params.slug}`}>Edit Category</a>
 
-{#await reminders}
+{#if $getRemindersY.fetching}
 	<p>Fetching reminders...</p>
-{:then reminders}
+{:else}
 	<section class="boxes">
 		<article class="box">
 			<div class="icon">
@@ -64,7 +26,7 @@
 			</div>
 			<div>
 				<h2>No. reminders</h2>
-				<p>{reminders.total}</p>
+				<p>{$getRemindersY.data?.reminders?.list.length}</p>
 			</div>
 		</article>
 		<article class="box">
@@ -92,7 +54,7 @@
 
 	<h2>All reminders</h2>
 
-	{#if reminders.total > 0}
+	{#if $getRemindersY.data?.reminders?.list.length && $getRemindersY.data?.reminders?.list.length > 0}
 		<table>
 			<thead>
 				<tr>
@@ -106,7 +68,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each reminders.list as reminder}
+				{#each $getRemindersY.data?.reminders?.list as reminder}
 					<tr>
 						<td>{reminder.reminder.company}</td>
 						<td>{reminder.reminder.cost}</td>
@@ -124,9 +86,7 @@
 	{:else}
 		<p>No reminders found...</p>
 	{/if}
-{:catch error}
-	<p>Error fetching reminders: {error.message}</p>
-{/await}
+{/if}
 
 <style>
 	h1 span {
