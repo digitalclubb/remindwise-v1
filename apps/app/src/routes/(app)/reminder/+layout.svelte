@@ -9,8 +9,8 @@
 	import { goto } from '$app/navigation';
 	import { Button } from 'components';
 
-	import getCategories from '@graphql/queries/getCategories.graphql';
-	import addReminder from '@graphql/mutations/addReminder.graphql';
+	// import getCategories from '@graphql/queries/getCategories.graphql';
+	// import addReminder from '@graphql/mutations/addReminder.graphql';
 	import type {
 		AddReminderMutation,
 		AddReminderMutationVariables,
@@ -18,53 +18,57 @@
 		GetCategoriesQueryVariables,
 	} from '@graphql/types';
 
-	const client = getContextClient();
+	export let data;
+
+	$: ({ getCategories } = data);
+
+	$: categories = $getCategories.data?.categories?.list;
 
 	const previousPage = $navigating?.from ? $navigating.from.url.pathname : '/';
 	const previousCategory = previousPage.substring(
 		previousPage.indexOf('category') + 9
 	);
 
-	const categories = queryStore<
-		GetCategoriesQuery,
-		GetCategoriesQueryVariables
-	>({
-		client,
-		query: gql`
-			${getCategories}
-		`,
-	});
+	// const categories = queryStore<
+	// 	GetCategoriesQuery,
+	// 	GetCategoriesQueryVariables
+	// >({
+	// 	client,
+	// 	query: gql`
+	// 		${getCategories}
+	// 	`,
+	// });
 
 	const createReminder = (event: SubmitEvent) => {
 		const formData = new FormData(event.target as HTMLFormElement);
 		const cost = formData.get('cost');
 
-		mutationStore<AddReminderMutation, AddReminderMutationVariables>({
-			client,
-			query: gql`
-				${addReminder}
-			`,
-			variables: {
-				categoryId: formData.get('category'),
-				company: formData.get('company')?.toString() ?? '',
-				cost: cost ? parseFloat(cost.toString()) : undefined,
-				dateOfRenewal: formData.get('renewal'),
-				autoRenewal: formData.get('auto') === 'true',
-				notes: formData.get('notes')?.toString(),
-				userid: $page.data.session?.user.id,
-				enabled: true,
-			},
-		}).subscribe((result) => {
-			if (result.error) {
-				// Error
-				console.log('Error', result);
-			}
+		// mutationStore<AddReminderMutation, AddReminderMutationVariables>({
+		// 	client,
+		// 	query: gql`
+		// 		${addReminder}
+		// 	`,
+		// 	variables: {
+		// 		categoryId: formData.get('category'),
+		// 		company: formData.get('company')?.toString() ?? '',
+		// 		cost: cost ? parseFloat(cost.toString()) : undefined,
+		// 		dateOfRenewal: formData.get('renewal'),
+		// 		autoRenewal: formData.get('auto') === 'true',
+		// 		notes: formData.get('notes')?.toString(),
+		// 		userid: $page.data.session?.user.id,
+		// 		enabled: true,
+		// 	},
+		// }).subscribe((result) => {
+		// 	if (result.error) {
+		// 		// Error
+		// 		console.log('Error', result);
+		// 	}
 
-			if (result.data) {
-				// Success
-				goto(previousPage);
-			}
-		});
+		// 	if (result.data) {
+		// 		// Success
+		// 		goto(previousPage);
+		// 	}
+		// });
 	};
 </script>
 
@@ -74,10 +78,10 @@
 	<div>
 		<label for="category-select">Which category?</label>
 		<select name="category-select" id="category-select" required>
-			{#if $categories.fetching}
+			{#if $getCategories.fetching}
 				<option value="">Loading...</option>
-			{:else if $categories.data?.categories}
-				{#each $categories.data?.categories?.list as category}
+			{:else if categories}
+				{#each categories as category}
 					<option
 						value={category.category.id}
 						selected={previousCategory === category.category.name}
@@ -197,7 +201,8 @@
 		padding: 8px 16px;
 		margin-right: -1px;
 		border: 1px solid rgba(0, 0, 0, 0.2);
-		box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3),
+		box-shadow:
+			inset 0 1px 2px rgba(0, 0, 0, 0.3),
 			0 1px rgba(255, 255, 255, 0.1);
 		transition: all 0.1s ease-in-out;
 	}

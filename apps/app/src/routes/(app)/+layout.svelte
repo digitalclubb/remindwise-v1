@@ -6,7 +6,7 @@
 	import { onMount } from 'svelte';
 
 	export let data;
-	$: ({ supabase, session, x } = data);
+	$: ({ supabase, session, getCategories, getSettings } = data);
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange((event, _session) => {
 			if (_session?.expires_at !== session?.expires_at) {
@@ -34,7 +34,7 @@
 </script>
 
 <main>
-	<Navigation categoriesStore={x} />
+	<Navigation categoriesStore={getCategories} getSettingsStore={getSettings} />
 	<div>
 		<slot />
 	</div>

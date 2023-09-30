@@ -1,19 +1,19 @@
 import type { PageLoad } from './$types';
-import { load_getRemindersY } from '$houdini';
+import { load_getReminders } from '$houdini';
 
 export const load: PageLoad = async (event) => {
-	const { x } = await event.parent();
-	let d;
-	x.subscribe((res) => {
+	const { getCategories } = await event.parent();
+	let category;
+	getCategories.subscribe((res) => {
 		const cat = res.data?.categories?.list.find(
 			(cat) => cat.category.name === event.params.slug
 		);
-		d = cat?.category.id;
+		category = cat?.category.id;
 	});
 	return {
-		...(await load_getRemindersY({
+		...(await load_getReminders({
 			event,
-			variables: { categoryId: d },
+			variables: { categoryId: category },
 		})),
 	};
 };

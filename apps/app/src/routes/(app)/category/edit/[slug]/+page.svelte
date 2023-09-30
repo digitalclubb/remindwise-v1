@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { navigating, page } from '$app/stores';
-	import getCategoryId from '@graphql/queries/getCategoryId.graphql';
 	import deleteCategory from '@graphql/mutations/deleteCategory.graphql';
 	import updateCategory from '@graphql/mutations/updateCategory.graphql';
 	import Button from 'components/button/Button.svelte';
@@ -14,80 +13,73 @@
 	} from '@urql/svelte';
 	import { refresh } from '../../../../../stores';
 	import { icons } from '../../../../../components/icons/icons';
-	import type {
-		DeleteCategoryMutation,
-		DeleteCategoryMutationVariables,
-		GetCategoryIdQuery,
-		GetCategoryIdQueryVariables,
-		UpdateCategoryMutation,
-		UpdateCategoryMutationVariables,
-	} from '@graphql/types';
-
-	const client = getContextClient();
 	const previousPage = $navigating?.from ? $navigating.from.url.pathname : '/';
 
 	let showModal = false;
+	export let data;
 
-	const category = queryStore<GetCategoryIdQuery, GetCategoryIdQueryVariables>({
-		client,
-		query: gql`
-			${getCategoryId}
-		`,
-		variables: {
-			category: $page.params.slug,
-		},
-	});
+	$: ({ getCategoryId } = data);
+
+	$: category = $getCategoryId.data?.categories?.list[0].category;
+	// const category = queryStore<GetCategoryIdQuery, GetCategoryIdQueryVariables>({
+	// 	client,
+	// 	query: gql`
+	// 		${getCategoryId}
+	// 	`,
+	// 	variables: {
+	// 		category: $page.params.slug,
+	// 	},
+	// });
 
 	const onDelete = async () => {
-		mutationStore<DeleteCategoryMutation, DeleteCategoryMutationVariables>({
-			client,
-			query: gql`
-				${deleteCategory}
-			`,
-			variables: {
-				category: $page.params.slug,
-			},
-		}).subscribe((result) => {
-			if (result.error) {
-				// Error
-				console.log('Error', result);
-			}
-
-			if (result.data) {
-				refresh.update((n) => !n);
-				goto('/');
-			}
-		});
+		// mutationStore<DeleteCategoryMutation, DeleteCategoryMutationVariables>({
+		// 	client,
+		// 	query: gql`
+		// 		${deleteCategory}
+		// 	`,
+		// 	variables: {
+		// 		category: $page.params.slug,
+		// 	},
+		// }).subscribe((result) => {
+		// 	if (result.error) {
+		// 		// Error
+		// 		console.log('Error', result);
+		// 	}
+		// 	if (result.data) {
+		// 		refresh.update((n) => !n);
+		// 		goto('/');
+		// 	}
+		// });
 	};
 
 	const editCategory = (event: SubmitEvent) => {
 		const formData = new FormData(event.target as HTMLFormElement);
-		mutationStore<UpdateCategoryMutation, UpdateCategoryMutationVariables>({
-			client,
-			query: gql`
-				${updateCategory}
-			`,
-			variables: {
-				name: formData.get('category')?.toString().toLowerCase(),
-				iconId: formData.get('icons')?.toString(),
-				id: $category.data?.categories?.list[0].category.id,
-			},
-		}).subscribe((result) => {
-			//TODO error handling
-			if (result.data) {
-				refresh.update((n) => !n);
-				goto(previousPage);
-			}
-		});
+		// mutationStore<UpdateCategoryMutation, UpdateCategoryMutationVariables>({
+		// 	client,
+		// 	query: gql`
+		// 		${updateCategory}
+		// 	`,
+		// 	variables: {
+		// 		name: formData.get('category')?.toString().toLowerCase(),
+		// 		iconId: formData.get('icons')?.toString(),
+		// 		// id: $category.data?.categories?.list[0].category.id,
+		// 	},
+		// }).subscribe((result) => {
+		// 	//TODO error handling
+		// 	if (result.data) {
+		// 		refresh.update((n) => !n);
+		// 		goto(previousPage);
+		// 	}
+		// });
 	};
 </script>
 
 <h1>Edit <span>{$page.params.slug}</span> category</h1>
 
-{#if $category.fetching}
+{#if $getCategoryId.fetching}
 	<li>Loading...</li>
-{:else if $category.error}
-	<li>{$category.error.message}</li>
+{:else if $getCategoryId.error}
+	<li>{$getCategoryId.error.message}</li>
 {:else}
 	<form on:submit|preventDefault={editCategory}>
 		<label for="category" class="input-label">Category name</label>
@@ -96,7 +88,7 @@
 			name="category"
 			id="category"
 			required
-			value={$category.data?.categories?.list[0].category.name ?? ''}
+			value={category.name ?? ''}
 		/>
 
 		<h3>Pick an icon</h3>
@@ -107,7 +99,7 @@
 					name="icons"
 					value={icon}
 					id="{icon}-icons"
-					checked={icon === $category.data?.categories?.list[0].category.iconId}
+					checked={icon === category.iconId}
 				/>
 				<label for="{icon}-icons"><svg><use xlink:href="#{icon}" /></svg></label
 				>

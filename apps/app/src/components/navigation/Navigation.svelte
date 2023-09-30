@@ -1,7 +1,6 @@
 <script lang="ts">
 	import addCategory from '@graphql/mutations/addCategory.graphql';
 	import getCategories from '@graphql/queries/getCategories.graphql';
-	import getSettings from '@graphql/queries/getSettings.graphql';
 	import Modal from '../modal/Modal.svelte';
 	import { icons } from '../icons/icons';
 
@@ -17,21 +16,25 @@
 		GetSettingsQueryVariables,
 	} from '@graphql/types';
 
-    import { graphql } from '$houdini'
-    
-    
-    $: categories = graphql(`
-		query getCategories @load {
-			categories: categoriesCollection {
-				list: edges {
-					category: node {
-						id
-						name
-						iconId
-					}
-				}
-			}
-		}`)
+	import { getSettingsStore as Y, graphql, getCategoriesStore } from '$houdini';
+	export let categoriesStore: getCategoriesStore;
+	export let getSettingsStore: Y;
+	$: categories = $categoriesStore.data?.categories?.list;
+	$: settings = $getSettingsStore.data?.settings?.list[0].setting;
+	// $: ({ x } = categoriesStore);
+	// $: console.log('categoriesStore', categoriesStore);
+	// $: categories = graphql(`
+	// 	query getCategories @load {
+	// 		categories: categoriesCollection {
+	// 			list: edges {
+	// 				category: node {
+	// 					id
+	// 					name
+	// 					iconId
+	// 				}
+	// 			}
+	// 		}
+	// 	}`)
 
 	// const refreshCategories = () => {
 	// 	queryStore<GetCategoriesQuery, GetCategoriesQueryVariables>({
@@ -50,55 +53,61 @@
 	// 	}
 	// });
 
-	$: settings = graphql(`
-		query getSettings @load {
-			settings: settingsCollection {
-				list: edges {
-					setting: node {
-						id
-						first_name
-						last_name
-						email
-					}
-				}
-			}
-		}`)
+	// $: settings = graphql(`
+	// 	query getSettings @load {
+	// 		settings: settingsCollection {
+	// 			list: edges {
+	// 				setting: node {
+	// 					id
+	// 					first_name
+	// 					last_name
+	// 					email
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// `);
 
 	let showModal = false;
 
-	    
-    const addCategoryMutation = graphql(`mutation addCategory(
-		$category: String!
-		$isLocked: Boolean!
-		$iconId: String!
-		$userId: UUID
-	) {
-		insertIntocategoriesCollection(
-			objects: [
-				{ name: $category, isLocked: $isLocked, iconId: $iconId, userid: $userId }
-			]
+	const addCategoryMutation = graphql(`
+		mutation addCategory(
+			$category: String!
+			$isLocked: Boolean!
+			$iconId: String!
+			$userId: UUID
 		) {
-			affectedCount
-			records {
-				id
-				name
-				isLocked
-				iconId
-				userid
+			insertIntocategoriesCollection(
+				objects: [
+					{
+						name: $category
+						isLocked: $isLocked
+						iconId: $iconId
+						userid: $userId
+					}
+				]
+			) {
+				affectedCount
+				records {
+					id
+					name
+					isLocked
+					iconId
+					userid
+				}
 			}
 		}
-	}
-	`)
+	`);
 
 	const onAddCategory = async (event: SubmitEvent) => {
 		const formData = new FormData(event.target as HTMLFormElement);
 
-		await addCategoryMutation.mutate({ 
+		await addCategoryMutation.mutate({
 			category: formData.get('category')?.toString().toLowerCase() || '',
 			isLocked: false,
 			iconId: formData.get('icon')?.toString() || '',
 			userId: $page.data.session?.user.id,
-		 })
+		});
 		showModal = false;
 	};
 
@@ -111,17 +120,15 @@
 <nav>
 	<h2>remindwise.io</h2>
 	<div class="profile">
-		{#if $settings.fetching}
+		{#if $getSettingsStore.fetching}
 			<li>Loading...</li>
-		{:else if $settings.errors}
-			<li>{$settings.errors}</li>
-		{:else if $settings.data?.settings}
+		{:else if $getSettingsStore.errors}
+			<li>{$getSettingsStore.errors}</li>
+		{:else if settings}
 			<h3>
-				{$settings.data?.settings?.list[0].setting.first_name +
-					' ' +
-					$settings.data?.settings?.list[0].setting.last_name}
+				{settings.first_name + ' ' + settings.last_name}
 			</h3>
-			<p>{$settings.data?.settings?.list[0].setting.email}</p>
+			<p>{settings.email}</p>
 		{/if}
 	</div>
 	<ul class="categories">
@@ -130,12 +137,12 @@
 				><svg><use xlink:href="#bar-graph" /></svg> Dashboard</a
 			>
 		</li>
-		{#if $categories.fetching}
+		{#if $categoriesStore.fetching}
 			<li>Loading...</li>
-		{:else if $categories.errors}
-			<li>{$categories.errors}</li>
-		{:else if $categories.data?.categories}
-			{#each $categories.data.categories.list as category}
+		{:else if $categoriesStore.errors}
+			<li>{$categoriesStore.errors}</li>
+		{:else if categories}
+			{#each categories as category}
 				<li>
 					<a href="/category/{category.category.name}"
 						><svg><use xlink:href="#{category.category.iconId}" /></svg>

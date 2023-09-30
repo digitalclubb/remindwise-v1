@@ -3,7 +3,9 @@
 
 	export let data;
 
-	$: ({ getRemindersY } = data);
+	$: ({ getReminders } = data);
+
+	$: reminders = $getReminders.data?.reminders?.list;
 
 	// TODO
 	// seems quite hard to get access to the stores. how to do multiple queries in one page? load thing is confusing
@@ -16,7 +18,7 @@
 <a class="button" href="/reminder/add">Add reminder</a>
 <a class="button" href={`/category/edit/${$page.params.slug}`}>Edit Category</a>
 
-{#if $getRemindersY.fetching}
+{#if $getReminders.fetching}
 	<p>Fetching reminders...</p>
 {:else}
 	<section class="boxes">
@@ -26,7 +28,7 @@
 			</div>
 			<div>
 				<h2>No. reminders</h2>
-				<p>{$getRemindersY.data?.reminders?.list.length}</p>
+				<p>{reminders?.length}</p>
 			</div>
 		</article>
 		<article class="box">
@@ -54,7 +56,7 @@
 
 	<h2>All reminders</h2>
 
-	{#if $getRemindersY.data?.reminders?.list.length && $getRemindersY.data?.reminders?.list.length > 0}
+	{#if reminders?.length || 0 > 0}
 		<table>
 			<thead>
 				<tr>
@@ -68,7 +70,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each $getRemindersY.data?.reminders?.list as reminder}
+				{#each reminders as reminder}
 					<tr>
 						<td>{reminder.reminder.company}</td>
 						<td>{reminder.reminder.cost}</td>

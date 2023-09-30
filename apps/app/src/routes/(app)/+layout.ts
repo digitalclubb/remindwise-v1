@@ -1,7 +1,7 @@
 import { PUBLIC_SUPABASE_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
 import { createSupabaseLoadClient } from '@supabase/auth-helpers-sveltekit';
 import type { LayoutLoad } from './$types';
-import { load_x } from '$houdini';
+import { load_getSettings, load_getCategories } from '$houdini';
 
 export const load: LayoutLoad = async (event) => {
 	event.depends('supabase:auth');
@@ -20,7 +20,10 @@ export const load: LayoutLoad = async (event) => {
 	return {
 		supabase,
 		session,
-		...(await load_x({
+		...(await load_getCategories({
+			event,
+		})),
+		...(await load_getSettings({
 			event,
 		})),
 	};
