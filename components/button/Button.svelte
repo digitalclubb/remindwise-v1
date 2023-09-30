@@ -1,48 +1,50 @@
 <script lang="ts">
 	export let style = 'primary';
+	export let type = 'button';
 </script>
 
-<button
-	{...$$restProps}
-	class:primary={style !== 'secondary'}
+<svelte:element
+	this={type}
+	class="button"
+	class:primary={style === 'secondary'}
 	class:secondary={style === 'secondary'}
-	on:click
+	class:delete={style === 'delete'}
 >
 	<slot />
-</button>
+</svelte:element>
 
 <style>
-	button {
-		display: inline-block;
-		outline: none;
-		cursor: pointer;
-		border-style: solid;
-		border-width: 0.1rem;
-		border-radius: 0.3rem;
-		padding: 1.2rem 2.4rem;
-		line-height: 1.15;
-		font-size: 1.6rem;
-		font-weight: bold;
-	}
-	.primary {
+	.button {
+		background-color: #ea743c;
+		border-radius: 2rem;
+		border: none;
+		padding: 0.8rem 1.4rem;
+		font-size: 1.4rem;
+		line-height: 1.6rem;
 		color: #ffffff;
-		background-color: #373c61;
-		border-color: #373c61;
+		font-weight: 600;
+		text-align: center;
 	}
 
-	.primary:hover {
-		transition: all 0.1s ease;
-		border-color: #9a0202;
+	.button:hover {
+		background-color: #c25420;
+		cursor: pointer;
 	}
 
 	.secondary {
-		color: #000000;
-		background-color: #ffffff;
-		border-color: #373c61;
+		background-color: #ebe8e2;
+		color: #373f48;
 	}
 
 	.secondary:hover {
-		transition: all 0.1s ease;
-		border-color: #9a0202;
+		background-color: #ebe8e2;
+	}
+
+	.delete {
+		background-color: #da4b37;
+	}
+
+	.delete:hover {
+		background-color: #c94331;
 	}
 </style>
