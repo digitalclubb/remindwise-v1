@@ -25,6 +25,7 @@
 		"eslint": "8.50.0",
 		"eslint-plugin-svelte": "2.33.2",
 		"jsdom": "22.1.0",
+		"playwright-core": "^1.38.1",
 		"prettier": "3.0.3",
 		"prettier-plugin-svelte": "3.0.3",
 		"svelte": "4.2.1",
