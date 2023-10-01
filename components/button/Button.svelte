@@ -5,6 +5,7 @@
 
 <svelte:element
 	this={element}
+	{...$$restProps}
 	class="button"
 	class:primary={style === 'secondary'}
 	class:secondary={style === 'secondary'}
