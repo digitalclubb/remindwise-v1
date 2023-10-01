@@ -10,7 +10,7 @@
 </svelte:head>
 
 <div class="box">
-	<h3>Login to your account</h3>
+	<h1 class="heading-3">Login to your account</h1>
 	<form method="post" use:enhance>
 		<label for="email">Email Address</label>
 		<input id="email" name="email" type="email" value={form?.email ?? ''} />
