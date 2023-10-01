@@ -1,3 +1,18 @@
+:root {
+	--cream-light: #f6f6f6;
+	--cream: #ebe8e2;
+	/*--cream-gradient:;*/
+	--grey-light: #cac7c1;
+	--grey: #373f48;
+	--grey-dark: #252b32;
+	--orange: #da6b37;
+	--orange-dark: #c25420;
+	--orange-gradient: linear-gradient(180deg, #ea743c 0%, var(--orange) 100%);
+	--red: #c94331;
+	--red-dark: #c94331;
+	--white: #ffffff;
+}
+
 @font-face {
 	font-family: 'Outfit';
 	src: url('./outfit.woff2') format('woff2');
@@ -80,27 +95,32 @@ h6 {
 	font-family: 'Outfit', sans-serif;
 }
 
-h1 {
+h1,
+.heading-1 {
 	font-size: 3.4rem;
 	line-height: 3.8rem;
 }
 
-h2 {
+h2,
+.heading-2 {
 	font-size: 2.4rem;
 	line-height: 2.8rem;
 }
 
-h3 {
+h3,
+.heading-3 {
 	font-size: 2rem;
 	line-height: 2.4rem;
 }
 
-h4 {
+h4,
+.heading-4 {
 	font-size: 1.6rem;
 	line-height: 2rem;
 }
 
-h5 {
+h5,
+.heading-5 {
 	font-size: 1.4rem;
 	line-height: 1.8rem;
 }

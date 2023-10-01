@@ -7,4 +7,9 @@ describe('Button', () => {
 		render(Button, { type: 'submit' });
 		expect(screen.getByRole('button')).toBeTruthy();
 	});
+
+	// Can pass in 'a' element and needs href
+
+	// Secondary type?
+	// Delete type?
 });

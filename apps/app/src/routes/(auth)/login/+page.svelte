@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import Button from 'components/button/Button.svelte';
+	import Link from 'components/link/Link.svelte';
 
 	export let form;
 </script>
@@ -8,26 +10,42 @@
 	<title>remindwise.io - Login</title>
 </svelte:head>
 
-<h1>Login</h1>
-<form method="post" use:enhance>
-	<label for="email">Email Address</label>
-	<input id="email" name="email" type="email" value={form?.email ?? ''} />
-	<label for="password">Password</label>
-	<input
-		id="password"
-		name="password"
-		type="password"
-		autocomplete="current-password"
-	/>
+<div class="box">
+	<h1 class="heading-3">Login to your account</h1>
+	<form method="post" use:enhance>
+		<label for="email">Email Address</label>
+		<input id="email" name="email" type="email" value={form?.email ?? ''} />
+		<label for="password">Password</label>
+		<input
+			id="password"
+			name="password"
+			type="password"
+			autocomplete="current-password"
+		/>
 
-	<button>Sign in</button>
-	<a href="/register">Don't have an account? Sign up</a>
-</form>
+		<Button>Sign in</Button>
+	</form>
+</div>
+
+<p>Don't have a remindwise account yet?</p>
+<Link href="/register" type="button">Register now</Link>
 
 <style>
+	.box {
+		background-color: var(--white);
+		border-radius: 0.6rem;
+	}
 	form {
 		display: flex;
 		flex-direction: column;
 		gap: 8px;
+	}
+
+	p {
+		color: var(--white);
+		font-size: 1.8rem;
+		line-height: 2.4rem;
+		font-weight: 600;
+		text-align: center;
 	}
 </style>

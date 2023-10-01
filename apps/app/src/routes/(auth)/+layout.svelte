@@ -1,21 +1,26 @@
 <main>
 	<div>
-		<slot />
+		<img src="./logo.svg" alt="Remindwise.io" width="275" height="44" />
+		<div class="slot">
+			<slot />
+		</div>
 	</div>
 </main>
 
 <style>
 	main {
-		background-color: #d1d1d1;
+		background-color: var(--grey-dark);
 		display: grid;
 		place-items: center;
 		min-height: 100vh;
 	}
 
-	main > div {
-		width: 40rem;
-		background-color: #ffff;
-		padding: 4rem;
-		box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+	img {
+		margin: 0 auto;
+		margin-bottom: 7rem;
+	}
+
+	.slot {
+		width: 69rem;
 	}
 </style>
