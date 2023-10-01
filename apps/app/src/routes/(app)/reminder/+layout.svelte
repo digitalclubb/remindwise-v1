@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page, navigating } from '$app/stores';
-	import { goto } from '$app/navigation';
 	import { Button } from 'components';
 	import { enhance } from '$app/forms';
 

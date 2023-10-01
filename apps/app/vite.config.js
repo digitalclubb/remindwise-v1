@@ -5,9 +5,6 @@ import houdini from 'houdini/vite';
 /** @type {import('vite').UserConfig} */
 const config = {
 	plugins: [houdini(), sveltekit(), vitePluginGraphqlLoader()],
-	optimizeDeps: {
-		exclude: ['@urql/svelte'],
-	},
 };
 
 export default config;

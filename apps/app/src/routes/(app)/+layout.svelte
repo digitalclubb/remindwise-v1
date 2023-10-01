@@ -4,7 +4,6 @@
 
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import { refresh } from '../../stores';
 
 	export let data;
 	$: ({ supabase, session, getCategories, getSettings } = data);

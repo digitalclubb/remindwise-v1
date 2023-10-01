@@ -7,9 +7,11 @@
 	import { refresh } from '../../../../../stores';
 	import { icons } from '../../../../../components/icons/icons';
 	import { enhance } from '$app/forms';
+	import type { PageData } from './$types.js';
+	import type { getCategoryIdStore } from '$houdini';
 
 	let showModal = false;
-	export let data;
+	export let data: PageData & { getCategoryId: getCategoryIdStore };
 	export let form;
 
 	$: ({ getCategoryId } = data);
@@ -26,9 +28,9 @@
 
 {#if $getCategoryId.fetching}
 	<li>Loading...</li>
-{:else if $getCategoryId.error}
-	<li>{$getCategoryId.error.message}</li>
-{:else}
+{:else if $getCategoryId.errors}
+	<li>{$getCategoryId.errors}</li>
+{:else if category}
 	<form method="POST" action="?/edit" use:enhance>
 		{#if form?.missing}<p class="error">The category field is required</p>{/if}
 		<label for="category" class="input-label">Category name</label>

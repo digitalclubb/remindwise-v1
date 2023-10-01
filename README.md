@@ -8,4 +8,4 @@ Gas, electric and water supplier, broadband and TV, buildings and contents insur
 - Sveltekit (Svelte)
 - turborepo
 - Supabase (GraphQL)
-- URQL
+- Houdini
