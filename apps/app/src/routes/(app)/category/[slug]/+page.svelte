@@ -6,10 +6,6 @@
 	$: ({ getReminders } = data);
 
 	$: reminders = $getReminders.data?.reminders?.list;
-	// TODO
-	// seems quite hard to get access to the stores. how to do multiple queries in one page? load thing is confusing
-	// If the layout exports categories, we can filter on those
-	// Current problem is that those aren't updating when we add a new category, I think
 </script>
 
 <h1><span>{$page.params.slug}</span> reminders</h1>

@@ -15,7 +15,7 @@ export const load: PageLoad = async (event) => {
 
 	const category = await prom;
 
-	// TODO when category is undefined problem
+	// TODO when category is undefined problem, this happens right after updating the name of the category
 	return {
 		...(await load_getReminders({
 			event,

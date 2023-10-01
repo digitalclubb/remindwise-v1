@@ -60,6 +60,7 @@ export const actions = {
 			{ event }
 		);
 
+		// TODO on reminder add we want to take them to the categories page? the list might not be updated so need to look into how to bust cache
 		throw redirect(303, '/');
 	},
 };
