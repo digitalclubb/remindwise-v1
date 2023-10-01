@@ -9,7 +9,7 @@
 
 <style>
 	main {
-		background-color: #333a42;
+		background-color: var(--grey-dark);
 		display: grid;
 		place-items: center;
 		min-height: 100vh;

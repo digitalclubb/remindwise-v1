@@ -10,6 +10,7 @@
 	--orange-gradient: linear-gradient(180deg, #ea743c 0%, var(--orange) 100%);
 	--red: #c94331;
 	--red-dark: #c94331;
+	--white: #ffffff;
 }
 
 @font-face {

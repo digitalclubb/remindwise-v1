@@ -31,7 +31,7 @@
 
 <style>
 	.box {
-		background-color: #ffffff;
+		background-color: var(--white);
 		border-radius: 0.6rem;
 	}
 	form {
@@ -41,7 +41,7 @@
 	}
 
 	p {
-		color: #ffffff;
+		color: var(--white);
 		font-size: 1.8rem;
 		line-height: 2.4rem;
 		font-weight: 600;
