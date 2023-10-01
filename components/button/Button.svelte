@@ -1,10 +1,10 @@
 <script lang="ts">
 	export let style = 'primary';
-	export let type = 'button';
+	export let element = 'button';
 </script>
 
 <svelte:element
-	this={type}
+	this={element}
 	class="button"
 	class:primary={style === 'secondary'}
 	class:secondary={style === 'secondary'}

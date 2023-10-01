@@ -27,7 +27,7 @@
 </div>
 
 <p>Don't have a remindwise account yet?</p>
-<Button type="a">Register now</Button>
+<Button element="a">Register now</Button>
 
 <style>
 	.box {
