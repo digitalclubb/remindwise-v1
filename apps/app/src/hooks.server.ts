@@ -1,4 +1,5 @@
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY } from '$env/static/public';
+import { setSession } from '$houdini';
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit';
 import type { Handle } from '@sveltejs/kit';
 
@@ -18,6 +19,13 @@ export const handle: Handle = async ({ event, resolve }) => {
 		} = await event.locals.supabase.auth.getSession();
 		return session;
 	};
+	//TODO will this make us logged out after a while?
+	const {
+		data: { session },
+	} = await event.locals.supabase.auth.getSession();
+	if (session) {
+		setSession(event, session);
+	}
 
 	return resolve(event, {
 		filterSerializedResponseHeaders(name) {

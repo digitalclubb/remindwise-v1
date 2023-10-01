@@ -1,78 +1,69 @@
 <script lang="ts">
-	import {
-		getContextClient,
-		gql,
-		queryStore,
-		mutationStore,
-	} from '@urql/svelte';
-
-	import addCategory from '@graphql/mutations/addCategory.graphql';
-	import getCategories from '@graphql/queries/getCategories.graphql';
-	import getSettings from '@graphql/queries/getSettings.graphql';
 	import Modal from '../modal/Modal.svelte';
 	import { icons } from '../icons/icons';
 
 	import { Button } from 'components';
 
-	const client = getContextClient();
-
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { refresh } from '../../stores';
-	import type {
-		GetCategoriesQuery,
-		GetCategoriesQueryVariables,
-		GetSettingsQuery,
-		GetSettingsQueryVariables,
-	} from '@graphql/types';
 
-	$: categories = queryStore({
-		client,
-		query: gql`
-			${getCategories}
-		`,
-	});
+	import { getSettingsStore as Y, graphql, getCategoriesStore } from '$houdini';
+	export let categoriesStore: getCategoriesStore;
+	export let getSettingsStore: Y;
+	$: categories = $categoriesStore.data?.categories?.list;
+	$: settings = $getSettingsStore.data?.settings?.list[0].setting;
 
-	const refreshCategories = () => {
-		queryStore<GetCategoriesQuery, GetCategoriesQueryVariables>({
-			client,
-			query: gql`
-				${getCategories}
-			`,
-			requestPolicy: 'network-only',
-		});
-	};
-
-	refresh.subscribe((value) => {
+	refresh.subscribe(async (value) => {
 		if (value) {
-			refreshCategories();
+			await categoriesStore.fetch({ policy: 'NetworkOnly' });
 			refresh.set(false);
 		}
 	});
 
-	$: settings = queryStore<GetSettingsQuery, GetSettingsQueryVariables>({
-		client,
-		query: gql`
-			${getSettings}
-		`,
-	});
-
 	let showModal = false;
-	const onAddCategory = (event: SubmitEvent) => {
+
+	const addCategoryMutation = graphql(`
+		mutation addCategory(
+			$category: String!
+			$isLocked: Boolean!
+			$iconId: String!
+			$userId: UUID
+		) {
+			insertIntocategoriesCollection(
+				objects: [
+					{
+						name: $category
+						isLocked: $isLocked
+						iconId: $iconId
+						userid: $userId
+					}
+				]
+			) {
+				affectedCount
+				records {
+					id
+					name
+					isLocked
+					iconId
+					userid
+				}
+			}
+		}
+	`);
+
+	const onAddCategory = async (event: SubmitEvent) => {
 		const formData = new FormData(event.target as HTMLFormElement);
-		mutationStore({
-			client,
-			query: gql`
-				${addCategory}
-			`,
-			variables: {
-				category: formData.get('category')?.toString().toLowerCase(),
-				isLocked: false,
-				iconId: formData.get('icon'),
-				userId: $page.data.session?.user.id,
-			},
+
+		await addCategoryMutation.mutate({
+			category: formData.get('category')?.toString().toLowerCase() || '',
+			isLocked: false,
+			iconId: formData.get('icon')?.toString() || '',
+			userId: $page.data.session?.user.id,
 		});
 		showModal = false;
+		//TODO is this the best way to do it?
+		refresh.update((n) => !n);
 	};
 
 	const signOut = async () => {
@@ -84,17 +75,15 @@
 <nav>
 	<h2>remindwise.io</h2>
 	<div class="profile">
-		{#if $settings.fetching}
+		{#if $getSettingsStore.fetching}
 			<li>Loading...</li>
-		{:else if $settings.error}
-			<li>{$settings.error.message}</li>
-		{:else}
+		{:else if $getSettingsStore.errors}
+			<li>{$getSettingsStore.errors}</li>
+		{:else if settings}
 			<h3>
-				{$settings.data?.settings?.list[0].setting.first_name +
-					' ' +
-					$settings.data?.settings?.list[0].setting.last_name}
+				{settings.first_name + ' ' + settings.last_name}
 			</h3>
-			<p>{$settings.data?.settings?.list[0].setting.email}</p>
+			<p>{settings.email}</p>
 		{/if}
 	</div>
 	<ul class="categories">
@@ -103,12 +92,12 @@
 				><svg><use xlink:href="#bar-graph" /></svg> Dashboard</a
 			>
 		</li>
-		{#if $categories.fetching}
+		{#if $categoriesStore.fetching}
 			<li>Loading...</li>
-		{:else if $categories.error}
-			<li>{$categories.error.message}</li>
-		{:else}
-			{#each $categories.data.categories.list as category}
+		{:else if $categoriesStore.errors}
+			<li>{$categoriesStore.errors}</li>
+		{:else if categories}
+			{#each categories as category}
 				<li>
 					<a href="/category/{category.category.name}"
 						><svg><use xlink:href="#{category.category.iconId}" /></svg>

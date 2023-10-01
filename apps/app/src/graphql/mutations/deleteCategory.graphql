@@ -1,5 +1,0 @@
-mutation deleteCategory($category: String!) {
-	deleteFromcategoriesCollection(filter: { name: { eq: $category } }) {
-		affectedCount
-	}
-}

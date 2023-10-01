@@ -1,48 +1,10 @@
 <script lang="ts">
-	import {
-		getContextClient,
-		gql,
-		mutationStore,
-		queryStore,
-	} from '@urql/svelte';
 	import { Button } from 'components';
 
-	import getSettings from '@graphql/queries/getSettings.graphql';
-	import updateSettings from '@graphql/mutations/updateSettings.graphql';
-	import type {
-		GetSettingsQuery,
-		GetSettingsQueryVariables,
-		UpdateSettingsMutation,
-		UpdateSettingsMutationVariables,
-	} from '@graphql/types';
+	export let data;
 
-	const client = getContextClient();
-	const settings = queryStore<GetSettingsQuery, GetSettingsQueryVariables>({
-		client,
-		query: gql`
-			${getSettings}
-		`,
-	});
-
-	const updateAccount = (event: SubmitEvent) => {
-		const formData = new FormData(event.target as HTMLFormElement);
-
-		mutationStore<UpdateSettingsMutation, UpdateSettingsMutationVariables>({
-			client,
-			query: gql`
-				${updateSettings}
-			`,
-			variables: {
-				firstName: formData.get('firstName')?.toString(),
-				lastName: formData.get('lastName')?.toString(),
-				email: formData.get('email')?.toString(),
-				id: $settings.data?.settings?.list[0].setting.id,
-			},
-		}).subscribe((data) => {
-			//TODO error handling
-			console.log('data', data);
-		});
-	};
+	$: ({ getSettings } = data);
+	$: settings = $getSettings.data?.settings?.list[0].setting;
 </script>
 
 <h1>Settings</h1>
@@ -52,32 +14,37 @@
 <section>
 	<h2>Account</h2>
 
-	{#if $settings.fetching}
+	{#if $getSettings.fetching}
 		<li>Loading...</li>
-	{:else if $settings.error}
-		<li>{$settings.error.message}</li>
-	{:else}
-		<form on:submit|preventDefault={updateAccount}>
+	{:else if $getSettings.errors}
+		<li>{$getSettings.errors}</li>
+	{:else if settings}
+		<form method="POST" action="?/updateSettings">
+			<input type="hidden" id="id" name="id" value={settings.id ?? ''} />
+
 			<label for="email">Email address</label>
 			<input
 				type="text"
 				id="email"
+				name="email"
 				required
-				value={$settings.data?.settings?.list[0].setting.email ?? ''}
+				value={settings.email ?? ''}
 			/>
 
 			<label for="firstName">First name</label>
 			<input
 				type="text"
 				id="firstName"
-				value={$settings.data?.settings?.list[0].setting.first_name ?? ''}
+				name="firstName"
+				value={settings.first_name ?? ''}
 			/>
 
 			<label for="lastName">Last name</label>
 			<input
 				type="text"
 				id="lastName"
-				value={$settings.data?.settings?.list[0].setting.last_name ?? ''}
+				name="lastName"
+				value={settings.last_name ?? ''}
 			/>
 
 			<Button>Update account</Button>

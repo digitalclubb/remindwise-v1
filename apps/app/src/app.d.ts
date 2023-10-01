@@ -1,14 +1,14 @@
-import { SupabaseClient, Session } from '@supabase/supabase-js';
+import { SupabaseClient, type AuthSession } from '@supabase/supabase-js';
 /// <reference types="@sveltejs/kit" />
 
 declare global {
 	namespace App {
 		interface Locals {
 			supabase: SupabaseClient;
-			getSession(): Promise<Session | null>;
+			getSession(): Promise<AuthSession | null>;
 		}
 		interface PageData {
-			session: Session | null;
+			session: AuthSession | null;
 		}
 		// interface Error {}
 		// interface Platform {}

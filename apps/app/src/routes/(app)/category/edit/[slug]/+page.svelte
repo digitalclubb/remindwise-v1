@@ -1,102 +1,51 @@
 <script lang="ts">
-	import { navigating, page } from '$app/stores';
-	import getCategoryId from '@graphql/queries/getCategoryId.graphql';
-	import deleteCategory from '@graphql/mutations/deleteCategory.graphql';
-	import updateCategory from '@graphql/mutations/updateCategory.graphql';
+	import { page } from '$app/stores';
 	import Button from 'components/button/Button.svelte';
 	import Modal from '../../../../../components/modal/Modal.svelte';
 	import { goto } from '$app/navigation';
-	import {
-		getContextClient,
-		gql,
-		mutationStore,
-		queryStore,
-	} from '@urql/svelte';
+
 	import { refresh } from '../../../../../stores';
 	import { icons } from '../../../../../components/icons/icons';
-	import type {
-		DeleteCategoryMutation,
-		DeleteCategoryMutationVariables,
-		GetCategoryIdQuery,
-		GetCategoryIdQueryVariables,
-		UpdateCategoryMutation,
-		UpdateCategoryMutationVariables,
-	} from '@graphql/types';
-
-	const client = getContextClient();
-	const previousPage = $navigating?.from ? $navigating.from.url.pathname : '/';
+	import { enhance } from '$app/forms';
+	import type { PageData } from './$types.js';
+	import type { getCategoryIdStore } from '$houdini';
 
 	let showModal = false;
+	export let data: PageData & { getCategoryId: getCategoryIdStore };
+	export let form;
 
-	const category = queryStore<GetCategoryIdQuery, GetCategoryIdQueryVariables>({
-		client,
-		query: gql`
-			${getCategoryId}
-		`,
-		variables: {
-			category: $page.params.slug,
-		},
-	});
+	$: ({ getCategoryId } = data);
 
-	const onDelete = async () => {
-		mutationStore<DeleteCategoryMutation, DeleteCategoryMutationVariables>({
-			client,
-			query: gql`
-				${deleteCategory}
-			`,
-			variables: {
-				category: $page.params.slug,
-			},
-		}).subscribe((result) => {
-			if (result.error) {
-				// Error
-				console.log('Error', result);
-			}
+	$: category = $getCategoryId.data?.categories?.list[0].category;
 
-			if (result.data) {
-				refresh.update((n) => !n);
-				goto('/');
-			}
-		});
-	};
-
-	const editCategory = (event: SubmitEvent) => {
-		const formData = new FormData(event.target as HTMLFormElement);
-		mutationStore<UpdateCategoryMutation, UpdateCategoryMutationVariables>({
-			client,
-			query: gql`
-				${updateCategory}
-			`,
-			variables: {
-				name: formData.get('category')?.toString().toLowerCase(),
-				iconId: formData.get('icons')?.toString(),
-				id: $category.data?.categories?.list[0].category.id,
-			},
-		}).subscribe((result) => {
-			//TODO error handling
-			if (result.data) {
-				refresh.update((n) => !n);
-				goto(previousPage);
-			}
-		});
-	};
+	$: if (form?.success) {
+		refresh.update((n) => !n);
+		goto(`/category/${form?.category}`);
+	}
 </script>
 
 <h1>Edit <span>{$page.params.slug}</span> category</h1>
 
-{#if $category.fetching}
+{#if $getCategoryId.fetching}
 	<li>Loading...</li>
-{:else if $category.error}
-	<li>{$category.error.message}</li>
-{:else}
-	<form on:submit|preventDefault={editCategory}>
+{:else if $getCategoryId.errors}
+	<li>{$getCategoryId.errors}</li>
+{:else if category}
+	<form method="POST" action="?/edit" use:enhance>
+		{#if form?.missing}<p class="error">The category field is required</p>{/if}
 		<label for="category" class="input-label">Category name</label>
 		<input
 			type="text"
 			name="category"
 			id="category"
 			required
-			value={$category.data?.categories?.list[0].category.name ?? ''}
+			value={category.name ?? ''}
+		/>
+		<input
+			type="hidden"
+			id="categoryId"
+			name="categoryId"
+			value={category.id ?? ''}
 		/>
 
 		<h3>Pick an icon</h3>
@@ -107,7 +56,7 @@
 					name="icons"
 					value={icon}
 					id="{icon}-icons"
-					checked={icon === $category.data?.categories?.list[0].category.iconId}
+					checked={icon === category.iconId}
 				/>
 				<label for="{icon}-icons"><svg><use xlink:href="#{icon}" /></svg></label
 				>
@@ -124,7 +73,9 @@
 	<p>
 		Deleting this category will delete all of the reminders associated with it.
 	</p>
-	<Button on:click={onDelete}>Delete</Button>
+	<form method="POST" action="?/delete">
+		<Button>Delete</Button>
+	</form>
 </Modal>
 
 <style>

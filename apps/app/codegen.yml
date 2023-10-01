@@ -1,4 +1,4 @@
-schema: ${PUBLIC_SUPABASE_GRAPHQL_URL}
+schema: ${PUBLIC_SUPABASE_URL}/graphql/v1?apikey=${PUBLIC_SUPABASE_KEY}
 documents:
   - '**/*.{graphql,gql}'
 generates:

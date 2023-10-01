@@ -1,0 +1,11 @@
+query getCategoryId($slug: String!) {
+	categories: categoriesCollection(filter: { name: { eq: $slug } }) {
+		list: edges {
+			category: node {
+				id
+				name
+				iconId
+			}
+		}
+	}
+}

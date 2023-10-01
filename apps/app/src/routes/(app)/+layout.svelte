@@ -1,12 +1,4 @@
 <script lang="ts">
-	import {
-		createClient,
-		cacheExchange,
-		fetchExchange,
-		setContextClient,
-	} from '@urql/svelte';
-	import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY } from '$env/static/public';
-
 	import Sprite from '../../components/icons/Sprite.svelte';
 	import Navigation from '../../components/navigation/Navigation.svelte';
 
@@ -14,7 +6,7 @@
 	import { onMount } from 'svelte';
 
 	export let data;
-	$: ({ supabase, session } = data);
+	$: ({ supabase, session, getCategories, getSettings } = data);
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange((event, _session) => {
 			if (_session?.expires_at !== session?.expires_at) {
@@ -26,25 +18,23 @@
 	});
 
 	$: if (session) {
-		const headers = {
-			apikey: PUBLIC_SUPABASE_KEY,
-			authorization: `Bearer ${session?.access_token}`,
-		};
-
-		const client = createClient({
-			url: `${PUBLIC_SUPABASE_URL}/graphql/v1`,
-			exchanges: [cacheExchange, fetchExchange],
-			fetchOptions: function createFetchOptions() {
-				return { headers };
-			},
-		});
-
-		setContextClient(client);
+		// const headers = {
+		// 	apikey: PUBLIC_SUPABASE_KEY,
+		// 	authorization: `Bearer ${session?.access_token}`,
+		// };
+		// const client = createClient({
+		// 	url: `${PUBLIC_SUPABASE_URL}/graphql/v1`,
+		// 	exchanges: [cacheExchange, fetchExchange],
+		// 	fetchOptions: function createFetchOptions() {
+		// 		return { headers };
+		// 	},
+		// });
+		// setContextClient(client);
 	}
 </script>
 
 <main>
-	<Navigation />
+	<Navigation categoriesStore={getCategories} getSettingsStore={getSettings} />
 	<div>
 		<slot />
 	</div>

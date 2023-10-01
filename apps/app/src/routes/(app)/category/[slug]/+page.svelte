@@ -1,52 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { getContextClient } from '@urql/svelte';
 
-	import getCategoryId from '@graphql/queries/getCategoryId.graphql';
-	import getReminders from '@graphql/queries/getReminders.graphql';
-	import type {
-		GetCategoryIdQuery,
-		GetCategoryIdQueryVariables,
-		GetRemindersQuery,
-		GetRemindersQueryVariables,
-	} from '@graphql/types';
+	export let data;
 
-	const client = getContextClient();
+	$: ({ getReminders } = data);
 
-	$: getCategory = async () => {
-		return await client
-			.query<GetCategoryIdQuery, GetCategoryIdQueryVariables>(getCategoryId, {
-				category: $page.params.slug,
-			})
-			.toPromise()
-			.then((result) => {
-				return result.data?.categories?.list[0].category.id;
-			});
-	};
-
-	$: getRemindersList = async () => {
-		const categoryId = await getCategory();
-
-		return await client
-			.query<GetRemindersQuery, GetRemindersQueryVariables>(
-				getReminders,
-				{
-					categoryId,
-				},
-				{
-					requestPolicy: 'cache-and-network',
-				}
-			)
-			.toPromise()
-			.then((result) => {
-				return {
-					list: result.data?.reminders?.list ?? [],
-					total: result.data?.reminders?.list.length ?? 0,
-				};
-			});
-	};
-
-	$: reminders = getRemindersList();
+	$: reminders = $getReminders.data?.reminders?.list;
 </script>
 
 <h1><span>{$page.params.slug}</span> reminders</h1>
@@ -54,9 +13,9 @@
 <a class="button" href="/reminder/add">Add reminder</a>
 <a class="button" href={`/category/edit/${$page.params.slug}`}>Edit Category</a>
 
-{#await reminders}
+{#if $getReminders.fetching}
 	<p>Fetching reminders...</p>
-{:then reminders}
+{:else}
 	<section class="boxes">
 		<article class="box">
 			<div class="icon">
@@ -64,7 +23,7 @@
 			</div>
 			<div>
 				<h2>No. reminders</h2>
-				<p>{reminders.total}</p>
+				<p>{reminders?.length}</p>
 			</div>
 		</article>
 		<article class="box">
@@ -92,7 +51,7 @@
 
 	<h2>All reminders</h2>
 
-	{#if reminders.total > 0}
+	{#if reminders && reminders?.length}
 		<table>
 			<thead>
 				<tr>
@@ -106,7 +65,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each reminders.list as reminder}
+				{#each reminders as reminder}
 					<tr>
 						<td>{reminder.reminder.company}</td>
 						<td>{reminder.reminder.cost}</td>
@@ -124,9 +83,7 @@
 	{:else}
 		<p>No reminders found...</p>
 	{/if}
-{:catch error}
-	<p>Error fetching reminders: {error.message}</p>
-{/await}
+{/if}
 
 <style>
 	h1 span {
