@@ -13,14 +13,15 @@
 		display: grid;
 		place-items: center;
 		min-height: 100vh;
+		padding: 0 2rem;
 	}
 
 	img {
 		margin: 0 auto;
-		margin-bottom: 7rem;
+		margin-bottom: 4rem;
 	}
 
 	.slot {
-		width: 69rem;
+		max-width: 69rem;
 	}
 </style>
