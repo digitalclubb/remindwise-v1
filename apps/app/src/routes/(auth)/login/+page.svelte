@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import Button from 'components/button/Button.svelte';
+	import Link from 'components/link/Link.svelte';
 
 	export let form;
 </script>
@@ -27,7 +28,7 @@
 </div>
 
 <p>Don't have a remindwise account yet?</p>
-<Button element="a">Register now</Button>
+<Link href="/register" type="button">Register now</Link>
 
 <style>
 	.box {

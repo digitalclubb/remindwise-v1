@@ -1,15 +1,18 @@
 <script lang="ts">
 	export let style = '';
+	export let type = '';
+	export let href = '';
 </script>
 
-<button
+<a
 	{...$$restProps}
-	class="button"
+	{href}
+	class:button={type === 'button'}
 	class:secondary={style === 'secondary'}
 	class:delete={style === 'delete'}
 >
 	<slot />
-</button>
+</a>
 
 <style>
 	.button {
@@ -22,6 +25,7 @@
 		color: var(--cream-light);
 		font-weight: 600;
 		text-align: center;
+		text-decoration: none;
 	}
 
 	.button:hover {
@@ -30,22 +34,22 @@
 		cursor: pointer;
 	}
 
-	.secondary {
+	.button.secondary {
 		background-color: var(--cream-light);
 		border-color: var(--cream);
 		color: var(--grey);
 	}
 
-	.secondary:hover {
+	.button.secondary:hover {
 		background-color: var(--cream);
 	}
 
-	.delete {
+	.button.delete {
 		background-color: var(--red);
 		border-color: var(--red);
 	}
 
-	.delete:hover {
+	.button.delete:hover {
 		background-color: var(--red-dark);
 		border-color: var(--red-dark);
 	}
