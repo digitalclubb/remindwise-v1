@@ -5,7 +5,7 @@ export const actions = {
 	delete: async (event) => {
 		const category = event.params.slug;
 		const actionMutation = graphql(`
-			mutation deleteCategoryY($category: String!) {
+			mutation deleteCategory($category: String!) {
 				deleteFromcategoriesCollection(filter: { name: { eq: $category } }) {
 					affectedCount
 				}
@@ -30,7 +30,7 @@ export const actions = {
 		}
 
 		const actionMutation = graphql(`
-			mutation updateCategoryY($id: BigInt, $name: String, $iconId: String) {
+			mutation updateCategory($id: BigInt, $name: String, $iconId: String) {
 				updatecategoriesCollection(
 					filter: { id: { eq: $id } }
 					set: { name: $name, iconId: $iconId }

@@ -5,26 +5,6 @@
 
 	$: ({ getSettings } = data);
 	$: settings = $getSettings.data?.settings?.list[0].setting;
-
-	const updateAccount = (event: SubmitEvent) => {
-		const formData = new FormData(event.target as HTMLFormElement);
-
-		// mutationStore<UpdateSettingsMutation, UpdateSettingsMutationVariables>({
-		// 	client,
-		// 	query: gql`
-		// 		${updateSettings}
-		// 	`,
-		// 	variables: {
-		// 		firstName: formData.get('firstName')?.toString(),
-		// 		lastName: formData.get('lastName')?.toString(),
-		// 		email: formData.get('email')?.toString(),
-		// 		id: $settings.data?.settings?.list[0].setting.id,
-		// 	},
-		// }).subscribe((data) => {
-		// 	//TODO error handling
-		// 	console.log('data', data);
-		// });
-	};
 </script>
 
 <h1>Settings</h1>
@@ -39,15 +19,33 @@
 	{:else if $getSettings.errors}
 		<li>{$getSettings.errors}</li>
 	{:else if settings}
-		<form on:submit|preventDefault={updateAccount}>
+		<form method="POST" action="?/updateSettings">
+			<input type="hidden" id="id" name="id" value={settings.id ?? ''} />
+
 			<label for="email">Email address</label>
-			<input type="text" id="email" required value={settings.email ?? ''} />
+			<input
+				type="text"
+				id="email"
+				name="email"
+				required
+				value={settings.email ?? ''}
+			/>
 
 			<label for="firstName">First name</label>
-			<input type="text" id="firstName" value={settings.first_name ?? ''} />
+			<input
+				type="text"
+				id="firstName"
+				name="firstName"
+				value={settings.first_name ?? ''}
+			/>
 
 			<label for="lastName">Last name</label>
-			<input type="text" id="lastName" value={settings.last_name ?? ''} />
+			<input
+				type="text"
+				id="lastName"
+				name="lastName"
+				value={settings.last_name ?? ''}
+			/>
 
 			<Button>Update account</Button>
 		</form>

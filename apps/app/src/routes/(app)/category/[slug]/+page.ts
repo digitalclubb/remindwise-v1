@@ -6,7 +6,6 @@ export const load: PageLoad = async (event) => {
 
 	const prom = new Promise((resolve) => {
 		getCategories.subscribe((res) => {
-			console.log('categoriesss', res);
 			const cat = res.data?.categories?.list.find(
 				(cat) => cat.category.name === event.params.slug
 			);
@@ -16,7 +15,6 @@ export const load: PageLoad = async (event) => {
 
 	const category = await prom;
 
-	console.log('category', category);
 	// TODO when category is undefined problem
 	return {
 		...(await load_getReminders({

@@ -1,22 +1,8 @@
 <script lang="ts">
-	import {
-		getContextClient,
-		gql,
-		queryStore,
-		mutationStore,
-	} from '@urql/svelte';
 	import { page, navigating } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { Button } from 'components';
-
-	// import getCategories from '@graphql/queries/getCategories.graphql';
-	// import addReminder from '@graphql/mutations/addReminder.graphql';
-	import type {
-		AddReminderMutation,
-		AddReminderMutationVariables,
-		GetCategoriesQuery,
-		GetCategoriesQueryVariables,
-	} from '@graphql/types';
+	import { enhance } from '$app/forms';
 
 	export let data;
 
@@ -28,53 +14,17 @@
 	const previousCategory = previousPage.substring(
 		previousPage.indexOf('category') + 9
 	);
-
-	// const categories = queryStore<
-	// 	GetCategoriesQuery,
-	// 	GetCategoriesQueryVariables
-	// >({
-	// 	client,
-	// 	query: gql`
-	// 		${getCategories}
-	// 	`,
-	// });
-
-	const createReminder = (event: SubmitEvent) => {
-		const formData = new FormData(event.target as HTMLFormElement);
-		const cost = formData.get('cost');
-
-		// mutationStore<AddReminderMutation, AddReminderMutationVariables>({
-		// 	client,
-		// 	query: gql`
-		// 		${addReminder}
-		// 	`,
-		// 	variables: {
-		// 		categoryId: formData.get('category'),
-		// 		company: formData.get('company')?.toString() ?? '',
-		// 		cost: cost ? parseFloat(cost.toString()) : undefined,
-		// 		dateOfRenewal: formData.get('renewal'),
-		// 		autoRenewal: formData.get('auto') === 'true',
-		// 		notes: formData.get('notes')?.toString(),
-		// 		userid: $page.data.session?.user.id,
-		// 		enabled: true,
-		// 	},
-		// }).subscribe((result) => {
-		// 	if (result.error) {
-		// 		// Error
-		// 		console.log('Error', result);
-		// 	}
-
-		// 	if (result.data) {
-		// 		// Success
-		// 		goto(previousPage);
-		// 	}
-		// });
-	};
 </script>
 
 <h1>Add a reminder</h1>
 
-<form on:submit={createReminder}>
+<form method="POST" action="?/addReminder" use:enhance>
+	<input
+		type="hidden"
+		name="userId"
+		id="userId"
+		value={$page.data.session?.user.id}
+	/>
 	<div>
 		<label for="category-select">Which category?</label>
 		<select name="category-select" id="category-select" required>

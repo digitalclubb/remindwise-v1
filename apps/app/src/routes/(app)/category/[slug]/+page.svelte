@@ -6,7 +6,6 @@
 	$: ({ getReminders } = data);
 
 	$: reminders = $getReminders.data?.reminders?.list;
-	$: console.log('reminders', reminders);
 	// TODO
 	// seems quite hard to get access to the stores. how to do multiple queries in one page? load thing is confusing
 	// If the layout exports categories, we can filter on those
@@ -56,7 +55,7 @@
 
 	<h2>All reminders</h2>
 
-	{#if reminders?.length || 0 > 0}
+	{#if reminders && reminders?.length}
 		<table>
 			<thead>
 				<tr>
