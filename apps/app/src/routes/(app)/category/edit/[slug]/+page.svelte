@@ -1,77 +1,25 @@
 <script lang="ts">
-	import { navigating, page } from '$app/stores';
-	import deleteCategory from '@graphql/mutations/deleteCategory.graphql';
-	import updateCategory from '@graphql/mutations/updateCategory.graphql';
+	import { page } from '$app/stores';
 	import Button from 'components/button/Button.svelte';
 	import Modal from '../../../../../components/modal/Modal.svelte';
 	import { goto } from '$app/navigation';
-	import {
-		getContextClient,
-		gql,
-		mutationStore,
-		queryStore,
-	} from '@urql/svelte';
+
 	import { refresh } from '../../../../../stores';
 	import { icons } from '../../../../../components/icons/icons';
-	const previousPage = $navigating?.from ? $navigating.from.url.pathname : '/';
+	import { enhance } from '$app/forms';
 
 	let showModal = false;
 	export let data;
+	export let form;
 
 	$: ({ getCategoryId } = data);
 
 	$: category = $getCategoryId.data?.categories?.list[0].category;
-	// const category = queryStore<GetCategoryIdQuery, GetCategoryIdQueryVariables>({
-	// 	client,
-	// 	query: gql`
-	// 		${getCategoryId}
-	// 	`,
-	// 	variables: {
-	// 		category: $page.params.slug,
-	// 	},
-	// });
 
-	const onDelete = async () => {
-		// mutationStore<DeleteCategoryMutation, DeleteCategoryMutationVariables>({
-		// 	client,
-		// 	query: gql`
-		// 		${deleteCategory}
-		// 	`,
-		// 	variables: {
-		// 		category: $page.params.slug,
-		// 	},
-		// }).subscribe((result) => {
-		// 	if (result.error) {
-		// 		// Error
-		// 		console.log('Error', result);
-		// 	}
-		// 	if (result.data) {
-		// 		refresh.update((n) => !n);
-		// 		goto('/');
-		// 	}
-		// });
-	};
-
-	const editCategory = (event: SubmitEvent) => {
-		const formData = new FormData(event.target as HTMLFormElement);
-		// mutationStore<UpdateCategoryMutation, UpdateCategoryMutationVariables>({
-		// 	client,
-		// 	query: gql`
-		// 		${updateCategory}
-		// 	`,
-		// 	variables: {
-		// 		name: formData.get('category')?.toString().toLowerCase(),
-		// 		iconId: formData.get('icons')?.toString(),
-		// 		// id: $category.data?.categories?.list[0].category.id,
-		// 	},
-		// }).subscribe((result) => {
-		// 	//TODO error handling
-		// 	if (result.data) {
-		// 		refresh.update((n) => !n);
-		// 		goto(previousPage);
-		// 	}
-		// });
-	};
+	$: if (form?.success) {
+		refresh.update((n) => !n);
+		goto(`/category/${form?.category}`);
+	}
 </script>
 
 <h1>Edit <span>{$page.params.slug}</span> category</h1>
@@ -81,7 +29,8 @@
 {:else if $getCategoryId.error}
 	<li>{$getCategoryId.error.message}</li>
 {:else}
-	<form on:submit|preventDefault={editCategory}>
+	<form method="POST" action="?/edit" use:enhance>
+		{#if form?.missing}<p class="error">The category field is required</p>{/if}
 		<label for="category" class="input-label">Category name</label>
 		<input
 			type="text"
@@ -89,6 +38,12 @@
 			id="category"
 			required
 			value={category.name ?? ''}
+		/>
+		<input
+			type="hidden"
+			id="categoryId"
+			name="categoryId"
+			value={category.id ?? ''}
 		/>
 
 		<h3>Pick an icon</h3>
@@ -116,7 +71,9 @@
 	<p>
 		Deleting this category will delete all of the reminders associated with it.
 	</p>
-	<Button on:click={onDelete}>Delete</Button>
+	<form method="POST" action="?/delete">
+		<Button>Delete</Button>
+	</form>
 </Modal>
 
 <style>

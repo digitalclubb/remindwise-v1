@@ -3,13 +3,21 @@ import { load_getReminders } from '$houdini';
 
 export const load: PageLoad = async (event) => {
 	const { getCategories } = await event.parent();
-	let category;
-	getCategories.subscribe((res) => {
-		const cat = res.data?.categories?.list.find(
-			(cat) => cat.category.name === event.params.slug
-		);
-		category = cat?.category.id;
+
+	const prom = new Promise((resolve) => {
+		getCategories.subscribe((res) => {
+			console.log('categoriesss', res);
+			const cat = res.data?.categories?.list.find(
+				(cat) => cat.category.name === event.params.slug
+			);
+			resolve(cat?.category.id);
+		});
 	});
+
+	const category = await prom;
+
+	console.log('category', category);
+	// TODO when category is undefined problem
 	return {
 		...(await load_getReminders({
 			event,

@@ -1,6 +1,4 @@
 <script lang="ts">
-	import addCategory from '@graphql/mutations/addCategory.graphql';
-	import getCategories from '@graphql/queries/getCategories.graphql';
 	import Modal from '../modal/Modal.svelte';
 	import { icons } from '../icons/icons';
 
@@ -9,64 +7,19 @@
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { refresh } from '../../stores';
-	import type {
-		GetCategoriesQuery,
-		GetCategoriesQueryVariables,
-		GetSettingsQuery,
-		GetSettingsQueryVariables,
-	} from '@graphql/types';
 
 	import { getSettingsStore as Y, graphql, getCategoriesStore } from '$houdini';
 	export let categoriesStore: getCategoriesStore;
 	export let getSettingsStore: Y;
 	$: categories = $categoriesStore.data?.categories?.list;
 	$: settings = $getSettingsStore.data?.settings?.list[0].setting;
-	// $: ({ x } = categoriesStore);
-	// $: console.log('categoriesStore', categoriesStore);
-	// $: categories = graphql(`
-	// 	query getCategories @load {
-	// 		categories: categoriesCollection {
-	// 			list: edges {
-	// 				category: node {
-	// 					id
-	// 					name
-	// 					iconId
-	// 				}
-	// 			}
-	// 		}
-	// 	}`)
 
-	// const refreshCategories = () => {
-	// 	queryStore<GetCategoriesQuery, GetCategoriesQueryVariables>({
-	// 		client,
-	// 		query: gql`
-	// 			${getCategories}
-	// 		`,
-	// 		requestPolicy: 'network-only',
-	// 	});
-	// };
-
-	// refresh.subscribe((value) => {
-	// 	if (value) {
-	// 		refreshCategories();
-	// 		refresh.set(false);
-	// 	}
-	// });
-
-	// $: settings = graphql(`
-	// 	query getSettings @load {
-	// 		settings: settingsCollection {
-	// 			list: edges {
-	// 				setting: node {
-	// 					id
-	// 					first_name
-	// 					last_name
-	// 					email
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// `);
+	refresh.subscribe(async (value) => {
+		if (value) {
+			await categoriesStore.fetch({ policy: 'NetworkOnly' });
+			refresh.set(false);
+		}
+	});
 
 	let showModal = false;
 
@@ -109,6 +62,8 @@
 			userId: $page.data.session?.user.id,
 		});
 		showModal = false;
+		//TODO is this the best way to do it?
+		refresh.update((n) => !n);
 	};
 
 	const signOut = async () => {
