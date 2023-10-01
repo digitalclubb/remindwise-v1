@@ -16,36 +16,40 @@
 
 <style>
 	.button {
-		background-color: #c25420;
+		background: var(--orange-gradient);
 		border-radius: 2rem;
-		border: none;
+		border: solid 1px var(--orange);
 		padding: 0.8rem 1.4rem;
 		font-size: 1.4rem;
 		line-height: 1.6rem;
-		color: #ffffff;
+		color: var(--cream-light);
 		font-weight: 600;
 		text-align: center;
 	}
 
 	.button:hover {
-		background-color: #c25420;
+		background: var(--orange-dark);
+		border-color: var(--orange-dark);
 		cursor: pointer;
 	}
 
 	.secondary {
-		background-color: #ebe8e2;
-		color: #373f48;
+		background-color: var(--cream-light);
+		border-color: var(--cream);
+		color: var(--grey);
 	}
 
 	.secondary:hover {
-		background-color: #ebe8e2;
+		background-color: var(--cream);
 	}
 
 	.delete {
-		background-color: #da4b37;
+		background-color: var(--red);
+		border-color: var(--red);
 	}
 
 	.delete:hover {
-		background-color: #c94331;
+		background-color: var(--red-dark);
+		border-color: var(--red-dark);
 	}
 </style>
