@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let style = '';
+	export let onClick = () => {};
 </script>
 
 <button
@@ -7,6 +8,7 @@
 	class="button"
 	class:secondary={style === 'secondary'}
 	class:delete={style === 'delete'}
+	on:click={onClick}
 >
 	<slot />
 </button>

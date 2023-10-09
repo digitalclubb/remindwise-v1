@@ -67,6 +67,7 @@
 	};
 
 	const signOut = async () => {
+		console.log('hello');
 		await $page.data.supabase.auth.signOut();
 		await goto('/login');
 	};
@@ -120,7 +121,7 @@
 		</li>
 		<li>
 			<svg><use xlink:href="#log-out" /></svg>
-			<Button on:click={signOut} style="secondary">Log out</Button>
+			<Button onClick={signOut} style="secondary">Log out</Button>
 		</li>
 	</ul>
 	<Modal bind:showModal>
