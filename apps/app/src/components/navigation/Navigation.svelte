@@ -121,7 +121,14 @@
 						><svg fill="var(--cream)"
 							><use xlink:href="#{category.category.iconId}" /></svg
 						>
-						{category.category.name}
+						<span
+							>{category.category.name}
+							{#if category.category.reminders}
+								<span class="count"
+									>({category.category.reminders.totalCount})</span
+								>
+							{/if}
+						</span>
 					</a>
 					<!-- TODO how to handle this? Needs to be a button? Will it be positioned absolute? Not sure if accessibility is great -->
 					<svg class="options" fill="var(--cream)"
@@ -224,6 +231,10 @@
 
 	li:hover .options {
 		display: block;
+	}
+
+	.count {
+		font-weight: 300;
 	}
 
 	a {
