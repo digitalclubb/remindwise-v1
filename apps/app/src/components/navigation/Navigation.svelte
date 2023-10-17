@@ -66,8 +66,7 @@
 		refresh.update((n) => !n);
 	};
 
-	$: console.log($page.url.pathname.includes('category'));
-	$: console.log($page.url.pathname.split('/')[2]);
+	// TODO fix clicking around the category and not just the name
 	$: selected = $page.url.pathname.includes('category')
 		? $page.url.pathname.split('/')[2]
 		: '';
@@ -291,6 +290,7 @@
 		align-items: center;
 		gap: 1.2rem;
 		margin-top: 1rem;
+		justify-content: flex-start;
 	}
 
 	.settings {
