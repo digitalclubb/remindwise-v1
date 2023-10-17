@@ -33,7 +33,7 @@
 	}
 
 	.secondary {
-		background-color: var(--cream-light);
+		background: var(--cream-light);
 		border-color: var(--cream);
 		color: var(--grey);
 	}
