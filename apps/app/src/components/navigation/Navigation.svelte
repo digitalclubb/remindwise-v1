@@ -66,6 +66,11 @@
 		refresh.update((n) => !n);
 	};
 
+	$: console.log($page.url.pathname.includes('category'));
+	$: console.log($page.url.pathname.split('/')[2]);
+	$: selected = $page.url.pathname.includes('category')
+		? $page.url.pathname.split('/')[2]
+		: '';
 	const signOut = async () => {
 		console.log('hello');
 		await $page.data.supabase.auth.signOut();
@@ -101,8 +106,10 @@
 		>
 	</div>
 	<ul>
-		<li class="selected">
-			<a href="/"><svg><use xlink:href="#bar-graph" /></svg> Dashboard</a>
+		<li class:selected={selected === ''}>
+			<a href="/"
+				><svg fill="var(--cream)"><use xlink:href="#bar-graph" /></svg> Dashboard</a
+			>
 		</li>
 		{#if $categoriesStore.fetching}
 			<li>Loading...</li>
@@ -110,13 +117,14 @@
 			<li>{$categoriesStore.errors}</li>
 		{:else if categories}
 			{#each categories as category}
-				<li>
+				<li class:selected={selected === category.category.name}>
 					<a href="/category/{category.category.name}"
 						><svg fill="var(--cream)"
 							><use xlink:href="#{category.category.iconId}" /></svg
 						>
 						{category.category.name}
 					</a>
+					<!-- TODO how to handle this? Needs to be a button? Will it be positioned absolute? Not sure if accessibility is great -->
 					<svg class="options" fill="var(--cream)"
 						><use xlink:href="#dots-three-horizontal" /></svg
 					>
