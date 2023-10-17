@@ -115,7 +115,10 @@
 						><svg fill="var(--cream)"
 							><use xlink:href="#{category.category.iconId}" /></svg
 						>
-						{category.category.name}</a
+						{category.category.name}
+					</a>
+					<svg class="options" fill="var(--cream)"
+						><use xlink:href="#dots-three-horizontal" /></svg
 					>
 				</li>
 			{/each}
@@ -197,12 +200,23 @@
 	li {
 		color: var(--cream);
 		font-weight: 500;
-		padding: 1rem 0 1rem 4rem;
+		padding: 1rem 1.7rem 1rem 4rem;
 		text-transform: capitalize;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 	}
 
 	li:hover {
 		cursor: pointer;
+	}
+
+	li .options {
+		display: none;
+	}
+
+	li:hover .options {
+		display: block;
 	}
 
 	a {
