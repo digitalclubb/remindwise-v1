@@ -7,6 +7,7 @@
 	{...$$restProps}
 	class="button"
 	class:secondary={style === 'secondary'}
+	class:tertiary={style === 'tertiary'}
 	class:delete={style === 'delete'}
 	on:click={onClick}
 >
@@ -40,6 +41,18 @@
 
 	.secondary:hover {
 		background-color: var(--cream);
+	}
+
+	.tertiary {
+		background: transparent;
+		color: var(--orange);
+		border: none;
+		padding: 0;
+	}
+
+	.tertiary:hover {
+		background: none;
+		color: var(--orange-dark);
 	}
 
 	.delete {

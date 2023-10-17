@@ -90,14 +90,14 @@
 			<li>{$getSettingsStore.errors}</li>
 		{:else if settings}
 			<h3>
-				<svg fill="white"><use xlink:href="#user" /></svg>{settings.first_name +
-					' ' +
-					settings.last_name}
+				<svg fill="var(--cream)"><use xlink:href="#user" /></svg
+				>{settings.first_name + ' ' + settings.last_name}
 			</h3>
 		{/if}
 
 		<Button
-			><svg fill="white"><use xlink:href="#plus" /></svg>Add a new reminder</Button
+			><svg fill="var(--cream)"><use xlink:href="#plus" /></svg>Add a new
+			reminder</Button
 		>
 	</div>
 	<ul>
@@ -112,7 +112,7 @@
 			{#each categories as category}
 				<li>
 					<a href="/category/{category.category.name}"
-						><svg fill="white"
+						><svg fill="var(--cream)"
 							><use xlink:href="#{category.category.iconId}" /></svg
 						>
 						{category.category.name}</a
@@ -120,8 +120,9 @@
 				</li>
 			{/each}
 		{/if}
-		<li class="add">
-			<Button style="secondary" onClick={() => (showModal = true)}
+		<li class="add-category">
+			<svg fill="var(--cream)"><use xlink:href="#plus" /></svg>
+			<Button style="tertiary" onClick={() => (showModal = true)}
 				>Add category</Button
 			>
 		</li>
@@ -132,8 +133,9 @@
 			<a href="/settings"><svg><use xlink:href="#cog" /></svg> Settings</a>
 		</li>
 		<li>
-			<svg><use xlink:href="#log-out" /></svg>
-			<Button onClick={signOut} style="secondary">Log out</Button>
+			<a href="/" on:click={signOut}
+				><svg><use xlink:href="#log-out" /></svg> Logout</a
+			>
 		</li>
 	</ul>
 	<Modal bind:showModal>
@@ -185,6 +187,7 @@
 		color: var(--orange);
 		display: flex;
 		font-size: 1.4rem;
+		gap: 1rem;
 	}
 	.profile h3 svg {
 		height: 1.4rem;
@@ -192,7 +195,7 @@
 	}
 
 	li {
-		color: var(--white);
+		color: var(--cream);
 		font-weight: 500;
 		padding: 1rem 0 1rem 4rem;
 		text-transform: capitalize;
@@ -203,7 +206,7 @@
 	}
 
 	a {
-		color: var(--white);
+		color: var(--cream);
 		text-decoration: none;
 		display: flex;
 		align-items: center;
@@ -261,8 +264,19 @@
 		border-color: #ffbb00;
 	}
 
-	.add {
-		margin-top: 10rem;
-		margin-bottom: 1.6rem;
+	.add-category {
+		display: flex;
+		align-items: center;
+		gap: 1.2rem;
+		margin-top: 1rem;
+	}
+
+	.settings {
+		position: absolute;
+		bottom: 2.6rem;
+	}
+
+	.settings svg {
+		fill: var(--cream);
 	}
 </style>
