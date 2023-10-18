@@ -66,12 +66,11 @@
 		refresh.update((n) => !n);
 	};
 
-	// TODO fix clicking around the category and not just the name
 	$: selected = $page.url.pathname.includes('category')
 		? $page.url.pathname.split('/')[2]
 		: '';
+
 	const signOut = async () => {
-		console.log('hello');
 		await $page.data.supabase.auth.signOut();
 		await goto('/login');
 	};
@@ -104,7 +103,7 @@
 			reminder</Button
 		>
 	</div>
-	<ul>
+	<ul class="categories">
 		<li class:selected={selected === ''}>
 			<a href="/"
 				><svg fill="var(--cream)"><use xlink:href="#bar-graph" /></svg> Dashboard</a
@@ -211,14 +210,17 @@
 		width: 1.4rem;
 	}
 
+	.categories {
+		flex-grow: 2;
+	}
+
 	li {
 		color: var(--cream);
 		font-weight: 500;
-		padding: 1rem 1.7rem 1rem 4rem;
 		text-transform: capitalize;
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
+		padding-right: 1.7rem;
 	}
 
 	li:hover {
@@ -243,6 +245,8 @@
 		display: flex;
 		align-items: center;
 		gap: 1.2rem;
+		flex-grow: 2;
+		padding: 1rem 0 1rem 4rem;
 	}
 
 	a:hover {
@@ -302,11 +306,11 @@
 		gap: 1.2rem;
 		margin-top: 1rem;
 		justify-content: flex-start;
+		padding: 1rem 0 1rem 4rem;
 	}
 
 	.settings {
-		position: absolute;
-		bottom: 2.6rem;
+		margin-bottom: 2.6rem;
 	}
 
 	.settings svg {
