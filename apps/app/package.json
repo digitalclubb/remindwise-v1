@@ -34,7 +34,7 @@
 		"@graphql-typed-document-node/core": "^3.2.0",
 		"@playwright/test": "1.38.1",
 		"@sveltejs/adapter-vercel": "3.0.3",
-		"@sveltejs/kit": "1.25.1",
+		"@sveltejs/kit": "1.25.2",
 		"@testing-library/svelte": "4.0.3",
 		"@types/d3-format": "3.0.2",
 		"@types/d3-scale": "4.0.5",
