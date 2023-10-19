@@ -20,14 +20,14 @@
 		"@axe-core/playwright": "4.7.3",
 		"@playwright/test": "1.38.1",
 		"@sveltejs/adapter-vercel": "3.0.3",
-		"@sveltejs/kit": "1.25.1",
+		"@sveltejs/kit": "1.25.2",
 		"@testing-library/svelte": "4.0.3",
 		"svelte": "4.2.1",
 		"svelte-check": "3.5.2",
 		"svelte-preprocess": "5.0.4",
 		"tslib": "2.6.2",
 		"typescript": "5.2.2",
-		"vite": "4.4.9",
+		"vite": "4.4.11",
 		"vitest": "0.34.6"
 	},
 	"type": "module"
