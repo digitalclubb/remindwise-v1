@@ -1,15 +1,14 @@
 :root {
 	--cream-light: #f6f6f6;
 	--cream: #ebe8e2;
-	/*--cream-gradient:;*/
+	--cream-dark: #dcd7cd;
 	--grey-light: #cac7c1;
-	--grey: #373f48;
+	--grey: #333a42;
 	--grey-dark: #252b32;
-	--orange: #da6b37;
-	--orange-dark: #c25420;
-	--orange-gradient: linear-gradient(180deg, #ea743c 0%, var(--orange) 100%);
-	--red: #c94331;
-	--red-dark: #c94331;
+	--orange: #c35600;
+	--orange-dark: #b85100;
+	--red: #d73d28;
+	--red-dark: #d43923;
 	--white: #ffffff;
 }
 
