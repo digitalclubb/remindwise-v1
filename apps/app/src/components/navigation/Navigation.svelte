@@ -70,10 +70,22 @@
 		? $page.url.pathname.split('/')[2]
 		: '';
 
+	$: selected, (clicked = -1);
+
 	const signOut = async () => {
 		await $page.data.supabase.auth.signOut();
 		await goto('/login');
 	};
+
+	const onClickOptions = (index: number) => {
+		if (clicked === index) {
+			clicked = -1;
+		} else {
+			clicked = index;
+		}
+	};
+
+	$: clicked = -1;
 </script>
 
 <nav>
@@ -114,7 +126,7 @@
 		{:else if $categoriesStore.errors}
 			<li>{$categoriesStore.errors}</li>
 		{:else if categories}
-			{#each categories as category}
+			{#each categories as category, index}
 				<li class:selected={selected === category.category.name}>
 					<a href="/category/{category.category.name}"
 						><svg fill="var(--cream)"
@@ -129,10 +141,19 @@
 							{/if}
 						</span>
 					</a>
-					<!-- TODO how to handle this? Needs to be a button? Will it be positioned absolute? Not sure if accessibility is great -->
-					<svg class="options" fill="var(--cream)"
-						><use xlink:href="#dots-three-horizontal" /></svg
+					<button
+						class="icon-button"
+						class:active={clicked === index}
+						on:click={() => onClickOptions(index)}
+						><svg fill="var(--cream)"
+							><use xlink:href="#dots-three-horizontal" /></svg
+						></button
 					>
+					<!-- TODO sort out a11y, rename & delete trigger modals. Create modals here? Can I use form actions? -->
+					<ul class="options" class:active={clicked === index}>
+						<li>Rename<svg><use xlink:href="#pencil" /></svg></li>
+						<li>Delete<svg><use xlink:href="#trash" /></svg></li>
+					</ul>
 				</li>
 			{/each}
 		{/if}
@@ -221,18 +242,19 @@
 		display: flex;
 		align-items: center;
 		padding-right: 1.7rem;
+		position: relative;
 	}
 
 	li:hover {
 		cursor: pointer;
 	}
 
-	li .options {
+	li .icon-button {
 		display: none;
 	}
 
-	li:hover .options {
-		display: block;
+	li:hover .icon-button {
+		display: flex;
 	}
 
 	.count {
@@ -257,7 +279,7 @@
 		background-color: var(--grey-dark);
 	}
 
-	.selected svg {
+	.selected a svg {
 		fill: var(--orange);
 	}
 
@@ -314,6 +336,53 @@
 	}
 
 	.settings svg {
+		fill: var(--cream);
+	}
+
+	.icon-button {
+		background: none;
+		border: none;
+		padding-left: 0.6rem;
+		padding-right: 0.6rem;
+	}
+
+	.icon-button:hover {
+		cursor: pointer;
+	}
+
+	.icon-button.active {
+		display: flex;
+		background: var(--orange);
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+	}
+
+	.options {
+		display: none;
+	}
+
+	.options.active {
+		display: flex;
+		position: absolute;
+		background: var(--orange);
+		color: var(--cream);
+		border-radius: 3px 0 3px 3px;
+		padding: 1.5rem;
+		gap: 2rem;
+		flex-direction: column;
+		width: 12.3rem;
+		top: 3rem;
+		z-index: 1;
+		right: 1.7rem;
+	}
+
+	.options.active li {
+		display: flex;
+		justify-content: space-between;
+		padding: 0;
+	}
+
+	.options svg {
 		fill: var(--cream);
 	}
 </style>
