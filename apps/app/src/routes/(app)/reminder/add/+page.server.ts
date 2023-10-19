@@ -7,7 +7,7 @@ export const actions = {
 		const categoryId = data.get('category-select') as string;
 		const company = data.get('company') as string;
 		const cost = parseFloat(data.get('cost') as string);
-		const dateOfRenewal = data.get('renewal');
+		const dateOfRenewal = new Date(data.get('renewal') as string);
 		const autoRenewal = data.get('auto') === 'true';
 		const notes = data.get('notes') as string;
 		const userid = data.get('userId') as string;
