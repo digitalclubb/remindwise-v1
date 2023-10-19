@@ -16,7 +16,7 @@
 
 <style>
 	.button {
-		background: var(--orange-gradient);
+		background: var(--orange);
 		border-radius: 2rem;
 		border: solid 1px var(--orange);
 		padding: 0.8rem 1.4rem;
