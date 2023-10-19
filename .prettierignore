@@ -2,7 +2,7 @@
 node_modules/
 **/*.css.d.ts
 schema.graphql
-src/graphql/types.ts
+types.ts
 
 # configs
 .vscode/
