@@ -13,7 +13,7 @@
 
 <style>
 	.button {
-		background: var(--orange-gradient);
+		background-color: var(--orange);
 		border-radius: 2rem;
 		border: solid 1px var(--orange);
 		padding: 0.8rem 1.4rem;
@@ -25,7 +25,7 @@
 	}
 
 	.button:hover {
-		background: var(--orange-dark);
+		background-color: var(--orange-dark);
 		border-color: var(--orange-dark);
 		cursor: pointer;
 	}
