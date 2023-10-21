@@ -1,7 +1,323 @@
+<script lang="ts">
+	import { Link } from 'components';
+
+	let showMessage = false;
+	let message = '';
+
+	const rateLimit = () => {
+		message =
+			'You have already submitted an email address. Please try again in a moment';
+		showMessage = true;
+	};
+
+	const showLoading = () => {
+		message = 'Submitting...';
+		showMessage = true;
+	};
+
+	const showSuccess = () => {
+		message =
+			"Thank you for your email. We'll keep you updated when we go live!";
+		showMessage = true;
+	};
+
+	const submitHandler = (event) => {
+		event.preventDefault();
+
+		const email = event.target.parentNode.querySelector('.input').value;
+
+		// Compare current time with time of previous sign up
+		const time = new Date();
+		const timestamp = time.valueOf();
+		const previousTimestamp = localStorage.getItem('email-submitted');
+
+		// If last sign up was less than a minute ago rate limit
+		if (previousTimestamp && Number(previousTimestamp) + 60000 > timestamp) {
+			rateLimit();
+			return;
+		}
+		localStorage.setItem('email-submitted', timestamp.toString());
+
+		// Show loading state
+		showLoading();
+
+		const formBody = 'userGroup=&email=' + encodeURIComponent(email);
+		fetch(event.target.action, {
+			method: 'POST',
+			body: formBody,
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+		})
+			.then((res) => [res.ok, res.json(), res])
+			.then(([ok, dataPromise, res]) => {
+				if (ok) {
+					event.target.parentNode.querySelector('form').reset();
+				} else {
+					dataPromise.then((data) => {
+						message = data.message ? data.message : res.statusText;
+					});
+				}
+			})
+			.catch((error) => {
+				if (error.message === 'Failed to fetch') {
+					rateLimit();
+					return;
+				}
+				if (error.message) message = error.message;
+				localStorage.setItem('loops-form-timestamp', '');
+			})
+			.finally(() => {
+				showSuccess();
+			});
+	};
+</script>
+
 <svelte:head>
 	<title>remindwise.io</title>
 </svelte:head>
 
+<header>
+	<h1 class="container">
+		<img src="logo.svg" alt="" class="logo" />
+	</h1>
+</header>
+
 <main>
-    <h1>remindwise.io coming soon</h1>
+	<section class="intro">
+		<div class="container">
+			<div class="content">
+				<h2 class="heading-1">Get wise. <br />Get reminded.</h2>
+				<h3>Easy renewals and account tracking</h3>
+				<p>
+					We all have multiple policies, subscriptions and accounts, its so hard
+					to keep track of everything. Remindwise will keep all this info all in
+					one place and remind you when the time comes. No more hunting around
+					for last years policy document, just get reminded!
+				</p>
+				<Link href="#waitlist" type="button">Register interest</Link>
+			</div>
+
+			<img src="images/hero.png" alt="" fetchpriority="high" />
+		</div>
+	</section>
+
+	<div class="container">
+		<section class="reminders reverse with-image">
+			<div class="content">
+				<h2>Add new reminders and categorise to suit you</h2>
+				<p>
+					Remindwise is an app that will keep track of details of all your
+					policies, subscriptions, accounts. Add your reminders and sort them
+					into categoreis quickly and easily. Lorem ipsum dolor sit amet,
+					consectetur adipiscing elit. Phasellus vitae leo dapibus, vestibulum
+					odio vel, laoreet mi. Aliquam dictum risus nec facilisis vehicula.
+				</p>
+				<Link href="#waitlist" type="button">Register interest</Link>
+			</div>
+
+			<img src="images/reminders.png" alt="" />
+		</section>
+
+		<section class="documents with-image">
+			<div class="content">
+				<h2>Never panic search for a policy document again!</h2>
+				<p>
+					Upload a photo of your policy document, so come renewal time you know
+					what you paid last year and what you were covered for. When your
+					renewal comes around Remindwise will remind you and let you instantly
+					view your document and any other important info you add to your
+					reminder.
+				</p>
+				<Link href="#waitlist" type="button">Register interest</Link>
+			</div>
+
+			<img src="images/laptop.png" alt="" fetchpriority="low" />
+		</section>
+
+		<section class="spending reverse with-image">
+			<div class="content">
+				<h2>Keep track of spending</h2>
+				<p>
+					Remindwise will automatically create charts for you to keep track of
+					what you have spent and what costs are upcoming to help you budget
+					more easily. You can view these charts over the calendar year or a
+					shorter period to suit you. Lorem ipsum dolor sit amet, consectetur
+					adipiscing elit. Phasellus vitae leo dapibus, vestibulum odio vel,
+					laoreet mi.
+				</p>
+				<Link href="#waitlist" type="button">Register interest</Link>
+			</div>
+
+			<img src="images/spending.png" alt="" fetchpriority="low" />
+		</section>
+
+		<section id="waitlist" class="waiting-list">
+			<h2>Be the first to know when we go live!</h2>
+			<p>
+				We're new but we'll be up and running soon. Provide your email address
+				and we'll let you know when Remindwise launches
+			</p>
+			{#if showMessage}
+				<p class="message">{message}</p>
+			{:else}
+				<form
+					on:submit={submitHandler}
+					action="https://app.loops.so/api/newsletter-form/clm501ypy00m6l70okps8iy80"
+					method="POST"
+				>
+					<input class="input" type="email" placeholder="Your email" required />
+					<input class="submit" type="submit" value="Register interest" />
+				</form>
+			{/if}
+		</section>
+	</div>
+
+	<footer>
+		<div class="container">
+			<p>&copy; Remindwise 2023</p>
+			<img src="logo.svg" alt="" class="logo" />
+		</div>
+	</footer>
 </main>
+
+<style>
+	header {
+		background-color: var(--grey);
+		padding: 2rem;
+	}
+
+	.logo {
+		width: 17rem;
+		height: 2.8rem;
+	}
+
+	.container {
+		max-width: 118rem;
+		margin: 0 auto;
+	}
+
+	section {
+		padding: 5rem 2rem 0 2rem;
+	}
+
+	.intro {
+		background: linear-gradient(128deg, #f5f5f5 18.09%, #cac7c1 79.74%);
+	}
+
+	.reminders {
+		background-color: var(--white);
+	}
+
+	.documents {
+		background: linear-gradient(279deg, #252b32 43.11%, #333a42 98.23%);
+		color: var(--white);
+	}
+	.waiting-list {
+		background-color: var(--orange);
+		color: var(--white);
+		padding-bottom: 9rem;
+	}
+
+	.content {
+		max-width: 47rem;
+	}
+
+	p {
+		font-weight: 300;
+		margin-bottom: 1.4rem;
+	}
+
+	.message {
+		font-size: 2.4rem;
+		margin-top: 4rem;
+	}
+
+	.input {
+		border-radius: 1.6rem;
+		border: 3px solid var(--cream-dark);
+		font-size: 2rem;
+		font-weight: 600;
+		line-height: 2.4rem;
+		color: var(--grey);
+		width: 100%;
+		padding: 2.7rem 3.9rem;
+	}
+
+	.input::placeholder {
+		color: var(--grey);
+	}
+
+	.submit {
+		background-color: var(--grey);
+		color: var(--cream-light);
+		border: none;
+		border-radius: 2rem;
+		font-size: 2rem;
+		font-weight: 600;
+		padding: 3rem;
+		margin-top: 1.5rem;
+		cursor: pointer;
+	}
+
+	.submit:hover {
+		background-color: var(--grey-dark);
+	}
+
+	footer {
+		background-color: var(--grey);
+		padding: 2.9rem 3.3rem 2.9rem 6.4rem;
+		color: var(--cream);
+	}
+
+	footer .container {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+
+	@media screen and (min-width: 76.8em) {
+		section {
+			padding: 5rem 6.8rem 0 11.5rem;
+		}
+
+		.intro .container {
+			position: relative;
+			padding-bottom: 10rem;
+		}
+
+		.intro img {
+			position: absolute;
+			right: 0;
+			bottom: 0;
+		}
+
+		.with-image {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.reverse img {
+			order: -1;
+		}
+
+		.documents,
+		.waiting-list {
+			border-radius: 5rem;
+		}
+
+		.input {
+			width: 77%;
+		}
+
+		.submit {
+			margin-top: 0;
+			margin-left: 1.5rem;
+		}
+
+		footer {
+			margin-top: 15rem;
+		}
+	}
+</style>
