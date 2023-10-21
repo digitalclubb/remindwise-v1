@@ -74,7 +74,14 @@
 </script>
 
 <svelte:head>
-	<title>remindwise.io</title>
+	<title
+		>remindwise.io - Keep track of subscriptions, accounts, and policies. All in
+		one place.</title
+	>
+	<meta
+		name="description"
+		content="Discover remindwise.io, the user-friendly app that simplifies managing your policies, subscriptions, and accounts. Easily organise, track expenses, and get timely reminders for hassle-free financial planning."
+	/>
 </svelte:head>
 
 <header>
@@ -90,10 +97,11 @@
 				<h2 class="heading-1">Get wise. <br />Get reminded.</h2>
 				<h3>Easy renewals and account tracking</h3>
 				<p>
-					We all have multiple policies, subscriptions and accounts, its so hard
-					to keep track of everything. Remindwise will keep all this info all in
-					one place and remind you when the time comes. No more hunting around
-					for last years policy document, just get reminded!
+					Managing multiple policies, subscriptions, and accounts can be hard.
+					Remindwise can help you save your information in one place and gives
+					you a friendly reminder when it's time to take action. No more frantic
+					searches for last year's policy document, no more searching your inbox
+					for your insurance provider. Remindwise is here to help.
 				</p>
 				<Link href="#waitlist" type="button">Register interest</Link>
 			</div>
@@ -107,11 +115,10 @@
 			<div class="content">
 				<h2>Add new reminders and categorise to suit you</h2>
 				<p>
-					Remindwise is an app that will keep track of details of all your
-					policies, subscriptions, accounts. Add your reminders and sort them
-					into categoreis quickly and easily. Lorem ipsum dolor sit amet,
-					consectetur adipiscing elit. Phasellus vitae leo dapibus, vestibulum
-					odio vel, laoreet mi. Aliquam dictum risus nec facilisis vehicula.
+					Remindwise is the app that helps you effortlessly stay on top of your
+					policies, subscriptions, and accounts. Easily add your reminders and
+					organise them into categories all in one place, making life simpler
+					and more exciting.
 				</p>
 				<Link href="#waitlist" type="button">Register interest</Link>
 			</div>
@@ -123,11 +130,11 @@
 			<div class="content">
 				<h2>Never panic search for a policy document again!</h2>
 				<p>
-					Upload a photo of your policy document, so come renewal time you know
-					what you paid last year and what you were covered for. When your
-					renewal comes around Remindwise will remind you and let you instantly
-					view your document and any other important info you add to your
-					reminder.
+					Upload your policy documents, so when renewal time rolls around,
+					you'll have a clear record of last year's costs and what's covered.
+					With Remindwise, you can instantly access your document and any other
+					vital information you've attached to your reminder. Keeping things
+					simple and convenient for you.
 				</p>
 				<Link href="#waitlist" type="button">Register interest</Link>
 			</div>
@@ -139,12 +146,11 @@
 			<div class="content">
 				<h2>Keep track of spending</h2>
 				<p>
-					Remindwise will automatically create charts for you to keep track of
-					what you have spent and what costs are upcoming to help you budget
-					more easily. You can view these charts over the calendar year or a
-					shorter period to suit you. Lorem ipsum dolor sit amet, consectetur
-					adipiscing elit. Phasellus vitae leo dapibus, vestibulum odio vel,
-					laoreet mi.
+					Remindwise takes care of the number-crunching for you, automatically
+					generating clear, user-friendly charts. These charts help you monitor
+					your past expenses and upcoming costs, making budgeting a breeze.
+					Whether you prefer an overview of your entire year or a closer look at
+					a specific time frame, it's all about your convenience.
 				</p>
 				<Link href="#waitlist" type="button">Register interest</Link>
 			</div>
