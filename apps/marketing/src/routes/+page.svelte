@@ -1,5 +1,76 @@
 <script lang="ts">
 	import { Link } from 'components';
+
+	let showMessage = false;
+	let message = '';
+
+	const rateLimit = () => {
+		message =
+			'You have already submitted an email address. Please try again in a moment';
+		showMessage = true;
+	};
+
+	const showLoading = () => {
+		message = 'Submitting...';
+		showMessage = true;
+	};
+
+	const showSuccess = () => {
+		message =
+			"Thank you for your email. We'll keep you updated when we go live!";
+		showMessage = true;
+	};
+
+	const submitHandler = (event) => {
+		event.preventDefault();
+
+		const email = event.target.parentNode.querySelector('.input').value;
+
+		// Compare current time with time of previous sign up
+		const time = new Date();
+		const timestamp = time.valueOf();
+		const previousTimestamp = localStorage.getItem('email-submitted');
+
+		// If last sign up was less than a minute ago rate limit
+		if (previousTimestamp && Number(previousTimestamp) + 60000 > timestamp) {
+			rateLimit();
+			return;
+		}
+		localStorage.setItem('email-submitted', timestamp.toString());
+
+		// Show loading state
+		showLoading();
+
+		const formBody = 'userGroup=&email=' + encodeURIComponent(email);
+		fetch(event.target.action, {
+			method: 'POST',
+			body: formBody,
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+		})
+			.then((res) => [res.ok, res.json(), res])
+			.then(([ok, dataPromise, res]) => {
+				if (ok) {
+					event.target.parentNode.querySelector('form').reset();
+				} else {
+					dataPromise.then((data) => {
+						message = data.message ? data.message : res.statusText;
+					});
+				}
+			})
+			.catch((error) => {
+				if (error.message === 'Failed to fetch') {
+					rateLimit();
+					return;
+				}
+				if (error.message) message = error.message;
+				localStorage.setItem('loops-form-timestamp', '');
+			})
+			.finally(() => {
+				showSuccess();
+			});
+	};
 </script>
 
 <svelte:head>
@@ -7,7 +78,7 @@
 </svelte:head>
 
 <header>
-	<h1>
+	<h1 class="container">
 		<img src="logo.svg" alt="" class="logo" />
 	</h1>
 </header>
@@ -24,7 +95,7 @@
 					one place and remind you when the time comes. No more hunting around
 					for last years policy document, just get reminded!
 				</p>
-				<Link href="#waitlist" type="button">Get reminded</Link>
+				<Link href="#waitlist" type="button">Register interest</Link>
 			</div>
 
 			<img src="images/hero.png" alt="" fetchpriority="high" />
@@ -32,7 +103,7 @@
 	</section>
 
 	<div class="container">
-		<section class="reminders reverse">
+		<section class="reminders reverse with-image">
 			<div class="content">
 				<h2>Add new reminders and categorise to suit you</h2>
 				<p>
@@ -42,13 +113,13 @@
 					consectetur adipiscing elit. Phasellus vitae leo dapibus, vestibulum
 					odio vel, laoreet mi. Aliquam dictum risus nec facilisis vehicula.
 				</p>
-				<Link href="#waitlist" type="button">Get reminded</Link>
+				<Link href="#waitlist" type="button">Register interest</Link>
 			</div>
 
 			<img src="images/reminders.png" alt="" />
 		</section>
 
-		<section class="documents">
+		<section class="documents with-image">
 			<div class="content">
 				<h2>Never panic search for a policy document again!</h2>
 				<p>
@@ -58,13 +129,13 @@
 					view your document and any other important info you add to your
 					reminder.
 				</p>
-				<Link href="#waitlist" type="button">Get reminded</Link>
+				<Link href="#waitlist" type="button">Register interest</Link>
 			</div>
 
 			<img src="images/laptop.png" alt="" fetchpriority="low" />
 		</section>
 
-		<section class="spending reverse">
+		<section class="spending reverse with-image">
 			<div class="content">
 				<h2>Keep track of spending</h2>
 				<p>
@@ -75,7 +146,7 @@
 					adipiscing elit. Phasellus vitae leo dapibus, vestibulum odio vel,
 					laoreet mi.
 				</p>
-				<Link href="#waitlist" type="button">Get reminded</Link>
+				<Link href="#waitlist" type="button">Register interest</Link>
 			</div>
 
 			<img src="images/spending.png" alt="" fetchpriority="low" />
@@ -87,16 +158,26 @@
 				We're new but we'll be up and running soon. Provide your email address
 				and we'll let you know when Remindwise launches
 			</p>
-			<form>
-				<input class="input" type="text" placeholder="Your email" />
-				<input type="submit" value="Register interest" />
-			</form>
+			{#if showMessage}
+				<p class="message">{message}</p>
+			{:else}
+				<form
+					on:submit={submitHandler}
+					action="https://app.loops.so/api/newsletter-form/clm501ypy00m6l70okps8iy80"
+					method="POST"
+				>
+					<input class="input" type="email" placeholder="Your email" required />
+					<input class="submit" type="submit" value="Register interest" />
+				</form>
+			{/if}
 		</section>
 	</div>
 
 	<footer>
-		<p>&copy; Remindwise 2023</p>
-		<img src="logo.svg" alt="" class="logo" />
+		<div class="container">
+			<p>&copy; Remindwise 2023</p>
+			<img src="logo.svg" alt="" class="logo" />
+		</div>
 	</footer>
 </main>
 
@@ -117,7 +198,7 @@
 	}
 
 	section {
-		padding: 5rem 6.8rem 0 11.5rem;
+		padding: 5rem 2rem 0 2rem;
 	}
 
 	.intro {
@@ -147,6 +228,11 @@
 		margin-bottom: 1.4rem;
 	}
 
+	.message {
+		font-size: 2.4rem;
+		margin-top: 4rem;
+	}
+
 	.input {
 		border-radius: 1.6rem;
 		border: 3px solid var(--cream-dark);
@@ -162,17 +248,51 @@
 		color: var(--grey);
 	}
 
+	.submit {
+		background-color: var(--grey);
+		color: var(--cream-light);
+		border: none;
+		border-radius: 2rem;
+		font-size: 2rem;
+		font-weight: 600;
+		padding: 3rem;
+		margin-top: 1.5rem;
+		cursor: pointer;
+	}
+
+	.submit:hover {
+		background-color: var(--grey-dark);
+	}
+
 	footer {
 		background-color: var(--grey);
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
 		padding: 2.9rem 3.3rem 2.9rem 6.4rem;
 		color: var(--cream);
 	}
 
+	footer .container {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+
 	@media screen and (min-width: 76.8em) {
-		section:not(.waiting-list) {
+		section {
+			padding: 5rem 6.8rem 0 11.5rem;
+		}
+
+		.intro .container {
+			position: relative;
+			padding-bottom: 10rem;
+		}
+
+		.intro img {
+			position: absolute;
+			right: 0;
+			bottom: 0;
+		}
+
+		.with-image {
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
@@ -188,7 +308,12 @@
 		}
 
 		.input {
-			width: 79%;
+			width: 77%;
+		}
+
+		.submit {
+			margin-top: 0;
+			margin-left: 1.5rem;
 		}
 
 		footer {
