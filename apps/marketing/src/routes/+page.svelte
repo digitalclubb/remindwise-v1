@@ -16,7 +16,7 @@
 	<section class="intro">
 		<div class="container">
 			<div class="content">
-				<h2 class="heading-1">Get wise. Get reminded.</h2>
+				<h2 class="heading-1">Get wise. <br />Get reminded.</h2>
 				<h3>Easy renewals and account tracking</h3>
 				<p>
 					We all have multiple policies, subscriptions and accounts, its so hard
@@ -88,13 +88,16 @@
 				and we'll let you know when Remindwise launches
 			</p>
 			<form>
-				<input type="text" placeholder="Your email" />
+				<input class="input" type="text" placeholder="Your email" />
 				<input type="submit" value="Register interest" />
 			</form>
 		</section>
 	</div>
 
-	<footer></footer>
+	<footer>
+		<p>&copy; Remindwise 2023</p>
+		<img src="logo.svg" alt="" class="logo" />
+	</footer>
 </main>
 
 <style>
@@ -132,16 +135,47 @@
 	.waiting-list {
 		background-color: var(--orange);
 		color: var(--white);
+		padding-bottom: 9rem;
+	}
+
+	.content {
+		max-width: 47rem;
 	}
 
 	p {
-		margin-bottom: 0.8rem;
+		font-weight: 300;
+		margin-bottom: 1.4rem;
+	}
+
+	.input {
+		border-radius: 1.6rem;
+		border: 3px solid var(--cream-dark);
+		font-size: 2rem;
+		font-weight: 600;
+		line-height: 2.4rem;
+		color: var(--grey);
+		width: 100%;
+		padding: 2.7rem 3.9rem;
+	}
+
+	.input::placeholder {
+		color: var(--grey);
+	}
+
+	footer {
+		background-color: var(--grey);
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		padding: 2.9rem 3.3rem 2.9rem 6.4rem;
+		color: var(--cream);
 	}
 
 	@media screen and (min-width: 76.8em) {
-		section {
+		section:not(.waiting-list) {
 			display: flex;
 			align-items: center;
+			justify-content: space-between;
 		}
 
 		.reverse img {
@@ -151,6 +185,14 @@
 		.documents,
 		.waiting-list {
 			border-radius: 5rem;
+		}
+
+		.input {
+			width: 79%;
+		}
+
+		footer {
+			margin-top: 15rem;
 		}
 	}
 </style>
