@@ -1,211 +1,66 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import Header from '../../../../components/header/Header.svelte';
+	import Table from '../../../../components/table/Table.svelte';
 
 	export let data;
 
 	$: ({ getReminders } = data);
 
 	$: reminders = $getReminders.data?.reminders?.list;
+
+	const upcoming = [
+		{
+			id: 1,
+			Name: 'Netflix',
+			Company: 'Netflix',
+			Cost: '£16',
+			'Due date': '01.10.23',
+			'Auto renewal': true,
+		},
+	];
+
+	const ongoing = [
+		{
+			id: 1,
+			Name: 'Netflix',
+			Company: 'Netflix',
+			'Re-occuring cost': '£12',
+			'Total accured': '£1,332',
+		},
+	];
 </script>
 
-<h1><span>{$page.params.slug}</span> reminders</h1>
+<Header title={$page.params.slug} />
 
-<a class="button" href="/reminder/add">Add reminder</a>
-<a class="button" href={`/category/edit/${$page.params.slug}`}>Edit Category</a>
-
-{#if $getReminders.fetching}
-	<p>Fetching reminders...</p>
-{:else}
-	<section class="boxes">
-		<article class="box">
-			<div class="icon">
-				<svg><use xlink:href="#bell" /></svg>
-			</div>
-			<div>
-				<h2>No. reminders</h2>
-				<p>{reminders?.length}</p>
-			</div>
-		</article>
-		<article class="box">
-			<div class="icon icon-spent">
-				<svg><use xlink:href="#wallet" /></svg>
-			</div>
-			<div>
-				<h2>Total spent</h2>
-				<p>£1000</p>
-			</div>
-		</article>
+<div class="body">
+	<section>
+		<h2 class="heading-3">
+			Total {$page.params.slug} spend this year <span>(Jan '23 - Jan '24)</span>
+		</h2>
 	</section>
 
-	<h2>Upcoming reminders</h2>
+	<section>
+		<h2 class="heading-3">Upcoming renewals <span>(3)</span></h2>
+		<Table data={upcoming} />
+	</section>
 
-	<ol>
-		<li>
-			<article class="upcoming">
-				<h3>Company</h3>
-				<p><span>cost</span> £ 1,000</p>
-				<p><span>due in</span> 3 days</p>
-			</article>
-		</li>
-	</ol>
-
-	<h2>All reminders</h2>
-
-	{#if reminders && reminders?.length}
-		<table>
-			<thead>
-				<tr>
-					<th>Company</th>
-					<th>Cost</th>
-					<th>Renewal date</th>
-					<th>Auto renewal</th>
-					<th>Reminder enabled</th>
-					<th>Notes</th>
-					<th>Edit</th>
-				</tr>
-			</thead>
-			<tbody>
-				{#each reminders as reminder}
-					<tr>
-						<td>{reminder.reminder.company}</td>
-						<td>{reminder.reminder.cost}</td>
-						<td>{reminder.reminder.dateOfRenewal}</td>
-						<td>{reminder.reminder.autoRenewal}</td>
-						<td>{reminder.reminder.enabled}</td>
-						<td>View notes</td>
-						<td>
-							<a href="/reminder/edit/{reminder.reminder.id}"> Edit</a>
-						</td>
-					</tr>
-				{/each}
-			</tbody>
-		</table>
-	{:else}
-		<p>No reminders found...</p>
-	{/if}
-{/if}
+	<section>
+		<h2 class="heading-3">Ongoing <span>({reminders?.length})</span></h2>
+		<Table data={ongoing} />
+	</section>
+</div>
 
 <style>
-	h1 span {
-		text-transform: capitalize;
+	.body {
+		padding: 2.4rem 4.2rem;
 	}
 
-	.upcoming {
-		display: grid;
-		grid-template-columns: 50% 25% 25%;
-		width: 50%;
-		margin-top: 6rem;
-		margin-bottom: 6rem;
+	section {
+		margin-bottom: 3rem;
 	}
 
-	.upcoming h3 {
-		font-size: 1.8rem;
-	}
-
-	.upcoming p {
-		font-size: 1.8rem;
-		font-weight: bold;
-	}
-
-	.upcoming span {
-		display: block;
-		font-size: 1.2rem;
-		font-weight: normal;
-		color: #727272;
-	}
-	table {
-		border-collapse: collapse;
-		width: 100%;
-		margin-top: 6rem;
-	}
-
-	thead {
-		font-size: 1.8rem;
-		text-align: left;
-	}
-
-	th {
-		background-color: #cee2ff;
-		padding: 2rem;
-	}
-
-	td {
-		font-size: 1.6rem;
-		padding: 2rem;
-	}
-
-	tr:nth-child(even) td {
-		background-color: #f8fafb;
-	}
-
-	/* Below is dupe */
-	.boxes {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 2rem;
-		margin-top: 4rem;
-		margin-bottom: 4rem;
-	}
-
-	.box {
-		background-color: #f8fafb;
-		padding-top: 3rem;
-		padding-bottom: 3rem;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		gap: 1.6rem;
-	}
-
-	.box h2 {
-		font-size: 1.6rem;
-		font-weight: normal;
-		font-family: 'Roboto';
-		margin-bottom: 0;
-	}
-
-	.box p {
-		font-weight: bold;
-		font-size: 2rem;
-	}
-
-	.icon {
-		background-color: #c7f6d6;
-		border-radius: 50%;
-		padding: 1rem;
-		align-self: center;
-	}
-
-	.icon svg {
-		width: 2rem;
-		height: 2rem;
-	}
-
-	.icon-spent {
-		background-color: #cee2ff;
-	}
-
-	a {
-		color: #6a6c70;
-		text-decoration: none;
-	}
-	.button {
-		display: inline-block;
-		outline: none;
-		cursor: pointer;
-		border-style: solid;
-		border-width: 0.1rem;
-		border-radius: 0.3rem;
-		padding: 1.2rem 2.4rem;
-		line-height: 1.15;
-		font-size: 1.6rem;
-		color: #000000;
-		background-color: #ffffff;
-		border-color: #373c61;
-		text-align: center;
-	}
-	.button:hover {
-		transition: all 0.1s ease;
-		border-color: #9a0202;
+	h2 span {
+		font-weight: 300;
 	}
 </style>
