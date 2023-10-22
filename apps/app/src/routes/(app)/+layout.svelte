@@ -49,9 +49,4 @@
 		grid-template-areas: 'navigation content';
 		min-height: 100vh;
 	}
-
-	div {
-		grid-area: content;
-		padding: 1.8rem 2.6rem;
-	}
 </style>

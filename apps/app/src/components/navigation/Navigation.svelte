@@ -90,12 +90,7 @@
 
 <nav>
 	<figure>
-		<img
-			src="/static/logo.svg"
-			alt="remindwise.io logo"
-			width="170"
-			height="27"
-		/>
+		<img src="/logo.svg" alt="remindwise.io logo" width="170" height="27" />
 	</figure>
 
 	<div class="profile">
