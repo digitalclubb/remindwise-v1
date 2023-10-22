@@ -20,15 +20,18 @@
 		},
 	];
 
-	const ongoing = [
-		{
-			id: 1,
-			Name: 'Netflix',
-			Company: 'Netflix',
-			'Re-occuring cost': '£12',
-			'Total accured': '£1,332',
-		},
-	];
+	$: ongoing = reminders?.map((reminder) => {
+		return {
+			id: reminder.reminder.id,
+			Name: '',
+			Company: reminder.reminder.company,
+			'Re-occuring cost': new Intl.NumberFormat('en-GB', {
+				style: 'currency',
+				currency: 'GBP',
+			}).format(reminder.reminder.cost),
+			'Total accured': '',
+		};
+	});
 </script>
 
 <Header title={$page.params.slug} />

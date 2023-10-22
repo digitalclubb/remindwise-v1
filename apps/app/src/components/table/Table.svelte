@@ -1,14 +1,12 @@
 <script lang="ts">
 	export let data;
 	const table = data.map(({ id, ...actual }) => actual);
-	const headings = Object.keys(table[0]);
-	const body = Object.values(table);
 </script>
 
 <table>
 	<thead>
 		<tr>
-			{#each headings as heading}
+			{#each Object.keys(table[0]) as heading}
 				<th>
 					{heading}
 					{#if heading === 'Cost' || heading === 'Re-occuring cost'}
@@ -20,12 +18,12 @@
 		</tr>
 	</thead>
 	<tbody>
-		{#if data.length === 0}
-			<td colspan={headings.length}>
+		{#if table.length === 0}
+			<td colspan={Object.keys(table[0]).length}>
 				<p class="no-data">Add some categories and reminders to get started</p>
 			</td>
 		{/if}
-		{#each body as row}
+		{#each Object.values(table) as row}
 			<tr>
 				{#each Object.values(row) as cell}
 					<td>{cell}</td>
