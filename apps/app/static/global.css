@@ -1,7 +1,9 @@
 :root {
 	--cream-light: #f6f6f6;
-	--cream: #ebe8e2;
 	--cream-dark: #dcd7cd;
+	--cream: #ebe8e2;
+	/*--cream-gradient:;*/
+	--remindwise-grey: #333a42;
 	--grey-light: #cac7c1;
 	--grey: #333a42;
 	--grey-dark: #252b32;

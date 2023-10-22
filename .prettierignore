@@ -1,6 +1,8 @@
 # generated files
 node_modules/
 **/*.css.d.ts
+schema.graphql
+types.ts
 
 # configs
 .vscode/
@@ -11,3 +13,4 @@ pnpm-lock.yaml
 .vercel
 
 $houdini
+

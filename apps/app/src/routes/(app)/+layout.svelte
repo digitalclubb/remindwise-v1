@@ -44,7 +44,7 @@
 <style>
 	main {
 		display: grid;
-		grid-template-columns: 15% 85%;
+		grid-template-columns: 25.8rem 1fr;
 		grid-template-rows: auto;
 		grid-template-areas: 'navigation content';
 		min-height: 100vh;

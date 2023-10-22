@@ -1,12 +1,15 @@
 <script lang="ts">
 	export let style = '';
+	export let onClick = () => {};
 </script>
 
 <button
 	{...$$restProps}
 	class="button"
 	class:secondary={style === 'secondary'}
+	class:tertiary={style === 'tertiary'}
 	class:delete={style === 'delete'}
+	on:click={onClick}
 >
 	<slot />
 </button>
@@ -31,13 +34,25 @@
 	}
 
 	.secondary {
-		background-color: var(--cream-light);
+		background: var(--cream-light);
 		border-color: var(--cream);
 		color: var(--grey);
 	}
 
 	.secondary:hover {
 		background-color: var(--cream);
+	}
+
+	.tertiary {
+		background: transparent;
+		color: var(--orange);
+		border: none;
+		padding: 0;
+	}
+
+	.tertiary:hover {
+		background: none;
+		color: var(--orange-dark);
 	}
 
 	.delete {

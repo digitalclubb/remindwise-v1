@@ -66,7 +66,7 @@
 	</form>
 {/if}
 
-<Button on:click={() => (showModal = true)}>Delete Category</Button>
+<Button onClick={() => (showModal = true)}>Delete Category</Button>
 
 <Modal bind:showModal>
 	<h2>Are you sure you want to delete this category?</h2>

@@ -5,6 +5,9 @@ query getCategories @load {
 				id
 				name
 				iconId
+				reminders: remindersCollection {
+					totalCount
+				}
 			}
 		}
 	}

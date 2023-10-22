@@ -66,14 +66,38 @@
 		refresh.update((n) => !n);
 	};
 
+	$: selected = $page.url.pathname.includes('category')
+		? $page.url.pathname.split('/')[2]
+		: '';
+
+	$: selected, (clicked = -1);
+
 	const signOut = async () => {
 		await $page.data.supabase.auth.signOut();
 		await goto('/login');
 	};
+
+	const onClickOptions = (index: number) => {
+		if (clicked === index) {
+			clicked = -1;
+		} else {
+			clicked = index;
+		}
+	};
+
+	$: clicked = -1;
 </script>
 
 <nav>
-	<h2>remindwise.io</h2>
+	<figure>
+		<img
+			src="/static/logo.svg"
+			alt="remindwise.io logo"
+			width="170"
+			height="27"
+		/>
+	</figure>
+
 	<div class="profile">
 		{#if $getSettingsStore.fetching}
 			<li>Loading...</li>
@@ -81,15 +105,20 @@
 			<li>{$getSettingsStore.errors}</li>
 		{:else if settings}
 			<h3>
-				{settings.first_name + ' ' + settings.last_name}
+				<svg fill="var(--cream)"><use xlink:href="#user" /></svg
+				>{settings.first_name + ' ' + settings.last_name}
 			</h3>
-			<p>{settings.email}</p>
 		{/if}
+
+		<Button
+			><svg fill="var(--cream)"><use xlink:href="#plus" /></svg>Add a new
+			reminder</Button
+		>
 	</div>
 	<ul class="categories">
-		<li>
-			<a href="/" class="selected"
-				><svg><use xlink:href="#bar-graph" /></svg> Dashboard</a
+		<li class:selected={selected === ''}>
+			<a href="/"
+				><svg fill="var(--cream)"><use xlink:href="#bar-graph" /></svg> Dashboard</a
 			>
 		</li>
 		{#if $categoriesStore.fetching}
@@ -97,20 +126,42 @@
 		{:else if $categoriesStore.errors}
 			<li>{$categoriesStore.errors}</li>
 		{:else if categories}
-			{#each categories as category}
-				<li>
+			{#each categories as category, index}
+				<li class:selected={selected === category.category.name}>
 					<a href="/category/{category.category.name}"
-						><svg><use xlink:href="#{category.category.iconId}" /></svg>
-						{category.category.name}</a
+						><svg fill="var(--cream)"
+							><use xlink:href="#{category.category.iconId}" /></svg
+						>
+						<span
+							>{category.category.name}
+							{#if category.category.reminders}
+								<span class="count"
+									>({category.category.reminders.totalCount})</span
+								>
+							{/if}
+						</span>
+					</a>
+					<button
+						class="icon-button"
+						class:active={clicked === index}
+						on:click={() => onClickOptions(index)}
+						><svg fill="var(--cream)"
+							><use xlink:href="#dots-three-horizontal" /></svg
+						></button
 					>
+					<!-- TODO sort out a11y, rename & delete trigger modals. Create modals here? Can I use form actions? -->
+					<ul class="options" class:active={clicked === index}>
+						<li>Rename<svg><use xlink:href="#pencil" /></svg></li>
+						<li>Delete<svg><use xlink:href="#trash" /></svg></li>
+					</ul>
 				</li>
 			{/each}
 		{/if}
-		<li class="add">
-			<Button on:click={() => (showModal = true)}>Add category</Button>
-		</li>
-		<li>
-			<a class="button" href="/reminder/add">Add reminder</a>
+		<li class="add-category">
+			<svg fill="var(--cream)"><use xlink:href="#plus" /></svg>
+			<Button style="tertiary" onClick={() => (showModal = true)}
+				>Add category</Button
+			>
 		</li>
 	</ul>
 	<ul class="settings">
@@ -119,8 +170,9 @@
 			<a href="/settings"><svg><use xlink:href="#cog" /></svg> Settings</a>
 		</li>
 		<li>
-			<svg><use xlink:href="#log-out" /></svg>
-			<Button on:click={signOut} style="secondary">Log out</Button>
+			<a href="/" on:click={signOut}
+				><svg><use xlink:href="#log-out" /></svg> Logout</a
+			>
 		</li>
 	</ul>
 	<Modal bind:showModal>
@@ -145,48 +197,96 @@
 
 <style>
 	nav {
-		background-color: #f8fafb;
-		font-size: 1.6rem;
-		grid-area: navigation;
-		padding: 1.8rem 2.6rem;
+		background-color: var(--remindwise-grey);
 		display: flex;
 		flex-wrap: wrap;
 		flex-direction: column;
+		font-size: 1.4rem;
+		grid-area: navigation;
+	}
+
+	figure {
+		align-self: center;
+		padding: 2.5rem 4rem;
 	}
 
 	.profile {
-		margin-bottom: 2.6rem;
+		align-items: center;
+		background-color: var(--grey);
+		display: flex;
+		flex-direction: column;
+		gap: 2.2rem;
+		padding: 2.5rem 3.6rem 6.5rem 3.6rem;
 	}
 
 	.profile h3 {
-		margin-bottom: 0;
+		align-items: center;
+		color: var(--orange);
+		display: flex;
+		font-size: 1.4rem;
+		gap: 1rem;
+	}
+	.profile h3 svg {
+		height: 1.4rem;
+		width: 1.4rem;
 	}
 
 	.categories {
-		flex-grow: 1;
+		flex-grow: 2;
 	}
 
 	li {
+		color: var(--cream);
+		font-weight: 500;
 		text-transform: capitalize;
-		font-size: 1.6rem;
-		font-weight: bold;
-		margin-top: 1.2rem;
+		display: flex;
+		align-items: center;
+		padding-right: 1.7rem;
+		position: relative;
+	}
+
+	li:hover {
+		cursor: pointer;
+	}
+
+	li .icon-button {
+		display: none;
+	}
+
+	li:hover .icon-button {
+		display: flex;
+	}
+
+	.count {
+		font-weight: 300;
 	}
 
 	a {
-		color: #6a6c70;
+		color: var(--cream);
 		text-decoration: none;
+		display: flex;
+		align-items: center;
+		gap: 1.2rem;
+		flex-grow: 2;
+		padding: 1rem 0 1rem 4rem;
+	}
+
+	a:hover {
+		color: var(--orange);
 	}
 
 	.selected {
-		color: #2f3034;
+		background-color: var(--grey-dark);
+	}
+
+	.selected a svg {
+		fill: var(--orange);
 	}
 
 	svg {
-		width: 1.8rem;
 		height: 1.8rem;
+		width: 1.8rem;
 		vertical-align: middle;
-		margin-right: 0.6rem;
 	}
 
 	.icons {
@@ -200,9 +300,9 @@
 	.icons label {
 		border: solid 2px #6a6c7026;
 		border-radius: 0.3rem;
+		cursor: pointer;
 		display: inline-block;
 		padding: 5px;
-		cursor: pointer;
 	}
 
 	.icons label:hover {
@@ -222,28 +322,67 @@
 		border-color: #ffbb00;
 	}
 
-	.add {
-		margin-top: 10rem;
-		margin-bottom: 1.6rem;
+	.add-category {
+		display: flex;
+		align-items: center;
+		gap: 1.2rem;
+		margin-top: 1rem;
+		justify-content: flex-start;
+		padding: 1rem 0 1rem 4rem;
 	}
 
-	.button {
-		display: inline-block;
-		outline: none;
-		cursor: pointer;
-		border-style: solid;
-		border-width: 0.1rem;
-		border-radius: 0.3rem;
-		padding: 1.2rem 2.4rem;
-		line-height: 1.15;
-		font-size: 1.6rem;
-		color: #000000;
-		background-color: #ffffff;
-		border-color: #373c61;
-		text-align: center;
+	.settings {
+		margin-bottom: 2.6rem;
 	}
-	.button:hover {
-		transition: all 0.1s ease;
-		border-color: #9a0202;
+
+	.settings svg {
+		fill: var(--cream);
+	}
+
+	.icon-button {
+		background: none;
+		border: none;
+		padding-left: 0.6rem;
+		padding-right: 0.6rem;
+	}
+
+	.icon-button:hover {
+		cursor: pointer;
+	}
+
+	.icon-button.active {
+		display: flex;
+		background: var(--orange);
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+	}
+
+	.options {
+		display: none;
+	}
+
+	.options.active {
+		display: flex;
+		position: absolute;
+		background: var(--orange);
+		color: var(--cream);
+		border-radius: 3px 0 3px 3px;
+		padding: 1.5rem;
+		gap: 2rem;
+		flex-direction: column;
+		width: 12.3rem;
+		top: 3rem;
+		z-index: 1;
+		right: 1.7rem;
+	}
+
+	.options.active li {
+		display: flex;
+		justify-content: space-between;
+		padding: 0;
+	}
+
+	.options svg {
+		fill: var(--cream);
 	}
 </style>
