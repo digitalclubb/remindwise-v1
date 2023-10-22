@@ -1,173 +1,205 @@
 <script lang="ts">
-	import ChartBar from '../../components/charts/bar/Index.svelte';
-	import ChartStacked from '../../components/charts/stacked/Index.svelte';
-
-	const dummyBarData = [
-		{ category: 'insurance', value: 2 },
-		{ category: 'entertainment', value: 7 },
-		{ category: 'something', value: 5 },
-	];
-
-	const dummyStackedData = [
-		{
-			category: 1,
-			reminder1: 3840,
-			reminder2: 1920,
-			reminder3: 960,
-			reminder4: 400,
-		},
-		{
-			category: 2,
-			reminder1: 1600,
-			reminder2: 1440,
-			reminder3: 960,
-			reminder4: 400,
-		},
-		{
-			category: 3,
-			reminder1: 820,
-			reminder2: 1000,
-			reminder3: 640,
-			reminder4: 400,
-		},
-		{
-			category: 4,
-			reminder1: 820,
-			reminder2: 560,
-			reminder3: 720,
-			reminder4: 400,
-		},
-	];
 </script>
 
-<h1>Reminders</h1>
+<header>
+	<h1 class="heading-2">Dashboard</h1>
+	<a href="" class="notification">
+		<img src="/notification.svg" alt="" width="" height="" />
+		<span>3</span>
+	</a>
+</header>
 
-<section class="boxes">
-	<article class="box">
-		<div class="icon">
-			<svg><use xlink:href="#bell" /></svg>
-		</div>
-		<div>
-			<h2>No. reminders</h2>
-			<p>10</p>
-		</div>
-	</article>
-	<article class="box">
-		<div class="icon icon-categories">
-			<svg><use xlink:href="#archive" /></svg>
-		</div>
-		<div>
-			<h2>No. categories</h2>
-			<p>10</p>
-		</div>
-	</article>
-	<article class="box">
-		<div class="icon icon-spent">
-			<svg><use xlink:href="#wallet" /></svg>
-		</div>
-		<div>
-			<h2>Total spent</h2>
-			<p>£1000</p>
-		</div>
-	</article>
-</section>
+<div class="body">
+	<section>
+		<h2 class="heading-3">
+			Total spend this year <span>(Jan '23 - Jan '24)</span>
+		</h2>
+	</section>
 
-<section>
-	<div class="charts">
-		<section>
-			<h3>Most used categories</h3>
-			<ChartBar data={dummyBarData} />
-		</section>
-
-		<section>
-			<h3>Total spent by category</h3>
-			<ChartStacked data={dummyStackedData} />
-		</section>
-	</div>
-</section>
-
-<section>
-	<h2>Upcoming reminders</h2>
-	<table>
-		<thead>
-			<tr>
-				<th>Company</th>
-				<th>Category</th>
-				<th>Due date</th>
-				<th>Auto renewal?</th>
-				<th>Telephone</th>
-				<th>Email</th>
-			</tr>
-		</thead>
-		<tbody>
-			<!-- {#each data.reminders as reminders}
+	<section>
+		<h2 class="heading-3">Upcoming renewals <span>(3)</span></h2>
+		<table>
+			<thead>
 				<tr>
-					<td>{reminders.reminder.company}</td>
-					<td>{reminders.reminder.categoryId}</td>
-					<td>{reminders.reminder.dateOfRenewal}</td>
-					<td>{reminders.reminder.autoRenewal}</td>
-					<td></td>
-					<td></td>
+					<th>Name</th>
+					<th>Company</th>
+					<th>Cost</th>
+					<th>Due date</th>
+					<th>Auto renewal</th>
+					<th>Info</th>
 				</tr>
-			{/each} -->
-		</tbody>
-	</table>
-</section>
+			</thead>
+			<tbody>
+				<tr>
+					<td>[icon] Home insurance</td>
+					<td>Churchill</td>
+					<td>£561</td>
+					<td>01.10.23</td>
+					<td>No</td>
+					<td
+						><button class="info">
+							<img src="/magnifying-glass.svg" alt="" />
+						</button></td
+					>
+				</tr>
+				<tr>
+					<td>[icon] Home insurance</td>
+					<td>Churchill</td>
+					<td>£561</td>
+					<td>01.10.23</td>
+					<td>No</td>
+					<td>
+						<button class="info">
+							<img src="/magnifying-glass.svg" alt="" />
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+
+	<section>
+		<h2 class="heading-3">Ongoing <span>(16)</span></h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Company</th>
+					<th>Re-occuring cost</th>
+					<th>Total accured</th>
+					<th>Info</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Netflix</td>
+					<td>Netflix</td>
+					<td>£12</td>
+					<td>£12</td>
+					<td
+						><button class="info">
+							<img src="/magnifying-glass.svg" alt="" />
+						</button></td
+					>
+				</tr>
+				<tr>
+					<td>Netflix</td>
+					<td>Netflix</td>
+					<td>£12</td>
+					<td>£12</td>
+					<td
+						><button class="info">
+							<img src="/magnifying-glass.svg" alt="" />
+						</button></td
+					>
+				</tr>
+				<tr>
+					<td>Netflix</td>
+					<td>Netflix</td>
+					<td class="not-applicable">N/A</td>
+					<td>£12</td>
+					<td
+						><button class="info">
+							<img src="/magnifying-glass.svg" alt="" />
+						</button></td
+					>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+</div>
 
 <style>
-	.charts {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		grid-gap: 5rem;
-	}
-
-	.boxes {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 2rem;
-		margin-top: 4rem;
-		margin-bottom: 4rem;
-	}
-
-	.box {
-		background-color: #f8fafb;
-		padding-top: 3rem;
-		padding-bottom: 3rem;
+	header {
+		background: linear-gradient(180deg, #fff 0%, #f6f6f6 100%);
+		padding: 2.4rem 4.2rem;
 		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		gap: 1.6rem;
+		justify-content: space-between;
 	}
 
-	.box h2 {
-		font-size: 1.6rem;
-		font-weight: normal;
-		font-family: 'Roboto';
-		margin-bottom: 0;
+	h1 {
+		color: var(--orange);
 	}
 
-	.box p {
-		font-weight: bold;
-		font-size: 2rem;
+	.notification {
+		position: relative;
+	}
+	.notification img {
+		width: 3rem;
+		height: 3rem;
 	}
 
-	.icon {
-		background-color: #c7f6d6;
+	.notification span {
+		background-color: var(--orange);
 		border-radius: 50%;
-		padding: 1rem;
-		align-self: center;
+		font-size: 1.2rem;
+		color: var(--cream-light);
+		position: absolute;
+		top: 0;
+		right: 0;
+		transform: translate(50%, -25%);
+		width: 1.8rem;
+		height: 1.8rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
-	.icon svg {
-		width: 2rem;
-		height: 2rem;
+	.body {
+		padding: 2.4rem 4.2rem;
 	}
 
-	.icon-categories {
-		background-color: #fcd6f1;
+	section {
+		margin-bottom: 3rem;
 	}
 
-	.icon-spent {
-		background-color: #cee2ff;
+	h2 span {
+		font-weight: 300;
+	}
+
+	table {
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	th {
+		background-color: var(--cream);
+		padding: 1rem 2rem;
+		text-align: left;
+		font-weight: 500;
+	}
+
+	th:first-child {
+		padding-left: 5rem;
+		border-top-left-radius: 0.6rem;
+	}
+
+	th:last-child {
+		border-top-right-radius: 0.6rem;
+		text-align: center;
+	}
+
+	td {
+		background-color: var(--cream-light);
+		padding: 1rem 2rem;
+		border-top: 1px solid var(--white);
+	}
+
+	td:last-child {
+		text-align: center;
+	}
+
+	.not-applicable {
+		color: var(--grey-light);
+	}
+
+	.info {
+		all: unset;
+		cursor: pointer;
+	}
+
+	.info img {
+		width: 1.5rem;
+		height: 1.5rem;
 	}
 </style>
