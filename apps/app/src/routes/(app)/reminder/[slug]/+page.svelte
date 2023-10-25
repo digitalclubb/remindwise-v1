@@ -1,4 +1,10 @@
-<article>
+<script lang="ts">
+	import Header from '../../../../components/header/Header.svelte';
+</script>
+
+<Header title="" />
+
+<article class="body">
 	<h1>Home Insurance</h1>
 
 	<div class="content">
@@ -40,9 +46,20 @@
 </article>
 
 <style>
+	.body {
+		padding: 2.4rem 4.2rem;
+		display: grid;
+		grid-template-areas:
+			'header'
+			'content'
+			'aside';
+	}
+
 	.content {
+		grid-area: content;
 		background-color: var(--cream-light);
 		padding: 2rem 3rem;
+		margin-bottom: 3rem;
 	}
 
 	.overview {
@@ -69,6 +86,7 @@
 	}
 
 	aside {
+		grid-area: aside;
 		background-color: var(--cream-light);
 		padding: 2rem;
 	}
@@ -97,5 +115,19 @@
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
+	}
+
+	@media screen and (min-width: 76.8em) {
+		.body {
+			grid-template-areas:
+				'header header'
+				'content aside'
+				'content aside';
+		}
+
+		.content {
+			margin-right: 3rem;
+			margin-bottom: 0;
+		}
 	}
 </style>
