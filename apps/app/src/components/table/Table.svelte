@@ -1,6 +1,7 @@
 <script lang="ts">
-	export let data;
-	const table = data.map(({ id, ...actual }) => actual);
+	export let data: Record<string, string | number | boolean>[];
+
+	$: table = data ? data.map(({ id, ...actual }) => actual) : [];
 </script>
 
 <table>
@@ -18,22 +19,24 @@
 		</tr>
 	</thead>
 	<tbody>
-		{#if table.length === 0}
+		{#if table.length === 1}
 			<td colspan={Object.keys(table[0]).length}>
 				<p class="no-data">Add some categories and reminders to get started</p>
 			</td>
 		{/if}
-		{#each Object.values(table) as row}
-			<tr>
-				{#each Object.values(row) as cell}
-					<td>{cell}</td>
-				{/each}
-				<td class="show-info">
-					<button class="info">
-						<img src="/magnifying-glass.svg" alt="" />
-					</button>
-				</td>
-			</tr>
+		{#each Object.values(table) as row, index}
+			{#if index !== 0}
+				<tr>
+					{#each Object.values(row) as cell}
+						<td>{cell}</td>
+					{/each}
+					<td class="show-info">
+						<button class="info">
+							<img src="/magnifying-glass.svg" alt="" />
+						</button>
+					</td>
+				</tr>
+			{/if}
 		{/each}
 	</tbody>
 </table>
@@ -71,7 +74,6 @@
 		text-align: center;
 	}
 
-	.not-applicable,
 	.no-data {
 		color: var(--grey-light);
 	}

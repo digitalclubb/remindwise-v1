@@ -4,6 +4,14 @@
 
 	const upcoming = [
 		{
+			id: '',
+			Name: '',
+			Company: '',
+			Cost: '',
+			'Due date': '',
+			'Auto renewal': '',
+		},
+		{
 			id: 1,
 			Name: 'Netflix',
 			Company: 'Netflix',
@@ -14,6 +22,13 @@
 	];
 
 	const ongoing = [
+		{
+			id: '',
+			Name: '',
+			Company: '',
+			'Re-occuring cost': '',
+			'Total accured': '',
+		},
 		{
 			id: 1,
 			Name: 'Netflix',
