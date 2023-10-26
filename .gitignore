@@ -3,6 +3,7 @@
 **/build
 **/.svelte-kit
 **/.turbo
+.env
 .env.*
 !.env.example
 **/.vercel
