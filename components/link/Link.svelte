@@ -23,8 +23,8 @@
 		padding: 0.8rem 1.4rem;
 		font-size: 1.4rem;
 		line-height: 1.6rem;
-		color: var(--cream-light);
-		font-weight: 600;
+		color: var(--white);
+		font-weight: 400;
 		text-align: center;
 		text-decoration: none;
 	}

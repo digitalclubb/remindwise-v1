@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { getCldImageUrl } from 'svelte-cloudinary';
 	import { Link } from 'components';
 
 	let showMessage = false;
@@ -71,6 +72,37 @@
 				showSuccess();
 			});
 	};
+
+	// Images
+	const heroSmall = getCldImageUrl({
+		src: 'hero_llo9q9.png',
+		width: 480,
+		height: 273,
+	});
+
+	const hero = getCldImageUrl({
+		src: 'hero_llo9q9.png',
+		width: 805,
+		height: 458,
+	});
+
+	const reminders = getCldImageUrl({
+		src: 'reminders_su5hwt.png',
+		width: 495,
+		height: 361,
+	});
+
+	const laptop = getCldImageUrl({
+		src: 'laptop_khigic.png',
+		width: 596,
+		height: 422,
+	});
+
+	const spending = getCldImageUrl({
+		src: 'spending_dwhgza.png',
+		width: 458,
+		height: 392,
+	});
 </script>
 
 <svelte:head>
@@ -106,12 +138,17 @@
 				<Link href="#waitlist" type="button">Register interest</Link>
 			</div>
 
-			<img src="images/hero.png" alt="" fetchpriority="high" />
+			<img
+				src={hero}
+				alt="Large hand holding phone with Remindwise app open. Other hands in the background waving paper statements and bills."
+				srcset="{heroSmall} 480w, {hero} 805w"
+				sizes="(min-width: 768px) 805px, 100vw"
+			/>
 		</div>
 	</section>
 
 	<div class="container">
-		<section class="reminders reverse with-image">
+		<section class="reminders reverse">
 			<div class="content">
 				<h2>Add new reminders and categorise to suit you</h2>
 				<p>
@@ -123,10 +160,13 @@
 				<Link href="#waitlist" type="button">Register interest</Link>
 			</div>
 
-			<img src="images/reminders.png" alt="" />
+			<img
+				src={reminders}
+				alt="A persons hand using Remindwise app. Adding a reminder."
+			/>
 		</section>
 
-		<section class="documents with-image">
+		<section class="documents">
 			<div class="content">
 				<h2>Never panic search for a policy document again!</h2>
 				<p>
@@ -139,10 +179,13 @@
 				<Link href="#waitlist" type="button">Register interest</Link>
 			</div>
 
-			<img src="images/laptop.png" alt="" fetchpriority="low" />
+			<img
+				src={laptop}
+				alt="A person using a laptop, looking at the Remindwise app"
+			/>
 		</section>
 
-		<section class="spending reverse with-image">
+		<section class="spending reverse">
 			<div class="content">
 				<h2>Keep track of spending</h2>
 				<p>
@@ -155,7 +198,10 @@
 				<Link href="#waitlist" type="button">Register interest</Link>
 			</div>
 
-			<img src="images/spending.png" alt="" fetchpriority="low" />
+			<img
+				src={spending}
+				alt="A persons hand using Remindwise app. Viewing their total monthly spend."
+			/>
 		</section>
 
 		<section id="waitlist" class="waiting-list">
@@ -203,6 +249,15 @@
 		margin: 0 auto;
 	}
 
+	.reminders,
+	.documents,
+	.spending,
+	section .container {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
 	section {
 		padding: 5rem 2rem 0 2rem;
 	}
@@ -227,6 +282,7 @@
 
 	.content {
 		max-width: 47rem;
+		padding-bottom: 2rem;
 	}
 
 	p {
@@ -239,6 +295,11 @@
 		margin-top: 4rem;
 	}
 
+	form {
+		display: flex;
+		flex-direction: column;
+	}
+
 	.input {
 		border-radius: 1.6rem;
 		border: 3px solid var(--cream-dark);
@@ -246,7 +307,6 @@
 		font-weight: 600;
 		line-height: 2.4rem;
 		color: var(--grey);
-		width: 100%;
 		padding: 2.7rem 3.9rem;
 	}
 
@@ -279,14 +339,67 @@
 	footer .container {
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: space-between;
+		flex-direction: column;
+		align-items: center;
 	}
 
-	@media screen and (min-width: 76.8em) {
+	@media screen and (min-width: 768px) {
 		section {
+			display: block;
 			padding: 5rem 6.8rem 0 11.5rem;
 		}
 
+		section .container {
+			justify-content: flex-start;
+		}
+
+		img {
+			width: 50%;
+		}
+
+		.reverse img {
+			order: -1;
+		}
+
+		.reminders,
+		.documents,
+		.spending {
+			flex-wrap: nowrap;
+		}
+
+		.documents,
+		.waiting-list {
+			border-radius: 5rem;
+		}
+
+		form {
+			flex-direction: row;
+		}
+
+		.input {
+			flex-grow: 1;
+		}
+
+		.submit {
+			margin-top: 0;
+			margin-left: 1.5rem;
+		}
+
+		footer {
+			margin-top: 15rem;
+		}
+
+		footer .container {
+			justify-content: space-between;
+			flex-direction: row;
+		}
+
+		footer p {
+			margin-bottom: 0;
+		}
+	}
+
+	@media screen and (min-width: 1280px) {
 		.intro .container {
 			position: relative;
 			padding-bottom: 10rem;
@@ -298,32 +411,8 @@
 			bottom: 0;
 		}
 
-		.with-image {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-		}
-
-		.reverse img {
-			order: -1;
-		}
-
-		.documents,
-		.waiting-list {
-			border-radius: 5rem;
-		}
-
-		.input {
-			width: 77%;
-		}
-
-		.submit {
-			margin-top: 0;
-			margin-left: 1.5rem;
-		}
-
-		footer {
-			margin-top: 15rem;
+		img {
+			width: auto;
 		}
 	}
 </style>

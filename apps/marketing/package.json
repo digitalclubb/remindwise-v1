@@ -14,7 +14,8 @@
 		"test:functional": "playwright test --grep @functional"
 	},
 	"dependencies": {
-		"components": "workspace:*"
+		"components": "workspace:*",
+		"svelte-cloudinary": "^1.1.1"
 	},
 	"devDependencies": {
 		"@axe-core/playwright": "4.8.1",
