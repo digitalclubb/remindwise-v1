@@ -118,7 +118,7 @@
 
 <header>
 	<h1 class="container">
-		<img src="logo.svg" alt="" class="logo" />
+		<img src="logo.svg" alt="remindwise.io" class="logo" />
 	</h1>
 </header>
 
