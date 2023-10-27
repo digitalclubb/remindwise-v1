@@ -101,7 +101,13 @@
 
 		<div class="cost">
 			<div>
-				<label for="cost">What is the re-occuring cost each month?</label>
+				<label for="cost">
+					{#if option === 'single'}
+						What is the total?
+					{:else}
+						What is the re-occuring cost?
+					{/if}
+				</label>
 				<div class="currency">
 					<span>&pound;</span>
 					<input
