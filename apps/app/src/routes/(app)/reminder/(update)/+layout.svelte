@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { page, navigating } from '$app/stores';
-	import { Button } from 'components';
 	import { enhance } from '$app/forms';
+	import Header from '../../../../components/header/Header.svelte';
 
 	export let data;
+	let option = '';
 
 	$: ({ getCategories } = data);
 
@@ -15,168 +16,225 @@
 	);
 </script>
 
-<h1>Add a reminder</h1>
+<Header title="Add a reminder" />
 
-<form method="POST" action="?/addReminder" use:enhance>
-	<input
-		type="hidden"
-		name="userId"
-		id="userId"
-		value={$page.data.session?.user.id}
-	/>
-	<div>
-		<label for="category-select">Which category?</label>
-		<select name="category-select" id="category-select" required>
-			{#if $getCategories.fetching}
-				<option value="">Loading...</option>
-			{:else if categories}
-				{#each categories as category}
-					<option
-						value={category.category.id}
-						selected={previousCategory === category.category.name}
-						>{category.category.name}</option
-					>
-				{/each}
-			{/if}
-		</select>
-
-		<p>Want to add a new category?</p>
-		<Button style="secondary">Add new category</Button>
-	</div>
-
-	<div>
-		<label for="company">What is the company?</label>
-		<input type="text" name="company" id="company" required />
-	</div>
-	<div>
-		<label for="cost">How much did it cost?</label>
-		<input type="number" min="0" step="any" name="cost" id="cost" />
-	</div>
-	<div>
+<div class="body">
+	<form method="POST" action="?/addReminder" use:enhance>
+		<input
+			type="hidden"
+			name="userId"
+			id="userId"
+			value={$page.data.session?.user.id}
+		/>
 		<div>
-			<label for="renewal">When is it due for renewal?</label>
-			<input type="date" name="renewal" id="renewal" />
+			<label for="category-select">Category</label>
+			<select name="category-select" id="category-select" required>
+				{#if $getCategories.fetching}
+					<option value="">Loading...</option>
+				{:else if categories}
+					{#each categories as category}
+						<option
+							value={category.category.id}
+							selected={previousCategory === category.category.name}
+							>{category.category.name}</option
+						>
+					{/each}
+				{/if}
+			</select>
 		</div>
-		<fieldset>
-			<legend>Will it auto renew?</legend>
-			<div class="toggle">
-				<input type="radio" id="auto-yes" value="true" name="auto" />
-				<label for="auto-yes">Yes</label>
-				<input type="radio" id="auto-no" value="false" name="auto" checked />
-				<label for="auto-no">No</label>
+
+		<div>
+			<label for="name">Reminder name</label>
+			<input
+				type="text"
+				name="name"
+				id="name"
+				placeholder="Enter a name for your reminder"
+				required
+			/>
+		</div>
+
+		<fieldset class="options">
+			<legend>What type of reminder is this?</legend>
+			<div class="option option-first">
+				<input
+					type="radio"
+					name="type"
+					id="ongoing"
+					value="ongoing"
+					bind:group={option}
+				/>
+				<label for="ongoing">Ongoing subscription</label>
+			</div>
+			<div class="option">
+				<input
+					type="radio"
+					name="type"
+					id="annual"
+					value="annual"
+					bind:group={option}
+				/>
+				<label for="annual">Annual policy</label>
+			</div>
+			<div class="option option-last">
+				<input
+					type="radio"
+					name="type"
+					id="single"
+					value="single"
+					bind:group={option}
+				/>
+				<label for="single">Single record</label>
 			</div>
 		</fieldset>
-	</div>
 
-	<div>
-		<label for="notes">Any thing else to remember?</label>
-		<textarea name="notes" />
-	</div>
+		<div>
+			<label for="company">Company</label>
+			<input
+				type="text"
+				name="company"
+				id="company"
+				placeholder="Enter the name of the company"
+				required
+			/>
+		</div>
 
-	<!-- Add on /add, Save on /edit-->
-	<svelte:component this={$page.data.submit} />
-</form>
+		<div class="cost">
+			<div>
+				<label for="cost">What is the re-occuring cost each month?</label>
+				<div class="currency">
+					<span>&pound;</span>
+					<input
+						type="number"
+						min="0"
+						step="any"
+						name="cost"
+						id="cost"
+						placeholder="How much is charged?"
+					/>
+				</div>
+			</div>
+
+			<div>
+				<label for="renewal">Date</label>
+				<input type="date" name="renewal" id="renewal" />
+			</div>
+		</div>
+
+		<div>
+			<label for="notes">Notes</label>
+			<textarea
+				name="notes"
+				placeholder="Enter things like policy number, quick contact details for the company etc."
+			/>
+		</div>
+
+		<div class="submit">
+			<!-- Add on /add, Save on /edit-->
+			<svelte:component this={$page.data.submit} />
+		</div>
+	</form>
+</div>
 
 <style>
+	.body {
+		padding: 2.4rem 4.2rem;
+	}
+
 	form {
-		width: 40%;
-	}
-	div,
-	fieldset {
-		margin-bottom: 1.8rem;
-	}
-
-	fieldset {
-		padding: 0;
-		margin-left: 0;
-		margin-right: 0;
-		border: none;
-	}
-
-	label,
-	legend {
-		font-size: 1.8rem;
-		margin-bottom: 0.5rem;
-		width: 100%;
-		display: block;
-		user-select: none;
-		font-weight: bold;
-	}
-
-	select,
-	input[type='text'],
-	input[type='number'],
-	input[type='date'] {
-		height: 5rem;
-		border-radius: 0.5rem;
-		border: 1px solid #ced6e0;
-		transition: all 0.3s ease-in-out;
-		font-size: 1.6rem;
-		padding: 0.5rem 1.5rem;
-		width: 100%;
+		max-width: 64rem;
 	}
 
 	select {
 		display: block;
-		margin-bottom: 1.6rem;
+		width: 100%;
 	}
 
-	p {
-		font-size: 1.4rem;
+	label {
 		display: inline-block;
-		margin-right: 1.2rem;
+		margin-top: 2rem;
+		margin-bottom: 0.8rem;
 	}
 
-	.toggle {
+	input {
+		display: block;
+		border: 1px solid var(--grey-light);
+		border-radius: 0.6rem;
+		padding: 0.9rem 1.4rem;
+		width: 28.5rem;
+	}
+
+	fieldset {
+		all: unset;
+		margin-top: 2rem;
+	}
+
+	.options {
 		display: flex;
-		overflow: hidden;
 	}
 
-	.toggle input {
-		position: absolute !important;
-		clip: rect(0, 0, 0, 0);
-		height: 1px;
-		width: 1px;
-		border: 0;
-		overflow: hidden;
+	.option input {
+		position: absolute;
+		visibility: hidden;
 	}
 
-	.toggle label {
-		background-color: #f3f1f1;
-		color: rgba(0, 0, 0, 0.6);
-		font-size: 14px;
-		line-height: 1;
+	.option label {
+		background-color: var(--cream-light);
+		border-top: 1px solid var(--cream);
+		border-bottom: 1px solid var(--cream);
+		padding-top: 1.1rem;
+		padding-bottom: 1.1rem;
+		width: 20rem;
 		text-align: center;
-		padding: 8px 16px;
-		margin-right: -1px;
-		border: 1px solid rgba(0, 0, 0, 0.2);
-		box-shadow:
-			inset 0 1px 2px rgba(0, 0, 0, 0.3),
-			0 1px rgba(255, 255, 255, 0.1);
-		transition: all 0.1s ease-in-out;
 	}
 
-	.toggle label:hover {
+	.option-first label {
+		border-top-left-radius: 2rem;
+		border-bottom-left-radius: 2rem;
+	}
+
+	.option-last label {
+		border-top-right-radius: 2rem;
+		border-bottom-right-radius: 2rem;
+	}
+
+	.option label:hover {
+		background-color: var(--cream);
 		cursor: pointer;
 	}
 
-	.toggle input:checked + label {
-		color: #ffffff;
-		background-color: #373c61;
-		box-shadow: none;
+	.options input[type='radio']:checked + label {
+		background-color: var(--orange);
+		color: var(--white);
 	}
 
-	.toggle label:first-of-type {
-		border-radius: 4px 0 0 4px;
+	.cost {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4rem;
 	}
 
-	.toggle label:last-of-type {
-		border-radius: 0 4px 4px 0;
+	.currency input {
+		display: inline;
+	}
+
+	.currency span {
+		color: var(--cream-dark);
+		font-size: 2.4rem;
 	}
 
 	textarea {
-		font-size: 1.6rem;
-		min-height: 20rem;
+		display: block;
+		border: 1px solid var(--grey-light);
+		border-radius: 0.6rem;
+		padding: 0.9rem 1.4rem;
 		width: 100%;
+		min-height: 25rem;
+	}
+
+	.submit {
+		display: flex;
+		justify-content: flex-end;
+		margin-top: 6rem;
 	}
 </style>
