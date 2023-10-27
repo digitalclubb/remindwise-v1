@@ -15,8 +15,8 @@ importers:
         specifier: 1.39.0
         version: 1.39.0
       '@sveltejs/kit':
-        specifier: 1.27.0
-        version: 1.27.0(svelte@4.2.2)(vite@4.5.0)
+        specifier: 1.27.1
+        version: 1.27.1(svelte@4.2.2)(vite@4.5.0)
       '@sveltejs/vite-plugin-svelte':
         specifier: 2.4.6
         version: 2.4.6(svelte@4.2.2)(vite@4.5.0)
@@ -67,10 +67,10 @@ importers:
     dependencies:
       '@supabase/auth-helpers-sveltekit':
         specifier: 0.10.3
-        version: 0.10.3(@supabase/supabase-js@2.38.3)(@sveltejs/kit@1.27.0)
+        version: 0.10.3(@supabase/supabase-js@2.38.4)(@sveltejs/kit@1.27.1)
       '@supabase/supabase-js':
-        specifier: 2.38.3
-        version: 2.38.3
+        specifier: 2.38.4
+        version: 2.38.4
       components:
         specifier: workspace:*
         version: link:../../components
@@ -110,10 +110,10 @@ importers:
         version: 1.39.0
       '@sveltejs/adapter-vercel':
         specifier: 3.0.3
-        version: 3.0.3(@sveltejs/kit@1.27.0)
+        version: 3.0.3(@sveltejs/kit@1.27.1)
       '@sveltejs/kit':
-        specifier: 1.27.0
-        version: 1.27.0(svelte@4.2.2)(vite@4.5.0)
+        specifier: 1.27.1
+        version: 1.27.1(svelte@4.2.2)(vite@4.5.0)
       '@testing-library/svelte':
         specifier: 4.0.4
         version: 4.0.4(svelte@4.2.2)
@@ -171,10 +171,10 @@ importers:
         version: 1.39.0
       '@sveltejs/adapter-vercel':
         specifier: 3.0.3
-        version: 3.0.3(@sveltejs/kit@1.27.0)
+        version: 3.0.3(@sveltejs/kit@1.27.1)
       '@sveltejs/kit':
-        specifier: 1.27.0
-        version: 1.27.0(svelte@4.2.2)(vite@4.5.0)
+        specifier: 1.27.1
+        version: 1.27.1(svelte@4.2.2)(vite@4.5.0)
       '@testing-library/svelte':
         specifier: 4.0.4
         version: 4.0.4(svelte@4.2.2)
@@ -204,7 +204,7 @@ importers:
     devDependencies:
       '@sveltejs/adapter-vercel':
         specifier: 3.0.3
-        version: 3.0.3(@sveltejs/kit@1.27.0)
+        version: 3.0.3(@sveltejs/kit@1.27.1)
       svelte:
         specifier: 4.2.2
         version: 4.2.2
@@ -1948,24 +1948,24 @@ packages:
     resolution: {integrity: sha512-XJfwUVUKDHF5ugKwIcxEgc9k8b7HbznCp6eUfWgu710hMPNIO4aw4/zB5RogDQz8nd6gyCDpU9O/m6qYEWY6yQ==}
     dev: true
 
-  /@supabase/auth-helpers-shared@0.5.0(@supabase/supabase-js@2.38.3):
+  /@supabase/auth-helpers-shared@0.5.0(@supabase/supabase-js@2.38.4):
     resolution: {integrity: sha512-kioUeYDBZ89cfqOTZFOLEFIO7kGczL0XJYZdVv/bKt5efXqhiY14NbzgGWiMvvD9o9Iluo0+YEV2tG3ZZ5W06A==}
     peerDependencies:
       '@supabase/supabase-js': ^2.19.0
     dependencies:
-      '@supabase/supabase-js': 2.38.3
+      '@supabase/supabase-js': 2.38.4
       jose: 4.14.4
     dev: false
 
-  /@supabase/auth-helpers-sveltekit@0.10.3(@supabase/supabase-js@2.38.3)(@sveltejs/kit@1.27.0):
+  /@supabase/auth-helpers-sveltekit@0.10.3(@supabase/supabase-js@2.38.4)(@sveltejs/kit@1.27.1):
     resolution: {integrity: sha512-vU39ecz1xXpBZMaSCZi7Rh+NLIS0W67hbrdWt2UdSWOVi/XT6z01DoO97/G4n5p/e9fyCR/j9xHGCoeFO++1lA==}
     peerDependencies:
       '@supabase/supabase-js': ^2.19.0
       '@sveltejs/kit': ^1.15.4
     dependencies:
-      '@supabase/auth-helpers-shared': 0.5.0(@supabase/supabase-js@2.38.3)
-      '@supabase/supabase-js': 2.38.3
-      '@sveltejs/kit': 1.27.0(svelte@4.2.2)(vite@4.5.0)
+      '@supabase/auth-helpers-shared': 0.5.0(@supabase/supabase-js@2.38.4)
+      '@supabase/supabase-js': 2.38.4
+      '@sveltejs/kit': 1.27.1(svelte@4.2.2)(vite@4.5.0)
     dev: false
 
   /@supabase/functions-js@2.1.5:
@@ -1993,8 +1993,8 @@ packages:
       '@supabase/node-fetch': 2.6.14
     dev: false
 
-  /@supabase/realtime-js@2.8.2:
-    resolution: {integrity: sha512-QY9H3an/TaInBJkGdKMrTVU1etomEtwStgeRGUFfYX0eURzBYKffgheZBnMdM9VgPCv0Oz5JcchoclpSlC8KvQ==}
+  /@supabase/realtime-js@2.8.4:
+    resolution: {integrity: sha512-5C9slLTGikHnYmAnIBOaPogAgbcNY68vnIyE6GpqIKjHElVb6LIi4clwNcjHSj4z6szuvvzj8T/+ePEgGEGekw==}
     dependencies:
       '@supabase/node-fetch': 2.6.14
       '@types/phoenix': 1.6.0
@@ -2010,25 +2010,25 @@ packages:
       '@supabase/node-fetch': 2.6.14
     dev: false
 
-  /@supabase/supabase-js@2.38.3:
-    resolution: {integrity: sha512-qIQxXZJN42iM41VChBo3kmGNyRhM0LOk27fkTX8A4tHnWxt0zmxMGFKVCX7Qnrz8zttiJkcym/BZreM/F9k0FQ==}
+  /@supabase/supabase-js@2.38.4:
+    resolution: {integrity: sha512-bYwxm/GosvRqOMIv6YP7qUTZWi/trgHtDWUEZDEmyRHW24d0JYIb1GOt6RaO2hsWlecn88DAJIpjoNbprocgRA==}
     dependencies:
       '@supabase/functions-js': 2.1.5
       '@supabase/gotrue-js': 2.57.0
       '@supabase/node-fetch': 2.6.14
       '@supabase/postgrest-js': 1.8.5
-      '@supabase/realtime-js': 2.8.2
+      '@supabase/realtime-js': 2.8.4
       '@supabase/storage-js': 2.5.4
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /@sveltejs/adapter-vercel@3.0.3(@sveltejs/kit@1.27.0):
+  /@sveltejs/adapter-vercel@3.0.3(@sveltejs/kit@1.27.1):
     resolution: {integrity: sha512-0FQMjR6klW4627ewdclSr0lUe/DqiiyOaRTfgb5cXgNbVMsZMOA2fQ77TYQnJdvMfSEWe6y8uznV48XqKh9+vA==}
     peerDependencies:
       '@sveltejs/kit': ^1.5.0
     dependencies:
-      '@sveltejs/kit': 1.27.0(svelte@4.2.2)(vite@4.5.0)
+      '@sveltejs/kit': 1.27.1(svelte@4.2.2)(vite@4.5.0)
       '@vercel/nft': 0.23.1
       esbuild: 0.18.11
     transitivePeerDependencies:
@@ -2036,8 +2036,8 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/kit@1.27.0(svelte@3.59.2)(vite@4.5.0):
-    resolution: {integrity: sha512-a1wPIq2uO3RsTmV+KbA4venOgCJDbfHTXFe+g7eJR3N8l46DSuulUONJ1qnk2EnZWYC1Uj3Wbp3US0WFocIzXg==}
+  /@sveltejs/kit@1.27.1(svelte@3.59.2)(vite@4.5.0):
+    resolution: {integrity: sha512-nYkOUJKbeI8fcwvt/cyhTdz6VG4kT6XVprNnzfIwif+IZ8RvxvJuPhPhYjz14ASIcMLpq8xC6D3X4xH3bvWi+Q==}
     engines: {node: ^16.14 || >=18}
     hasBin: true
     requiresBuild: true
@@ -2064,8 +2064,8 @@ packages:
       - supports-color
     dev: true
 
-  /@sveltejs/kit@1.27.0(svelte@4.2.2)(vite@4.5.0):
-    resolution: {integrity: sha512-a1wPIq2uO3RsTmV+KbA4venOgCJDbfHTXFe+g7eJR3N8l46DSuulUONJ1qnk2EnZWYC1Uj3Wbp3US0WFocIzXg==}
+  /@sveltejs/kit@1.27.1(svelte@4.2.2)(vite@4.5.0):
+    resolution: {integrity: sha512-nYkOUJKbeI8fcwvt/cyhTdz6VG4kT6XVprNnzfIwif+IZ8RvxvJuPhPhYjz14ASIcMLpq8xC6D3X4xH3bvWi+Q==}
     engines: {node: ^16.14 || >=18}
     hasBin: true
     requiresBuild: true
@@ -4272,7 +4272,7 @@ packages:
     resolution: {integrity: sha512-OsolQcMieHPpL+mk/CNHq2fP7/srE591TyrE3j4Ga0B2azfGncGsB3hjYuf90DdkSDdL77lAKJ5UEzZV6gclqg==}
     dependencies:
       '@kitql/helpers': 0.8.2
-      '@sveltejs/kit': 1.27.0(svelte@3.59.2)(vite@4.5.0)
+      '@sveltejs/kit': 1.27.1(svelte@3.59.2)(vite@4.5.0)
       ast-types: 0.16.1
       estree-walker: 3.0.3
       graphql: 15.8.0
