@@ -135,6 +135,11 @@
 			/>
 		</div>
 
+		<div>
+			<label for="documents">Would you like to upload any documents?</label>
+			<input type="file" id="documents" name="documents" />
+		</div>
+
 		<div class="submit">
 			<!-- Add on /add, Save on /edit-->
 			<svelte:component this={$page.data.submit} />
