@@ -31,9 +31,9 @@
 						<td>{cell}</td>
 					{/each}
 					<td class="show-info">
-						<button class="info">
+						<a href="/reminder/{data[index].id}" class="info">
 							<img src="/magnifying-glass.svg" alt="" />
-						</button>
+						</a>
 					</td>
 				</tr>
 			{/if}
@@ -64,6 +64,10 @@
 		text-align: center;
 	}
 
+	tbody tr {
+		position: relative;
+	}
+
 	td {
 		background-color: var(--cream-light);
 		padding: 1rem 2rem;
@@ -82,9 +86,14 @@
 		padding-left: 3rem;
 	}
 
-	.info {
-		all: unset;
-		cursor: pointer;
+	.info::before {
+		display: block;
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
 	}
 
 	.info img {
