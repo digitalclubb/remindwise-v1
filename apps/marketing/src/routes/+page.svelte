@@ -1,76 +1,20 @@
 <script lang="ts">
 	import { getCldImageUrl } from 'svelte-cloudinary';
 	import { Link } from 'components';
+	import { enhance } from '$app/forms';
+	import type { SubmitFunction } from '@sveltejs/kit';
 
-	let showMessage = false;
-	let message = '';
+	export let form;
 
-	const rateLimit = () => {
-		message =
-			'You have already submitted an email address. Please try again in a moment';
-		showMessage = true;
-	};
+	let loading = false;
 
-	const showLoading = () => {
-		message = 'Submitting...';
-		showMessage = true;
-	};
+	const registerInterest: SubmitFunction = () => {
+		loading = true;
 
-	const showSuccess = () => {
-		message =
-			"Thank you for your email. We'll keep you updated when we go live!";
-		showMessage = true;
-	};
-
-	const submitHandler = (event) => {
-		event.preventDefault();
-
-		const email = event.target.parentNode.querySelector('.input').value;
-
-		// Compare current time with time of previous sign up
-		const time = new Date();
-		const timestamp = time.valueOf();
-		const previousTimestamp = localStorage.getItem('email-submitted');
-
-		// If last sign up was less than a minute ago rate limit
-		if (previousTimestamp && Number(previousTimestamp) + 60000 > timestamp) {
-			rateLimit();
-			return;
-		}
-		localStorage.setItem('email-submitted', timestamp.toString());
-
-		// Show loading state
-		showLoading();
-
-		const formBody = 'userGroup=&email=' + encodeURIComponent(email);
-		fetch(event.target.action, {
-			method: 'POST',
-			body: formBody,
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-			},
-		})
-			.then((res) => [res.ok, res.json(), res])
-			.then(([ok, dataPromise, res]) => {
-				if (ok) {
-					event.target.parentNode.querySelector('form').reset();
-				} else {
-					dataPromise.then((data) => {
-						message = data.message ? data.message : res.statusText;
-					});
-				}
-			})
-			.catch((error) => {
-				if (error.message === 'Failed to fetch') {
-					rateLimit();
-					return;
-				}
-				if (error.message) message = error.message;
-				localStorage.setItem('loops-form-timestamp', '');
-			})
-			.finally(() => {
-				showSuccess();
-			});
+		return async ({ update }) => {
+			loading = false;
+			await update();
+		};
 	};
 
 	// Images
@@ -210,15 +154,26 @@
 				We're new but we'll be up and running soon. Provide your email address
 				and we'll let you know when Remindwise launches
 			</p>
-			{#if showMessage}
-				<p class="message">{message}</p>
+			{#if loading}
+				<p class="message">Submitting...</p>
+			{:else if form?.error}
+				<p class="message">{form?.message}</p>
+			{:else if form?.success}
+				<p class="message">
+					{form?.message
+						? form?.message
+						: "Thank you for your email. We'll keep you updated when we go live!"}
+				</p>
 			{:else}
-				<form
-					on:submit={submitHandler}
-					action="https://app.loops.so/api/newsletter-form/clm501ypy00m6l70okps8iy80"
-					method="POST"
-				>
-					<input class="input" type="email" placeholder="Your email" required />
+				<form method="POST" use:enhance={registerInterest}>
+					<input
+						class="input"
+						name="email"
+						type="email"
+						placeholder="Your email"
+						required
+						value={form?.email ?? ''}
+					/>
 					<input class="submit" type="submit" value="Register interest" />
 				</form>
 			{/if}
