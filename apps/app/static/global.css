@@ -67,6 +67,7 @@ body {
 	font-size: 1.4rem;
 	font-family: 'Outfit', sans-serif;
 	font-weight: 500;
+	color: var(--grey);
 }
 
 /* A elements that don't have a class get default styles */
