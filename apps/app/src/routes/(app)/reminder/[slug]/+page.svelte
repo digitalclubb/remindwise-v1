@@ -1,26 +1,35 @@
 <script lang="ts">
 	import Header from '../../../../components/header/Header.svelte';
+
+	export let data;
+
+	$: ({ getReminder } = data);
+	$: reminder = $getReminder.data?.reminders?.list[0].reminder;
+
+	$: cost = new Intl.NumberFormat('en-GB', {
+		style: 'currency',
+		currency: 'GBP',
+	}).format(reminder.cost);
 </script>
 
 <Header title="" />
 
 <article class="body">
-	<h1>Home Insurance</h1>
+	<h1>{reminder.category.name}</h1>
 
 	<div class="content">
 		<p class="overview">
-			with <span class="highlight">Churchill</span><br /> at a cost of
-			<span class="highlight">£565</span><br />
-			due for renewal on <span class="highlight">1st Sept 2023</span><br /> will
-			be charged <span class="highlight">monthly</span><br /> and will be
-			renewed
+			with <span class="highlight">{reminder.company}</span><br /> at a cost of
+			<span class="highlight">{cost}</span><br />
+			due for renewal on
+			<span class="highlight">{reminder.dateOfRenewal}</span><br /> will be
+			charged <span class="highlight">monthly</span><br /> and will be renewed
 			<span class="highlight">automatically</span>
 		</p>
 
 		<h2 class="heading-4">Things to remember</h2>
 		<p class="remember">
-			Churchill renewal contact number: 0345 603 3551 Link to Churchill website:
-			<a href="">churchill.com/home-insurance/contact-us</a>
+			{reminder.notes}
 		</p>
 	</div>
 
@@ -53,6 +62,10 @@
 			'header'
 			'content'
 			'aside';
+	}
+
+	h1 {
+		text-transform: capitalize;
 	}
 
 	.content {
