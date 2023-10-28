@@ -41,7 +41,7 @@
 	</div>
 	<div class="box box-social">
 		<h2 class="heading-5">Or</h2>
-		<ul>
+		<ul class="">
 			<li>
 				<a href="" class="social-login">
 					<img src="/icon-facebook.svg" alt="" /> Login with Facebook
@@ -70,7 +70,6 @@
 	.boxes {
 		margin-bottom: 3rem;
 		display: flex;
-		flex-wrap: wrap;
 		flex-direction: column;
 	}
 
