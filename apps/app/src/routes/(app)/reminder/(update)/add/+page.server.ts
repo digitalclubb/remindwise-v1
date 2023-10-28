@@ -4,58 +4,62 @@ import { redirect } from '@sveltejs/kit';
 export const actions = {
 	addReminder: async (event) => {
 		const data = await event.request.formData();
+
+		const userid = data.get('userId') as string;
 		const categoryId = data.get('category-select') as string;
+		const name = data.get('name') as string;
+		const type = data.get('type') as string;
 		const company = data.get('company') as string;
 		const cost = parseFloat(data.get('cost') as string);
-		const dateOfRenewal = new Date(data.get('renewal') as string);
+		const datePurchased = new Date(data.get('renewal') as string);
+		const frequency = data.get('frequency') as string;
 		const autoRenewal = data.get('auto') === 'true';
 		const notes = data.get('notes') as string;
-		const userid = data.get('userId') as string;
 
 		const actionMutation = graphql(`
 			mutation addReminder(
+				$userid: UUID!
 				$categoryId: BigInt
+				$name: String!
+				$type: Type
 				$company: String!
 				$cost: Float
-				$dateOfRenewal: Date
+				$datePurchased: Date
+				$frequency: Frequency
 				$autoRenewal: Boolean
 				$notes: String
-				$userid: UUID!
-				$enabled: Boolean
 			) {
 				insertIntoremindersCollection(
 					objects: [
 						{
+							userid: $userid
+							categoryId: $categoryId
+							name: $name
+							type: $type
 							company: $company
 							cost: $cost
-							dateOfRenewal: $dateOfRenewal
-							categoryId: $categoryId
+							datePurchased: $dateOfRenewal
+							frequency: $frequency
 							autoRenewal: $autoRenewal
-							userid: $userid
 							notes: $notes
-							enabled: $enabled
 						}
 					]
-				) {
-					affectedCount
-					records {
-						id
-						company
-					}
-				}
+				)
 			}
 		`);
 
 		await actionMutation.mutate(
 			{
+				userid,
 				categoryId,
+				name,
+				type,
 				company,
 				cost,
-				dateOfRenewal,
-				notes,
+				datePurchased,
+				frequency,
 				autoRenewal,
-				userid,
-				enabled: true,
+				notes,
 			},
 			{ event }
 		);
