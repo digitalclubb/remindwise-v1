@@ -18,7 +18,7 @@
 	},
 	"dependencies": {
 		"@supabase/auth-helpers-sveltekit": "0.10.3",
-		"@supabase/supabase-js": "2.38.3",
+		"@supabase/supabase-js": "2.38.4",
 		"components": "workspace:*",
 		"d3-format": "3.1.0",
 		"d3-scale": "4.0.2",
@@ -34,7 +34,7 @@
 		"@graphql-typed-document-node/core": "^3.2.0",
 		"@playwright/test": "1.39.0",
 		"@sveltejs/adapter-vercel": "3.0.3",
-		"@sveltejs/kit": "1.27.0",
+		"@sveltejs/kit": "1.27.1",
 		"@testing-library/svelte": "4.0.4",
 		"@types/d3-format": "3.0.3",
 		"@types/d3-scale": "4.0.6",
