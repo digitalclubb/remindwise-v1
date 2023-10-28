@@ -32,8 +32,8 @@
 				placeholder="Enter your password"
 				required
 			/>
-			<!-- svelte-ignore a11y-invalid-attribute -->
-			<a href="" class="forgotten">Forgotten your password?</a>
+
+			<a href="/forgot-password" class="forgotten">Forgotten your password?</a>
 			<div class="login">
 				<Button>Login</Button>
 			</div>

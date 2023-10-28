@@ -13,7 +13,7 @@
 	>
 {/if}
 
-<input {...$$restProps} bind:value={$$props.value} />
+<input {...$$restProps} />
 
 <style>
 	i {
