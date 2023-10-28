@@ -25,7 +25,7 @@ export const actions = {
 				$company: String!
 				$cost: Float
 				$datePurchased: Date
-				$frequency: Frequency
+				$frequency: String!
 				$autoRenewal: Boolean
 				$notes: String
 			) {
