@@ -14,21 +14,23 @@
 	<div class="box box-manual">
 		<h1 class="heading-3">Login to your account</h1>
 		<form method="post" use:enhance>
-			<label for="email">Email</label>
+			<label for="email">Email<i aria-hidden="true">*</i></label>
 			<input
 				id="email"
 				name="email"
 				type="email"
 				value={form?.email ?? ''}
 				placeholder="Enter your email address"
+				required
 			/>
-			<label for="password">Password</label>
+			<label for="password">Password<i aria-hidden="true">*</i></label>
 			<input
 				id="password"
 				name="password"
 				type="password"
 				autocomplete="current-password"
 				placeholder="Enter your password"
+				required
 			/>
 
 			<a href="" class="forgotten">Forgotten your password?</a>
@@ -64,8 +66,6 @@
 
 <style>
 	.boxes {
-		background-color: var(--white);
-		border-radius: 0.6rem;
 		margin-bottom: 3rem;
 		display: flex;
 		flex-wrap: wrap;
@@ -76,10 +76,18 @@
 		padding: 1.9rem 2.6rem 3.2rem 2.3rem;
 	}
 
+	.box-manual {
+		background-color: var(--white);
+		border-top-left-radius: 0.6rem;
+		border-top-right-radius: 0.6rem;
+	}
+
 	.box-social {
 		border-top: solid 1px var(--cream);
 		background-color: var(--cream-light);
 		text-align: center;
+		border-bottom-left-radius: 0.6rem;
+		border-bottom-right-radius: 0.6rem;
 	}
 	form {
 		display: flex;
@@ -102,6 +110,11 @@
 	span {
 		display: block;
 		margin-bottom: 2rem;
+	}
+
+	i {
+		font-style: normal;
+		color: var(--red);
 	}
 
 	input {
@@ -150,5 +163,29 @@
 	}
 
 	@media screen and (min-width: 768px) {
+		.boxes {
+			flex-direction: row;
+			margin-bottom: 4rem;
+		}
+
+		.box-manual {
+			border-top-right-radius: 0;
+			border-bottom-left-radius: 0.6rem;
+			padding: 2rem 4.8rem 4rem 3.8rem;
+		}
+
+		.box-social {
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			border-bottom-left-radius: 0;
+			border-top-right-radius: 0.6rem;
+			padding-left: 5rem;
+			padding-right: 5rem;
+		}
+
+		input {
+			width: 29rem;
+		}
 	}
 </style>
