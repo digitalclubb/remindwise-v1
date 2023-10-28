@@ -34,7 +34,9 @@
 			/>
 
 			<a href="" class="forgotten">Forgotten your password?</a>
-			<Button>Login</Button>
+			<div class="login">
+				<Button>Login</Button>
+			</div>
 		</form>
 	</div>
 	<div class="box box-social">
@@ -134,6 +136,10 @@
 
 	.forgotten:hover {
 		text-decoration: underline;
+	}
+
+	.login {
+		text-align: right;
 	}
 
 	li {
