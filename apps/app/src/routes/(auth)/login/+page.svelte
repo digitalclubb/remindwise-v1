@@ -32,7 +32,7 @@
 				placeholder="Enter your password"
 				required
 			/>
-
+			<!-- svelte-ignore a11y-invalid-attribute -->
 			<a href="" class="forgotten">Forgotten your password?</a>
 			<div class="login">
 				<Button>Login</Button>
@@ -43,16 +43,19 @@
 		<h2 class="heading-5">Or</h2>
 		<ul class="">
 			<li>
+				<!-- svelte-ignore a11y-invalid-attribute -->
 				<a href="" class="social-login">
 					<img src="/icon-facebook.svg" alt="" /> Login with Facebook
 				</a>
 			</li>
 			<li>
+				<!-- svelte-ignore a11y-invalid-attribute -->
 				<a href="" class="social-login"
 					><img src="/icon-google.svg" alt="" /> Login with Google
 				</a>
 			</li>
 			<li>
+				<!-- svelte-ignore a11y-invalid-attribute -->
 				<a href="" class="social-login"
 					><img src="/icon-x.svg" alt="" /> Login with X</a
 				>
