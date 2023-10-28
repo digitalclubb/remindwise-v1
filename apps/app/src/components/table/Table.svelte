@@ -1,7 +1,13 @@
 <script lang="ts">
 	export let data: Record<string, string | number | boolean>[];
 
-	$: table = data ? data.map(({ id, ...actual }) => actual) : [];
+	$: table = data
+		? data.map((props) => {
+				const newData = { ...props };
+				delete newData['id'];
+				return newData;
+		  })
+		: [];
 </script>
 
 <table>
