@@ -67,7 +67,6 @@ export const actions: Actions = {
 			if (error.message) {
 				return fail(400, { email, error: true, message: error.message });
 			}
-			// ???
 			cookies.delete('email-submitted');
 		}
 		return { success: true };
