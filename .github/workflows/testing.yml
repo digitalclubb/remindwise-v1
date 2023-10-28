@@ -11,14 +11,12 @@ concurrency:
 env:
   PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
   PUBLIC_SUPABASE_KEY: ${{ secrets.PUBLIC_SUPABASE_KEY }}
+  VITE_PUBLIC_CLOUDINARY_CLOUD_NAME: ${{ secrets.VITE_PUBLIC_CLOUDINARY_CLOUD_NAME }}
 
 jobs:
   quality-static:
     name: Static code analysis
     runs-on: ubuntu-latest
-    env:
-      PUBLIC_SUPABASE_URL: ${{ secrets.PUBLIC_SUPABASE_URL }}
-      PUBLIC_SUPABASE_KEY: ${{ secrets.PUBLIC_SUPABASE_KEY }}
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
