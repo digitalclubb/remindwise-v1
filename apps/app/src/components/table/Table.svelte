@@ -25,24 +25,29 @@
 		</tr>
 	</thead>
 	<tbody>
-		{#if table.length === 1}
+		{#if table.length === 0}
 			<td colspan={Object.keys(table[0]).length}>
 				<p class="no-data">Add some categories and reminders to get started</p>
 			</td>
 		{/if}
 		{#each Object.values(table) as row, index}
-			{#if index !== 0}
-				<tr>
-					{#each Object.values(row) as cell}
+			<tr>
+				{#each Object.values(row) as cell, index}
+					{#if index === 0}
+						<td
+							><svg fill="var(--cream-dark)"><use xlink:href="#{cell}" /></svg
+							></td
+						>
+					{:else}
 						<td>{cell}</td>
-					{/each}
-					<td class="show-info">
-						<a href="/reminder/{data[index].id}" class="info">
-							<img src="/magnifying-glass.svg" alt="" />
-						</a>
-					</td>
-				</tr>
-			{/if}
+					{/if}
+				{/each}
+				<td class="show-info">
+					<a href="/reminder/{data[index].id}" class="info">
+						<img src="/magnifying-glass.svg" alt="" />
+					</a>
+				</td>
+			</tr>
 		{/each}
 	</tbody>
 </table>
@@ -78,6 +83,17 @@
 		background-color: var(--cream-light);
 		padding: 1rem 2rem;
 		border-top: 1px solid var(--white);
+	}
+
+	th:first-child,
+	td:first-child {
+		width: 1.8rem;
+		padding-right: 0;
+	}
+
+	svg {
+		width: 1.8rem;
+		height: 1.8rem;
 	}
 
 	.show-info {

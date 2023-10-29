@@ -11,14 +11,6 @@
 
 	const upcoming = [
 		{
-			id: '',
-			Name: '',
-			Company: '',
-			Cost: '',
-			'Due date': '',
-			'Auto renewal': '',
-		},
-		{
 			id: 1,
 			Name: 'Netflix',
 			Company: 'Netflix',
@@ -29,17 +21,11 @@
 	];
 
 	$: ongoing = [
-		{
-			id: '',
-			Name: '',
-			Company: '',
-			'Re-occuring cost': '',
-			'Total accured': '',
-		},
 		...(reminders
 			? reminders.map((reminder) => {
 					return {
 						id: reminder.reminder.id,
+						'': reminder.reminder.category?.iconId,
 						Name: reminder.reminder.name,
 						Company: reminder.reminder.company || '',
 						'Re-occuring cost': new Intl.NumberFormat('en-GB', {

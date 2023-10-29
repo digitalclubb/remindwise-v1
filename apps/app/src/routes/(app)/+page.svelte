@@ -1,16 +1,13 @@
 <script lang="ts">
 	import Header from '../../components/header/Header.svelte';
 	import Table from '../../components/table/Table.svelte';
+	import type { PageData } from './$houdini';
+
+	export let data: PageData;
+	$: ({ getAllReminders } = data);
+	$: reminders = $getAllReminders.data?.reminders?.list;
 
 	const upcoming = [
-		{
-			id: '',
-			Name: '',
-			Company: '',
-			Cost: '',
-			'Due date': '',
-			'Auto renewal': '',
-		},
 		{
 			id: 1,
 			Name: 'Netflix',
@@ -21,21 +18,22 @@
 		},
 	];
 
-	const ongoing = [
-		{
-			id: '',
-			Name: '',
-			Company: '',
-			'Re-occuring cost': '',
-			'Total accured': '',
-		},
-		{
-			id: 1,
-			Name: 'Netflix',
-			Company: 'Netflix',
-			'Re-occuring cost': '£12',
-			'Total accured': '£1,332',
-		},
+	$: ongoing = [
+		...(reminders
+			? reminders.map((reminder) => {
+					return {
+						id: reminder.reminder.id,
+						'': reminder.reminder.category?.iconId,
+						Name: reminder.reminder.name,
+						Company: reminder.reminder.company || '',
+						'Re-occuring cost': new Intl.NumberFormat('en-GB', {
+							style: 'currency',
+							currency: 'GBP',
+						}).format(reminder.reminder.cost || 0),
+						'Total accured': '',
+					};
+			  })
+			: [{}]),
 	];
 </script>
 

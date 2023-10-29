@@ -4,12 +4,11 @@ query getReminders($categoryId: BigInt) {
 			reminder: node {
 				id
 				name
-				type
 				company
 				cost
-				datePurchased
-				frequency
-				autoRenewal
+				category {
+					iconId
+				}
 			}
 		}
 	}
