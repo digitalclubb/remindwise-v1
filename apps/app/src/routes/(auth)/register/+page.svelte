@@ -63,10 +63,6 @@
 </div>
 
 <p>
-	<span class="register-heading">Already have an account?</span>
+	<span>Already have an account?</span>
 	<Link href="/login" type="button">Login now</Link>
 </p>
-
-<style>
-	@import '../styles.css';
-</style>
