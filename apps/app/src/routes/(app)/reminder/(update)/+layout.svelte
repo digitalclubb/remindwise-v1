@@ -27,8 +27,8 @@
 			value={$page.data.session?.user.id}
 		/>
 		<div>
-			<label for="category-select">Category</label>
-			<select name="category-select" id="category-select" required>
+			<label for="categoryId">Category</label>
+			<select name="categoryId" id="categoryId" required>
 				{#if $getCategories.fetching}
 					<option value="">Loading...</option>
 				{:else if categories}
@@ -125,6 +125,11 @@
 				<label for="renewal">Date</label>
 				<input type="date" name="renewal" id="renewal" />
 			</div>
+		</div>
+
+		<div>
+			<label for="frequency">Frequency</label>
+			<input type="text" name="frequency" id="frequency" />
 		</div>
 
 		<div>

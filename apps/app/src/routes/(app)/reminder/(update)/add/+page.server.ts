@@ -6,7 +6,7 @@ export const actions = {
 		const data = await event.request.formData();
 
 		const userid = data.get('userId') as string;
-		const categoryId = data.get('category-select') as string;
+		const categoryId = parseInt(data.get('categoryId') as string);
 		const name = data.get('name') as string;
 		const type = data.get('type') as string;
 		const company = data.get('company') as string;
