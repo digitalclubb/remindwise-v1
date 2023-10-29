@@ -61,7 +61,7 @@
 					type="radio"
 					name="type"
 					id="ongoing"
-					value="ongoing"
+					value="ONGOING"
 					bind:group={option}
 				/>
 				<label for="ongoing">Ongoing subscription</label>
@@ -71,7 +71,7 @@
 					type="radio"
 					name="type"
 					id="annual"
-					value="annual"
+					value="ANNUAL"
 					bind:group={option}
 				/>
 				<label for="annual">Annual policy</label>
@@ -81,7 +81,7 @@
 					type="radio"
 					name="type"
 					id="single"
-					value="single"
+					value="SINGLE"
 					bind:group={option}
 				/>
 				<label for="single">Single record</label>

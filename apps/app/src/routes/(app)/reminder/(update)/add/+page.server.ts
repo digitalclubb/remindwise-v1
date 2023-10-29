@@ -46,9 +46,6 @@ export const actions = {
 					]
 				) {
 					affectedCount
-					records {
-						id
-					}
 				}
 			}
 		`);
