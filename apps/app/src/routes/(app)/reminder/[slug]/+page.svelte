@@ -18,14 +18,19 @@
 				Date.parse(reminder.datePurchased || 0)
 		  )
 		: '';
+
+	$: back = reminder
+		? {
+				text: `Back to ${reminder.category.name}`,
+				href: `/category/${reminder.category.name}`,
+		  }
+		: {
+				text: '',
+				href: '',
+		  };
 </script>
 
-<Header
-	back={{
-		text: `Back to ${reminder.category.name}`,
-		href: `/category/${reminder.category.name}`,
-	}}
-/>
+<Header {back} />
 
 <article class="body">
 	{#if $getReminder.fetching}

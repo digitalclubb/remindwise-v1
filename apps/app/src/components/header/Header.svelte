@@ -1,14 +1,14 @@
 <script lang="ts">
 	export let title = '';
 	export let icon = '';
-	export let back = { href: '', text: '' };
+	export let back: { text: string; href: string };
 </script>
 
 <header>
 	{#if title}
 		<h1 class="title heading-2">{title} {icon}</h1>
 	{/if}
-	{#if back.text}
+	{#if back}
 		<h1 class="heading-5"><a class="back" href={back.href}>{back.text}</a></h1>
 	{/if}
 	<a href="/notifications" class="notification">
