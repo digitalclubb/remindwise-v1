@@ -108,7 +108,7 @@ export type FloatFilter = {
 };
 
 export enum Frequency {
-  Annually = 'ANNUALLY',
+  Annual = 'ANNUAL',
   Monthly = 'MONTHLY'
 }
 
