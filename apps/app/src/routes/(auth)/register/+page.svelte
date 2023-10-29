@@ -28,7 +28,7 @@
 				id="password"
 				name="password"
 				type="password"
-				autocomplete="current-password"
+				autocomplete="new-password"
 				placeholder="Enter your password"
 				required
 			/>
