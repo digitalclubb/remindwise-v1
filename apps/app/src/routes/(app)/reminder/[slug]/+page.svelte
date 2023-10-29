@@ -6,54 +6,61 @@
 	$: ({ getReminder } = data);
 	$: reminder = $getReminder.data?.reminders?.list[0].reminder;
 
-	$: cost = new Intl.NumberFormat('en-GB', {
-		style: 'currency',
-		currency: 'GBP',
-	}).format(reminder.cost);
+	$: cost = reminder
+		? new Intl.NumberFormat('en-GB', {
+				style: 'currency',
+				currency: 'GBP',
+		  }).format(reminder.cost)
+		: 0;
 </script>
 
 <Header title="" />
 
 <article class="body">
-	<h1>{reminder.category.name}</h1>
+	{#if $getReminder.fetching}
+		loading...
+	{:else}
+		<h1>{reminder.category.name}</h1>
 
-	<div class="content">
-		<p class="overview">
-			with <span class="highlight">{reminder.company}</span><br /> at a cost of
-			<span class="highlight">{cost}</span><br />
-			due for renewal on
-			<span class="highlight">{reminder.dateOfRenewal}</span><br /> will be
-			charged <span class="highlight">monthly</span><br /> and will be renewed
-			<span class="highlight">automatically</span>
-		</p>
+		<div class="content">
+			<p class="overview">
+				with <span class="highlight">{reminder.company}</span><br /> at a cost
+				of
+				<span class="highlight">{cost}</span><br />
+				due for renewal on
+				<span class="highlight">{reminder.dateOfRenewal}</span><br /> will be
+				charged <span class="highlight">monthly</span><br /> and will be renewed
+				<span class="highlight">automatically</span>
+			</p>
 
-		<h2 class="heading-4">Things to remember</h2>
-		<p class="remember">
-			{reminder.notes}
-		</p>
-	</div>
+			<h2 class="heading-4">Things to remember</h2>
+			<p class="remember">
+				{reminder.notes}
+			</p>
+		</div>
 
-	<aside>
-		<h3 class="heading-5">Your documents</h3>
-		<ul class="documents">
-			<li>
-				<!-- svelte-ignore a11y-invalid-attribute -->
-				<a href="">
-					<img src="/icon-pdf.svg" alt="" />
-					<p>Manypets-renewal-invation.Pdf</p>
-					<img src="/magnifying-glass.svg" alt="" />
-				</a>
-			</li>
-			<li>
-				<!-- svelte-ignore a11y-invalid-attribute -->
-				<a href="">
-					<img src="/icon-pdf.svg" alt="" />
-					<p>Manypets-renewal-invation.Pdf</p>
-					<img src="/magnifying-glass.svg" alt="" />
-				</a>
-			</li>
-		</ul>
-	</aside>
+		<aside>
+			<h3 class="heading-5">Your documents</h3>
+			<ul class="documents">
+				<li>
+					<!-- svelte-ignore a11y-invalid-attribute -->
+					<a href="">
+						<img src="/icon-pdf.svg" alt="" />
+						<p>Manypets-renewal-invation.Pdf</p>
+						<img src="/magnifying-glass.svg" alt="" />
+					</a>
+				</li>
+				<li>
+					<!-- svelte-ignore a11y-invalid-attribute -->
+					<a href="">
+						<img src="/icon-pdf.svg" alt="" />
+						<p>Manypets-renewal-invation.Pdf</p>
+						<img src="/magnifying-glass.svg" alt="" />
+					</a>
+				</li>
+			</ul>
+		</aside>
+	{/if}
 </article>
 
 <style>
