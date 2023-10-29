@@ -11,6 +11,7 @@
 	import { getSettingsStore as Y, graphql, getCategoriesStore } from '$houdini';
 	import { fly } from 'svelte/transition';
 	import { browser } from '$app/environment';
+	import Link from 'components/link/Link.svelte';
 	export let categoriesStore: getCategoriesStore;
 	export let getSettingsStore: Y;
 	$: categories = $categoriesStore.data?.categories?.list;
@@ -130,9 +131,9 @@
 					</h3>
 				{/if}
 
-				<Button
-					><svg fill="var(--cream)"><use xlink:href="#plus" /></svg>Add a new
-					reminder</Button
+				<Link type="button" href="/reminder/add"
+					><svg fill="var(--white)"><use xlink:href="#plus" /></svg>Add a new
+					reminder</Link
 				>
 			</div>
 			<ul class="categories">
@@ -249,7 +250,6 @@
 		overflow-y: scroll;
 		height: calc(100% - 8.8rem);
 		flex-direction: column;
-		/* flex-wrap: wrap; */
 	}
 
 	.hidden {
@@ -279,12 +279,12 @@
 	}
 
 	.profile {
-		align-items: center;
+		align-items: flex-start;
 		background-color: var(--grey);
 		display: flex;
 		flex-direction: column;
-		gap: 2.2rem;
-		padding: 2.5rem 3.6rem 2.8rem 3.6rem;
+		gap: 1.3rem;
+		padding: 2.5rem 3.4rem 2.8rem 3.4rem;
 	}
 
 	.profile h3 {
@@ -293,8 +293,10 @@
 		display: flex;
 		font-size: 1.4rem;
 		gap: 1rem;
+		margin: 0;
 	}
 	.profile h3 svg {
+		margin-left: 1rem;
 		height: 1.4rem;
 		width: 1.4rem;
 	}
@@ -336,7 +338,7 @@
 		align-items: center;
 		gap: 1.2rem;
 		flex-grow: 2;
-		padding: 1rem 0 1rem 4rem;
+		padding: 1rem 0 1rem 3.4rem;
 	}
 
 	a:hover {
@@ -439,7 +441,7 @@
 		gap: 2rem;
 		flex-direction: column;
 		width: 12.3rem;
-		top: 3rem;
+		top: 2.9rem;
 		z-index: 1;
 		right: 1.7rem;
 	}
@@ -475,6 +477,16 @@
 		.profile {
 			background-color: var(--grey-light);
 			padding: 2.5rem 3.6rem 6.5rem 3.6rem;
+			align-items: center;
+			gap: 2.2rem;
+		}
+
+		.profile h3 svg {
+			margin-left: 0;
+		}
+
+		a {
+			padding: 1rem 0 1rem 4rem;
 		}
 	}
 </style>
