@@ -85,7 +85,7 @@
 	}
 
 	.no-data {
-		color: var(--grey-light);
+		color: var(--greyed-out);
 	}
 
 	.no-data {
