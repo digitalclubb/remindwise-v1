@@ -19,10 +19,10 @@ export const actions = {
 		const actionMutation = graphql(`
 			mutation addReminder(
 				$userid: UUID!
-				$categoryId: BigInt
+				$categoryId: BigInt!
 				$name: String!
-				$type: Type
-				$company: String!
+				$type: Type!
+				$company: String
 				$cost: Float
 				$datePurchased: Date
 				$frequency: String!
