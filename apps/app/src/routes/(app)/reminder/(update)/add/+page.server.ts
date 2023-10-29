@@ -21,11 +21,11 @@ export const actions = {
 				$userid: UUID!
 				$categoryId: BigInt!
 				$name: String!
-				$type: String!
+				$type: Type!
 				$company: String
 				$cost: Float
 				$datePurchased: Date
-				$frequency: String!
+				$frequency: Frequency!
 				$autoRenewal: Boolean
 				$notes: String
 			) {
