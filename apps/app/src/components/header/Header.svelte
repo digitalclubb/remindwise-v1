@@ -1,10 +1,16 @@
 <script lang="ts">
 	export let title = '';
 	export let icon = '';
+	export let back = { href: '', text: '' };
 </script>
 
 <header>
-	<h1 class="heading-2">{title} {icon}</h1>
+	{#if title}
+		<h1 class="title heading-2">{title} {icon}</h1>
+	{/if}
+	{#if back.text}
+		<h1 class="heading-5"><a class="back" href={back.href}>{back.text}</a></h1>
+	{/if}
 	<a href="/notifications" class="notification">
 		<img src="/notification.svg" alt="" width="" height="" />
 		<span>3</span>
@@ -18,10 +24,23 @@
 		display: flex;
 		justify-content: space-between;
 	}
-
-	h1 {
+	.title {
 		color: var(--orange);
 		text-transform: capitalize;
+	}
+
+	.back {
+		color: var(--orange);
+		text-decoration: none;
+	}
+
+	.back::before {
+		content: '<';
+		margin-right: 1rem;
+	}
+
+	.back:hover {
+		text-decoration: underline;
 	}
 
 	.notification {

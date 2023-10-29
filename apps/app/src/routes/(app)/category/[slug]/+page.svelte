@@ -40,7 +40,7 @@
 			? reminders.map((reminder) => {
 					return {
 						id: reminder.reminder.id,
-						Name: '',
+						Name: reminder.reminder.name,
 						Company: reminder.reminder.company || '',
 						'Re-occuring cost': new Intl.NumberFormat('en-GB', {
 							style: 'currency',

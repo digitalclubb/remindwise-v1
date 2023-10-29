@@ -11,16 +11,27 @@
 				style: 'currency',
 				currency: 'GBP',
 		  }).format(reminder.cost)
-		: 0;
+		: '';
+
+	$: date = reminder
+		? new Intl.DateTimeFormat('en-GB').format(
+				Date.parse(reminder.datePurchased || 0)
+		  )
+		: '';
 </script>
 
-<Header title="" />
+<Header
+	back={{
+		text: `Back to ${reminder.category.name}`,
+		href: `/category/${reminder.category.name}`,
+	}}
+/>
 
 <article class="body">
 	{#if $getReminder.fetching}
 		loading...
 	{:else}
-		<h1>{reminder.category.name}</h1>
+		<h1>{reminder.name} <span>{reminder.category.name}</span></h1>
 
 		<div class="content">
 			<p class="overview">
@@ -28,8 +39,8 @@
 				of
 				<span class="highlight">{cost}</span><br />
 				due for renewal on
-				<span class="highlight">{reminder.dateOfRenewal}</span><br /> will be
-				charged <span class="highlight">monthly</span><br /> and will be renewed
+				<span class="highlight">{date}</span><br /> will be charged
+				<span class="highlight">monthly</span><br /> and will be renewed
 				<span class="highlight">automatically</span>
 			</p>
 
@@ -77,6 +88,11 @@
 		text-transform: capitalize;
 	}
 
+	h1 span {
+		font-size: 1.4rem;
+		margin-left: 2.4rem;
+	}
+
 	.content {
 		grid-area: content;
 		background-color: var(--cream-light);
@@ -100,11 +116,6 @@
 		padding: 2rem;
 		border-radius: 0.6rem;
 		font-weight: 300;
-	}
-
-	.remember a {
-		color: var(--orange);
-		font-weight: 600;
 	}
 
 	aside {
