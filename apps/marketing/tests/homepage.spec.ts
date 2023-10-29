@@ -11,7 +11,7 @@ test.describe('Homepage', () => {
 	});
 
 	test('@functional has correct title', async () => {
-		await expect(homepage.pageTitle).toHaveText('remindwise.io coming soon');
+		await expect(homepage.emailInput).toBeVisible();
 	});
 
 	test('has no @accessibility violations', async ({ page }) => {

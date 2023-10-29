@@ -2,11 +2,11 @@ import type { Locator, Page } from '@playwright/test';
 
 export class Homepage {
 	readonly page: Page;
-	readonly pageTitle: Locator;
+	readonly emailInput: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
-		this.pageTitle = page.getByRole('heading', { level: 1 });
+		this.emailInput = page.getByPlaceholder('Your email');
 	}
 
 	async goto() {
