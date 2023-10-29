@@ -7,6 +7,7 @@
 		"package": "vite package",
 		"preview": "vite preview --port 4174",
 		"sync": "svelte-kit sync",
+		"houdini:sync": "houdini generate -p",
 		"types": "svelte-check --tsconfig ./tsconfig.json",
 		"types:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "eslint --config ../../.eslintrc.js 'src'",
