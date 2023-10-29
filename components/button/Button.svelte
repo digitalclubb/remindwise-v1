@@ -1,6 +1,12 @@
 <script lang="ts">
-	export let style = '';
-	export let onClick = () => {};
+	import type { HTMLButtonAttributes } from 'svelte/elements';
+	interface $$Props extends HTMLButtonAttributes {
+		style?: string | undefined;
+		onClick?: (() => void) | undefined;
+	}
+
+	export let style: string | undefined = undefined;
+	export let onClick: (() => void) | undefined = undefined;
 </script>
 
 <button

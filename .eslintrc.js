@@ -5,8 +5,15 @@ module.exports = {
 		'eslint:recommended',
 		'plugin:svelte/recommended',
 		'plugin:@typescript-eslint/recommended',
+		'prettier',
 	],
 	plugins: ['@typescript-eslint'],
+	rules: {
+		'@typescript-eslint/no-unused-vars': [
+			'warn',
+			{ varsIgnorePattern: '^\\$\\$(Props|Events|Slots)$' },
+		],
+	},
 	overrides: [
 		{
 			files: ['*.svelte'],

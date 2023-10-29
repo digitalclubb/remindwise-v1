@@ -37,6 +37,7 @@
 		<h3 class="heading-5">Your documents</h3>
 		<ul class="documents">
 			<li>
+				<!-- svelte-ignore a11y-invalid-attribute -->
 				<a href="">
 					<img src="/icon-pdf.svg" alt="" />
 					<p>Manypets-renewal-invation.Pdf</p>
@@ -44,6 +45,7 @@
 				</a>
 			</li>
 			<li>
+				<!-- svelte-ignore a11y-invalid-attribute -->
 				<a href="">
 					<img src="/icon-pdf.svg" alt="" />
 					<p>Manypets-renewal-invation.Pdf</p>
