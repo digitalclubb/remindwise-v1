@@ -12,7 +12,7 @@ test.describe('Register page', () => {
 	});
 
 	test('@functional has correct title', async () => {
-		await expect(register.pageTitle).toHaveText('Register');
+		await expect(register.pageTitle).toHaveText('Sign up');
 	});
 
 	test('has no @accessibility violations', async ({ page }) => {

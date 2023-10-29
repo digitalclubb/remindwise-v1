@@ -11,7 +11,7 @@ test.describe('Login page', () => {
 	});
 
 	test('@functional has correct title', async () => {
-		await expect(login.pageTitle).toHaveText('Login');
+		await expect(login.pageTitle).toHaveText('Login to your account');
 	});
 
 	test('has no @accessibility violations', async ({ page }) => {
