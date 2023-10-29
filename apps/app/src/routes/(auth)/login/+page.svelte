@@ -65,10 +65,6 @@
 </div>
 
 <p>
-	<span class="register-heading">Don't have a remindwise account yet?</span>
+	<span>Don't have a remindwise account yet?</span>
 	<Link href="/register" type="button">Register now</Link>
 </p>
-
-<style>
-	@import '../styles.css';
-</style>
