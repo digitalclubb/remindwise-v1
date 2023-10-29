@@ -38,13 +38,18 @@ export const actions = {
 							type: $type
 							company: $company
 							cost: $cost
-							datePurchased: $dateOfRenewal
+							datePurchased: $datePurchased
 							frequency: $frequency
 							autoRenewal: $autoRenewal
 							notes: $notes
 						}
 					]
-				)
+				) {
+					affectedCount
+					records {
+						id
+					}
+				}
 			}
 		`);
 

@@ -24,6 +24,18 @@ export type Scalars = {
   UUID: { input: any; output: any; }
 };
 
+export enum Annual {
+  Annual = 'ANNUAL'
+}
+
+/** Boolean expression comparing fields on type "Annual" */
+export type AnnualFilter = {
+  eq?: InputMaybe<Annual>;
+  in?: InputMaybe<Array<Annual>>;
+  is?: InputMaybe<FilterIs>;
+  neq?: InputMaybe<Annual>;
+};
+
 /** Boolean expression comparing fields on type "BigFloat" */
 export type BigFloatFilter = {
   eq?: InputMaybe<Scalars['BigFloat']['input']>;
@@ -93,6 +105,19 @@ export type FloatFilter = {
   lt?: InputMaybe<Scalars['Float']['input']>;
   lte?: InputMaybe<Scalars['Float']['input']>;
   neq?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export enum Frequency {
+  Annually = 'ANNUALLY',
+  Monthly = 'MONTHLY'
+}
+
+/** Boolean expression comparing fields on type "Frequency" */
+export type FrequencyFilter = {
+  eq?: InputMaybe<Frequency>;
+  in?: InputMaybe<Array<Frequency>>;
+  is?: InputMaybe<FilterIs>;
+  neq?: InputMaybe<Frequency>;
 };
 
 /** Boolean expression comparing fields on type "ID" */
@@ -203,6 +228,18 @@ export type Node = {
   nodeId: Scalars['ID']['output'];
 };
 
+export enum Ongoing {
+  Ongoing = 'ONGOING'
+}
+
+/** Boolean expression comparing fields on type "Ongoing" */
+export type OngoingFilter = {
+  eq?: InputMaybe<Ongoing>;
+  in?: InputMaybe<Array<Ongoing>>;
+  is?: InputMaybe<FilterIs>;
+  neq?: InputMaybe<Ongoing>;
+};
+
 /** Boolean expression comparing fields on type "Opaque" */
 export type OpaqueFilter = {
   eq?: InputMaybe<Scalars['Opaque']['input']>;
@@ -281,6 +318,18 @@ export type QuerySettingsCollectionArgs = {
   orderBy?: InputMaybe<Array<SettingsOrderBy>>;
 };
 
+export enum Single {
+  Single = 'SINGLE'
+}
+
+/** Boolean expression comparing fields on type "Single" */
+export type SingleFilter = {
+  eq?: InputMaybe<Single>;
+  in?: InputMaybe<Array<Single>>;
+  is?: InputMaybe<FilterIs>;
+  neq?: InputMaybe<Single>;
+};
+
 /** Boolean expression comparing fields on type "String" */
 export type StringFilter = {
   eq?: InputMaybe<Scalars['String']['input']>;
@@ -298,6 +347,20 @@ export type StringFilter = {
   startsWith?: InputMaybe<Scalars['String']['input']>;
 };
 
+export enum Test {
+  A = 'a',
+  B = 'b',
+  C = 'c'
+}
+
+/** Boolean expression comparing fields on type "Test" */
+export type TestFilter = {
+  eq?: InputMaybe<Test>;
+  in?: InputMaybe<Array<Test>>;
+  is?: InputMaybe<FilterIs>;
+  neq?: InputMaybe<Test>;
+};
+
 /** Boolean expression comparing fields on type "Time" */
 export type TimeFilter = {
   eq?: InputMaybe<Scalars['Time']['input']>;
@@ -308,6 +371,20 @@ export type TimeFilter = {
   lt?: InputMaybe<Scalars['Time']['input']>;
   lte?: InputMaybe<Scalars['Time']['input']>;
   neq?: InputMaybe<Scalars['Time']['input']>;
+};
+
+export enum Type {
+  Annual = 'ANNUAL',
+  Ongoing = 'ONGOING',
+  Single = 'SINGLE'
+}
+
+/** Boolean expression comparing fields on type "Type" */
+export type TypeFilter = {
+  eq?: InputMaybe<Type>;
+  in?: InputMaybe<Array<Type>>;
+  is?: InputMaybe<FilterIs>;
+  neq?: InputMaybe<Type>;
 };
 
 /** Boolean expression comparing fields on type "UUID" */
@@ -421,13 +498,15 @@ export type Reminders = Node & {
   company?: Maybe<Scalars['String']['output']>;
   cost?: Maybe<Scalars['Float']['output']>;
   created_at?: Maybe<Scalars['Datetime']['output']>;
-  dateOfRenewal?: Maybe<Scalars['Date']['output']>;
-  enabled: Scalars['Boolean']['output'];
+  datePurchased?: Maybe<Scalars['Date']['output']>;
+  frequency: Frequency;
   id: Scalars['BigInt']['output'];
+  name?: Maybe<Scalars['String']['output']>;
   /** Globally Unique Record Identifier */
   nodeId: Scalars['ID']['output'];
   notes?: Maybe<Scalars['String']['output']>;
   settings?: Maybe<Settings>;
+  type: Type;
   userid?: Maybe<Scalars['UUID']['output']>;
 };
 
@@ -459,11 +538,13 @@ export type RemindersFilter = {
   company?: InputMaybe<StringFilter>;
   cost?: InputMaybe<FloatFilter>;
   created_at?: InputMaybe<DatetimeFilter>;
-  dateOfRenewal?: InputMaybe<DateFilter>;
-  enabled?: InputMaybe<BooleanFilter>;
+  datePurchased?: InputMaybe<DateFilter>;
+  frequency?: InputMaybe<FrequencyFilter>;
   id?: InputMaybe<BigIntFilter>;
+  name?: InputMaybe<StringFilter>;
   nodeId?: InputMaybe<IdFilter>;
   notes?: InputMaybe<StringFilter>;
+  type?: InputMaybe<TypeFilter>;
   userid?: InputMaybe<UuidFilter>;
 };
 
@@ -473,9 +554,11 @@ export type RemindersInsertInput = {
   company?: InputMaybe<Scalars['String']['input']>;
   cost?: InputMaybe<Scalars['Float']['input']>;
   created_at?: InputMaybe<Scalars['Datetime']['input']>;
-  dateOfRenewal?: InputMaybe<Scalars['Date']['input']>;
-  enabled?: InputMaybe<Scalars['Boolean']['input']>;
+  datePurchased?: InputMaybe<Scalars['Date']['input']>;
+  frequency?: InputMaybe<Frequency>;
+  name?: InputMaybe<Scalars['String']['input']>;
   notes?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Type>;
   userid?: InputMaybe<Scalars['UUID']['input']>;
 };
 
@@ -493,10 +576,12 @@ export type RemindersOrderBy = {
   company?: InputMaybe<OrderByDirection>;
   cost?: InputMaybe<OrderByDirection>;
   created_at?: InputMaybe<OrderByDirection>;
-  dateOfRenewal?: InputMaybe<OrderByDirection>;
-  enabled?: InputMaybe<OrderByDirection>;
+  datePurchased?: InputMaybe<OrderByDirection>;
+  frequency?: InputMaybe<OrderByDirection>;
   id?: InputMaybe<OrderByDirection>;
+  name?: InputMaybe<OrderByDirection>;
   notes?: InputMaybe<OrderByDirection>;
+  type?: InputMaybe<OrderByDirection>;
   userid?: InputMaybe<OrderByDirection>;
 };
 
@@ -506,9 +591,11 @@ export type RemindersUpdateInput = {
   company?: InputMaybe<Scalars['String']['input']>;
   cost?: InputMaybe<Scalars['Float']['input']>;
   created_at?: InputMaybe<Scalars['Datetime']['input']>;
-  dateOfRenewal?: InputMaybe<Scalars['Date']['input']>;
-  enabled?: InputMaybe<Scalars['Boolean']['input']>;
+  datePurchased?: InputMaybe<Scalars['Date']['input']>;
+  frequency?: InputMaybe<Frequency>;
+  name?: InputMaybe<Scalars['String']['input']>;
   notes?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Type>;
   userid?: InputMaybe<Scalars['UUID']['input']>;
 };
 
@@ -632,7 +719,7 @@ export type GetRemindersQueryVariables = Exact<{
 }>;
 
 
-export type GetRemindersQuery = { __typename?: 'Query', reminders?: { __typename?: 'remindersConnection', list: Array<{ __typename?: 'remindersEdge', reminder: { __typename?: 'reminders', id: any, company?: string | null, cost?: number | null, dateOfRenewal?: any | null, autoRenewal?: boolean | null, enabled: boolean } }> } | null };
+export type GetRemindersQuery = { __typename?: 'Query', reminders?: { __typename?: 'remindersConnection', list: Array<{ __typename?: 'remindersEdge', reminder: { __typename?: 'reminders', id: any, name?: string | null, type: Type, company?: string | null, cost?: number | null, datePurchased?: any | null, frequency: Frequency, autoRenewal?: boolean | null } }> } | null };
 
 export type GetSettingsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -646,8 +733,16 @@ export type GetCategoryIdQueryVariables = Exact<{
 
 export type GetCategoryIdQuery = { __typename?: 'Query', categories?: { __typename?: 'categoriesConnection', list: Array<{ __typename?: 'categoriesEdge', category: { __typename?: 'categories', id: any, name: string, iconId?: string | null } }> } | null };
 
+export type GetReminderQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['BigInt']['input']>;
+}>;
+
+
+export type GetReminderQuery = { __typename?: 'Query', reminders?: { __typename?: 'remindersConnection', list: Array<{ __typename?: 'remindersEdge', reminder: { __typename?: 'reminders', name?: string | null, type: Type, company?: string | null, cost?: number | null, datePurchased?: any | null, frequency: Frequency, autoRenewal?: boolean | null, notes?: string | null, category?: { __typename?: 'categories', id: any, name: string } | null } }> } | null };
+
 
 export const GetCategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getCategories"},"directives":[{"kind":"Directive","name":{"kind":"Name","value":"load"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"categories"},"name":{"kind":"Name","value":"categoriesCollection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"list"},"name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"category"},"name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"iconId"}},{"kind":"Field","alias":{"kind":"Name","value":"reminders"},"name":{"kind":"Name","value":"remindersCollection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetCategoriesQuery, GetCategoriesQueryVariables>;
-export const GetRemindersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getReminders"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"categoryId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"BigInt"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"reminders"},"name":{"kind":"Name","value":"remindersCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"categoryId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"categoryId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"list"},"name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"reminder"},"name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"company"}},{"kind":"Field","name":{"kind":"Name","value":"cost"}},{"kind":"Field","name":{"kind":"Name","value":"dateOfRenewal"}},{"kind":"Field","name":{"kind":"Name","value":"autoRenewal"}},{"kind":"Field","name":{"kind":"Name","value":"enabled"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetRemindersQuery, GetRemindersQueryVariables>;
+export const GetRemindersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getReminders"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"categoryId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"BigInt"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"reminders"},"name":{"kind":"Name","value":"remindersCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"categoryId"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"categoryId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"list"},"name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"reminder"},"name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"company"}},{"kind":"Field","name":{"kind":"Name","value":"cost"}},{"kind":"Field","name":{"kind":"Name","value":"datePurchased"}},{"kind":"Field","name":{"kind":"Name","value":"frequency"}},{"kind":"Field","name":{"kind":"Name","value":"autoRenewal"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetRemindersQuery, GetRemindersQueryVariables>;
 export const GetSettingsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getSettings"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"settings"},"name":{"kind":"Name","value":"settingsCollection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"list"},"name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"setting"},"name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"first_name"}},{"kind":"Field","name":{"kind":"Name","value":"last_name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetSettingsQuery, GetSettingsQueryVariables>;
 export const GetCategoryIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getCategoryId"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"categories"},"name":{"kind":"Name","value":"categoriesCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"list"},"name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"category"},"name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"iconId"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetCategoryIdQuery, GetCategoryIdQueryVariables>;
+export const GetReminderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getReminder"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"BigInt"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"reminders"},"name":{"kind":"Name","value":"remindersCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"list"},"name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"reminder"},"name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"company"}},{"kind":"Field","name":{"kind":"Name","value":"cost"}},{"kind":"Field","name":{"kind":"Name","value":"datePurchased"}},{"kind":"Field","name":{"kind":"Name","value":"frequency"}},{"kind":"Field","name":{"kind":"Name","value":"autoRenewal"}},{"kind":"Field","name":{"kind":"Name","value":"notes"}},{"kind":"Field","name":{"kind":"Name","value":"category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetReminderQuery, GetReminderQueryVariables>;
