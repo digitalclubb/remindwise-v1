@@ -113,7 +113,7 @@ input FloatFilter {
 }
 
 enum Frequency {
-  ANNUALLY
+  ANNUAL
   MONTHLY
 }
 

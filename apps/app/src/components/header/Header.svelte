@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let title = '';
 	export let icon = '';
-	export let back: { text: string; href: string } | undefined;
+	export let back: { text: string; href: string } | undefined = undefined;
 </script>
 
 <header>

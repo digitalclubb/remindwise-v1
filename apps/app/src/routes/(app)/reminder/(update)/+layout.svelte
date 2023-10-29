@@ -129,7 +129,7 @@
 
 		<div>
 			<label for="frequency">Frequency</label>
-			<input type="text" name="frequency" id="frequency" />
+			<input type="radio" name="frequency" id="frequency" value="MONTHLY" />
 		</div>
 
 		<div>
