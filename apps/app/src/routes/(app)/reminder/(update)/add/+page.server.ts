@@ -21,7 +21,7 @@ export const actions = {
 				$userid: UUID!
 				$categoryId: BigInt!
 				$name: String!
-				$type: Type!
+				$type: String!
 				$company: String
 				$cost: Float
 				$datePurchased: Date
