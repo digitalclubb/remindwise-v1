@@ -1,3 +1,17 @@
+enum Annual {
+  ANNUAL
+}
+
+"""
+Boolean expression comparing fields on type "Annual"
+"""
+input AnnualFilter {
+  eq: Annual
+  in: [Annual!]
+  is: FilterIs
+  neq: Annual
+}
+
 """A high precision floating point value represented as a string"""
 scalar BigFloat
 
@@ -96,6 +110,21 @@ input FloatFilter {
   lt: Float
   lte: Float
   neq: Float
+}
+
+enum Frequency {
+  ANNUAL
+  MONTHLY
+}
+
+"""
+Boolean expression comparing fields on type "Frequency"
+"""
+input FrequencyFilter {
+  eq: Frequency
+  in: [Frequency!]
+  is: FilterIs
+  neq: Frequency
 }
 
 """
@@ -220,6 +249,20 @@ interface Node {
   nodeId: ID!
 }
 
+enum Ongoing {
+  ONGOING
+}
+
+"""
+Boolean expression comparing fields on type "Ongoing"
+"""
+input OngoingFilter {
+  eq: Ongoing
+  in: [Ongoing!]
+  is: FilterIs
+  neq: Ongoing
+}
+
 """Any type not handled by the type system"""
 scalar Opaque
 
@@ -325,6 +368,20 @@ type Query {
   ): settingsConnection
 }
 
+enum Single {
+  SINGLE
+}
+
+"""
+Boolean expression comparing fields on type "Single"
+"""
+input SingleFilter {
+  eq: Single
+  in: [Single!]
+  is: FilterIs
+  neq: Single
+}
+
 """
 Boolean expression comparing fields on type "String"
 """
@@ -344,6 +401,22 @@ input StringFilter {
   startsWith: String
 }
 
+enum Test {
+  a
+  b
+  c
+}
+
+"""
+Boolean expression comparing fields on type "Test"
+"""
+input TestFilter {
+  eq: Test
+  in: [Test!]
+  is: FilterIs
+  neq: Test
+}
+
 """A time without date information"""
 scalar Time
 
@@ -359,6 +432,22 @@ input TimeFilter {
   lt: Time
   lte: Time
   neq: Time
+}
+
+enum Type {
+  ANNUAL
+  ONGOING
+  SINGLE
+}
+
+"""
+Boolean expression comparing fields on type "Type"
+"""
+input TypeFilter {
+  eq: Type
+  in: [Type!]
+  is: FilterIs
+  neq: Type
 }
 
 """A universally unique identifier"""
@@ -482,14 +571,16 @@ type reminders implements Node {
   company: String
   cost: Float
   created_at: Datetime
-  dateOfRenewal: Date
-  enabled: Boolean!
+  datePurchased: Date
+  frequency: Frequency!
   id: BigInt!
+  name: String
 
   """Globally Unique Record Identifier"""
   nodeId: ID!
   notes: String
   settings: settings
+  type: Type!
   userid: UUID
 }
 
@@ -520,11 +611,13 @@ input remindersFilter {
   company: StringFilter
   cost: FloatFilter
   created_at: DatetimeFilter
-  dateOfRenewal: DateFilter
-  enabled: BooleanFilter
+  datePurchased: DateFilter
+  frequency: FrequencyFilter
   id: BigIntFilter
+  name: StringFilter
   nodeId: IDFilter
   notes: StringFilter
+  type: TypeFilter
   userid: UUIDFilter
 }
 
@@ -534,9 +627,11 @@ input remindersInsertInput {
   company: String
   cost: Float
   created_at: Datetime
-  dateOfRenewal: Date
-  enabled: Boolean
+  datePurchased: Date
+  frequency: Frequency
+  name: String
   notes: String
+  type: Type
   userid: UUID
 }
 
@@ -554,10 +649,12 @@ input remindersOrderBy {
   company: OrderByDirection
   cost: OrderByDirection
   created_at: OrderByDirection
-  dateOfRenewal: OrderByDirection
-  enabled: OrderByDirection
+  datePurchased: OrderByDirection
+  frequency: OrderByDirection
   id: OrderByDirection
+  name: OrderByDirection
   notes: OrderByDirection
+  type: OrderByDirection
   userid: OrderByDirection
 }
 
@@ -567,9 +664,11 @@ input remindersUpdateInput {
   company: String
   cost: Float
   created_at: Datetime
-  dateOfRenewal: Date
-  enabled: Boolean
+  datePurchased: Date
+  frequency: Frequency
+  name: String
   notes: String
+  type: Type
   userid: UUID
 }
 

@@ -1,0 +1,20 @@
+query getReminder($slug: BigInt) {
+	reminders: remindersCollection(filter: { id: { eq: $slug } }) {
+		list: edges {
+			reminder: node {
+				name
+				type
+				company
+				cost
+				datePurchased
+				frequency
+				autoRenewal
+				notes
+				category {
+					id
+					name
+				}
+			}
+		}
+	}
+}

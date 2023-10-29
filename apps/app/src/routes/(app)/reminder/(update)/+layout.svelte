@@ -27,8 +27,8 @@
 			value={$page.data.session?.user.id}
 		/>
 		<div>
-			<label for="category-select">Category</label>
-			<select name="category-select" id="category-select" required>
+			<label for="categoryId">Category</label>
+			<select name="categoryId" id="categoryId" required>
 				{#if $getCategories.fetching}
 					<option value="">Loading...</option>
 				{:else if categories}
@@ -61,7 +61,7 @@
 					type="radio"
 					name="type"
 					id="ongoing"
-					value="ongoing"
+					value="ONGOING"
 					bind:group={option}
 				/>
 				<label for="ongoing">Ongoing subscription</label>
@@ -71,7 +71,7 @@
 					type="radio"
 					name="type"
 					id="annual"
-					value="annual"
+					value="ANNUAL"
 					bind:group={option}
 				/>
 				<label for="annual">Annual policy</label>
@@ -81,7 +81,7 @@
 					type="radio"
 					name="type"
 					id="single"
-					value="single"
+					value="SINGLE"
 					bind:group={option}
 				/>
 				<label for="single">Single record</label>
@@ -125,6 +125,11 @@
 				<label for="renewal">Date</label>
 				<input type="date" name="renewal" id="renewal" />
 			</div>
+		</div>
+
+		<div>
+			<label for="frequency">Frequency</label>
+			<input type="radio" name="frequency" id="frequency" value="MONTHLY" />
 		</div>
 
 		<div>

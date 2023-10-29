@@ -3,11 +3,13 @@ query getReminders($categoryId: BigInt) {
 		list: edges {
 			reminder: node {
 				id
+				name
+				type
 				company
 				cost
-				dateOfRenewal
+				datePurchased
+				frequency
 				autoRenewal
-				enabled
 			}
 		}
 	}
