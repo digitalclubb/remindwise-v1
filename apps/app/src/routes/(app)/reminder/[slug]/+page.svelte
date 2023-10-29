@@ -156,7 +156,7 @@
 		text-overflow: ellipsis;
 	}
 
-	@media screen and (min-width: 76.8em) {
+	@media screen and (min-width: 768px) {
 		.body {
 			grid-template-areas:
 				'header header'

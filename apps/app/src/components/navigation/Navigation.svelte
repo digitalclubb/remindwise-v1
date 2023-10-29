@@ -91,6 +91,7 @@
 <nav>
 	<figure>
 		<img src="/logo.svg" alt="remindwise.io logo" width="170" height="27" />
+		<button><svg fill="var(--orange)"><use xlink:href="#menu" /></svg></button>
 	</figure>
 
 	<div class="profile">
@@ -193,16 +194,41 @@
 <style>
 	nav {
 		background-color: var(--remindwise-grey);
+		font-size: 1.4rem;
 		display: flex;
 		flex-wrap: wrap;
 		flex-direction: column;
-		font-size: 1.4rem;
 		grid-area: navigation;
 	}
 
+	nav .profile {
+		display: none;
+	}
+
+	nav ul {
+		display: none;
+	}
+
 	figure {
-		align-self: center;
-		padding: 2.5rem 4rem;
+		align-self: flex-start;
+		padding: 2.2rem 2.1rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+	}
+
+	figure svg {
+		height: 3rem;
+		width: 3rem;
+		align-self: flex-end;
+	}
+
+	button {
+		cursor: pointer;
+		background: none;
+		border: none;
+		padding: 0;
 	}
 
 	.profile {
@@ -379,5 +405,24 @@
 
 	.options svg {
 		fill: var(--cream);
+	}
+
+	@media screen and (min-width: 768px) {
+		nav .profile {
+			display: flex;
+		}
+
+		nav ul {
+			display: block;
+		}
+
+		figure {
+			align-self: center;
+			padding: 2.5rem 4rem;
+		}
+
+		figure svg {
+			display: none;
+		}
 	}
 </style>
