@@ -8,6 +8,12 @@ module.exports = {
 		'prettier',
 	],
 	plugins: ['@typescript-eslint'],
+	rules: {
+		'@typescript-eslint/no-unused-vars': [
+			'warn',
+			{ varsIgnorePattern: '^\\$\\$(Props|Events|Slots)$' },
+		],
+	},
 	overrides: [
 		{
 			files: ['*.svelte'],
