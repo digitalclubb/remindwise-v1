@@ -8,14 +8,14 @@
 	import { goto } from '$app/navigation';
 	import { refresh } from '../../stores';
 
-	import { getSettingsStore as Y, graphql, getCategoriesStore } from '$houdini';
+	import { getSettingsStore, graphql, getCategoriesStore } from '$houdini';
 	import { fly } from 'svelte/transition';
 	import { browser } from '$app/environment';
 	import Link from 'components/link/Link.svelte';
 	export let categoriesStore: getCategoriesStore;
-	export let getSettingsStore: Y;
+	export let settingsStore: getSettingsStore;
 	$: categories = $categoriesStore.data?.categories?.list;
-	$: settings = $getSettingsStore.data?.settings?.list[0].setting;
+	$: settings = $settingsStore.data?.settings?.list[0].setting;
 
 	refresh.subscribe(async (value) => {
 		if (value) {
@@ -120,10 +120,10 @@
 			transition:fly={{ y: 100, duration: 500 }}
 		>
 			<div class="profile">
-				{#if $getSettingsStore.fetching}
+				{#if $settingsStore.fetching}
 					<li>Loading...</li>
-				{:else if $getSettingsStore.errors}
-					<li>{$getSettingsStore.errors}</li>
+				{:else if $settingsStore.errors}
+					<li>{$settingsStore.errors}</li>
 				{:else if settings}
 					<h3>
 						<svg fill="var(--cream)"><use xlink:href="#user" /></svg

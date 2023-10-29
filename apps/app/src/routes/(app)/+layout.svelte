@@ -34,7 +34,7 @@
 </script>
 
 <main>
-	<Navigation categoriesStore={getCategories} getSettingsStore={getSettings} />
+	<Navigation categoriesStore={getCategories} settingsStore={getSettings} />
 	<div>
 		<slot />
 	</div>
