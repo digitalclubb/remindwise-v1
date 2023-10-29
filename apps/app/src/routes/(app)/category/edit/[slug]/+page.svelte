@@ -7,11 +7,10 @@
 	import { refresh } from '../../../../../stores';
 	import { icons } from '../../../../../components/icons/icons';
 	import { enhance } from '$app/forms';
-	import type { PageData } from './$types.js';
-	import type { getCategoryIdStore } from '$houdini';
+	import type { PageData } from './$houdini';
 
 	let showModal = false;
-	export let data: PageData & { getCategoryId: getCategoryIdStore };
+	export let data: PageData;
 	export let form;
 
 	$: ({ getCategoryId } = data);

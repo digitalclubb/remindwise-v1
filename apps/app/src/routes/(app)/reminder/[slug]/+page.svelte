@@ -1,7 +1,8 @@
 <script lang="ts">
 	import Header from '../../../../components/header/Header.svelte';
+	import type { PageData } from './$houdini';
 
-	export let data;
+	export let data: PageData;
 
 	$: ({ getReminder } = data);
 	$: reminder = $getReminder.data?.reminders?.list[0].reminder;
@@ -10,19 +11,19 @@
 		? new Intl.NumberFormat('en-GB', {
 				style: 'currency',
 				currency: 'GBP',
-		  }).format(reminder.cost)
+		  }).format(reminder.cost || 0)
 		: '';
 
 	$: date = reminder
 		? new Intl.DateTimeFormat('en-GB').format(
-				Date.parse(reminder.datePurchased || 0)
+				reminder.datePurchased || new Date()
 		  )
 		: '';
 
 	$: back = reminder
 		? {
-				text: `Back to ${reminder.category.name}`,
-				href: `/category/${reminder.category.name}`,
+				text: `Back to ${reminder.category?.name}`,
+				href: `/category/${reminder.category?.name}`,
 		  }
 		: {
 				text: '',
@@ -35,8 +36,8 @@
 <article class="body">
 	{#if $getReminder.fetching}
 		loading...
-	{:else}
-		<h1>{reminder.name} <span>{reminder.category.name}</span></h1>
+	{:else if reminder}
+		<h1>{reminder.name} <span>{reminder.category?.name}</span></h1>
 
 		<div class="content">
 			<p class="overview">
