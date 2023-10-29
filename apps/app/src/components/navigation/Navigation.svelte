@@ -9,8 +9,6 @@
 	import { refresh } from '../../stores';
 
 	import { getSettingsStore, graphql, getCategoriesStore } from '$houdini';
-	import { fly } from 'svelte/transition';
-	import { browser } from '$app/environment';
 	import Link from 'components/link/Link.svelte';
 	export let categoriesStore: getCategoriesStore;
 	export let settingsStore: getSettingsStore;
@@ -25,11 +23,7 @@
 	});
 
 	let showModal = false;
-	let hideNavigation = true;
-	$: width = 767;
-	$: if (browser) {
-		width = window.innerWidth;
-	}
+	let showNavigation = false;
 
 	const addCategoryMutation = graphql(`
 		mutation addCategory(
@@ -99,7 +93,7 @@
 <nav>
 	<figure>
 		<img src="/logo.svg" alt="remindwise.io logo" width="170" height="27" />
-		<button on:click={() => (hideNavigation = false)}
+		<button on:click={() => (showNavigation = true)}
 			><svg fill="var(--orange)"><use xlink:href="#menu" /></svg></button
 		>
 	</figure>
@@ -108,96 +102,90 @@
 	<div
 		class="overlay"
 		on:click={() => {
-			hideNavigation = true;
+			showNavigation = false;
 		}}
-		hidden={hideNavigation}
+		hidden={!showNavigation}
 	></div>
 
-	{#if !hideNavigation || width >= 768}
-		<div
-			class="content"
-			class:hidden={hideNavigation && width < 768}
-			transition:fly={{ y: 100, duration: 500 }}
-		>
-			<div class="profile">
-				{#if $settingsStore.fetching}
-					<li>Loading...</li>
-				{:else if $settingsStore.errors}
-					<li>{$settingsStore.errors}</li>
-				{:else if settings}
-					<h3>
-						<svg fill="var(--cream)"><use xlink:href="#user" /></svg
-						>{settings.first_name + ' ' + settings.last_name}
-					</h3>
-				{/if}
+	<div class="content" class:show={showNavigation}>
+		<div class="profile">
+			{#if $settingsStore.fetching}
+				<li>Loading...</li>
+			{:else if $settingsStore.errors}
+				<li>{$settingsStore.errors}</li>
+			{:else if settings}
+				<h3>
+					<svg fill="var(--cream)"><use xlink:href="#user" /></svg
+					>{settings.first_name + ' ' + settings.last_name}
+				</h3>
+			{/if}
 
-				<Link type="button" href="/reminder/add"
-					><svg fill="var(--white)"><use xlink:href="#plus" /></svg>Add a new
-					reminder</Link
-				>
-			</div>
-			<ul class="categories">
-				<li class:selected={selected === ''}>
-					<a href="/"
-						><svg fill="var(--cream)"><use xlink:href="#bar-graph" /></svg> Dashboard</a
-					>
-				</li>
-				{#if $categoriesStore.fetching}
-					<li>Loading...</li>
-				{:else if $categoriesStore.errors}
-					<li>{$categoriesStore.errors}</li>
-				{:else if categories}
-					{#each categories as category, index}
-						<li class:selected={selected === category.category.name}>
-							<a href="/category/{category.category.name}"
-								><svg fill="var(--cream)"
-									><use xlink:href="#{category.category.iconId}" /></svg
-								>
-								<span
-									>{category.category.name}
-									{#if category.category.reminders}
-										<span class="count"
-											>({category.category.reminders.totalCount})</span
-										>
-									{/if}
-								</span>
-							</a>
-							<button
-								class="icon-button"
-								class:active={clicked === index}
-								on:click={() => onClickOptions(index)}
-								><svg fill="var(--cream)"
-									><use xlink:href="#dots-three-horizontal" /></svg
-								></button
-							>
-							<!-- TODO sort out a11y, rename & delete trigger modals. Create modals here? Can I use form actions? -->
-							<ul class="options" class:active={clicked === index}>
-								<li>Rename<svg><use xlink:href="#pencil" /></svg></li>
-								<li>Delete<svg><use xlink:href="#trash" /></svg></li>
-							</ul>
-						</li>
-					{/each}
-				{/if}
-				<li class="add-category">
-					<svg fill="var(--cream)"><use xlink:href="#plus" /></svg>
-					<Button style="tertiary" onClick={() => (showModal = true)}
-						>Add category</Button
-					>
-				</li>
-			</ul>
-			<ul class="settings">
-				<li><a href="/help"><svg><use xlink:href="#help" /></svg> Help</a></li>
-				<li>
-					<a href="/settings"><svg><use xlink:href="#cog" /></svg> Settings</a>
-				</li>
-				<li>
-					<a href="/" on:click={signOut}
-						><svg><use xlink:href="#log-out" /></svg> Logout</a
-					>
-				</li>
-			</ul>
+			<Link type="button" href="/reminder/add"
+				><svg fill="var(--white)"><use xlink:href="#plus" /></svg>Add a new
+				reminder</Link
+			>
 		</div>
-	{/if}
+		<ul class="categories">
+			<li class:selected={selected === ''}>
+				<a href="/"
+					><svg fill="var(--cream)"><use xlink:href="#bar-graph" /></svg> Dashboard</a
+				>
+			</li>
+			{#if $categoriesStore.fetching}
+				<li>Loading...</li>
+			{:else if $categoriesStore.errors}
+				<li>{$categoriesStore.errors}</li>
+			{:else if categories}
+				{#each categories as category, index}
+					<li class:selected={selected === category.category.name}>
+						<a href="/category/{category.category.name}"
+							><svg fill="var(--cream)"
+								><use xlink:href="#{category.category.iconId}" /></svg
+							>
+							<span
+								>{category.category.name}
+								{#if category.category.reminders}
+									<span class="count"
+										>({category.category.reminders.totalCount})</span
+									>
+								{/if}
+							</span>
+						</a>
+						<button
+							class="icon-button"
+							class:active={clicked === index}
+							on:click={() => onClickOptions(index)}
+							><svg fill="var(--cream)"
+								><use xlink:href="#dots-three-horizontal" /></svg
+							></button
+						>
+						<!-- TODO sort out a11y, rename & delete trigger modals. Create modals here? Can I use form actions? -->
+						<ul class="options" class:active={clicked === index}>
+							<li>Rename<svg><use xlink:href="#pencil" /></svg></li>
+							<li>Delete<svg><use xlink:href="#trash" /></svg></li>
+						</ul>
+					</li>
+				{/each}
+			{/if}
+			<li class="add-category">
+				<svg fill="var(--cream)"><use xlink:href="#plus" /></svg>
+				<Button style="tertiary" onClick={() => (showModal = true)}
+					>Add category</Button
+				>
+			</li>
+		</ul>
+		<ul class="settings">
+			<li><a href="/help"><svg><use xlink:href="#help" /></svg> Help</a></li>
+			<li>
+				<a href="/settings"><svg><use xlink:href="#cog" /></svg> Settings</a>
+			</li>
+			<li>
+				<a href="/" on:click={signOut}
+					><svg><use xlink:href="#log-out" /></svg> Logout</a
+				>
+			</li>
+		</ul>
+	</div>
 
 	<Modal bind:showModal>
 		<h2>Add a category for your reminders</h2>
@@ -238,7 +226,6 @@
 	}
 
 	.content {
-		display: flex;
 		margin-top: 8.8rem;
 		position: absolute;
 		background-color: var(--remindwise-grey);
@@ -248,12 +235,16 @@
 		border-top-right-radius: 12px;
 		overflow-x: hidden;
 		overflow-y: scroll;
-		height: calc(100% - 8.8rem);
 		flex-direction: column;
+		height: 0;
+		top: 100%;
+		transition: all 0.5s linear;
 	}
 
-	.hidden {
-		display: none;
+	.content.show {
+		display: flex;
+		top: 0;
+		height: calc(100% - 8.8rem);
 	}
 
 	figure {
@@ -458,6 +449,7 @@
 
 	@media screen and (min-width: 768px) {
 		.content {
+			display: flex;
 			position: relative;
 			margin-top: 0;
 			border-radius: 0;
