@@ -38,8 +38,6 @@
 </div>
 
 <style>
-	@import '../styles.css';
-
 	.box-manual {
 		background-color: var(--white);
 		border-radius: 0.6rem;
