@@ -1,42 +1,10 @@
 <script lang="ts">
 	import Header from '../../components/header/Header.svelte';
-	import Table from '../../components/table/Table.svelte';
+	import type { PageData } from './$houdini';
 
-	const upcoming = [
-		{
-			id: '',
-			Name: '',
-			Company: '',
-			Cost: '',
-			'Due date': '',
-			'Auto renewal': '',
-		},
-		{
-			id: 1,
-			Name: 'Netflix',
-			Company: 'Netflix',
-			Cost: '£16',
-			'Due date': '01.10.23',
-			'Auto renewal': true,
-		},
-	];
-
-	const ongoing = [
-		{
-			id: '',
-			Name: '',
-			Company: '',
-			'Re-occuring cost': '',
-			'Total accured': '',
-		},
-		{
-			id: 1,
-			Name: 'Netflix',
-			Company: 'Netflix',
-			'Re-occuring cost': '£12',
-			'Total accured': '£1,332',
-		},
-	];
+	export let data: PageData;
+	$: ({ getAllReminders } = data);
+	$: reminders = $getAllReminders.data?.reminders?.list;
 </script>
 
 <Header title="Dashboard" />
@@ -50,12 +18,84 @@
 
 	<section>
 		<h2 class="heading-3">Upcoming renewals <span>(3)</span></h2>
-		<Table data={upcoming} />
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Company</th>
+					<th>Cost</th>
+					<th>Due date</th>
+					<th>Auto renewal</th>
+					<th>Info</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td colspan="6"
+						><p class="table-no-data">
+							Add some categories and reminders to get started
+						</p></td
+					>
+				</tr>
+			</tbody>
+		</table>
 	</section>
 
 	<section>
-		<h2 class="heading-3">Ongoing <span>(16)</span></h2>
-		<Table data={ongoing} />
+		<h2 class="heading-3">
+			Ongoing
+			{#if reminders}
+				<span>({reminders.length})</span>
+			{/if}
+		</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Company</th>
+					<th>Re-occuring cost</th>
+					<th>Total accured</th>
+					<th>Info</th>
+				</tr>
+			</thead>
+			<tbody>
+				{#if !reminders}
+					<tr>
+						<td
+							><p class="table-no-data">
+								Add some categories and reminders to get started
+							</p></td
+						>
+					</tr>
+				{:else}
+					{#each reminders as reminder}
+						<tr>
+							<td
+								><svg class="table-icon" fill="var(--cream-dark)"
+									><use
+										xlink:href="#{reminder.reminder.category?.iconId}"
+									/></svg
+								>
+								{reminder.reminder.name}</td
+							>
+							<td>{reminder.reminder.company}</td>
+							<td
+								>{new Intl.NumberFormat('en-GB', {
+									style: 'currency',
+									currency: 'GBP',
+								}).format(reminder.reminder.cost || 0)}</td
+							>
+							<td></td>
+							<td>
+								<a href="/reminder/{reminder.reminder.id}" class="table-link">
+									<img src="/magnifying-glass.svg" alt="" />
+								</a>
+							</td>
+						</tr>
+					{/each}
+				{/if}
+			</tbody>
+		</table>
 	</section>
 </div>
 
