@@ -125,6 +125,12 @@
 		}
 	};
 
+	const getUsername = () => {
+		if (settings?.first_name !== null || settings?.last_name !== null)
+			return (settings?.first_name || '') + ' ' + (settings?.last_name || '');
+		return settings?.email;
+	};
+
 	$: clicked = -1;
 </script>
 
@@ -154,7 +160,7 @@
 			{:else if settings}
 				<h3>
 					<svg fill="var(--cream)"><use xlink:href="#user" /></svg
-					>{settings.first_name + ' ' + settings.last_name}
+					>{getUsername()}
 				</h3>
 			{/if}
 
