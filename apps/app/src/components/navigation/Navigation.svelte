@@ -10,6 +10,7 @@
 
 	import { getSettingsStore, graphql, getCategoriesStore } from '$houdini';
 	import Link from 'components/link/Link.svelte';
+	import Input from 'components/input/Input.svelte';
 	export let categoriesStore: getCategoriesStore;
 	export let settingsStore: getSettingsStore;
 	$: categories = $categoriesStore.data?.categories?.list;
@@ -55,7 +56,8 @@
 	`);
 
 	const onAddCategory = async (event: SubmitEvent) => {
-		const formData = new FormData(event.target as HTMLFormElement);
+		const target = event.target as HTMLFormElement;
+		const formData = new FormData(target);
 
 		await addCategoryMutation.mutate({
 			category: formData.get('category')?.toString().toLowerCase() || '',
@@ -63,9 +65,45 @@
 			iconId: formData.get('icon')?.toString() || '',
 			userId: $page.data.session?.user.id,
 		});
+
 		showModal = false;
-		//TODO is this the best way to do it?
 		refresh.update((n) => !n);
+
+		target.reset();
+	};
+
+	const onEditCategory = async (event: SubmitEvent) => {
+		const target = event.target as HTMLFormElement;
+		const formData = new FormData(target);
+
+		// await addCategoryMutation.mutate({
+		// 	category: formData.get('category')?.toString().toLowerCase() || '',
+		// 	isLocked: false,
+		// 	iconId: formData.get('icon')?.toString() || '',
+		// 	userId: $page.data.session?.user.id,
+		// });
+
+		// showModal = false;
+		refresh.update((n) => !n);
+
+		target.reset();
+	};
+
+	const onDeleteCategory = async (event: SubmitEvent) => {
+		const target = event.target as HTMLFormElement;
+		const formData = new FormData(target);
+
+		// await addCategoryMutation.mutate({
+		// 	category: formData.get('category')?.toString().toLowerCase() || '',
+		// 	isLocked: false,
+		// 	iconId: formData.get('icon')?.toString() || '',
+		// 	userId: $page.data.session?.user.id,
+		// });
+
+		// showModal = false;
+		refresh.update((n) => !n);
+
+		target.reset();
 	};
 
 	$: selected = $page.url.pathname.includes('category')
@@ -170,7 +208,7 @@
 			<li class="add-category">
 				<svg fill="var(--cream)"><use xlink:href="#plus" /></svg>
 				<Button style="tertiary" onClick={() => (showModal = true)}
-					>Add category</Button
+					>Add a category</Button
 				>
 			</li>
 		</ul>
@@ -188,12 +226,18 @@
 	</div>
 
 	<Modal bind:showModal>
-		<h2>Add a category for your reminders</h2>
-		<form on:submit|preventDefault={onAddCategory}>
-			<label for="category">Category name</label>
-			<input type="text" name="category" id="category" required />
+		<h2 class="modalTitle">Add a new category</h2>
+		<form on:submit|preventDefault={onAddCategory} id="category-actions">
+			<Input
+				inline
+				label="Category name"
+				type="text"
+				name="category"
+				id="category"
+				placeholder="Enter a name for your category"
+			/>
 
-			<h3>Pick an icon</h3>
+			<p>Select an icon for your category</p>
 			<div class="icons">
 				{#each icons as icon}
 					<input type="radio" name="icon" value={icon} id="{icon}-icon" />
@@ -202,8 +246,10 @@
 					>
 				{/each}
 			</div>
-			<Button type="submit">Add</Button>
 		</form>
+		<Button slot="action" type="submit" form="category-actions"
+			>Add category</Button
+		>
 	</Modal>
 </nav>
 
@@ -344,6 +390,21 @@
 		fill: var(--orange);
 	}
 
+	.modalTitle {
+		color: var(--remindwise-grey);
+		font-size: 20px;
+		font-weight: 600;
+		line-height: 38px;
+		margin-bottom: 2rem;
+	}
+
+	p {
+		display: block;
+		margin-top: 2rem;
+		margin-bottom: 2rem;
+		color: var(--remindwise-grey);
+	}
+
 	svg {
 		height: 1.8rem;
 		width: 1.8rem;
@@ -359,19 +420,18 @@
 	}
 
 	.icons label {
-		border: solid 2px #6a6c7026;
-		border-radius: 0.3rem;
 		cursor: pointer;
 		display: inline-block;
 		padding: 5px;
+		border: 0.1rem solid transparent;
 	}
 
 	.icons label:hover {
-		border-color: #ffbb00;
+		fill: var(--orange);
 	}
 
 	.icons svg {
-		margin-right: 0;
+		margin-right: 0.1rem;
 	}
 
 	input[type='radio'] {
@@ -380,7 +440,9 @@
 
 	input[type='radio']:active + label,
 	input[type='radio']:checked + label {
-		border-color: #ffbb00;
+		border-radius: 0.5rem;
+		border: 1px solid var(--greyed-out);
+		fill: var(--orange);
 	}
 
 	.add-category {
