@@ -8,11 +8,12 @@
 	import { goto } from '$app/navigation';
 	import { refresh } from '../../stores';
 
-	import { getSettingsStore as Y, graphql, getCategoriesStore } from '$houdini';
+	import { getSettingsStore, graphql, getCategoriesStore } from '$houdini';
+	import Link from 'components/link/Link.svelte';
 	export let categoriesStore: getCategoriesStore;
-	export let getSettingsStore: Y;
+	export let settingsStore: getSettingsStore;
 	$: categories = $categoriesStore.data?.categories?.list;
-	$: settings = $getSettingsStore.data?.settings?.list[0].setting;
+	$: settings = $settingsStore.data?.settings?.list[0].setting;
 
 	refresh.subscribe(async (value) => {
 		if (value) {
@@ -22,6 +23,7 @@
 	});
 
 	let showModal = false;
+	let showNavigation = false;
 
 	const addCategoryMutation = graphql(`
 		mutation addCategory(
@@ -91,85 +93,100 @@
 <nav>
 	<figure>
 		<img src="/logo.svg" alt="remindwise.io logo" width="170" height="27" />
-	</figure>
-
-	<div class="profile">
-		{#if $getSettingsStore.fetching}
-			<li>Loading...</li>
-		{:else if $getSettingsStore.errors}
-			<li>{$getSettingsStore.errors}</li>
-		{:else if settings}
-			<h3>
-				<svg fill="var(--cream)"><use xlink:href="#user" /></svg
-				>{settings.first_name + ' ' + settings.last_name}
-			</h3>
-		{/if}
-
-		<Button
-			><svg fill="var(--cream)"><use xlink:href="#plus" /></svg>Add a new
-			reminder</Button
+		<button on:click={() => (showNavigation = true)}
+			><svg fill="var(--orange)"><use xlink:href="#menu" /></svg></button
 		>
-	</div>
-	<ul class="categories">
-		<li class:selected={selected === ''}>
-			<a href="/"
-				><svg fill="var(--cream)"><use xlink:href="#bar-graph" /></svg> Dashboard</a
+	</figure>
+	<!-- svelte-ignore a11y-click-events-have-key-events -->
+	<!-- svelte-ignore a11y-no-static-element-interactions -->
+	<div
+		class="overlay"
+		on:click={() => {
+			showNavigation = false;
+		}}
+		hidden={!showNavigation}
+	></div>
+
+	<div class="content" class:show={showNavigation}>
+		<div class="profile">
+			{#if $settingsStore.fetching}
+				<li>Loading...</li>
+			{:else if $settingsStore.errors}
+				<li>{$settingsStore.errors}</li>
+			{:else if settings}
+				<h3>
+					<svg fill="var(--cream)"><use xlink:href="#user" /></svg
+					>{settings.first_name + ' ' + settings.last_name}
+				</h3>
+			{/if}
+
+			<Link type="button" href="/reminder/add"
+				><svg fill="var(--white)"><use xlink:href="#plus" /></svg>Add a new
+				reminder</Link
 			>
-		</li>
-		{#if $categoriesStore.fetching}
-			<li>Loading...</li>
-		{:else if $categoriesStore.errors}
-			<li>{$categoriesStore.errors}</li>
-		{:else if categories}
-			{#each categories as category, index}
-				<li class:selected={selected === category.category.name}>
-					<a href="/category/{category.category.name}"
-						><svg fill="var(--cream)"
-							><use xlink:href="#{category.category.iconId}" /></svg
+		</div>
+		<ul class="categories">
+			<li class:selected={selected === ''}>
+				<a href="/"
+					><svg fill="var(--cream)"><use xlink:href="#bar-graph" /></svg> Dashboard</a
+				>
+			</li>
+			{#if $categoriesStore.fetching}
+				<li>Loading...</li>
+			{:else if $categoriesStore.errors}
+				<li>{$categoriesStore.errors}</li>
+			{:else if categories}
+				{#each categories as category, index}
+					<li class:selected={selected === category.category.name}>
+						<a href="/category/{category.category.name}"
+							><svg fill="var(--cream)"
+								><use xlink:href="#{category.category.iconId}" /></svg
+							>
+							<span
+								>{category.category.name}
+								{#if category.category.reminders}
+									<span class="count"
+										>({category.category.reminders.totalCount})</span
+									>
+								{/if}
+							</span>
+						</a>
+						<button
+							class="icon-button"
+							class:active={clicked === index}
+							on:click={() => onClickOptions(index)}
+							><svg fill="var(--cream)"
+								><use xlink:href="#dots-three-horizontal" /></svg
+							></button
 						>
-						<span
-							>{category.category.name}
-							{#if category.category.reminders}
-								<span class="count"
-									>({category.category.reminders.totalCount})</span
-								>
-							{/if}
-						</span>
-					</a>
-					<button
-						class="icon-button"
-						class:active={clicked === index}
-						on:click={() => onClickOptions(index)}
-						><svg fill="var(--cream)"
-							><use xlink:href="#dots-three-horizontal" /></svg
-						></button
-					>
-					<!-- TODO sort out a11y, rename & delete trigger modals. Create modals here? Can I use form actions? -->
-					<ul class="options" class:active={clicked === index}>
-						<li>Rename<svg><use xlink:href="#pencil" /></svg></li>
-						<li>Delete<svg><use xlink:href="#trash" /></svg></li>
-					</ul>
-				</li>
-			{/each}
-		{/if}
-		<li class="add-category">
-			<svg fill="var(--cream)"><use xlink:href="#plus" /></svg>
-			<Button style="tertiary" onClick={() => (showModal = true)}
-				>Add category</Button
-			>
-		</li>
-	</ul>
-	<ul class="settings">
-		<li><a href="/help"><svg><use xlink:href="#help" /></svg> Help</a></li>
-		<li>
-			<a href="/settings"><svg><use xlink:href="#cog" /></svg> Settings</a>
-		</li>
-		<li>
-			<a href="/" on:click={signOut}
-				><svg><use xlink:href="#log-out" /></svg> Logout</a
-			>
-		</li>
-	</ul>
+						<!-- TODO sort out a11y, rename & delete trigger modals. Create modals here? Can I use form actions? -->
+						<ul class="options" class:active={clicked === index}>
+							<li>Rename<svg><use xlink:href="#pencil" /></svg></li>
+							<li>Delete<svg><use xlink:href="#trash" /></svg></li>
+						</ul>
+					</li>
+				{/each}
+			{/if}
+			<li class="add-category">
+				<svg fill="var(--cream)"><use xlink:href="#plus" /></svg>
+				<Button style="tertiary" onClick={() => (showModal = true)}
+					>Add category</Button
+				>
+			</li>
+		</ul>
+		<ul class="settings">
+			<li><a href="/help"><svg><use xlink:href="#help" /></svg> Help</a></li>
+			<li>
+				<a href="/settings"><svg><use xlink:href="#cog" /></svg> Settings</a>
+			</li>
+			<li>
+				<a href="/" on:click={signOut}
+					><svg><use xlink:href="#log-out" /></svg> Logout</a
+				>
+			</li>
+		</ul>
+	</div>
+
 	<Modal bind:showModal>
 		<h2>Add a category for your reminders</h2>
 		<form on:submit|preventDefault={onAddCategory}>
@@ -193,25 +210,72 @@
 <style>
 	nav {
 		background-color: var(--remindwise-grey);
-		display: flex;
-		flex-wrap: wrap;
-		flex-direction: column;
 		font-size: 1.4rem;
 		grid-area: navigation;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.overlay {
+		background: rgba(51, 58, 66, 0.3);
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		z-index: 1;
+	}
+
+	.content {
+		margin-top: 8.8rem;
+		position: absolute;
+		background-color: var(--remindwise-grey);
+		width: 100%;
+		z-index: 2;
+		border-top-left-radius: 12px;
+		border-top-right-radius: 12px;
+		overflow-x: hidden;
+		overflow-y: scroll;
+		flex-direction: column;
+		height: 0;
+		top: 100%;
+		transition: all 0.5s linear;
+	}
+
+	.content.show {
+		display: flex;
+		top: 0;
+		height: calc(100% - 8.8rem);
 	}
 
 	figure {
-		align-self: center;
-		padding: 2.5rem 4rem;
+		align-self: flex-start;
+		padding: 2.2rem 2.1rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+	}
+
+	figure svg {
+		height: 3rem;
+		width: 3rem;
+		align-self: flex-end;
+	}
+
+	button {
+		cursor: pointer;
+		background: none;
+		border: none;
+		padding: 0;
 	}
 
 	.profile {
-		align-items: center;
+		align-items: flex-start;
 		background-color: var(--grey);
 		display: flex;
 		flex-direction: column;
-		gap: 2.2rem;
-		padding: 2.5rem 3.6rem 6.5rem 3.6rem;
+		gap: 1.3rem;
+		padding: 2.5rem 3.4rem 2.8rem 3.4rem;
 	}
 
 	.profile h3 {
@@ -220,8 +284,10 @@
 		display: flex;
 		font-size: 1.4rem;
 		gap: 1rem;
+		margin: 0;
 	}
 	.profile h3 svg {
+		margin-left: 1rem;
 		height: 1.4rem;
 		width: 1.4rem;
 	}
@@ -263,7 +329,7 @@
 		align-items: center;
 		gap: 1.2rem;
 		flex-grow: 2;
-		padding: 1rem 0 1rem 4rem;
+		padding: 1rem 0 1rem 3.4rem;
 	}
 
 	a:hover {
@@ -366,7 +432,7 @@
 		gap: 2rem;
 		flex-direction: column;
 		width: 12.3rem;
-		top: 3rem;
+		top: 2.9rem;
 		z-index: 1;
 		right: 1.7rem;
 	}
@@ -379,5 +445,40 @@
 
 	.options svg {
 		fill: var(--cream);
+	}
+
+	@media screen and (min-width: 768px) {
+		.content {
+			display: flex;
+			position: relative;
+			margin-top: 0;
+			border-radius: 0;
+			overflow: hidden;
+		}
+
+		figure {
+			align-self: center;
+			padding: 2.5rem 4rem;
+			width: inherit;
+		}
+
+		figure svg {
+			display: none;
+		}
+
+		.profile {
+			background-color: var(--grey-light);
+			padding: 2.5rem 3.6rem 6.5rem 3.6rem;
+			align-items: center;
+			gap: 2.2rem;
+		}
+
+		.profile h3 svg {
+			margin-left: 0;
+		}
+
+		a {
+			padding: 1rem 0 1rem 4rem;
+		}
 	}
 </style>
