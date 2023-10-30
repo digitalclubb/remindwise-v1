@@ -454,6 +454,8 @@
 			margin-top: 0;
 			border-radius: 0;
 			overflow: hidden;
+			height: inherit;
+			top: unset;
 		}
 
 		figure {
