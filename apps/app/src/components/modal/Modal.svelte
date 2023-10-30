@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Button from 'components/button/Button.svelte';
-	import type { ComponentType } from 'svelte';
 
 	export let showModal: boolean;
+	export let size: 'small' | undefined = undefined;
 	let dialog: HTMLDialogElement;
 
 	$: if (dialog && showModal) dialog.showModal();
@@ -14,11 +14,12 @@
 	bind:this={dialog}
 	on:close={() => (showModal = false)}
 	on:click|self={() => dialog.close()}
+	class:small={size === 'small'}
 >
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div on:click|stopPropagation>
 		<slot />
-		<div class="actions">
+		<div class="actions" class:small={size === 'small'}>
 			<Button style="secondary" onClick={() => dialog.close()}>Cancel</Button>
 			<slot name="action" />
 		</div>
@@ -33,11 +34,21 @@
 		border: none;
 		padding: 0;
 	}
+
+	dialog.small {
+		width: 36.9rem;
+		height: 24.2rem;
+	}
+
 	dialog::backdrop {
 		background: rgba(0, 0, 0, 0.3);
 	}
 	dialog > div {
 		padding: 2.4rem;
+	}
+
+	dialog.small > div {
+		padding: 4rem;
 	}
 	dialog[open] {
 		animation: zoom 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -67,5 +78,10 @@
 		display: flex;
 		gap: 1.5rem;
 		justify-content: flex-end;
+	}
+
+	.actions.small {
+		justify-content: center;
+		margin-top: 1rem;
 	}
 </style>

@@ -11,6 +11,7 @@
 	import { getSettingsStore, graphql, getCategoriesStore } from '$houdini';
 	import Link from 'components/link/Link.svelte';
 	import Input from 'components/input/Input.svelte';
+	import type { Categories } from '@graphql/types';
 	export let categoriesStore: getCategoriesStore;
 	export let settingsStore: getSettingsStore;
 	$: categories = $categoriesStore.data?.categories?.list;
@@ -23,7 +24,9 @@
 		}
 	});
 
-	let showModal = false;
+	let showAddModal = false;
+	let showDeleteModal = false;
+	let currentCategory: Pick<Categories, 'id' | 'iconId' | 'name'> | undefined;
 	let showNavigation = false;
 
 	const addCategoryMutation = graphql(`
@@ -66,7 +69,7 @@
 			userId: $page.data.session?.user.id,
 		});
 
-		showModal = false;
+		showAddModal = false;
 		refresh.update((n) => !n);
 
 		target.reset();
@@ -76,34 +79,43 @@
 		const target = event.target as HTMLFormElement;
 		const formData = new FormData(target);
 
-		// await addCategoryMutation.mutate({
-		// 	category: formData.get('category')?.toString().toLowerCase() || '',
-		// 	isLocked: false,
-		// 	iconId: formData.get('icon')?.toString() || '',
-		// 	userId: $page.data.session?.user.id,
-		// });
+		const editCategory = graphql(`
+			mutation updateCategory($id: BigInt, $name: String, $iconId: String) {
+				updatecategoriesCollection(
+					filter: { id: { eq: $id } }
+					set: { name: $name, iconId: $iconId }
+				) {
+					affectedCount
+				}
+			}
+		`);
 
-		// showModal = false;
+		await editCategory.mutate({
+			id: currentCategory?.id,
+			name: formData.get('category')?.toString().toLowerCase() || '',
+			iconId: formData.get('icon')?.toString() || '',
+		});
+
+		currentCategory = undefined;
+		showAddModal = false;
 		refresh.update((n) => !n);
-
 		target.reset();
 	};
 
-	const onDeleteCategory = async (event: SubmitEvent) => {
-		const target = event.target as HTMLFormElement;
-		const formData = new FormData(target);
+	const onDeleteCategory = async () => {
+		const deleteCategory = graphql(`
+			mutation deleteCategory($id: BigInt) {
+				deleteFromcategoriesCollection(filter: { id: { eq: $id } }) {
+					affectedCount
+				}
+			}
+		`);
 
-		// await addCategoryMutation.mutate({
-		// 	category: formData.get('category')?.toString().toLowerCase() || '',
-		// 	isLocked: false,
-		// 	iconId: formData.get('icon')?.toString() || '',
-		// 	userId: $page.data.session?.user.id,
-		// });
+		await deleteCategory.mutate({ id: currentCategory?.id });
 
-		// showModal = false;
+		showDeleteModal = false;
+		currentCategory = undefined;
 		refresh.update((n) => !n);
-
-		target.reset();
 	};
 
 	$: selected = $page.url.pathname.includes('category')
@@ -203,18 +215,45 @@
 								><use xlink:href="#dots-three-horizontal" /></svg
 							></button
 						>
-						<!-- TODO sort out a11y, rename & delete trigger modals. Create modals here? Can I use form actions? -->
 						<ul class="options" class:active={clicked === index}>
-							<li>Rename<svg><use xlink:href="#pencil" /></svg></li>
-							<li>Delete<svg><use xlink:href="#trash" /></svg></li>
+							<li>
+								<button
+									on:click={() => {
+										currentCategory = {
+											id: category.category.id,
+											name: category.category.name,
+											iconId: category.category.iconId,
+										};
+										showAddModal = true;
+										clicked = -1;
+									}}>Rename <svg><use xlink:href="#pencil" /></svg></button
+								>
+							</li>
+							<li>
+								<button
+									on:click={() => {
+										currentCategory = {
+											id: category.category.id,
+											name: category.category.name,
+											iconId: category.category.iconId,
+										};
+										showDeleteModal = true;
+										clicked = -1;
+									}}>Delete<svg><use xlink:href="#trash" /></svg></button
+								>
+							</li>
 						</ul>
 					</li>
 				{/each}
 			{/if}
 			<li class="add-category">
 				<svg fill="var(--cream)"><use xlink:href="#plus" /></svg>
-				<Button style="tertiary" onClick={() => (showModal = true)}
-					>Add a category</Button
+				<Button
+					style="tertiary"
+					onClick={() => {
+						currentCategory = undefined;
+						showAddModal = true;
+					}}>Add a category</Button
 				>
 			</li>
 		</ul>
@@ -231,22 +270,44 @@
 		</ul>
 	</div>
 
-	<Modal bind:showModal>
-		<h2 class="modalTitle">Add a new category</h2>
-		<form on:submit|preventDefault={onAddCategory} id="category-actions">
+	<Modal bind:showModal={showAddModal}>
+		<h2 class="modalTitle">
+			{currentCategory
+				? `Edit your ${currentCategory.name} category`
+				: 'Add a new category'}
+		</h2>
+		<form
+			on:submit|preventDefault={currentCategory
+				? onEditCategory
+				: onAddCategory}
+			id="category-actions"
+		>
 			<Input
 				inline
-				label="Category name"
+				label={currentCategory ? 'Rename category' : 'Category name'}
 				type="text"
 				name="category"
 				id="category"
-				placeholder="Enter a name for your category"
+				placeholder={currentCategory
+					? 'Enter a new name for your category'
+					: 'Enter a name for your category'}
+				value={currentCategory?.name || ''}
 			/>
 
-			<p>Select an icon for your category</p>
+			<p>
+				{currentCategory
+					? 'Select a new icon for your category  '
+					: 'Select an icon for your category'}
+			</p>
 			<div class="icons">
 				{#each icons as icon}
-					<input type="radio" name="icon" value={icon} id="{icon}-icon" />
+					<input
+						type="radio"
+						name="icon"
+						value={icon}
+						id="{icon}-icon"
+						checked={icon === currentCategory?.iconId}
+					/>
 					<label for="{icon}-icon"
 						><svg><use xlink:href="#{icon}" /></svg></label
 					>
@@ -254,7 +315,24 @@
 			</div>
 		</form>
 		<Button slot="action" type="submit" form="category-actions"
-			>Add category</Button
+			>{currentCategory ? 'Change category' : 'Add category'}</Button
+		>
+	</Modal>
+
+	<Modal size="small" bind:showModal={showDeleteModal}>
+		<div class="deleteModal">
+			<h2>
+				Are you sure you want to delete the <q>{currentCategory?.name}</q> category?
+			</h2>
+			<p>This action can't be undone</p>
+		</div>
+
+		<Button
+			slot="action"
+			type="submit"
+			style="delete"
+			form="category-actions"
+			onClick={onDeleteCategory}>Yes delete</Button
 		>
 	</Modal>
 </nav>
@@ -319,6 +397,7 @@
 		background: none;
 		border: none;
 		padding: 0;
+		color: var(--cream);
 	}
 
 	.profile {
@@ -506,13 +585,41 @@
 	}
 
 	.options.active li {
+		padding: 0;
+	}
+
+	.options.active button {
 		display: flex;
 		justify-content: space-between;
 		padding: 0;
+		width: 100%;
 	}
 
 	.options svg {
 		fill: var(--cream);
+	}
+
+	.deleteModal h2 {
+		color: var(--remindwise-grey);
+		text-align: center;
+		font-size: 20px;
+		font-weight: 600;
+		line-height: 28px;
+	}
+
+	.deleteModal p {
+		color: var(--remindwise-grey);
+		text-align: center;
+		font-size: 14px;
+		font-weight: 300;
+		line-height: 38px;
+		margin: 0;
+	}
+
+	q {
+		color: var(--orange);
+		text-transform: capitalize;
+		quotes: '‘' '’';
 	}
 
 	@media screen and (min-width: 768px) {
