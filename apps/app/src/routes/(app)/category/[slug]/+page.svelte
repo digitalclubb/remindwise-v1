@@ -6,7 +6,7 @@
 
 	$: ({ getReminders } = data);
 
-	$: reminders = $getReminders.data?.reminders?.list;
+	$: reminders = $getReminders.data?.reminders?.list || [];
 </script>
 
 <Header title={$page.params.slug} />
@@ -34,10 +34,7 @@
 			<tbody>
 				<tr>
 					<td colspan="6"
-						><p class="table-no-data">
-							Add some categories and reminders to get started
-						</p></td
-					>
+						><p class="table-no-data">Add some reminders to get started</p></td>
 				</tr>
 			</tbody>
 		</table>
@@ -61,13 +58,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#if !reminders}
+				{#if reminders?.length === 0}
 					<tr>
-						<td
+						<td colspan="5"
 							><p class="table-no-data">
 								Add some reminders to get started
-							</p></td
-						>
+							</p></td>
 					</tr>
 				{:else}
 					{#each reminders as reminder}
@@ -75,18 +71,14 @@
 							<td
 								><svg class="table-icon" fill="var(--cream-dark)"
 									><use
-										xlink:href="#{reminder.reminder.category?.iconId}"
-									/></svg
-								>
-								{reminder.reminder.name}</td
-							>
+										xlink:href="#{reminder.reminder.category?.iconId}" /></svg>
+								{reminder.reminder.name}</td>
 							<td>{reminder.reminder.company}</td>
 							<td
 								>{new Intl.NumberFormat('en-GB', {
 									style: 'currency',
 									currency: 'GBP',
-								}).format(reminder.reminder.cost || 0)}</td
-							>
+								}).format(reminder.reminder.cost || 0)}</td>
 							<td></td>
 							<td>
 								<a href="/reminder/{reminder.reminder.id}" class="table-link">
