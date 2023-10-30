@@ -69,8 +69,8 @@ importers:
   apps/app:
     dependencies:
       '@supabase/auth-helpers-sveltekit':
-        specifier: 0.10.3
-        version: 0.10.3(@supabase/supabase-js@2.38.4)(@sveltejs/kit@1.27.1)
+        specifier: 0.10.4
+        version: 0.10.4(@supabase/supabase-js@2.38.4)(@sveltejs/kit@1.27.1)
       '@supabase/supabase-js':
         specifier: 2.38.4
         version: 2.38.4
@@ -130,11 +130,11 @@ importers:
         specifier: 3.1.4
         version: 3.1.4
       houdini:
-        specifier: 1.2.31
-        version: 1.2.31
+        specifier: 1.2.32
+        version: 1.2.32
       houdini-svelte:
-        specifier: 1.2.31
-        version: 1.2.31
+        specifier: 1.2.32
+        version: 1.2.32
       svelte:
         specifier: 4.2.2
         version: 4.2.2
@@ -1951,8 +1951,8 @@ packages:
     resolution: {integrity: sha512-XJfwUVUKDHF5ugKwIcxEgc9k8b7HbznCp6eUfWgu710hMPNIO4aw4/zB5RogDQz8nd6gyCDpU9O/m6qYEWY6yQ==}
     dev: true
 
-  /@supabase/auth-helpers-shared@0.5.0(@supabase/supabase-js@2.38.4):
-    resolution: {integrity: sha512-kioUeYDBZ89cfqOTZFOLEFIO7kGczL0XJYZdVv/bKt5efXqhiY14NbzgGWiMvvD9o9Iluo0+YEV2tG3ZZ5W06A==}
+  /@supabase/auth-helpers-shared@0.6.0(@supabase/supabase-js@2.38.4):
+    resolution: {integrity: sha512-rBj8KNnzBpj2G3icClcTGE6Mrldo1zVQot5PCr8wbEMDa6/a/RIScOSwMIc9dq+eq6XwF8BVczUBwaN+RPBiTA==}
     peerDependencies:
       '@supabase/supabase-js': ^2.19.0
     dependencies:
@@ -1960,13 +1960,13 @@ packages:
       jose: 4.14.4
     dev: false
 
-  /@supabase/auth-helpers-sveltekit@0.10.3(@supabase/supabase-js@2.38.4)(@sveltejs/kit@1.27.1):
-    resolution: {integrity: sha512-vU39ecz1xXpBZMaSCZi7Rh+NLIS0W67hbrdWt2UdSWOVi/XT6z01DoO97/G4n5p/e9fyCR/j9xHGCoeFO++1lA==}
+  /@supabase/auth-helpers-sveltekit@0.10.4(@supabase/supabase-js@2.38.4)(@sveltejs/kit@1.27.1):
+    resolution: {integrity: sha512-EsuOp3lBuQHsntVGvV1VQdSqB1DkqpKWkNj7ayFcWHrHHLUiD8XpXJ5e/hluIYziJRp+/3vga2Rwhw2CFyDuqw==}
     peerDependencies:
       '@supabase/supabase-js': ^2.19.0
       '@sveltejs/kit': ^1.15.4
     dependencies:
-      '@supabase/auth-helpers-shared': 0.5.0(@supabase/supabase-js@2.38.4)
+      '@supabase/auth-helpers-shared': 0.6.0(@supabase/supabase-js@2.38.4)
       '@supabase/supabase-js': 2.38.4
       '@sveltejs/kit': 1.27.1(svelte@4.2.2)(vite@4.5.0)
     dev: false
@@ -4280,15 +4280,15 @@ packages:
       tslib: 2.6.2
     dev: true
 
-  /houdini-svelte@1.2.31:
-    resolution: {integrity: sha512-OsolQcMieHPpL+mk/CNHq2fP7/srE591TyrE3j4Ga0B2azfGncGsB3hjYuf90DdkSDdL77lAKJ5UEzZV6gclqg==}
+  /houdini-svelte@1.2.32:
+    resolution: {integrity: sha512-g/lvtVnUt4A0F/DWtjfQAhlr6/bw4GHHVt6lJVHDqR5TFdWupXwLegYMIWn4Jpo0RtjeaElsXv2DZpjTIKoU6Q==}
     dependencies:
       '@kitql/helpers': 0.8.2
       '@sveltejs/kit': 1.27.1(svelte@3.59.2)(vite@4.5.0)
       ast-types: 0.16.1
       estree-walker: 3.0.3
       graphql: 15.8.0
-      houdini: 1.2.31
+      houdini: 1.2.32
       recast: 0.23.4
       rollup: 3.28.1
       svelte: 3.59.2
@@ -4304,8 +4304,8 @@ packages:
       - terser
     dev: true
 
-  /houdini@1.2.31:
-    resolution: {integrity: sha512-Ui45sECArylTHZ9iWUHgtAvxcshc5j84Kal08f2klXUZVLyVo09JhN1DJMiVUAtNXzufqQ9WGU5vaObF4n7znQ==}
+  /houdini@1.2.32:
+    resolution: {integrity: sha512-5gs5jxYcjJfm1ao5Wegi1zPXWLSr8rs6z5CYwuDcEij5U/NvGaP+2gfRhm4GabItPgYvMz4ElvLKGE7NXQdFcw==}
     hasBin: true
     dependencies:
       '@babel/parser': 7.22.6
