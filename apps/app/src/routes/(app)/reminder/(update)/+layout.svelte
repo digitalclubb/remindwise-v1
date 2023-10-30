@@ -174,7 +174,7 @@
 
 	input {
 		display: block;
-		border: 1px solid var(--grey-light);
+		border: 1px solid var(--greyed-out);
 		border-radius: 0.6rem;
 		padding: 0.9rem 1.4rem;
 		width: 28.5rem;
@@ -241,7 +241,7 @@
 
 	textarea {
 		display: block;
-		border: 1px solid var(--grey-light);
+		border: 1px solid var(--greyed-out);
 		border-radius: 0.6rem;
 		padding: 0.9rem 1.4rem;
 		width: 100%;

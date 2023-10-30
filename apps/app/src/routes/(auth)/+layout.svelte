@@ -97,7 +97,7 @@
 		background: linear-gradient(180deg, #fff 0%, #f6f6f6 100%);
 		color: var(--grey);
 		text-decoration: none;
-		border: 1px solid var(--grey-light);
+		border: 1px solid var(--greyed-out);
 		border-radius: 2rem;
 		text-align: left;
 		padding: 0.9rem 1.4rem;
@@ -110,7 +110,7 @@
 	}
 
 	main :global(.social-login:hover) {
-		background: linear-gradient(180deg, #f6f6f6 0%, var(--grey-light) 100%);
+		background: linear-gradient(180deg, #f6f6f6 0%, var(--greyed-out) 100%);
 	}
 
 	@media screen and (min-width: 768px) {

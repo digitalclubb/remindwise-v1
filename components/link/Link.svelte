@@ -1,12 +1,17 @@
 <script lang="ts">
-	export let style = '';
-	export let type = '';
-	export let href = '';
+	import type { HTMLAnchorAttributes } from 'svelte/elements';
+	interface $$Props extends HTMLAnchorAttributes {
+		style?: 'secondary' | 'delete';
+		type?: 'button';
+	}
+
+	export let style: 'secondary' | 'delete' | undefined = undefined;
+	export let type: 'button' | undefined = undefined;
 </script>
 
 <a
 	{...$$restProps}
-	{href}
+	href={$$props.href}
 	class:button={type === 'button'}
 	class:secondary={style === 'secondary'}
 	class:delete={style === 'delete'}
@@ -15,6 +20,10 @@
 </a>
 
 <style>
+	a {
+		display: flex;
+		align-items: center;
+	}
 	.button {
 		background-color: var(--orange);
 		border-radius: 2rem;
