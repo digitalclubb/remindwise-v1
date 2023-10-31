@@ -1,7 +1,7 @@
-import { graphql } from '$houdini';
+import { addReminderStore } from '$houdini';
 import { redirect } from '@sveltejs/kit';
 
-import type { Type, Frequency } from '../../../../../graphql/types';
+import type { Type, Frequency } from '@graphql/types';
 
 export const actions = {
 	addReminder: async (event) => {
@@ -18,41 +18,8 @@ export const actions = {
 		const autoRenewal = data.get('auto') === 'true';
 		const notes = data.get('notes') as string;
 
-		const actionMutation = graphql(`
-			mutation addReminder(
-				$userid: UUID!
-				$categoryId: BigInt!
-				$name: String!
-				$type: Type!
-				$company: String
-				$cost: Float
-				$datePurchased: Date
-				$frequency: Frequency!
-				$autoRenewal: Boolean
-				$notes: String
-			) {
-				insertIntoremindersCollection(
-					objects: [
-						{
-							userid: $userid
-							categoryId: $categoryId
-							name: $name
-							type: $type
-							company: $company
-							cost: $cost
-							datePurchased: $datePurchased
-							frequency: $frequency
-							autoRenewal: $autoRenewal
-							notes: $notes
-						}
-					]
-				) {
-					affectedCount
-				}
-			}
-		`);
-
-		await actionMutation.mutate(
+		const addReminder = new addReminderStore();
+		await addReminder.mutate(
 			{
 				userid,
 				categoryId,

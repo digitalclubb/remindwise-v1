@@ -1,0 +1,31 @@
+mutation addReminder(
+	$userid: UUID!
+	$categoryId: BigInt!
+	$name: String!
+	$type: Type!
+	$company: String
+	$cost: Float
+	$datePurchased: Date
+	$frequency: Frequency!
+	$autoRenewal: Boolean
+	$notes: String
+) {
+	insertIntoremindersCollection(
+		objects: [
+			{
+				userid: $userid
+				categoryId: $categoryId
+				name: $name
+				type: $type
+				company: $company
+				cost: $cost
+				datePurchased: $datePurchased
+				frequency: $frequency
+				autoRenewal: $autoRenewal
+				notes: $notes
+			}
+		]
+	) {
+		affectedCount
+	}
+}

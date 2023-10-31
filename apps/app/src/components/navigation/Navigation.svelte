@@ -14,6 +14,7 @@
 		addCategoryStore,
 		updateCategoryStore,
 		deleteCategoryStore,
+		getReminderStore,
 	} from '$houdini';
 	import Link from 'components/link/Link.svelte';
 	import Input from 'components/input/Input.svelte';
@@ -80,9 +81,22 @@
 		refresh.update((n) => !n);
 	};
 
+	let categoryName: string;
+	// TODO not sure if this is the best way to do it, that subscribe callback gets called a lot but if I remove ${ }
+	// it doesnt get called on page change
+	$: {
+		($page.data.getReminder as getReminderStore)?.observer.subscribe((data) => {
+			categoryName =
+				data.data?.reminders?.list[0].reminder.category?.name || '';
+		});
+	}
+
+	// Maybe we can just create a store that keeps track of the current nav item?
 	$: selected = $page.url.pathname.includes('category')
 		? $page.url.pathname.split('/')[2]
-		: '';
+		: $page.url.pathname === '/'
+		? ''
+		: categoryName;
 
 	$: selected, (clicked = -1);
 
@@ -142,7 +156,10 @@
 				reminder</Link>
 		</div>
 		<ul class="categories">
-			<li class:selected={selected === ''}>
+			<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
+			<li
+				class:selected={selected === ''}
+				on:click={() => (showNavigation = false)}>
 				<a href="/"
 					><svg fill="var(--cream)"><use xlink:href="#bar-graph" /></svg> Dashboard</a>
 			</li>
@@ -152,7 +169,10 @@
 				<li>{$categoriesStore.errors}</li>
 			{:else if categories}
 				{#each categories as category, index}
-					<li class:selected={selected === category.category.name}>
+					<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
+					<li
+						class:selected={selected === category.category.name}
+						on:click={() => (showNavigation = false)}>
 						<a href="/category/{category.category.name}"
 							><svg fill="var(--cream)"
 								><use xlink:href="#{category.category.iconId}" /></svg>
@@ -167,14 +187,17 @@
 						<button
 							class="icon-button"
 							class:active={clicked === index}
-							on:click={() => onClickOptions(index)}
+							on:click={(e) => {
+								e.stopPropagation();
+								onClickOptions(index);
+							}}
 							><svg fill="var(--cream)"
 								><use xlink:href="#dots-three-horizontal" /></svg
 							></button>
 						<ul class="options" class:active={clicked === index}>
 							<li>
 								<button
-									on:click={() => {
+									on:click={(e) => {
 										currentCategory = {
 											id: category.category.id,
 											name: category.category.name,
@@ -307,7 +330,7 @@
 
 	.content {
 		margin-top: 8.8rem;
-		position: absolute;
+		position: fixed;
 		background-color: var(--remindwise-grey);
 		width: 100%;
 		z-index: 2;
