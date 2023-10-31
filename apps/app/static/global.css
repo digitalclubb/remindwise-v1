@@ -161,7 +161,7 @@ th {
 }
 
 th:first-child {
-	padding-left: 5rem;
+	padding-left: 6.3rem; /* cell padding + icon width & margin */
 	border-top-left-radius: 0.6rem;
 }
 
@@ -183,6 +183,8 @@ td {
 .table-icon {
 	width: 1.8rem;
 	height: 1.8rem;
+	vertical-align: middle;
+	margin-right: 2.5rem;
 }
 
 .table-no-data {
@@ -202,6 +204,7 @@ td {
 .table-link img {
 	width: 1.5rem;
 	height: 1.5rem;
+	margin: 0 auto;
 }
 
 th:has(.alert) {
