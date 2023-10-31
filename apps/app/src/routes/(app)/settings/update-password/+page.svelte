@@ -22,8 +22,7 @@
 			type="password"
 			placeholder="Enter your new password"
 			autocomplete="new-password"
-			required
-		/>
+			required />
 		<Button>Update password</Button>
 	</form>
 </section>

@@ -25,8 +25,7 @@
 				type="email"
 				value={form?.email ?? ''}
 				placeholder="Enter your email address"
-				required
-			/>
+				required />
 
 			<div class="login">
 				<Button>Reset password</Button>

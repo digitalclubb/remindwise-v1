@@ -15,8 +15,7 @@
 	class:secondary={style === 'secondary'}
 	class:tertiary={style === 'tertiary'}
 	class:delete={style === 'delete'}
-	on:click={onClick}
->
+	on:click={onClick}>
 	<slot />
 </button>
 

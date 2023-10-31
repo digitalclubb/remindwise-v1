@@ -112,8 +112,7 @@
 	<figure>
 		<img src="/logo.svg" alt="remindwise.io logo" width="170" height="27" />
 		<button on:click={() => (showNavigation = true)}
-			><svg fill="var(--orange)"><use xlink:href="#menu" /></svg></button
-		>
+			><svg fill="var(--orange)"><use xlink:href="#menu" /></svg></button>
 	</figure>
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -122,8 +121,8 @@
 		on:click={() => {
 			showNavigation = false;
 		}}
-		hidden={!showNavigation}
-	></div>
+		hidden={!showNavigation}>
+	</div>
 
 	<div class="content" class:show={showNavigation}>
 		<div class="profile">
@@ -140,14 +139,12 @@
 
 			<Link type="button" href="/reminder/add"
 				><svg fill="var(--white)"><use xlink:href="#plus" /></svg>Add a new
-				reminder</Link
-			>
+				reminder</Link>
 		</div>
 		<ul class="categories">
 			<li class:selected={selected === ''}>
 				<a href="/"
-					><svg fill="var(--cream)"><use xlink:href="#bar-graph" /></svg> Dashboard</a
-				>
+					><svg fill="var(--cream)"><use xlink:href="#bar-graph" /></svg> Dashboard</a>
 			</li>
 			{#if $categoriesStore.fetching}
 				<li>Loading...</li>
@@ -158,14 +155,12 @@
 					<li class:selected={selected === category.category.name}>
 						<a href="/category/{category.category.name}"
 							><svg fill="var(--cream)"
-								><use xlink:href="#{category.category.iconId}" /></svg
-							>
+								><use xlink:href="#{category.category.iconId}" /></svg>
 							<span
 								>{category.category.name}
 								{#if category.category.reminders}
 									<span class="count"
-										>({category.category.reminders.totalCount})</span
-									>
+										>({category.category.reminders.totalCount})</span>
 								{/if}
 							</span>
 						</a>
@@ -175,8 +170,7 @@
 							on:click={() => onClickOptions(index)}
 							><svg fill="var(--cream)"
 								><use xlink:href="#dots-three-horizontal" /></svg
-							></button
-						>
+							></button>
 						<ul class="options" class:active={clicked === index}>
 							<li>
 								<button
@@ -188,8 +182,7 @@
 										};
 										showAddModal = true;
 										clicked = -1;
-									}}>Rename <svg><use xlink:href="#pencil" /></svg></button
-								>
+									}}>Rename <svg><use xlink:href="#pencil" /></svg></button>
 							</li>
 							<li>
 								<button
@@ -201,8 +194,7 @@
 										};
 										showDeleteModal = true;
 										clicked = -1;
-									}}>Delete<svg><use xlink:href="#trash" /></svg></button
-								>
+									}}>Delete<svg><use xlink:href="#trash" /></svg></button>
 							</li>
 						</ul>
 					</li>
@@ -215,8 +207,7 @@
 					onClick={() => {
 						currentCategory = undefined;
 						showAddModal = true;
-					}}>Add a category</Button
-				>
+					}}>Add a category</Button>
 			</li>
 		</ul>
 		<ul class="settings">
@@ -226,8 +217,7 @@
 			</li>
 			<li>
 				<a href="/" on:click={signOut}
-					><svg><use xlink:href="#log-out" /></svg> Logout</a
-				>
+					><svg><use xlink:href="#log-out" /></svg> Logout</a>
 			</li>
 		</ul>
 	</div>
@@ -242,8 +232,7 @@
 			on:submit|preventDefault={currentCategory
 				? onEditCategory
 				: onAddCategory}
-			id="category-actions"
-		>
+			id="category-actions">
 			<Input
 				inline
 				label={currentCategory ? 'Rename category' : 'Category name'}
@@ -253,8 +242,7 @@
 				placeholder={currentCategory
 					? 'Enter a new name for your category'
 					: 'Enter a name for your category'}
-				value={currentCategory?.name || ''}
-			/>
+				value={currentCategory?.name || ''} />
 
 			<p>
 				{currentCategory
@@ -268,17 +256,14 @@
 						name="icon"
 						value={icon}
 						id="{icon}-icon"
-						checked={icon === currentCategory?.iconId}
-					/>
+						checked={icon === currentCategory?.iconId} />
 					<label for="{icon}-icon"
-						><svg><use xlink:href="#{icon}" /></svg></label
-					>
+						><svg><use xlink:href="#{icon}" /></svg></label>
 				{/each}
 			</div>
 		</form>
 		<Button slot="action" type="submit" form="category-actions"
-			>{currentCategory ? 'Change category' : 'Add category'}</Button
-		>
+			>{currentCategory ? 'Change category' : 'Add category'}</Button>
 	</Modal>
 
 	<Modal size="small" bind:showModal={showDeleteModal}>
@@ -298,8 +283,7 @@
 			type="submit"
 			style="delete"
 			form="category-actions"
-			onClick={onDeleteCategory}>Yes delete</Button
-		>
+			onClick={onDeleteCategory}>Yes delete</Button>
 	</Modal>
 </nav>
 

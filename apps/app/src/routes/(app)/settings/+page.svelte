@@ -28,24 +28,21 @@
 				id="email"
 				name="email"
 				required
-				value={settings.email ?? ''}
-			/>
+				value={settings.email ?? ''} />
 
 			<label for="firstName">First name</label>
 			<input
 				type="text"
 				id="firstName"
 				name="firstName"
-				value={settings.first_name ?? ''}
-			/>
+				value={settings.first_name ?? ''} />
 
 			<label for="lastName">Last name</label>
 			<input
 				type="text"
 				id="lastName"
 				name="lastName"
-				value={settings.last_name ?? ''}
-			/>
+				value={settings.last_name ?? ''} />
 
 			<Button>Update account</Button>
 		</form>

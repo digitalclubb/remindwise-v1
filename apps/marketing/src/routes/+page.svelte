@@ -52,12 +52,10 @@
 <svelte:head>
 	<title
 		>remindwise.io - Keep track of subscriptions, accounts, and policies. All in
-		one place.</title
-	>
+		one place.</title>
 	<meta
 		name="description"
-		content="Discover remindwise.io, the user-friendly app that simplifies managing your policies, subscriptions, and accounts. Easily organise, track expenses, and get timely reminders for hassle-free financial planning."
-	/>
+		content="Discover remindwise.io, the user-friendly app that simplifies managing your policies, subscriptions, and accounts. Easily organise, track expenses, and get timely reminders for hassle-free financial planning." />
 </svelte:head>
 
 <header>
@@ -86,8 +84,7 @@
 				src={hero}
 				alt="Large hand holding phone with Remindwise app open. Other hands in the background waving paper statements and bills."
 				srcset="{heroSmall} 480w, {hero} 805w"
-				sizes="(min-width: 768px) 805px, 100vw"
-			/>
+				sizes="(min-width: 768px) 805px, 100vw" />
 		</div>
 	</section>
 
@@ -106,8 +103,7 @@
 
 			<img
 				src={reminders}
-				alt="A persons hand using Remindwise app. Adding a reminder."
-			/>
+				alt="A persons hand using Remindwise app. Adding a reminder." />
 		</section>
 
 		<section class="documents">
@@ -125,8 +121,7 @@
 
 			<img
 				src={laptop}
-				alt="A person using a laptop, looking at the Remindwise app"
-			/>
+				alt="A person using a laptop, looking at the Remindwise app" />
 		</section>
 
 		<section class="spending reverse">
@@ -144,8 +139,7 @@
 
 			<img
 				src={spending}
-				alt="A persons hand using Remindwise app. Viewing their total monthly spend."
-			/>
+				alt="A persons hand using Remindwise app. Viewing their total monthly spend." />
 		</section>
 
 		<section id="waitlist" class="waiting-list">
@@ -172,8 +166,7 @@
 						type="email"
 						placeholder="Your email"
 						required
-						value={form?.email ?? ''}
-					/>
+						value={form?.email ?? ''} />
 					<input class="submit" type="submit" value="Register interest" />
 				</form>
 			{/if}

@@ -20,8 +20,7 @@
 				type="email"
 				value={form?.email ?? ''}
 				placeholder="Enter your email address"
-				required
-			/>
+				required />
 
 			<Input
 				label="Password"
@@ -30,8 +29,7 @@
 				type="password"
 				autocomplete="new-password"
 				placeholder="Enter your password"
-				required
-			/>
+				required />
 			<div class="login">
 				<Button>Sign up</Button>
 			</div>
@@ -55,8 +53,7 @@
 			<li>
 				<!-- svelte-ignore a11y-invalid-attribute -->
 				<a href="" class="social-login"
-					><img src="/icon-x.svg" alt="" /> Sign up with X</a
-				>
+					><img src="/icon-x.svg" alt="" /> Sign up with X</a>
 			</li>
 		</ul>
 	</div>

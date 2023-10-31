@@ -11,8 +11,7 @@
 
 {#if label}
 	<label class:inline for={$$props.id}
-		>{label}<i aria-hidden="true" hidden={!$$props.required}>*</i></label
-	>
+		>{label}<i aria-hidden="true" hidden={!$$props.required}>*</i></label>
 {/if}
 
 <input class:inline {...$$restProps} />
