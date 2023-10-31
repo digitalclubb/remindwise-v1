@@ -1,0 +1,5 @@
+mutation deleteCategory($id: BigInt) {
+	deleteFromcategoriesCollection(filter: { id: { eq: $id } }) {
+		affectedCount
+	}
+}

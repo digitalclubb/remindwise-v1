@@ -8,8 +8,16 @@
 	import { goto } from '$app/navigation';
 	import { refresh } from '../../stores';
 
-	import { getSettingsStore, graphql, getCategoriesStore } from '$houdini';
+	import {
+		getSettingsStore,
+		getCategoriesStore,
+		addCategoryStore,
+		updateCategoryStore,
+		deleteCategoryStore,
+	} from '$houdini';
 	import Link from 'components/link/Link.svelte';
+	import Input from 'components/input/Input.svelte';
+	import type { Categories } from '@graphql/types';
 	export let categoriesStore: getCategoriesStore;
 	export let settingsStore: getSettingsStore;
 	$: categories = $categoriesStore.data?.categories?.list;
@@ -22,49 +30,53 @@
 		}
 	});
 
-	let showModal = false;
+	let showAddModal = false;
+	let showDeleteModal = false;
+	let currentCategory: Pick<Categories, 'id' | 'iconId' | 'name'> | undefined;
 	let showNavigation = false;
 
-	const addCategoryMutation = graphql(`
-		mutation addCategory(
-			$category: String!
-			$isLocked: Boolean!
-			$iconId: String!
-			$userId: UUID
-		) {
-			insertIntocategoriesCollection(
-				objects: [
-					{
-						name: $category
-						isLocked: $isLocked
-						iconId: $iconId
-						userid: $userId
-					}
-				]
-			) {
-				affectedCount
-				records {
-					id
-					name
-					isLocked
-					iconId
-					userid
-				}
-			}
-		}
-	`);
-
 	const onAddCategory = async (event: SubmitEvent) => {
-		const formData = new FormData(event.target as HTMLFormElement);
+		const addCategory = new addCategoryStore();
+		const target = event.target as HTMLFormElement;
+		const formData = new FormData(target);
 
-		await addCategoryMutation.mutate({
+		await addCategory.mutate({
 			category: formData.get('category')?.toString().toLowerCase() || '',
 			isLocked: false,
 			iconId: formData.get('icon')?.toString() || '',
 			userId: $page.data.session?.user.id,
 		});
-		showModal = false;
-		//TODO is this the best way to do it?
+
+		showAddModal = false;
+		refresh.update((n) => !n);
+
+		target.reset();
+	};
+
+	const onEditCategory = async (event: SubmitEvent) => {
+		const updateCategory = new updateCategoryStore();
+		const target = event.target as HTMLFormElement;
+		const formData = new FormData(target);
+
+		await updateCategory.mutate({
+			id: currentCategory?.id,
+			name: formData.get('category')?.toString().toLowerCase() || '',
+			iconId: formData.get('icon')?.toString() || '',
+		});
+
+		currentCategory = undefined;
+		showAddModal = false;
+		refresh.update((n) => !n);
+		target.reset();
+	};
+
+	const onDeleteCategory = async () => {
+		const deleteCategory = new deleteCategoryStore();
+
+		await deleteCategory.mutate({ id: currentCategory?.id });
+
+		showDeleteModal = false;
+		currentCategory = undefined;
 		refresh.update((n) => !n);
 	};
 
@@ -85,6 +97,12 @@
 		} else {
 			clicked = index;
 		}
+	};
+
+	const getUsername = () => {
+		if (settings?.first_name !== null)
+			return settings?.first_name + ' ' + (settings?.last_name || '');
+		return settings?.email;
 	};
 
 	$: clicked = -1;
@@ -116,7 +134,7 @@
 			{:else if settings}
 				<h3>
 					<svg fill="var(--cream)"><use xlink:href="#user" /></svg
-					>{settings.first_name + ' ' + settings.last_name}
+					>{getUsername()}
 				</h3>
 			{/if}
 
@@ -159,18 +177,45 @@
 								><use xlink:href="#dots-three-horizontal" /></svg
 							></button
 						>
-						<!-- TODO sort out a11y, rename & delete trigger modals. Create modals here? Can I use form actions? -->
 						<ul class="options" class:active={clicked === index}>
-							<li>Rename<svg><use xlink:href="#pencil" /></svg></li>
-							<li>Delete<svg><use xlink:href="#trash" /></svg></li>
+							<li>
+								<button
+									on:click={() => {
+										currentCategory = {
+											id: category.category.id,
+											name: category.category.name,
+											iconId: category.category.iconId,
+										};
+										showAddModal = true;
+										clicked = -1;
+									}}>Rename <svg><use xlink:href="#pencil" /></svg></button
+								>
+							</li>
+							<li>
+								<button
+									on:click={() => {
+										currentCategory = {
+											id: category.category.id,
+											name: category.category.name,
+											iconId: category.category.iconId,
+										};
+										showDeleteModal = true;
+										clicked = -1;
+									}}>Delete<svg><use xlink:href="#trash" /></svg></button
+								>
+							</li>
 						</ul>
 					</li>
 				{/each}
 			{/if}
 			<li class="add-category">
 				<svg fill="var(--cream)"><use xlink:href="#plus" /></svg>
-				<Button style="tertiary" onClick={() => (showModal = true)}
-					>Add category</Button
+				<Button
+					style="tertiary"
+					onClick={() => {
+						currentCategory = undefined;
+						showAddModal = true;
+					}}>Add a category</Button
 				>
 			</li>
 		</ul>
@@ -187,23 +232,74 @@
 		</ul>
 	</div>
 
-	<Modal bind:showModal>
-		<h2>Add a category for your reminders</h2>
-		<form on:submit|preventDefault={onAddCategory}>
-			<label for="category">Category name</label>
-			<input type="text" name="category" id="category" required />
+	<Modal bind:showModal={showAddModal}>
+		<h2 class="modalTitle">
+			{currentCategory
+				? `Edit your ${currentCategory.name} category`
+				: 'Add a new category'}
+		</h2>
+		<form
+			on:submit|preventDefault={currentCategory
+				? onEditCategory
+				: onAddCategory}
+			id="category-actions"
+		>
+			<Input
+				inline
+				label={currentCategory ? 'Rename category' : 'Category name'}
+				type="text"
+				name="category"
+				id="category"
+				placeholder={currentCategory
+					? 'Enter a new name for your category'
+					: 'Enter a name for your category'}
+				value={currentCategory?.name || ''}
+			/>
 
-			<h3>Pick an icon</h3>
+			<p>
+				{currentCategory
+					? 'Select a new icon for your category  '
+					: 'Select an icon for your category'}
+			</p>
 			<div class="icons">
 				{#each icons as icon}
-					<input type="radio" name="icon" value={icon} id="{icon}-icon" />
+					<input
+						type="radio"
+						name="icon"
+						value={icon}
+						id="{icon}-icon"
+						checked={icon === currentCategory?.iconId}
+					/>
 					<label for="{icon}-icon"
 						><svg><use xlink:href="#{icon}" /></svg></label
 					>
 				{/each}
 			</div>
-			<Button type="submit">Add</Button>
 		</form>
+		<Button slot="action" type="submit" form="category-actions"
+			>{currentCategory ? 'Change category' : 'Add category'}</Button
+		>
+	</Modal>
+
+	<Modal size="small" bind:showModal={showDeleteModal}>
+		<div class="deleteModal">
+			<h2>
+				Are you sure you want to delete the <q>{currentCategory?.name}</q> category?
+			</h2>
+			<p>
+				This will delete all of the reminders associated with this category and
+				it can't be undone. If you want to keep the reminders make sure you
+				assign them to a new category.
+			</p>
+		</div>
+
+		<Button
+			slot="action"
+			type="submit"
+			style="delete"
+			form="category-actions"
+			onClick={onDeleteCategory}>Yes delete</Button
+		>
 	</Modal>
 </nav>
 
@@ -267,6 +363,7 @@
 		background: none;
 		border: none;
 		padding: 0;
+		color: var(--cream);
 	}
 
 	.profile {
@@ -344,6 +441,21 @@
 		fill: var(--orange);
 	}
 
+	.modalTitle {
+		color: var(--remindwise-grey);
+		font-size: 20px;
+		font-weight: 600;
+		line-height: 38px;
+		margin-bottom: 2rem;
+	}
+
+	p {
+		display: block;
+		margin-top: 2rem;
+		margin-bottom: 2rem;
+		color: var(--remindwise-grey);
+	}
+
 	svg {
 		height: 1.8rem;
 		width: 1.8rem;
@@ -359,19 +471,18 @@
 	}
 
 	.icons label {
-		border: solid 2px #6a6c7026;
-		border-radius: 0.3rem;
 		cursor: pointer;
 		display: inline-block;
 		padding: 5px;
+		border: 0.1rem solid transparent;
 	}
 
 	.icons label:hover {
-		border-color: #ffbb00;
+		fill: var(--orange);
 	}
 
 	.icons svg {
-		margin-right: 0;
+		margin-right: 0.1rem;
 	}
 
 	input[type='radio'] {
@@ -380,7 +491,9 @@
 
 	input[type='radio']:active + label,
 	input[type='radio']:checked + label {
-		border-color: #ffbb00;
+		border-radius: 0.5rem;
+		border: 1px solid var(--greyed-out);
+		fill: var(--orange);
 	}
 
 	.add-category {
@@ -438,13 +551,40 @@
 	}
 
 	.options.active li {
+		padding: 0;
+	}
+
+	.options.active button {
 		display: flex;
 		justify-content: space-between;
 		padding: 0;
+		width: 100%;
 	}
 
 	.options svg {
 		fill: var(--cream);
+	}
+
+	.deleteModal h2 {
+		color: var(--remindwise-grey);
+		text-align: center;
+		font-size: 20px;
+		font-weight: 600;
+		line-height: 28px;
+	}
+
+	.deleteModal p {
+		color: var(--remindwise-grey);
+		text-align: center;
+		font-size: 14px;
+		font-weight: 300;
+		margin: 0;
+	}
+
+	q {
+		color: var(--orange);
+		text-transform: capitalize;
+		quotes: '‘' '’';
 	}
 
 	@media screen and (min-width: 768px) {

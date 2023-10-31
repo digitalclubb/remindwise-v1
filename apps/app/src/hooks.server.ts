@@ -17,6 +17,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 		const {
 			data: { session },
 		} = await event.locals.supabase.auth.getSession();
+
+		if (session) {
+			setSession(event, session);
+		}
+
 		return session;
 	};
 	//TODO will this make us logged out after a while?

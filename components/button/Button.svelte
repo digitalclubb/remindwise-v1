@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 	interface $$Props extends HTMLButtonAttributes {
-		style?: string | undefined;
-		onClick?: (() => void) | undefined;
+		style?: 'secondary' | 'tertiary' | 'delete';
+		onClick?: () => void;
 	}
 
 	export let style: string | undefined = undefined;
