@@ -7,4 +7,5 @@ module.exports = {
 	svelteStrictMode: false,
 	svelteAllowShorthand: true,
 	svelteIndentScriptAndStyle: true,
+	svelteBracketNewLine: false,
 };
