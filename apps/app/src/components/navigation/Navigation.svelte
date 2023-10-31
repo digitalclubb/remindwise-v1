@@ -8,7 +8,13 @@
 	import { goto } from '$app/navigation';
 	import { refresh } from '../../stores';
 
-	import { getSettingsStore, graphql, getCategoriesStore } from '$houdini';
+	import {
+		getSettingsStore,
+		getCategoriesStore,
+		addCategoryStore,
+		updateCategoryStore,
+		deleteCategoryStore,
+	} from '$houdini';
 	import Link from 'components/link/Link.svelte';
 	import Input from 'components/input/Input.svelte';
 	import type { Categories } from '@graphql/types';
@@ -29,40 +35,12 @@
 	let currentCategory: Pick<Categories, 'id' | 'iconId' | 'name'> | undefined;
 	let showNavigation = false;
 
-	const addCategoryMutation = graphql(`
-		mutation addCategory(
-			$category: String!
-			$isLocked: Boolean!
-			$iconId: String!
-			$userId: UUID
-		) {
-			insertIntocategoriesCollection(
-				objects: [
-					{
-						name: $category
-						isLocked: $isLocked
-						iconId: $iconId
-						userid: $userId
-					}
-				]
-			) {
-				affectedCount
-				records {
-					id
-					name
-					isLocked
-					iconId
-					userid
-				}
-			}
-		}
-	`);
-
 	const onAddCategory = async (event: SubmitEvent) => {
+		const addCategory = new addCategoryStore();
 		const target = event.target as HTMLFormElement;
 		const formData = new FormData(target);
 
-		await addCategoryMutation.mutate({
+		await addCategory.mutate({
 			category: formData.get('category')?.toString().toLowerCase() || '',
 			isLocked: false,
 			iconId: formData.get('icon')?.toString() || '',
@@ -76,21 +54,11 @@
 	};
 
 	const onEditCategory = async (event: SubmitEvent) => {
+		const updateCategory = new updateCategoryStore();
 		const target = event.target as HTMLFormElement;
 		const formData = new FormData(target);
 
-		const editCategory = graphql(`
-			mutation updateCategory($id: BigInt, $name: String, $iconId: String) {
-				updatecategoriesCollection(
-					filter: { id: { eq: $id } }
-					set: { name: $name, iconId: $iconId }
-				) {
-					affectedCount
-				}
-			}
-		`);
-
-		await editCategory.mutate({
+		await updateCategory.mutate({
 			id: currentCategory?.id,
 			name: formData.get('category')?.toString().toLowerCase() || '',
 			iconId: formData.get('icon')?.toString() || '',
@@ -103,13 +71,7 @@
 	};
 
 	const onDeleteCategory = async () => {
-		const deleteCategory = graphql(`
-			mutation deleteCategory($id: BigInt) {
-				deleteFromcategoriesCollection(filter: { id: { eq: $id } }) {
-					affectedCount
-				}
-			}
-		`);
+		const deleteCategory = new deleteCategoryStore();
 
 		await deleteCategory.mutate({ id: currentCategory?.id });
 
@@ -138,8 +100,8 @@
 	};
 
 	const getUsername = () => {
-		if (settings?.first_name !== null || settings?.last_name !== null)
-			return (settings?.first_name || '') + ' ' + (settings?.last_name || '');
+		if (settings?.first_name !== null)
+			return settings?.first_name + ' ' + (settings?.last_name || '');
 		return settings?.email;
 	};
 
@@ -324,7 +286,11 @@
 			<h2>
 				Are you sure you want to delete the <q>{currentCategory?.name}</q> category?
 			</h2>
-			<p>This action can't be undone</p>
+			<p>
+				This will delete all of the reminders associated with this category and
+				it can't be undone. If you want to keep the reminders make sure you
+				assign them to a new category.
+			</p>
 		</div>
 
 		<Button
@@ -612,7 +578,6 @@
 		text-align: center;
 		font-size: 14px;
 		font-weight: 300;
-		line-height: 38px;
 		margin: 0;
 	}
 

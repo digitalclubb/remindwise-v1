@@ -35,9 +35,9 @@
 		padding: 0;
 	}
 
-	dialog.small {
+	.small {
 		width: 36.9rem;
-		height: 24.2rem;
+		height: 28rem;
 	}
 
 	dialog::backdrop {
@@ -47,7 +47,7 @@
 		padding: 2.4rem;
 	}
 
-	dialog.small > div {
+	.small > div {
 		padding: 4rem;
 	}
 	dialog[open] {
@@ -80,7 +80,9 @@
 		justify-content: flex-end;
 	}
 
-	.actions.small {
+	.small .actions {
+		width: inherit;
+		height: inherit;
 		justify-content: center;
 		margin-top: 1rem;
 	}
