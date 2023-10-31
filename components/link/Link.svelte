@@ -14,8 +14,7 @@
 	href={$$props.href}
 	class:button={type === 'button'}
 	class:secondary={style === 'secondary'}
-	class:delete={style === 'delete'}
->
+	class:delete={style === 'delete'}>
 	<slot />
 </a>
 

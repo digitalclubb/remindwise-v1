@@ -24,8 +24,7 @@
 			type="hidden"
 			name="userId"
 			id="userId"
-			value={$page.data.session?.user.id}
-		/>
+			value={$page.data.session?.user.id} />
 		<div>
 			<label for="categoryId">Category</label>
 			<select name="categoryId" id="categoryId" required>
@@ -36,8 +35,7 @@
 						<option
 							value={category.category.id}
 							selected={previousCategory === category.category.name}
-							>{category.category.name}</option
-						>
+							>{category.category.name}</option>
 					{/each}
 				{/if}
 			</select>
@@ -50,8 +48,7 @@
 				name="name"
 				id="name"
 				placeholder="Enter a name for your reminder"
-				required
-			/>
+				required />
 		</div>
 
 		<fieldset class="options">
@@ -62,8 +59,7 @@
 					name="type"
 					id="ongoing"
 					value="ONGOING"
-					bind:group={option}
-				/>
+					bind:group={option} />
 				<label for="ongoing">Ongoing subscription</label>
 			</div>
 			<div class="option">
@@ -72,8 +68,7 @@
 					name="type"
 					id="annual"
 					value="ANNUAL"
-					bind:group={option}
-				/>
+					bind:group={option} />
 				<label for="annual">Annual policy</label>
 			</div>
 			<div class="option option-last">
@@ -82,8 +77,7 @@
 					name="type"
 					id="single"
 					value="SINGLE"
-					bind:group={option}
-				/>
+					bind:group={option} />
 				<label for="single">Single record</label>
 			</div>
 		</fieldset>
@@ -95,8 +89,7 @@
 				name="company"
 				id="company"
 				placeholder="Enter the name of the company"
-				required
-			/>
+				required />
 		</div>
 
 		<div class="cost">
@@ -116,8 +109,7 @@
 						step="any"
 						name="cost"
 						id="cost"
-						placeholder="How much is charged?"
-					/>
+						placeholder="How much is charged?" />
 				</div>
 			</div>
 
@@ -136,8 +128,7 @@
 			<label for="notes">Notes</label>
 			<textarea
 				name="notes"
-				placeholder="Enter things like policy number, quick contact details for the company etc."
-			/>
+				placeholder="Enter things like policy number, quick contact details for the company etc." />
 		</div>
 
 		<div>
