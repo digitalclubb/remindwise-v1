@@ -81,7 +81,10 @@
 								}).format(reminder.reminder.cost || 0)}</td>
 							<td></td>
 							<td>
-								<a href="/reminder/{reminder.reminder.id}" class="table-link">
+								<a
+									href="/category/{reminder.reminder.category?.name}/{reminder
+										.reminder.id}"
+									class="table-link">
 									<img src="/magnifying-glass.svg" alt="" />
 								</a>
 							</td>

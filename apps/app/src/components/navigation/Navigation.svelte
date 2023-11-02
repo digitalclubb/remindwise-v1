@@ -14,7 +14,6 @@
 		addCategoryStore,
 		updateCategoryStore,
 		deleteCategoryStore,
-		getReminderStore,
 	} from '$houdini';
 	import Link from 'components/link/Link.svelte';
 	import Input from 'components/input/Input.svelte';
@@ -81,23 +80,11 @@
 		refresh.update((n) => !n);
 	};
 
-	let categoryName: string;
-	// TODO not sure if this is the best way to do it, that subscribe callback gets called a lot but if I remove ${ }
-	// it doesnt get called on page change
-	$: {
-		($page.data.getReminder as getReminderStore)?.observer.subscribe((data) => {
-			categoryName =
-				data.data?.reminders?.list[0].reminder.category?.name || '';
-		});
-	}
-
-	// Maybe we can just create a store that keeps track of the current nav item?
 	$: selected = $page.url.pathname.includes('category')
 		? $page.url.pathname.split('/')[2]
-		: $page.url.pathname === '/'
-		? ''
-		: categoryName;
+		: '';
 
+	$: console.log('url', $page.url.pathname);
 	$: selected, (clicked = -1);
 
 	const signOut = async () => {
