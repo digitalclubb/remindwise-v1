@@ -8,6 +8,7 @@ query getReminders($categoryId: BigInt) {
 				cost
 				category {
 					iconId
+					name
 				}
 			}
 		}

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Header from '../../../../components/header/Header.svelte';
+	import Header from '../../../../../components/header/Header.svelte';
 	import type { PageData } from './$houdini';
 
 	export let data: PageData;
