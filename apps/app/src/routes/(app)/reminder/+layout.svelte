@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { page, navigating } from '$app/stores';
 	import { enhance } from '$app/forms';
-	import Header from '../../../../components/header/Header.svelte';
+	import Header from '../../../components/header/Header.svelte';
 
 	export let data;
-	let option = '';
+	let type = '';
+	let autoRenew = '';
+	let frequency = '';
 
 	$: ({ getCategories } = data);
 
@@ -59,17 +61,9 @@
 					name="type"
 					id="ongoing"
 					value="ONGOING"
-					bind:group={option} />
+					bind:group={type}
+					required />
 				<label for="ongoing">Ongoing subscription</label>
-			</div>
-			<div class="option">
-				<input
-					type="radio"
-					name="type"
-					id="annual"
-					value="ANNUAL"
-					bind:group={option} />
-				<label for="annual">Annual policy</label>
 			</div>
 			<div class="option option-last">
 				<input
@@ -77,7 +71,8 @@
 					name="type"
 					id="single"
 					value="SINGLE"
-					bind:group={option} />
+					bind:group={type}
+					required />
 				<label for="single">Single record</label>
 			</div>
 		</fieldset>
@@ -92,10 +87,10 @@
 				required />
 		</div>
 
-		<div class="cost">
+		<div class="columns">
 			<div>
 				<label for="cost">
-					{#if option === 'single'}
+					{#if type === 'SINGLE'}
 						What is the total?
 					{:else}
 						What is the re-occuring cost?
@@ -109,19 +104,70 @@
 						step="any"
 						name="cost"
 						id="cost"
-						placeholder="How much is charged?" />
+						placeholder="How much is charged?"
+						required />
 				</div>
 			</div>
 
-			<div>
-				<label for="renewal">Date</label>
-				<input type="date" name="renewal" id="renewal" />
-			</div>
+			{#if type === 'ONGOING'}
+				<fieldset class="options">
+					<legend>When is it charged?</legend>
+					<div class="option option-first">
+						<input
+							type="radio"
+							name="frequency"
+							id="annual"
+							value="ANNUAL"
+							bind:group={frequency} />
+						<label for="annual">Annual</label>
+					</div>
+					<div class="option option-last">
+						<input
+							type="radio"
+							name="frequency"
+							id="monthly"
+							value="MONTHLY"
+							bind:group={frequency} />
+						<label for="monthly">Monthly</label>
+					</div>
+				</fieldset>
+			{/if}
 		</div>
 
-		<div>
-			<label for="frequency">Frequency</label>
-			<input type="radio" name="frequency" id="frequency" value="MONTHLY" />
+		<div class="columns">
+			<div>
+				<label for="renewal"
+					>{#if type === 'SINGLE'}
+						What is the date?
+					{:else}
+						When is it due for renewal?
+					{/if}</label>
+				<input type="date" name="renewal" id="renewal" />
+			</div>
+
+			{#if type === 'ONGOING'}
+				<fieldset class="options">
+					<legend>Will it auto-renew?</legend>
+					<div class="option option-first">
+						<input
+							type="radio"
+							name="autoRenew"
+							id="yes"
+							value="true"
+							bind:group={autoRenew} />
+						<label for="yes">Yes</label>
+					</div>
+					<div class="option option-last">
+						<input
+							type="radio"
+							name="autoRenew"
+							id="no"
+							value="false"
+							bind:group={autoRenew} />
+						<label for="no">No</label>
+					</div>
+				</fieldset>
+			{/if}
 		</div>
 
 		<div>
@@ -150,6 +196,9 @@
 
 	form {
 		max-width: 64rem;
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
 	}
 
 	select {
@@ -157,10 +206,10 @@
 		width: 100%;
 	}
 
-	label {
+	label,
+	legend {
 		display: inline-block;
-		margin-top: 2rem;
-		margin-bottom: 0.8rem;
+		margin-bottom: 1rem;
 	}
 
 	input {
@@ -173,11 +222,15 @@
 
 	fieldset {
 		all: unset;
-		margin-top: 2rem;
 	}
 
 	.options {
 		display: flex;
+		flex: 1;
+	}
+
+	.option {
+		flex: 1;
 	}
 
 	.option input {
@@ -189,15 +242,17 @@
 		background-color: var(--cream-light);
 		border-top: 1px solid var(--cream);
 		border-bottom: 1px solid var(--cream);
-		padding-top: 1.1rem;
-		padding-bottom: 1.1rem;
-		width: 20rem;
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+		margin-bottom: 0;
+		width: 100%;
 		text-align: center;
 	}
 
 	.option-first label {
 		border-top-left-radius: 2rem;
 		border-bottom-left-radius: 2rem;
+		border-right: 1px solid var(--cream);
 	}
 
 	.option-last label {
@@ -215,14 +270,20 @@
 		color: var(--white);
 	}
 
-	.cost {
+	.columns {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 4rem;
 	}
 
+	.currency {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+	}
+
 	.currency input {
-		display: inline;
+		width: 26rem;
 	}
 
 	.currency span {
