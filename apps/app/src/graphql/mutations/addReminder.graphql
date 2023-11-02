@@ -5,7 +5,7 @@ mutation addReminder(
 	$type: Type!
 	$company: String
 	$cost: Float
-	$datePurchased: Date
+	$date: Date
 	$frequency: Frequency!
 	$autoRenewal: Boolean
 	$notes: String
@@ -19,7 +19,7 @@ mutation addReminder(
 				type: $type
 				company: $company
 				cost: $cost
-				datePurchased: $datePurchased
+				date: $date
 				frequency: $frequency
 				autoRenewal: $autoRenewal
 				notes: $notes

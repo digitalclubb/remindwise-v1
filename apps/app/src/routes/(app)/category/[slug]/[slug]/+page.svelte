@@ -16,7 +16,7 @@
 
 	$: date = reminder
 		? new Intl.DateTimeFormat('en-GB').format(
-				Date.parse(reminder?.datePurchased?.toString() || '') || new Date()
+				Date.parse(reminder?.date?.toString() || '') || new Date()
 		  )
 		: '';
 
