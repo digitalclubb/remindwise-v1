@@ -22,11 +22,6 @@
 
 <div class="body">
 	<form method="POST" action="?/addReminder" use:enhance>
-		<input
-			type="hidden"
-			name="userId"
-			id="userId"
-			value={$page.data.session?.user.id} />
 		<div>
 			<label for="categoryId">Category</label>
 			<select name="categoryId" id="categoryId" required>
@@ -44,7 +39,7 @@
 		</div>
 
 		<div>
-			<label for="name">Reminder name</label>
+			<label for="name">Reminder name<i aria-hidden="true">*</i></label>
 			<input
 				type="text"
 				name="name"
@@ -54,7 +49,7 @@
 		</div>
 
 		<fieldset class="options">
-			<legend>What type of reminder is this?</legend>
+			<legend>What type of reminder is this?<i aria-hidden="true">*</i></legend>
 			<div class="option option-first">
 				<input
 					type="radio"
@@ -78,7 +73,7 @@
 		</fieldset>
 
 		<div>
-			<label for="company">Company</label>
+			<label for="company">Company<i aria-hidden="true">*</i></label>
 			<input
 				type="text"
 				name="company"
@@ -91,9 +86,9 @@
 			<div>
 				<label for="cost">
 					{#if type === 'SINGLE'}
-						What is the total?
+						What is the total?<i aria-hidden="true">*</i>
 					{:else}
-						What is the re-occuring cost?
+						What is the re-occuring cost?<i aria-hidden="true">*</i>
 					{/if}
 				</label>
 				<div class="currency">
@@ -118,6 +113,7 @@
 							name="frequency"
 							id="annual"
 							value="ANNUAL"
+							required
 							bind:group={frequency} />
 						<label for="annual">Annual</label>
 					</div>
@@ -127,6 +123,7 @@
 							name="frequency"
 							id="monthly"
 							value="MONTHLY"
+							required
 							bind:group={frequency} />
 						<label for="monthly">Monthly</label>
 					</div>
@@ -136,13 +133,13 @@
 
 		<div class="columns">
 			<div>
-				<label for="renewal"
+				<label for="date"
 					>{#if type === 'SINGLE'}
 						What is the date?
 					{:else}
 						When is it due for renewal?
 					{/if}</label>
-				<input type="date" name="renewal" id="renewal" />
+				<input type="date" name="date" id="date" />
 			</div>
 
 			{#if type === 'ONGOING'}
@@ -186,6 +183,12 @@
 			<!-- Add on /add, Save on /edit-->
 			<svelte:component this={$page.data.submit} />
 		</div>
+
+		<input
+			type="hidden"
+			name="userId"
+			id="userId"
+			value={$page.data.session?.user.id} />
 	</form>
 </div>
 
@@ -210,6 +213,11 @@
 	legend {
 		display: inline-block;
 		margin-bottom: 1rem;
+	}
+
+	i {
+		font-style: normal;
+		color: var(--red);
 	}
 
 	input {
