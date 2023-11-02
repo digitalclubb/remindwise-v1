@@ -84,7 +84,6 @@
 		? $page.url.pathname.split('/')[2]
 		: '';
 
-	$: console.log('url', $page.url.pathname);
 	$: selected, (clicked = -1);
 
 	const signOut = async () => {
