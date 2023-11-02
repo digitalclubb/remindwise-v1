@@ -18,7 +18,7 @@
 		"test:functional": "playwright test --grep @functional"
 	},
 	"dependencies": {
-		"@supabase/auth-helpers-sveltekit": "0.10.4",
+		"@supabase/auth-helpers-sveltekit": "0.10.5",
 		"@supabase/supabase-js": "2.38.4",
 		"components": "workspace:*",
 		"d3-format": "3.1.0",
@@ -35,7 +35,7 @@
 		"@graphql-typed-document-node/core": "^3.2.0",
 		"@playwright/test": "1.39.0",
 		"@sveltejs/adapter-vercel": "3.0.3",
-		"@sveltejs/kit": "1.27.1",
+		"@sveltejs/kit": "1.27.2",
 		"@testing-library/svelte": "4.0.4",
 		"@types/d3-format": "3.0.3",
 		"@types/d3-scale": "4.0.6",
