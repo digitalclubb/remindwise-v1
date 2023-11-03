@@ -13,9 +13,11 @@ export const actions = {
 		const type = data.get('type') as Type;
 		const company = data.get('company') as string;
 		const cost = parseFloat(data.get('cost') as string);
-		const datePurchased = new Date(data.get('renewal') as string);
+		const date = data.get('date')
+			? new Date(data.get('date') as string)
+			: new Date();
 		const frequency = data.get('frequency') as Frequency;
-		const autoRenewal = data.get('auto') === 'true';
+		const autoRenewal = data.get('autoRenew') ? !!data.get('autoRenew') : null;
 		const notes = data.get('notes') as string;
 
 		const addReminder = new addReminderStore();
@@ -27,7 +29,7 @@ export const actions = {
 				type,
 				company,
 				cost,
-				datePurchased,
+				date,
 				frequency,
 				autoRenewal,
 				notes,

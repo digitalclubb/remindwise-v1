@@ -6,7 +6,7 @@ query getReminder($slug: BigInt) {
 				type
 				company
 				cost
-				datePurchased
+				date
 				frequency
 				autoRenewal
 				notes
