@@ -2,4 +2,4 @@
 	import { Button } from 'components';
 </script>
 
-<Button type="submit">Save reminder</Button>
+<Button type="submit">Update reminder</Button>

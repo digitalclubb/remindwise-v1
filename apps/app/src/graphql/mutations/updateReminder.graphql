@@ -1,0 +1,29 @@
+mutation updateReminder(
+	$id: BigInt
+	$categoryId: BigInt!
+	$name: String!
+	$type: Type!
+	$company: String
+	$cost: Float
+	$date: Date
+	$frequency: Frequency!
+	$autoRenewal: Boolean
+	$notes: String
+) {
+	updateremindersCollection(
+		filter: { id: { eq: $id } }
+		set: {
+			categoryId: $categoryId
+			name: $name
+			type: $type
+			company: $company
+			cost: $cost
+			date: $date
+			frequency: $frequency
+			autoRenewal: $autoRenewal
+			notes: $notes
+		}
+	) {
+		affectedCount
+	}
+}
