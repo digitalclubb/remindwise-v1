@@ -1,6 +1,8 @@
 <script lang="ts">
+	import Link from 'components/link/Link.svelte';
 	import Header from '../../../../../components/header/Header.svelte';
 	import type { PageData } from './$houdini';
+	import { page } from '$app/stores';
 
 	export let data: PageData;
 
@@ -37,7 +39,15 @@
 	{#if $getReminder.fetching}
 		loading...
 	{:else if reminder}
-		<h1>{reminder.name} <span>{reminder.category?.name}</span></h1>
+		<div class="header">
+			<h1>
+				{reminder.name} <span>{reminder.category?.name}</span>
+			</h1>
+			<Link href={`/reminder/edit/${$page.params.slug}`}
+				>Edit reminder <svg fill="var(--orange)"
+					><use xlink:href="#pencil" /></svg
+				></Link>
+		</div>
 
 		<div class="content">
 			<p class="overview">
@@ -90,13 +100,26 @@
 			'aside';
 	}
 
+	.header {
+		display: flex;
+		justify-content: space-between;
+		align-items: first baseline;
+		grid-area: header;
+	}
+
 	h1 {
 		text-transform: capitalize;
+		margin-bottom: 0;
 	}
 
 	h1 span {
 		font-size: 1.4rem;
 		margin-left: 2.4rem;
+	}
+
+	svg {
+		width: 1.8rem;
+		height: 1.8rem;
 	}
 
 	.content {
