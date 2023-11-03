@@ -202,10 +202,7 @@
 			<input type="file" id="documents" name="documents" />
 		</div>
 
-		<div class="submit">
-			<!-- Add on /add, Save on /edit-->
-			<svelte:component this={$page.data.submit} />
-		</div>
+		<slot />
 
 		<input
 			type="hidden"
@@ -329,11 +326,5 @@
 		padding: 0.9rem 1.4rem;
 		width: 100%;
 		min-height: 25rem;
-	}
-
-	.submit {
-		display: flex;
-		justify-content: flex-end;
-		margin-top: 6rem;
 	}
 </style>

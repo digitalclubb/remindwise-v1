@@ -46,6 +46,7 @@
 	.button:hover {
 		background-color: var(--orange-dark);
 		border-color: var(--orange-dark);
+		color: var(--white);
 		cursor: pointer;
 	}
 

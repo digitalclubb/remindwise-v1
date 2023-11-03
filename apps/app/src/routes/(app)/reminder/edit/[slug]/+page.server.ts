@@ -7,7 +7,6 @@ export const actions = {
 	editReminder: async (event) => {
 		const data = await event.request.formData();
 
-		const userid = data.get('userId') as string;
 		const categoryId = parseInt(data.get('categoryId') as string);
 		const name = data.get('name') as string;
 		const type = data.get('type') as Type;
@@ -38,6 +37,6 @@ export const actions = {
 		);
 
 		// TODO on reminder add we want to take them to the categories page? the list might not be updated so need to look into how to bust cache
-		throw redirect(303, '/');
+		throw redirect(303, `/category/reminder/${event.params.slug}`);
 	},
 };
