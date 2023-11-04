@@ -1,9 +1,6 @@
-query getReminders($categoryId: BigInt, $today: Date, $upcoming: Date) {
+query getAllReminders($today: Date, $upcoming: Date) {
 	upcoming: remindersCollection(
-		filter: {
-			date: { gte: $today, lte: $upcoming }
-			categoryId: { eq: $categoryId }
-		}
+		filter: { date: { gte: $today, lte: $upcoming } }
 	) {
 		list: edges {
 			reminder: node {
@@ -20,7 +17,7 @@ query getReminders($categoryId: BigInt, $today: Date, $upcoming: Date) {
 			}
 		}
 	}
-	reminders: remindersCollection(filter: { categoryId: { eq: $categoryId } }) {
+	reminders: remindersCollection {
 		list: edges {
 			reminder: node {
 				id
