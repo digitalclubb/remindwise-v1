@@ -1,0 +1,34 @@
+query getAllReminders($today: Date, $upcoming: Date) {
+	upcoming: remindersCollection(
+		filter: { date: { gte: $today, lte: $upcoming } }
+	) {
+		list: edges {
+			reminder: node {
+				id
+				name
+				company
+				cost
+				date
+				autoRenewal
+				category {
+					iconId
+					name
+				}
+			}
+		}
+	}
+	reminders: remindersCollection {
+		list: edges {
+			reminder: node {
+				id
+				name
+				company
+				cost
+				category {
+					iconId
+					name
+				}
+			}
+		}
+	}
+}
