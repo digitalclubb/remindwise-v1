@@ -39,7 +39,7 @@
 			<tbody>
 				{#if upcoming?.length === 0}
 					<tr>
-						<td
+						<td colspan="6"
 							><p class="table-no-data">
 								No upcoming reminders in the next 2 months
 							</p></td>
