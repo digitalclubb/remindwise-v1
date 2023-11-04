@@ -323,7 +323,7 @@
 		border-top-left-radius: 12px;
 		border-top-right-radius: 12px;
 		overflow-x: hidden;
-		overflow-y: scroll;
+		overflow-y: auto;
 		flex-direction: column;
 		height: 0;
 		top: 100%;
