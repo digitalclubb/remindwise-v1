@@ -1,0 +1,15 @@
+<script lang="ts">
+	import { Button } from 'components';
+</script>
+
+<div class="actions">
+	<Button type="submit">Add this reminder</Button>
+</div>
+
+<style>
+	.actions {
+		display: flex;
+		justify-content: flex-end;
+		margin-top: 6rem;
+	}
+</style>

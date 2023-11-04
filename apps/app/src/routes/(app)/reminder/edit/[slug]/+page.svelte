@@ -1,0 +1,63 @@
+<script lang="ts">
+	import { goto } from '$app/navigation';
+	import { Button } from 'components';
+	import { navigating, page } from '$app/stores';
+	import { deleteReminderStore, getReminderStore } from '$houdini';
+	import type { getReminder$result, QueryResult } from '$houdini';
+	import Modal from '../../../../../components/modal/Modal.svelte';
+
+	let showModal = false;
+	let previousPage = $navigating?.from?.url.pathname;
+
+	let result = {} as QueryResult<getReminder$result>;
+
+	$: reminder = result.data?.reminders?.list[0].reminder;
+
+	$: ($page.data.getReminder as getReminderStore)?.subscribe((value) => {
+		result = value;
+	});
+
+	const onDelete = async () => {
+		const deleteReminder = new deleteReminderStore();
+		await deleteReminder.mutate({ id: $page.params.slug });
+
+		await goto(`/category/${reminder?.category?.name}`);
+	};
+</script>
+
+<div class="actions">
+	<Button type="button" style="delete" onClick={() => (showModal = true)}
+		>Delete this reminder</Button>
+	<div>
+		<Button
+			type="button"
+			style="secondary"
+			onClick={() => {
+				goto(previousPage || '/');
+			}}>Cancel</Button>
+		<Button type="submit">Update reminder</Button>
+	</div>
+</div>
+
+<Modal size="small" bind:showModal>
+	<div class="deleteModal">
+		<h2>Are you sure you want to delete this reminder?</h2>
+		<p>This action can't be undone.</p>
+	</div>
+
+	<Button type="button" slot="action" style="delete" onClick={onDelete}
+		>Yes delete</Button>
+</Modal>
+
+<style>
+	.actions {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 6rem;
+	}
+
+	.actions div {
+		display: flex;
+		gap: 1rem;
+	}
+</style>
