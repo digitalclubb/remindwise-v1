@@ -20,7 +20,8 @@
 
 	<section>
 		<h2 class="heading-3">
-			Upcoming renewals {#if upcoming}
+			Upcoming renewals
+			{#if upcoming}
 				<span>({upcoming.length})</span>
 			{/if}
 		</h2>

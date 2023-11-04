@@ -1,4 +1,25 @@
-query getReminders($categoryId: BigInt) {
+query getReminders($categoryId: BigInt, $today: Date, $upcoming: Date) {
+	upcoming: remindersCollection(
+		filter: {
+			date: { gte: $today, lte: $upcoming }
+			categoryId: { eq: $categoryId }
+		}
+	) {
+		list: edges {
+			reminder: node {
+				id
+				name
+				company
+				cost
+				date
+				autoRenewal
+				category {
+					iconId
+					name
+				}
+			}
+		}
+	}
 	reminders: remindersCollection(filter: { categoryId: { eq: $categoryId } }) {
 		list: edges {
 			reminder: node {
