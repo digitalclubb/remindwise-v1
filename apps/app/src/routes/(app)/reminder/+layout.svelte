@@ -10,7 +10,7 @@
 	} from '$houdini';
 
 	export let data: LayoutData;
-
+	let showCategories: boolean;
 	$: ({ getCategories } = data);
 
 	let result = {} as QueryResult<getReminder$result>;
@@ -21,11 +21,16 @@
 		result = value;
 	});
 
-	$: categories = $getCategories.data?.categories?.list;
+	$: categories = $getCategories.data?.categories?.list.filter((category) =>
+		category.category.name.startsWith(categoryName)
+	);
 
 	$: type = reminder?.type || '';
 	$: autoRenew = String(reminder?.autoRenewal) || '';
 	$: frequency = reminder?.frequency || '';
+
+	$: categoryName = reminder?.category?.name || '';
+	$: categoryId = categories?.[0]?.category.id || '';
 
 	const previousPage = $navigating?.from ? $navigating.from.url.pathname : '/';
 	const previousCategory = previousPage.substring(
@@ -37,24 +42,51 @@
 
 <div class="body">
 	<form method="POST" action={$page.data.action} use:enhance>
-		<div>
-			<label for="categoryId">Category</label>
-			<select
-				name="categoryId"
-				id="categoryId"
-				required
-				value={reminder?.category?.id || categories?.[0].category.id}>
-				{#if $getCategories.fetching}
-					<option value="">Loading...</option>
-				{:else if categories}
+		<div class="category">
+			<label for="category">Category<i aria-hidden="true">*</i></label>
+			<input
+				type="text"
+				name="category"
+				id="category"
+				placeholder="Type to select or create a new category"
+				value={categoryName}
+				on:input={(e) => {
+					categoryName = e.currentTarget.value;
+				}}
+				autocomplete="off"
+				aria-haspopup="listbox"
+				on:focus={() => (showCategories = true)}
+				required />
+
+			<input type="hidden" bind:value={categoryId} name="categoryId" />
+
+			{#if categories}
+				<ul class:show={showCategories} aria-labelledby="category">
 					{#each categories as category}
-						<option
-							value={category.category.id}
-							selected={previousCategory === category.category.name}
-							>{category.category.name}</option>
+						<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
+						<li
+							id={category.category.id}
+							on:click={() => {
+								categoryName = category.category.name;
+								showCategories = false;
+							}}>
+							<svg class="table-icon" fill="var(--cream-dark)"
+								><use xlink:href="#{category.category.iconId}" /></svg
+							>{category.category.name}
+						</li>
 					{/each}
-				{/if}
-			</select>
+
+					{#if categories.length === 0}
+						<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
+						<li
+							on:click={() => {
+								showCategories = false;
+							}}>
+							Category not found. It will be created when you submit the form.
+						</li>
+					{/if}
+				</ul>
+			{/if}
 		</div>
 
 		<div>
@@ -230,8 +262,31 @@
 		gap: 2rem;
 	}
 
-	select {
+	ul {
+		border-radius: 6px;
+		border: 1px solid var(--greyed-out);
+		background: var(--cream-light);
+		display: none;
+	}
+
+	ul.show {
 		display: block;
+	}
+
+	li {
+		padding: 0.5rem 1rem;
+	}
+
+	li:hover {
+		background: var(--cream);
+		cursor: pointer;
+	}
+
+	li:hover svg {
+		fill: var(--remindwise-grey);
+	}
+
+	.category input {
 		width: 100%;
 	}
 
