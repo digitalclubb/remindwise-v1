@@ -2,15 +2,30 @@
 	import { page, navigating } from '$app/stores';
 	import { enhance } from '$app/forms';
 	import Header from '../../../components/header/Header.svelte';
+	import type { LayoutData } from './$houdini';
+	import type {
+		getReminderStore,
+		getReminder$result,
+		QueryResult,
+	} from '$houdini';
 
-	export let data;
-	let type = '';
-	let autoRenew = '';
-	let frequency = '';
+	export let data: LayoutData;
 
 	$: ({ getCategories } = data);
 
+	let result = {} as QueryResult<getReminder$result>;
+
+	$: reminder = result.data?.reminders?.list[0].reminder;
+
+	$: ($page.data.getReminder as getReminderStore)?.subscribe((value) => {
+		result = value;
+	});
+
 	$: categories = $getCategories.data?.categories?.list;
+
+	$: type = reminder?.type || '';
+	$: autoRenew = String(reminder?.autoRenewal) || '';
+	$: frequency = reminder?.frequency || '';
 
 	const previousPage = $navigating?.from ? $navigating.from.url.pathname : '/';
 	const previousCategory = previousPage.substring(
@@ -24,13 +39,17 @@
 	};
 </script>
 
-<Header title="Add a reminder" />
+<Header title={$page.data.title} />
 
 <div class="body">
-	<form method="POST" action="?/addReminder" use:enhance>
+	<form method="POST" action={$page.data.action} use:enhance>
 		<div>
 			<label for="categoryId">Category</label>
-			<select name="categoryId" id="categoryId" required>
+			<select
+				name="categoryId"
+				id="categoryId"
+				required
+				value={reminder?.category?.id || categories?.[0].category.id}>
 				{#if $getCategories.fetching}
 					<option value="">Loading...</option>
 				{:else if categories}
@@ -51,6 +70,7 @@
 				name="name"
 				id="name"
 				placeholder="Enter a name for your reminder"
+				value={reminder?.name || ''}
 				required />
 		</div>
 
@@ -85,6 +105,7 @@
 				name="company"
 				id="company"
 				placeholder="Enter the name of the company"
+				value={reminder?.company || ''}
 				required />
 		</div>
 
@@ -106,6 +127,7 @@
 						name="cost"
 						id="cost"
 						placeholder="How much is charged?"
+						value={reminder?.cost || ''}
 						required />
 				</div>
 			</div>
@@ -145,7 +167,7 @@
 					{:else}
 						When is it due for renewal?
 					{/if}</label>
-				<input type="date" name="date" id="date" />
+				<input type="date" name="date" id="date" value={reminder?.date || ''} />
 			</div>
 
 			{#if type === 'ONGOING'}
@@ -177,7 +199,8 @@
 			<label for="notes">Notes</label>
 			<textarea
 				name="notes"
-				placeholder="Enter things like policy number, quick contact details for the company etc." />
+				placeholder="Enter things like policy number, quick contact details for the company etc."
+				value={reminder?.notes || ''} />
 		</div>
 
 		<fieldset class="uploadFiles">
@@ -207,10 +230,7 @@
 
 		</fieldset>
 
-		<div class="submit">
-			<!-- Add on /add, Save on /edit-->
-			<svelte:component this={$page.data.submit} />
-		</div>
+		<slot />
 
 		<input
 			type="hidden"
@@ -369,11 +389,5 @@
 	.upload span {
 		flex: 1;
 		margin-left: 1.5rem;
-	}
-
-	.submit {
-		display: flex;
-		justify-content: flex-end;
-		margin-top: 6rem;
 	}
 </style>

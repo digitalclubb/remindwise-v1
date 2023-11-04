@@ -1,7 +1,6 @@
-import Submit from './Submit.svelte';
-
 export function load() {
 	return {
-		submit: Submit,
+		action: '?/addReminder',
+		title: 'Add a reminder',
 	};
 }

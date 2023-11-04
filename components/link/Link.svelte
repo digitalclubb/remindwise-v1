@@ -22,7 +22,13 @@
 	a {
 		display: flex;
 		align-items: center;
+		color: var(--orange);
 	}
+
+	a:hover {
+		color: var(--orange-dark);
+	}
+
 	.button {
 		background-color: var(--orange);
 		border-radius: 2rem;
@@ -40,6 +46,7 @@
 	.button:hover {
 		background-color: var(--orange-dark);
 		border-color: var(--orange-dark);
+		color: var(--white);
 		cursor: pointer;
 	}
 
