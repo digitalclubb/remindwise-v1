@@ -31,11 +31,6 @@
 
 	$: categoryName = reminder?.category?.name || '';
 	$: categoryId = categories?.[0]?.category.id || '';
-
-	const previousPage = $navigating?.from ? $navigating.from.url.pathname : '/';
-	const previousCategory = previousPage.substring(
-		previousPage.indexOf('category') + 9
-	);
 </script>
 
 <Header title={$page.data.title} />
@@ -67,26 +62,27 @@
 			{#if categories}
 				<ul class:show={showCategories} aria-labelledby="category">
 					{#each categories as category}
-						<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
-						<li
-							id={category.category.id}
-							on:click={() => {
-								categoryName = category.category.name;
-								showCategories = false;
-							}}>
-							<svg class="table-icon" fill="var(--cream-dark)"
-								><use xlink:href="#{category.category.iconId}" /></svg
-							>{category.category.name}
+						<li>
+							<button
+								type="button"
+								on:click={() => {
+									categoryName = category.category.name;
+									showCategories = false;
+								}}
+								><svg class="table-icon" fill="var(--cream-dark)"
+									><use xlink:href="#{category.category.iconId}" /></svg
+								>{category.category.name}</button>
 						</li>
 					{/each}
 
 					{#if categories.length === 0}
-						<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
-						<li
-							on:click={() => {
-								showCategories = false;
-							}}>
-							Category not found. It will be created when you submit the form.
+						<li>
+							<button
+								type="button"
+								on:click={() => {
+									showCategories = false;
+								}}>
+								Category not found. It will be created when you submit the form.</button>
 						</li>
 					{/if}
 				</ul>
@@ -273,7 +269,7 @@
 		display: none;
 	}
 
-	ul.show {
+	.show {
 		display: block;
 	}
 
@@ -288,6 +284,14 @@
 
 	li:hover svg {
 		fill: var(--remindwise-grey);
+	}
+
+	button {
+		width: 100%;
+		background: none;
+		border: none;
+		text-align: left;
+		cursor: pointer;
 	}
 
 	.category input {
