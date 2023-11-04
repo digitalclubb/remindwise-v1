@@ -390,7 +390,7 @@
 		background-color: var(--cream-light);
 		border: 1px solid var(--greyed-out);
 		border-radius: 6.6rem;
-		padding: 0.5rem 0.7rem;
+		padding: 0.8rem 1.5rem;
 		margin-bottom: 0;
 		cursor: pointer;
 	}
