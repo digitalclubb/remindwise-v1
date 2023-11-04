@@ -183,7 +183,7 @@
 						<ul class="options" class:active={clicked === index}>
 							<li>
 								<button
-									on:click={(e) => {
+									on:click={() => {
 										currentCategory = {
 											id: category.category.id,
 											name: category.category.name,

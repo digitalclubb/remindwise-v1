@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page, navigating } from '$app/stores';
+	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
 	import Header from '../../../components/header/Header.svelte';
 	import type { LayoutData } from './$houdini';
@@ -31,6 +31,22 @@
 
 	$: categoryName = reminder?.category?.name || '';
 	$: categoryId = categories?.[0]?.category.id || '';
+
+	let files: FileList;
+	let uploads: Array<File> = [];
+	const fileUpload = (files: FileList) => {
+		uploads = [...uploads, ...files];
+	};
+
+	const viewFile = () => {
+		// TODO: ?!
+	};
+
+	const deleteFile = (fileName: string) => {
+		const index = uploads.findIndex((upload: File) => upload.name === fileName);
+		uploads.splice(index, 1);
+		uploads = uploads;
+	};
 </script>
 
 <Header title={$page.data.title} />
@@ -60,7 +76,10 @@
 			<input type="hidden" bind:value={categoryId} name="categoryId" />
 
 			{#if categories}
-				<ul class:show={showCategories} aria-labelledby="category">
+				<ul
+					class="categories-list"
+					class:show={showCategories}
+					aria-labelledby="category">
 					{#each categories as category}
 						<li>
 							<button
@@ -231,14 +250,50 @@
 			<label for="notes">Notes</label>
 			<textarea
 				name="notes"
+				id="notes"
 				placeholder="Enter things like policy number, quick contact details for the company etc."
 				value={reminder?.notes || ''} />
 		</div>
 
-		<div>
-			<label for="documents">Would you like to upload any documents?</label>
-			<input type="file" id="documents" name="documents" />
-		</div>
+		<fieldset class="uploadFiles">
+			<legend>
+				{#if uploads.length > 0}
+					Your documents
+				{:else}
+					Would you like to upload any documents?
+				{/if}
+			</legend>
+			{#if uploads.length > 0}
+				<ul>
+					{#each uploads as upload}
+						<li class="upload">
+							<img src="/icon-pdf.svg" alt="" />
+							<span>{upload.name}</span>
+							<div class="buttons">
+								<button type="button" on:click={() => viewFile()}
+									><img src="/magnifying-glass.svg" alt="" /></button>
+								<button type="button" on:click={() => deleteFile(upload.name)}
+									><img src="/icon-bin.svg" alt="" /></button>
+							</div>
+						</li>
+					{/each}
+				</ul>
+			{/if}
+			<label for="documents"
+				><img src="/icon-upload.svg" alt="" />
+				{#if uploads.length > 0}
+					Add another document
+				{:else}
+					Browse for a file...
+				{/if}</label>
+			<input
+				type="file"
+				id="documents"
+				name="documents"
+				multiple
+				bind:files
+				on:change={() => fileUpload(files)} />
+		</fieldset>
 
 		<slot />
 
@@ -262,7 +317,7 @@
 		gap: 2rem;
 	}
 
-	ul {
+	.categories-list {
 		border-radius: 6px;
 		border: 1px solid var(--greyed-out);
 		background: var(--cream-light);
@@ -273,20 +328,20 @@
 		display: block;
 	}
 
-	li {
+	.categories-list li {
 		padding: 0.5rem 1rem;
 	}
 
-	li:hover {
+	.categories-list li:hover {
 		background: var(--cream);
 		cursor: pointer;
 	}
 
-	li:hover svg {
+	.categories-list li:hover svg {
 		fill: var(--remindwise-grey);
 	}
 
-	button {
+	.categories-list button {
 		width: 100%;
 		background: none;
 		border: none;
@@ -395,5 +450,52 @@
 		padding: 0.9rem 1.4rem;
 		width: 100%;
 		min-height: 25rem;
+	}
+
+	.uploadFiles input {
+		display: none;
+	}
+
+	.uploadFiles label {
+		display: inline-flex;
+		align-items: center;
+		background-color: var(--cream-light);
+		border: 1px solid var(--greyed-out);
+		border-radius: 6.6rem;
+		padding: 0.8rem 1.5rem;
+		margin-bottom: 0;
+		cursor: pointer;
+	}
+
+	.uploadFiles label:hover {
+		background-color: var(--cream);
+	}
+
+	.uploadFiles img {
+		width: 2.5rem;
+	}
+
+	.upload {
+		background-color: var(--cream-light);
+		border-radius: 0.6rem;
+		padding: 1.2rem 1.5rem;
+		display: flex;
+		align-items: center;
+		margin-bottom: 1rem;
+	}
+
+	.upload span {
+		flex: 1;
+		margin-left: 1.5rem;
+	}
+
+	.buttons button {
+		all: unset;
+		cursor: pointer;
+		margin-left: 1rem;
+	}
+
+	.buttons img {
+		width: 1.5rem;
 	}
 </style>
