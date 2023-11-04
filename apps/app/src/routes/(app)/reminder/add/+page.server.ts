@@ -1,4 +1,4 @@
-import { addReminderStore } from '$houdini';
+import { addCategoryStore, addReminderStore } from '$houdini';
 import { redirect } from '@sveltejs/kit';
 
 import type { Type, Frequency } from '@graphql/types';
@@ -7,8 +7,10 @@ export const actions = {
 	addReminder: async (event) => {
 		const data = await event.request.formData();
 
-		const userid = data.get('userId') as string;
-		const categoryId = parseInt(data.get('categoryId') as string);
+		const categoryId = data.get('categoryId')
+			? parseInt(data.get('categoryId') as string)
+			: -1;
+		const category = data.get('category') as string;
 		const name = data.get('name') as string;
 		const type = data.get('type') as Type;
 		const company = data.get('company') as string;
@@ -19,12 +21,29 @@ export const actions = {
 		const frequency = data.get('frequency') as Frequency;
 		const autoRenewal = data.get('autoRenew') ? !!data.get('autoRenew') : null;
 		const notes = data.get('notes') as string;
+		const userId = data.get('userId') as string;
+
+		let newId: number | undefined;
+		if (categoryId === -1) {
+			const addCategory = new addCategoryStore();
+
+			const result = await addCategory.mutate(
+				{
+					category,
+					isLocked: false,
+					iconId: 'flag',
+					userId,
+				},
+				{ event }
+			);
+			newId = result.data?.insertIntocategoriesCollection?.records[0].id;
+		}
 
 		const addReminder = new addReminderStore();
 		await addReminder.mutate(
 			{
-				userid,
-				categoryId,
+				userId,
+				categoryId: newId || categoryId,
 				name,
 				type,
 				company,

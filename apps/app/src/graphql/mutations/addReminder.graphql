@@ -1,5 +1,5 @@
 mutation addReminder(
-	$userid: UUID!
+	$userId: UUID!
 	$categoryId: BigInt!
 	$name: String!
 	$type: Type!
@@ -13,7 +13,7 @@ mutation addReminder(
 	insertIntoremindersCollection(
 		objects: [
 			{
-				userid: $userid
+				userid: $userId
 				categoryId: $categoryId
 				name: $name
 				type: $type
