@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page, navigating } from '$app/stores';
+	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
 	import Header from '../../../components/header/Header.svelte';
 	import type { LayoutData } from './$houdini';
@@ -10,7 +10,7 @@
 	} from '$houdini';
 
 	export let data: LayoutData;
-
+	let showCategories: boolean;
 	$: ({ getCategories } = data);
 
 	let result = {} as QueryResult<getReminder$result>;
@@ -21,22 +21,24 @@
 		result = value;
 	});
 
-	$: categories = $getCategories.data?.categories?.list;
+	$: categories = $getCategories.data?.categories?.list.filter((category) =>
+		category.category.name.startsWith(categoryName)
+	);
 
 	$: type = reminder?.type || '';
 	$: autoRenew = String(reminder?.autoRenewal) || '';
 	$: frequency = reminder?.frequency || '';
 
-	const previousPage = $navigating?.from ? $navigating.from.url.pathname : '/';
-	const previousCategory = previousPage.substring(
-		previousPage.indexOf('category') + 9
-	);
+	$: categoryName = reminder?.category?.name || '';
+	$: categoryId = categories?.[0]?.category.id || '';
 
 	let files: FileList;
 	let uploads: Array<File> = [];
 	const fileUpload = (files: FileList) => {
 		uploads = [...uploads, ...files];
 	};
+
+	$: console.log(uploads);
 
 	const viewFile = () => {
 		// TODO: ?!
@@ -53,24 +55,56 @@
 
 <div class="body">
 	<form method="POST" action={$page.data.action} use:enhance>
-		<div>
-			<label for="categoryId">Category</label>
-			<select
-				name="categoryId"
-				id="categoryId"
-				required
-				value={reminder?.category?.id || categories?.[0].category.id}>
-				{#if $getCategories.fetching}
-					<option value="">Loading...</option>
-				{:else if categories}
+		<div class="category">
+			<label for="category">Category<i aria-hidden="true">*</i></label>
+			<input
+				type="text"
+				name="category"
+				id="category"
+				placeholder="Type to select or create a new category"
+				value={categoryName}
+				on:input={(e) => {
+					categoryName = e.currentTarget.value;
+					if (categoryName.length > 1) {
+						showCategories = true;
+					} else {
+						showCategories = false;
+					}
+				}}
+				autocomplete="off"
+				aria-haspopup="listbox"
+				required />
+
+			<input type="hidden" bind:value={categoryId} name="categoryId" />
+
+			{#if categories}
+				<ul class:show={showCategories} aria-labelledby="category">
 					{#each categories as category}
-						<option
-							value={category.category.id}
-							selected={previousCategory === category.category.name}
-							>{category.category.name}</option>
+						<li>
+							<button
+								type="button"
+								on:click={() => {
+									categoryName = category.category.name;
+									showCategories = false;
+								}}
+								><svg class="table-icon" fill="var(--cream-dark)"
+									><use xlink:href="#{category.category.iconId}" /></svg
+								>{category.category.name}</button>
+						</li>
 					{/each}
-				{/if}
-			</select>
+
+					{#if categories.length === 0}
+						<li>
+							<button
+								type="button"
+								on:click={() => {
+									showCategories = false;
+								}}>
+								Category not found. It will be created when you submit the form.</button>
+						</li>
+					{/if}
+				</ul>
+			{/if}
 		</div>
 
 		<div>
@@ -92,7 +126,8 @@
 					name="type"
 					id="ongoing"
 					value="ONGOING"
-					bind:group={type}
+					checked={type === 'ONGOING'}
+					on:change={() => (type = 'ONGOING')}
 					required />
 				<label for="ongoing">Ongoing subscription</label>
 			</div>
@@ -102,7 +137,8 @@
 					name="type"
 					id="single"
 					value="SINGLE"
-					bind:group={type}
+					checked={type === 'SINGLE'}
+					on:change={() => (type = 'SINGLE')}
 					required />
 				<label for="single">Single record</label>
 			</div>
@@ -152,7 +188,8 @@
 							id="annual"
 							value="ANNUAL"
 							required
-							bind:group={frequency} />
+							checked={frequency === 'ANNUAL'}
+							on:change={() => (frequency = 'ANNUAL')} />
 						<label for="annual">Annual</label>
 					</div>
 					<div class="option option-last">
@@ -162,7 +199,8 @@
 							id="monthly"
 							value="MONTHLY"
 							required
-							bind:group={frequency} />
+							checked={frequency === 'MONTHLY'}
+							on:change={() => (frequency = 'MONTHLY')} />
 						<label for="monthly">Monthly</label>
 					</div>
 				</fieldset>
@@ -189,7 +227,8 @@
 							name="autoRenew"
 							id="yes"
 							value="true"
-							bind:group={autoRenew} />
+							checked={autoRenew === 'true'}
+							on:change={() => (autoRenew = 'true')} />
 						<label for="yes">Yes</label>
 					</div>
 					<div class="option option-last">
@@ -198,7 +237,8 @@
 							name="autoRenew"
 							id="no"
 							value="false"
-							bind:group={autoRenew} />
+							checked={autoRenew === 'false'}
+							on:change={() => (autoRenew = 'false')} />
 						<label for="no">No</label>
 					</div>
 				</fieldset>
@@ -229,7 +269,7 @@
 							<img src="/icon-pdf.svg" alt="" />
 							<span>{upload.name}</span>
 							<div class="buttons">
-								<button type="button" on:click={() => viewFile(upload.name)}
+								<button type="button" on:click={() => viewFile()}
 									><img src="/magnifying-glass.svg" alt="" /></button>
 								<button type="button" on:click={() => deleteFile(upload.name)}
 									><img src="/icon-bin.svg" alt="" /></button>
@@ -276,8 +316,39 @@
 		gap: 2rem;
 	}
 
-	select {
+	ul {
+		border-radius: 6px;
+		border: 1px solid var(--greyed-out);
+		background: var(--cream-light);
+		display: none;
+	}
+
+	.show {
 		display: block;
+	}
+
+	li {
+		padding: 0.5rem 1rem;
+	}
+
+	li:hover {
+		background: var(--cream);
+		cursor: pointer;
+	}
+
+	li:hover svg {
+		fill: var(--remindwise-grey);
+	}
+
+	button {
+		width: 100%;
+		background: none;
+		border: none;
+		text-align: left;
+		cursor: pointer;
+	}
+
+	.category input {
 		width: 100%;
 	}
 
