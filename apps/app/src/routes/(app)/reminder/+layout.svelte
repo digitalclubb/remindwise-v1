@@ -32,10 +32,20 @@
 		previousPage.indexOf('category') + 9
 	);
 
-	let files;
-	let uploads = [];
-	const fileUpload = (file) => {
-		uploads = [...uploads, file];
+	let files: FileList;
+	let uploads: Array<File> = [];
+	const fileUpload = (files: FileList) => {
+		uploads = [...uploads, ...files];
+	};
+
+	const viewFile = (file: String) => {
+		// TODO: ?!
+	};
+
+	const deleteFile = (fileName: String) => {
+		const index = uploads.findIndex((upload: File) => upload.name === fileName);
+		uploads.splice(index, 1);
+		uploads = uploads;
 	};
 </script>
 
@@ -199,6 +209,7 @@
 			<label for="notes">Notes</label>
 			<textarea
 				name="notes"
+				id="notes"
 				placeholder="Enter things like policy number, quick contact details for the company etc."
 				value={reminder?.notes || ''} />
 		</div>
@@ -212,22 +223,35 @@
 				{/if}
 			</legend>
 			{#if uploads.length > 0}
-			<ul class="uploads">
-				{#each uploads as upload}
-					<li class="upload">
-						<img src="/icon-pdf.svg" alt="" />
-						<span>{upload.name}</span>
-						<div>
-							<button><img src="/magnifying-glass.svg" alt="" /></button>
-							<button></button>
-						</div>
-					</li>
-				{/each}
-			</ul>
+				<ul class="uploads">
+					{#each uploads as upload}
+						<li class="upload">
+							<img src="/icon-pdf.svg" alt="" />
+							<span>{upload.name}</span>
+							<div class="buttons">
+								<button type="button" on:click={() => viewFile(upload.name)}
+									><img src="/magnifying-glass.svg" alt="" /></button>
+								<button type="button" on:click={() => deleteFile(upload.name)}
+									><img src="/icon-bin.svg" alt="" /></button>
+							</div>
+						</li>
+					{/each}
+				</ul>
 			{/if}
-			<label for="documents"><img src="/icon-upload.svg" alt="" /> Browse for a file...</label>
-			<input type="file" id="documents" name="documents" multiple bind:files on:change={() => fileUpload(files[0])} />
-
+			<label for="documents"
+				><img src="/icon-upload.svg" alt="" />
+				{#if uploads.length > 0}
+					Add another document
+				{:else}
+					Browse for a file...
+				{/if}</label>
+			<input
+				type="file"
+				id="documents"
+				name="documents"
+				multiple
+				bind:files
+				on:change={() => fileUpload(files)} />
 		</fieldset>
 
 		<slot />
@@ -376,7 +400,7 @@
 	}
 
 	.uploadFiles img {
-		width: 2.8rem;
+		width: 2.5rem;
 	}
 
 	.upload {
@@ -384,10 +408,21 @@
 		padding: 1.2rem 1.5rem;
 		display: flex;
 		align-items: center;
+		margin-bottom: 1rem;
 	}
 
 	.upload span {
 		flex: 1;
 		margin-left: 1.5rem;
+	}
+
+	.buttons button {
+		all: unset;
+		cursor: pointer;
+		margin-left: 1rem;
+	}
+
+	.buttons img {
+		width: 1.5rem;
 	}
 </style>
