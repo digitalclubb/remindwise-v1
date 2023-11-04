@@ -405,6 +405,7 @@
 
 	.upload {
 		background-color: var(--cream-light);
+		border-radius: 0.6rem;
 		padding: 1.2rem 1.5rem;
 		display: flex;
 		align-items: center;
