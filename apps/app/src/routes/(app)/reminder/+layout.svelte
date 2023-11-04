@@ -16,6 +16,12 @@
 	const previousCategory = previousPage.substring(
 		previousPage.indexOf('category') + 9
 	);
+
+	let files;
+	let uploads = [];
+	const fileUpload = (file) => {
+		uploads = [...uploads, file];
+	};
 </script>
 
 <Header title="Add a reminder" />
@@ -174,10 +180,32 @@
 				placeholder="Enter things like policy number, quick contact details for the company etc." />
 		</div>
 
-		<div>
-			<label for="documents">Would you like to upload any documents?</label>
-			<input type="file" id="documents" name="documents" />
-		</div>
+		<fieldset class="uploadFiles">
+			<legend>
+				{#if uploads.length > 0}
+					Your documents
+				{:else}
+					Would you like to upload any documents?
+				{/if}
+			</legend>
+			{#if uploads.length > 0}
+			<ul class="uploads">
+				{#each uploads as upload}
+					<li class="upload">
+						<img src="/icon-pdf.svg" alt="" />
+						<span>{upload.name}</span>
+						<div>
+							<button><img src="/magnifying-glass.svg" alt="" /></button>
+							<button></button>
+						</div>
+					</li>
+				{/each}
+			</ul>
+			{/if}
+			<label for="documents"><img src="/icon-upload.svg" alt="" /> Browse for a file...</label>
+			<input type="file" id="documents" name="documents" multiple bind:files on:change={() => fileUpload(files[0])} />
+
+		</fieldset>
 
 		<div class="submit">
 			<!-- Add on /add, Save on /edit-->
@@ -306,6 +334,41 @@
 		padding: 0.9rem 1.4rem;
 		width: 100%;
 		min-height: 25rem;
+	}
+
+	.uploadFiles input {
+		display: none;
+	}
+
+	.uploadFiles label {
+		display: inline-flex;
+		align-items: center;
+		background-color: var(--cream-light);
+		border: 1px solid var(--greyed-out);
+		border-radius: 6.6rem;
+		padding: 0.5rem 0.7rem;
+		margin-bottom: 0;
+		cursor: pointer;
+	}
+
+	.uploadFiles label:hover {
+		background-color: var(--cream);
+	}
+
+	.uploadFiles img {
+		width: 2.8rem;
+	}
+
+	.upload {
+		background-color: var(--cream-light);
+		padding: 1.2rem 1.5rem;
+		display: flex;
+		align-items: center;
+	}
+
+	.upload span {
+		flex: 1;
+		margin-left: 1.5rem;
 	}
 
 	.submit {
