@@ -76,7 +76,8 @@
 					name="type"
 					id="ongoing"
 					value="ONGOING"
-					bind:group={type}
+					checked={type === 'ONGOING'}
+					on:change={() => (type = 'ONGOING')}
 					required />
 				<label for="ongoing">Ongoing subscription</label>
 			</div>
@@ -86,7 +87,8 @@
 					name="type"
 					id="single"
 					value="SINGLE"
-					bind:group={type}
+					checked={type === 'SINGLE'}
+					on:change={() => (type = 'SINGLE')}
 					required />
 				<label for="single">Single record</label>
 			</div>
@@ -136,7 +138,8 @@
 							id="annual"
 							value="ANNUAL"
 							required
-							bind:group={frequency} />
+							checked={frequency === 'ANNUAL'}
+							on:change={() => (frequency = 'ANNUAL')} />
 						<label for="annual">Annual</label>
 					</div>
 					<div class="option option-last">
@@ -146,7 +149,8 @@
 							id="monthly"
 							value="MONTHLY"
 							required
-							bind:group={frequency} />
+							checked={frequency === 'MONTHLY'}
+							on:change={() => (frequency = 'MONTHLY')} />
 						<label for="monthly">Monthly</label>
 					</div>
 				</fieldset>
@@ -173,7 +177,8 @@
 							name="autoRenew"
 							id="yes"
 							value="true"
-							bind:group={autoRenew} />
+							checked={autoRenew === 'true'}
+							on:change={() => (autoRenew = 'true')} />
 						<label for="yes">Yes</label>
 					</div>
 					<div class="option option-last">
@@ -182,7 +187,8 @@
 							name="autoRenew"
 							id="no"
 							value="false"
-							bind:group={autoRenew} />
+							checked={autoRenew === 'false'}
+							on:change={() => (autoRenew = 'false')} />
 						<label for="no">No</label>
 					</div>
 				</fieldset>
