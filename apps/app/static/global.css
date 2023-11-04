@@ -157,6 +157,19 @@ table {
 	scroll-snap-type: x mandatory;
 }
 
+table::-webkit-scrollbar {
+	height: 0.7rem;
+}
+
+table::-webkit-scrollbar-track {
+	background-color: var(--cream);
+}
+
+table::-webkit-scrollbar-thumb {
+	background-color: var(--orange);
+	border-radius: 0.6rem;
+}
+
 th {
 	background-color: var(--cream);
 	padding: 1rem 2rem;
