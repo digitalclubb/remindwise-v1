@@ -52,10 +52,14 @@
 				value={categoryName}
 				on:input={(e) => {
 					categoryName = e.currentTarget.value;
+					if (categoryName.length > 1) {
+						showCategories = true;
+					} else {
+						showCategories = false;
+					}
 				}}
 				autocomplete="off"
 				aria-haspopup="listbox"
-				on:focus={() => (showCategories = true)}
 				required />
 
 			<input type="hidden" bind:value={categoryId} name="categoryId" />
