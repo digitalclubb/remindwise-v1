@@ -38,8 +38,6 @@
 		uploads = [...uploads, ...files];
 	};
 
-	$: console.log(uploads);
-
 	const viewFile = () => {
 		// TODO: ?!
 	};
@@ -78,7 +76,10 @@
 			<input type="hidden" bind:value={categoryId} name="categoryId" />
 
 			{#if categories}
-				<ul class:show={showCategories} aria-labelledby="category">
+				<ul
+					class="categories-list"
+					class:show={showCategories}
+					aria-labelledby="category">
 					{#each categories as category}
 						<li>
 							<button
@@ -263,7 +264,7 @@
 				{/if}
 			</legend>
 			{#if uploads.length > 0}
-				<ul class="uploads">
+				<ul>
 					{#each uploads as upload}
 						<li class="upload">
 							<img src="/icon-pdf.svg" alt="" />
@@ -316,7 +317,7 @@
 		gap: 2rem;
 	}
 
-	ul {
+	.categories-list {
 		border-radius: 6px;
 		border: 1px solid var(--greyed-out);
 		background: var(--cream-light);
@@ -327,20 +328,20 @@
 		display: block;
 	}
 
-	li {
+	.categories-list li {
 		padding: 0.5rem 1rem;
 	}
 
-	li:hover {
+	.categories-list li:hover {
 		background: var(--cream);
 		cursor: pointer;
 	}
 
-	li:hover svg {
+	.categories-list li:hover svg {
 		fill: var(--remindwise-grey);
 	}
 
-	button {
+	.categories-list button {
 		width: 100%;
 		background: none;
 		border: none;
