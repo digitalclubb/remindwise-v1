@@ -38,11 +38,11 @@
 		uploads = [...uploads, ...files];
 	};
 
-	const viewFile = (file: String) => {
+	const viewFile = () => {
 		// TODO: ?!
 	};
 
-	const deleteFile = (fileName: String) => {
+	const deleteFile = (fileName: string) => {
 		const index = uploads.findIndex((upload: File) => upload.name === fileName);
 		uploads.splice(index, 1);
 		uploads = uploads;
