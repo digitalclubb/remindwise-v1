@@ -61,10 +61,12 @@
 				<span class="highlight">automatically</span>
 			</p>
 
-			<h2 class="heading-4">Things to remember</h2>
-			<p class="remember">
-				{reminder.notes}
-			</p>
+			{#if reminder.notes}
+				<h2 class="heading-4">Things to remember</h2>
+				<p class="remember">
+					{reminder.notes}
+				</p>
+			{/if}
 		</div>
 
 		<aside>
