@@ -46,6 +46,7 @@
 
 	.secondary:hover {
 		background-color: var(--cream);
+		border-color: var(--cream-dark);
 	}
 
 	.tertiary {

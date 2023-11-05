@@ -18,8 +18,9 @@
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div on:click|stopPropagation>
 		<slot />
-		<div class="actions" class:small={size === 'small'}>
-			<Button style="secondary" onClick={() => dialog.close()}>Cancel</Button>
+		<div class="actions">
+			<Button type="button" style="secondary" onClick={() => dialog.close()}
+				>Cancel</Button>
 			<slot name="action" />
 		</div>
 	</div>
@@ -28,15 +29,14 @@
 <style>
 	dialog {
 		width: 75rem;
-		height: 75rem;
 		border-radius: 0.5rem;
 		border: none;
 		padding: 0;
+		color: var(--grey);
 	}
 
 	.small {
 		width: 36.9rem;
-		height: 28rem;
 	}
 
 	dialog::backdrop {
@@ -80,9 +80,7 @@
 	}
 
 	.small .actions {
-		width: inherit;
-		height: inherit;
 		justify-content: center;
-		margin-top: 1rem;
+		margin-top: 2rem;
 	}
 </style>
