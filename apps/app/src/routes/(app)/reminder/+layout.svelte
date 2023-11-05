@@ -271,7 +271,7 @@
 							<span>{upload.name}</span>
 							<div class="buttons">
 								<button type="button" on:click={() => viewFile()}
-									><img src="/magnifying-glass.svg" alt="" /></button>
+									><img src="/icon-view.svg" alt="" /></button>
 								<button type="button" on:click={() => deleteFile(upload.name)}
 									><img src="/icon-bin.svg" alt="" /></button>
 							</div>
@@ -286,11 +286,13 @@
 				{:else}
 					Browse for a file...
 				{/if}</label>
+			<div class="types">(.jpg, .jpeg, .png, .pdf)</div>
 			<input
 				type="file"
 				id="documents"
 				name="documents"
 				multiple
+				accept=".jpg, .jpeg, .png, .pdf"
 				bind:files
 				on:change={() => fileUpload(files)} />
 		</fieldset>
@@ -473,6 +475,10 @@
 
 	.uploadFiles img {
 		width: 2.5rem;
+	}
+
+	.types {
+		color: var(--grey-light);
 	}
 
 	.upload {

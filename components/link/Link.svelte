@@ -23,10 +23,12 @@
 		display: flex;
 		align-items: center;
 		color: var(--orange);
+		text-decoration: none;
 	}
 
 	a:hover {
 		color: var(--orange-dark);
+		text-decoration: underline;
 	}
 
 	.button {
