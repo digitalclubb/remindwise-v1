@@ -109,11 +109,16 @@
 </script>
 
 <nav>
-	<figure>
-		<img src="/logo.svg" alt="remindwise.io logo" width="170" height="27" />
+	<div class="header">
+		<img
+			src="/logo.svg"
+			alt="remindwise.io logo"
+			class="logo"
+			width="170"
+			height="27" />
 		<button on:click={() => (showNavigation = true)}
-			><svg fill="var(--orange)"><use xlink:href="#menu" /></svg></button>
-	</figure>
+			><img src="/icon-menu.svg" class="menu" alt="View menu icon" /></button>
+	</div>
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div
@@ -132,22 +137,20 @@
 				<li>{$settingsStore.errors}</li>
 			{:else if settings}
 				<h3>
-					<svg fill="var(--cream)"><use xlink:href="#user" /></svg
-					>{getUsername()}
+					<img src="/icon-profile.svg" alt="" />
+					{getUsername()}
 				</h3>
 			{/if}
 
 			<Link type="button" href="/reminder/add"
-				><svg fill="var(--white)"><use xlink:href="#plus" /></svg>Add a new
-				reminder</Link>
+				><img class="add" src="/icon-add.svg" alt="" /> Add a new reminder</Link>
 		</div>
 		<ul class="categories">
 			<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
 			<li
 				class:selected={selected === ''}
 				on:click={() => (showNavigation = false)}>
-				<a href="/"
-					><svg fill="var(--cream)"><use xlink:href="#bar-graph" /></svg> Dashboard</a>
+				<a href="/"><img src="/icon-dashboard.svg" alt="" /> Dashboard</a>
 			</li>
 			{#if $categoriesStore.fetching}
 				<li>Loading...</li>
@@ -176,10 +179,7 @@
 							on:click={(e) => {
 								e.stopPropagation();
 								onClickOptions(index);
-							}}
-							><svg fill="var(--cream)"
-								><use xlink:href="#dots-three-horizontal" /></svg
-							></button>
+							}}><img src="/icon-edit.svg" alt="" /></button>
 						<ul class="options" class:active={clicked === index}>
 							<li>
 								<button
@@ -191,7 +191,7 @@
 										};
 										showAddModal = true;
 										clicked = -1;
-									}}>Rename <svg><use xlink:href="#pencil" /></svg></button>
+									}}>Rename <img src="/icon-rename.svg" alt="" /></button>
 							</li>
 							<li>
 								<button
@@ -203,14 +203,14 @@
 										};
 										showDeleteModal = true;
 										clicked = -1;
-									}}>Delete<svg><use xlink:href="#trash" /></svg></button>
+									}}>Delete <img src="/icon-delete.svg" alt="" /></button>
 							</li>
 						</ul>
 					</li>
 				{/each}
 			{/if}
 			<li class="add-category">
-				<svg fill="var(--cream)"><use xlink:href="#plus" /></svg>
+				<img src="/icon-add.svg" alt="" />
 				<Button
 					style="tertiary"
 					onClick={() => {
@@ -220,13 +220,13 @@
 			</li>
 		</ul>
 		<ul class="settings">
-			<li><a href="/help"><svg><use xlink:href="#help" /></svg> Help</a></li>
+			<li><a href="/help"><img src="/icon-help.svg" alt="" /> Help</a></li>
 			<li>
-				<a href="/settings"><svg><use xlink:href="#cog" /></svg> Settings</a>
+				<a href="/settings"><img src="/icon-settings.svg" alt="" /> Settings</a>
 			</li>
 			<li>
 				<a href="/" on:click={signOut}
-					><svg><use xlink:href="#log-out" /></svg> Logout</a>
+					><img src="/icon-logout.svg" alt="" /> Logout</a>
 			</li>
 		</ul>
 	</div>
@@ -251,7 +251,8 @@
 				placeholder={currentCategory
 					? 'Enter a new name for your category'
 					: 'Enter a name for your category'}
-				value={currentCategory?.name || ''} />
+				value={currentCategory?.name || ''}
+				required />
 
 			<p>
 				{currentCategory
@@ -336,7 +337,14 @@
 		height: calc(100% - 8.8rem);
 	}
 
-	figure {
+	.content svg,
+	.content img {
+		height: 1.8rem;
+		width: 1.8rem;
+		vertical-align: middle;
+	}
+
+	.header {
 		align-self: flex-start;
 		padding: 2.2rem 2.1rem;
 		display: flex;
@@ -345,7 +353,12 @@
 		width: 100%;
 	}
 
-	figure svg {
+	.logo {
+		width: 14rem;
+		height: 2.7rem;
+	}
+
+	.menu {
 		height: 3rem;
 		width: 3rem;
 		align-self: flex-end;
@@ -376,10 +389,16 @@
 		gap: 1rem;
 		margin: 0;
 	}
-	.profile h3 svg {
+	.profile img {
 		margin-left: 1rem;
+		height: 1.7rem;
+		width: 1.7rem;
+	}
+
+	.add {
+		display: inline-block;
 		height: 1.4rem;
-		width: 1.4rem;
+		margin-right: 0.9rem;
 	}
 
 	.categories {
@@ -430,7 +449,7 @@
 		background-color: var(--grey-dark);
 	}
 
-	.selected a svg {
+	.selected a img {
 		fill: var(--orange);
 	}
 
@@ -449,16 +468,10 @@
 		color: var(--remindwise-grey);
 	}
 
-	svg {
-		height: 1.8rem;
-		width: 1.8rem;
-		vertical-align: middle;
-	}
-
 	.icons {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 1rem;
+		gap: 0.5rem;
 		height: 20%;
 		overflow-y: auto;
 	}
@@ -475,7 +488,8 @@
 	}
 
 	.icons svg {
-		margin-right: 0.1rem;
+		width: 2.6rem;
+		height: 2.6rem;
 	}
 
 	input[type='radio'] {
@@ -502,7 +516,7 @@
 		margin-bottom: 2.6rem;
 	}
 
-	.settings svg {
+	.settings img {
 		fill: var(--cream);
 	}
 
@@ -554,7 +568,7 @@
 		width: 100%;
 	}
 
-	.options svg {
+	.options img {
 		fill: var(--cream);
 	}
 
@@ -591,13 +605,13 @@
 			top: unset;
 		}
 
-		figure {
+		.header {
 			align-self: center;
 			padding: 2.5rem 4rem;
 			width: inherit;
 		}
 
-		figure svg {
+		.menu {
 			display: none;
 		}
 
@@ -608,7 +622,7 @@
 			gap: 2.2rem;
 		}
 
-		.profile h3 svg {
+		.profile img {
 			margin-left: 0;
 		}
 

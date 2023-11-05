@@ -70,7 +70,7 @@
 									href="/category/{reminder.reminder.category?.name}/{reminder
 										.reminder.id}"
 									class="table-link">
-									<img src="/magnifying-glass.svg" alt="" />
+									<img src="/icon-view.svg" alt="" />
 								</a>
 							</td>
 						</tr>
@@ -125,7 +125,7 @@
 									href="/category/{reminder.reminder.category?.name}/{reminder
 										.reminder.id}"
 									class="table-link">
-									<img src="/magnifying-glass.svg" alt="" />
+									<img src="/icon-view.svg" alt="" />
 								</a>
 							</td>
 						</tr>

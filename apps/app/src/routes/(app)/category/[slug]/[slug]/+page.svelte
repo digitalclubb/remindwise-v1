@@ -44,9 +44,10 @@
 				{reminder.name} <span>{reminder.category?.name}</span>
 			</h1>
 			<Link href={`/reminder/edit/${$page.params.slug}`}
-				>Edit reminder <svg fill="var(--orange)"
-					><use xlink:href="#pencil" /></svg
-				></Link>
+				>Edit reminder <img
+					src="/icon-edit-category.svg"
+					class="edit"
+					alt="" /></Link>
 		</div>
 
 		<div class="content">
@@ -74,7 +75,7 @@
 					<a href="">
 						<img src="/icon-pdf.svg" alt="" />
 						<p>Manypets-renewal-invation.Pdf</p>
-						<img src="/magnifying-glass.svg" alt="" />
+						<img src="/icon-view.svg" alt="" />
 					</a>
 				</li>
 				<li>
@@ -82,7 +83,7 @@
 					<a href="">
 						<img src="/icon-pdf.svg" alt="" />
 						<p>Manypets-renewal-invation.Pdf</p>
-						<img src="/magnifying-glass.svg" alt="" />
+						<img src="/icon-view.svg" alt="" />
 					</a>
 				</li>
 			</ul>
@@ -117,9 +118,10 @@
 		margin-left: 2.4rem;
 	}
 
-	svg {
-		width: 1.8rem;
-		height: 1.8rem;
+	.edit {
+		width: 2rem;
+		height: 2rem;
+		margin-left: 0.8rem;
 	}
 
 	.content {
