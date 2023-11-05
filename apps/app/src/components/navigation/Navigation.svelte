@@ -110,12 +110,13 @@
 
 <nav>
 	<div class="header">
-		<img
-			src="/logo.svg"
-			alt="remindwise.io logo"
-			class="logo"
-			width="170"
-			height="27" />
+		<a href="/"
+			><img
+				src="/logo.svg"
+				alt="remindwise.io logo"
+				class="logo"
+				width="170"
+				height="27" /></a>
 		<button on:click={() => (showNavigation = true)}
 			><img src="/icon-menu.svg" class="menu" alt="View menu icon" /></button>
 	</div>
@@ -431,7 +432,7 @@
 		font-weight: 300;
 	}
 
-	a {
+	.content a {
 		color: var(--cream);
 		text-decoration: none;
 		display: flex;
@@ -441,7 +442,7 @@
 		padding: 1rem 0 1rem 3.4rem;
 	}
 
-	a:hover {
+	.content a:hover {
 		color: var(--orange);
 	}
 
@@ -626,7 +627,7 @@
 			margin-left: 0;
 		}
 
-		a {
+		.content a {
 			padding: 1rem 0 1rem 4rem;
 		}
 	}

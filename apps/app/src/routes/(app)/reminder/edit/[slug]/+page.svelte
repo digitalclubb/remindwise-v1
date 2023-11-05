@@ -41,8 +41,8 @@
 
 <Modal size="small" bind:showModal>
 	<div class="deleteModal">
-		<h2>Are you sure you want to delete this reminder?</h2>
-		<p>This action can't be undone.</p>
+		<h2 class="heading-3">Are you sure you want to delete this reminder?</h2>
+		<p>This action can't be undone</p>
 	</div>
 
 	<Button type="button" slot="action" style="delete" onClick={onDelete}
@@ -59,5 +59,13 @@
 	.actions div {
 		display: flex;
 		gap: 1rem;
+	}
+
+	.deleteModal {
+		text-align: center;
+	}
+
+	.deleteModal p {
+		font-weight: 300;
 	}
 </style>
