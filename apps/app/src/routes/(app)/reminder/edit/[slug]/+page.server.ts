@@ -63,6 +63,8 @@ export const actions = {
 			const { error } = await event.locals.supabase.storage
 				.from('documents')
 				.upload(`${userId}/${file.name}`, file);
+
+			// TODO: Handle this gracefully!
 			if (error) {
 				throw error;
 			}
