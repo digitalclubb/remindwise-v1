@@ -6,6 +6,8 @@
 
 	export let data: PageData;
 
+	console.log(data);
+
 	$: ({ getReminder } = data);
 	$: reminder = $getReminder.data?.reminders?.list[0].reminder;
 
