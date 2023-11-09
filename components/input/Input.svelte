@@ -34,6 +34,7 @@
 		border: 1px solid var(--greyed-out);
 		border-radius: 0.6rem;
 		padding: 0.9rem 1.4rem;
+		width: 100%;
 	}
 
 	.inline {

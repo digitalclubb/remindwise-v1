@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { Button, Input } from 'components';
+	import Header from '../../../../components/header/Header.svelte';
 
 	export let form;
 </script>
 
-<h1>Settings</h1>
+<Header title="Settings" />
 
 <section>
 	<h2>Update Password</h2>
