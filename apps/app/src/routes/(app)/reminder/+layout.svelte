@@ -38,10 +38,6 @@
 		uploads = [...uploads, ...files];
 	};
 
-	const viewFile = () => {
-		// TODO: ?!
-	};
-
 	const deleteFile = (fileName: string) => {
 		const index = uploads.findIndex((upload: File) => upload.name === fileName);
 		uploads.splice(index, 1);
@@ -52,7 +48,11 @@
 <Header title={$page.data.title} />
 
 <div class="body">
-	<form method="POST" action={$page.data.action} use:enhance>
+	<form
+		method="POST"
+		action={$page.data.action}
+		enctype="multipart/form-data"
+		use:enhance>
 		<div class="category">
 			<label for="category">Category<i aria-hidden="true">*</i></label>
 			<input
@@ -270,7 +270,7 @@
 							<img src="/icon-pdf.svg" alt="" />
 							<span>{upload.name}</span>
 							<div class="buttons">
-								<button type="button" on:click={() => viewFile()}
+								<button type="button"
 									><img src="/icon-view.svg" alt="" /></button>
 								<button type="button" on:click={() => deleteFile(upload.name)}
 									><img src="/icon-bin.svg" alt="" /></button>
@@ -290,7 +290,7 @@
 			<input
 				type="file"
 				id="documents"
-				name="documents"
+				name="file"
 				multiple
 				accept=".jpg, .jpeg, .png, .pdf"
 				bind:files

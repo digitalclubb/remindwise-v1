@@ -24,6 +24,8 @@ export const actions = {
 		const userId = data.get('userId') as string;
 
 		let newId: number | undefined;
+
+		// Add new category if added
 		if (categoryId === -1) {
 			const addCategory = new addCategoryStore();
 
@@ -39,6 +41,7 @@ export const actions = {
 			newId = result.data?.insertIntocategoriesCollection?.records[0].id;
 		}
 
+		// Add the new reminder
 		const addReminder = new addReminderStore();
 		await addReminder.mutate(
 			{
@@ -55,6 +58,8 @@ export const actions = {
 			},
 			{ event }
 		);
+
+		// Add documents to storage
 
 		// TODO on reminder add we want to take them to the categories page? the list might not be updated so need to look into how to bust cache
 		throw redirect(303, '/');
