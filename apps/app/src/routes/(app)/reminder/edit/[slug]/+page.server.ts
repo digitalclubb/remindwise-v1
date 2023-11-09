@@ -22,7 +22,7 @@ export const actions = {
 		const autoRenewal = data.get('autoRenew') ? !!data.get('autoRenew') : null;
 		const notes = data.get('notes') as string;
 		const userId = data.get('userId') as string;
-		const files = data.getAll('file') as File[];
+		const files = data.getAll('documents') as File[];
 
 		const updateReminder = new updateReminderStore();
 

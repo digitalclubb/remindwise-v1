@@ -290,7 +290,7 @@
 			<input
 				type="file"
 				id="documents"
-				name="file"
+				name="documents"
 				multiple
 				accept=".jpg, .jpeg, .png, .pdf"
 				bind:files
