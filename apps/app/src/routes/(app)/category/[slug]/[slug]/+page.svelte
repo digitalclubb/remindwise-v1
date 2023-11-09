@@ -6,10 +6,9 @@
 
 	export let data: PageData;
 
-	console.log(data);
+	$: console.log('FILE', data.file);
 
-	$: ({ getReminder } = data);
-	$: reminder = $getReminder.data?.reminders?.list[0].reminder;
+	$: reminder = data?.data?.reminders?.list[0].reminder;
 
 	$: cost = reminder
 		? new Intl.NumberFormat('en-GB', {
@@ -38,7 +37,7 @@
 <Header {back} />
 
 <article class="body">
-	{#if $getReminder.fetching}
+	{#if !data?.data}
 		loading...
 	{:else if reminder}
 		<div class="header">
