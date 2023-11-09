@@ -148,6 +148,22 @@ input IntFilter {
   neq: Int
 }
 
+enum Interval {
+  DAYS
+  MONTHS
+  YEARS
+}
+
+"""
+Boolean expression comparing fields on type "Interval"
+"""
+input IntervalFilter {
+  eq: Interval
+  in: [Interval!]
+  is: FilterIs
+  neq: Interval
+}
+
 """A Javascript Object Notation value serialized as a string"""
 scalar JSON
 
@@ -700,13 +716,16 @@ type settings implements Node {
     """Sort order to apply to the collection"""
     orderBy: [categoriesOrderBy!]
   ): categoriesConnection
+  currency: String
   email: String
   first_name: String
   id: UUID!
+  interval: Interval
   last_name: String
 
   """Globally Unique Record Identifier"""
   nodeId: ID!
+  notice_period: Int
   remindersCollection(
     """Query values in the collection after the provided cursor"""
     after: Cursor
@@ -748,19 +767,25 @@ type settingsEdge {
 }
 
 input settingsFilter {
+  currency: StringFilter
   email: StringFilter
   first_name: StringFilter
   id: UUIDFilter
+  interval: IntervalFilter
   last_name: StringFilter
   nodeId: IDFilter
+  notice_period: IntFilter
   updated_at: DatetimeFilter
 }
 
 input settingsInsertInput {
+  currency: String
   email: String
   first_name: String
   id: UUID
+  interval: Interval
   last_name: String
+  notice_period: Int
   updated_at: Datetime
 }
 
@@ -773,18 +798,24 @@ type settingsInsertResponse {
 }
 
 input settingsOrderBy {
+  currency: OrderByDirection
   email: OrderByDirection
   first_name: OrderByDirection
   id: OrderByDirection
+  interval: OrderByDirection
   last_name: OrderByDirection
+  notice_period: OrderByDirection
   updated_at: OrderByDirection
 }
 
 input settingsUpdateInput {
+  currency: String
   email: String
   first_name: String
   id: UUID
+  interval: Interval
   last_name: String
+  notice_period: Int
   updated_at: Datetime
 }
 

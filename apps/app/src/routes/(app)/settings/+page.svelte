@@ -8,12 +8,12 @@
 	$: ({ getSettings } = data);
 	$: settings = $getSettings.data?.settings?.list[0].setting;
 
-	$: interval = '';
+	$: interval = settings?.interval || '';
 </script>
 
 <Header title="Settings" />
 
-<form method="POST" action="?/updateSettings" id="update-settings">
+<form method="POST" action="?/updateSettings">
 	{#if $getSettings.fetching}
 		<li>Loading...</li>
 	{:else if $getSettings.errors}
@@ -22,7 +22,14 @@
 		<section>
 			<h2>Reminder settings</h2>
 			<div>
-				<Input label="Notice period" type="number" id="notice" name="notice" />
+				<Input
+					label="Notice period"
+					type="number"
+					id="notice-period"
+					name="notice-period"
+					min="1"
+					pattern="[0-9]*"
+					value={settings.notice_period ?? ''} />
 			</div>
 
 			<fieldset class="options">
@@ -94,20 +101,25 @@
 			</div>
 			<div class="currency">
 				<label for="currency">Currency</label>
-				<select id="currency">
+				<select name="currency" id="currency">
 					<option value="">Select your currency</option>
-					<option value="GBP">£ GBP</option>
-					<option value="USD">$ USD</option>
-					<option value="EUR">€ EUR</option>
-					<option value="CAD">$ CAD</option>
-					<option value="AUD">$ AUD</option>
-					<option value="JPY">¥ JPY</option>
+					<option value="GBP" selected={settings.currency === 'GBP'}
+						>£ GBP</option>
+					<option value="USD" selected={settings.currency === 'USD'}
+						>$ USD</option>
+					<option value="EUR" selected={settings.currency === 'EUR'}
+						>€ EUR</option>
+					<option value="CAD" selected={settings.currency === 'CAD'}
+						>$ CAD</option>
+					<option value="AUD" selected={settings.currency === 'AUD'}
+						>$ AUD</option>
+					<option value="JPY" selected={settings.currency === 'JPY'}
+						>¥ JPY</option>
 				</select>
 			</div>
 
 			<div class="actions">
-				<Button style="delete" type="button">Delete account</Button>
-				<Button type="submit" form="update-settings">Update account</Button>
+				<Button type="submit">Update account</Button>
 			</div>
 		</section>
 	{/if}
@@ -155,8 +167,7 @@
 	}
 
 	.actions {
-		display: flex;
-		justify-content: space-between;
+		text-align: right;
 		max-width: 64rem;
 		margin-top: 3rem;
 	}
