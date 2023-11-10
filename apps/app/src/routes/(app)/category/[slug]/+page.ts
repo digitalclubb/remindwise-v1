@@ -22,7 +22,13 @@ export const load: PageLoad = async (event) => {
 	return {
 		...(await load_getReminders({
 			event,
-			variables: { categoryId: category, today, upcoming },
+			variables: {
+				categoryId: category,
+				today,
+				upcoming,
+				first: 5,
+				after: null,
+			},
 		})),
 	};
 };

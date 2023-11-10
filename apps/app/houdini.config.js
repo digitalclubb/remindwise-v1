@@ -15,6 +15,9 @@ const config = {
 		Date: {
 			type: 'Date',
 		},
+		Cursor: {
+			type: 'Cursor',
+		},
 	},
 };
 
