@@ -8,6 +8,21 @@
 
 	$: upcoming = $getReminders.data?.upcoming?.list || [];
 	$: reminders = $getReminders.data?.reminders?.list || [];
+
+	$: upcomingFilter = '1';
+
+	const onChange = async () => {
+		const todayDate = new Date();
+		const upcomingDate = new Date();
+		upcomingDate.setMonth(upcomingDate.getMonth() + parseInt(upcomingFilter));
+
+		await getReminders.fetch({
+			variables: {
+				today: todayDate,
+				upcoming: upcomingDate,
+			},
+		});
+	};
 </script>
 
 <Header title={$page.params.slug} />
@@ -20,12 +35,19 @@
 	</section>
 
 	<section>
-		<h2 class="heading-3">
-			Upcoming renewals
-			{#if upcoming}
-				<span>({upcoming.length})</span>
-			{/if}
-		</h2>
+		<div class="header">
+			<h2 class="heading-3">
+				Upcoming renewals
+				{#if upcoming}
+					<span>({upcoming.length})</span>
+				{/if}
+			</h2>
+			<select bind:value={upcomingFilter} on:change={onChange}>
+				<option value="1">1 months</option>
+				<option value="3">3 months</option>
+				<option value="6">6 months</option>
+			</select>
+		</div>
 		<table>
 			<thead>
 				<tr>
@@ -42,7 +64,10 @@
 					<tr>
 						<td colspan="6"
 							><p class="table-no-data">
-								No upcoming reminders in the next 2 months
+								No upcoming reminders in the next {upcomingFilter !== '1'
+									? upcomingFilter
+									: ''}
+								{upcomingFilter !== '1' ? 'months' : 'month'}
 							</p></td>
 					</tr>
 				{:else}
@@ -146,7 +171,20 @@
 		margin-bottom: 3rem;
 	}
 
+	.header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
 	h2 span {
 		font-weight: 300;
+	}
+
+	select {
+		background: none;
+		border: none;
+		font-size: 14px;
+		line-height: 38px;
 	}
 </style>
