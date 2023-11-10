@@ -38,26 +38,28 @@
 		});
 	};
 
-	const onPaginationClick = async (direction: 'prev' | 'next') => {
-		if (direction === 'next' && pageInfo?.hasNextPage) {
-			await getReminders.fetch({
-				variables: {
-					first: parseInt(numberOfRemindersFilter),
-					after: pageInfo.endCursor,
-					before: null,
-					last: null,
-				},
-			});
-		} else if (direction === 'prev' && pageInfo?.hasPreviousPage) {
-			await getReminders.fetch({
+	const onPrevious = async () => {
+		pageInfo?.hasPreviousPage &&
+			(await getReminders.fetch({
 				variables: {
 					last: parseInt(numberOfRemindersFilter),
 					before: pageInfo.startCursor,
 					first: null,
 					after: null,
 				},
-			});
-		}
+			}));
+	};
+
+	const onNext = async () => {
+		pageInfo?.hasNextPage &&
+			(await getReminders.fetch({
+				variables: {
+					first: parseInt(numberOfRemindersFilter),
+					after: pageInfo.endCursor,
+					before: null,
+					last: null,
+				},
+			}));
 	};
 </script>
 
@@ -206,14 +208,12 @@
 		</table>
 
 		<div class="pagination">
-			<Button
-				type="button"
-				style="tertiary"
-				onClick={() => onPaginationClick('prev')}>Previous</Button>
-			<Button
-				type="button"
-				style="tertiary"
-				onClick={() => onPaginationClick('next')}>Next</Button>
+			<Button type="button" style="tertiary" onClick={onPrevious}
+				><img
+					class="chevron-left"
+					src="/icon-chevron.svg"
+					alt="" />Previous</Button>
+			<Button type="button" style="tertiary" onClick={onNext}>Next</Button>
 		</div>
 	</section>
 </div>
