@@ -20,7 +20,7 @@
 		<li>{$getSettings.errors}</li>
 	{:else if settings}
 		<section>
-			<h2>Reminder settings</h2>
+			<h2 class="heading-3">Reminder settings</h2>
 			<div>
 				<Input
 					fullWidth
@@ -72,7 +72,7 @@
 		</section>
 
 		<section>
-			<h2>Account settings</h2>
+			<h2 class="heading-3">Account settings</h2>
 
 			<input type="hidden" id="id" name="id" value={settings.id ?? ''} />
 			<div>
@@ -130,14 +130,6 @@
 </form>
 
 <style>
-	h2 {
-		color: var(--remindwise-grey);
-		font-size: 20px;
-		font-weight: 600;
-		line-height: 24px;
-		margin-bottom: 1rem;
-	}
-
 	form {
 		max-width: 64rem;
 		margin: 3.4rem;
