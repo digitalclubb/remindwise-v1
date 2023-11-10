@@ -1,4 +1,12 @@
-query getReminders($categoryId: BigInt, $today: Date, $upcoming: Date) {
+query getReminders(
+	$categoryId: BigInt
+	$today: Date
+	$upcoming: Date
+	$first: Int
+	$last: Int
+	$after: Cursor
+	$before: Cursor
+) {
 	upcoming: remindersCollection(
 		filter: {
 			date: { gte: $today, lte: $upcoming }
@@ -20,7 +28,19 @@ query getReminders($categoryId: BigInt, $today: Date, $upcoming: Date) {
 			}
 		}
 	}
-	reminders: remindersCollection(filter: { categoryId: { eq: $categoryId } }) {
+	reminders: remindersCollection(
+		first: $first
+		last: $last
+		after: $after
+		before: $before
+		filter: { categoryId: { eq: $categoryId } }
+	) {
+		pageInfo {
+			startCursor
+			endCursor
+			hasPreviousPage
+			hasNextPage
+		}
 		list: edges {
 			reminder: node {
 				id

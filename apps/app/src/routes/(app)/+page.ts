@@ -9,7 +9,7 @@ export const load: PageLoad = async (event) => {
 	return {
 		...(await load_getAllReminders({
 			event,
-			variables: { today, upcoming },
+			variables: { today, upcoming, first: 5, after: null },
 		})),
 	};
 };
