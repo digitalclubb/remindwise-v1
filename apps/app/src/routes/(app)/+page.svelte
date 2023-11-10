@@ -208,11 +208,19 @@
 			<Button
 				type="button"
 				style="tertiary"
-				onClick={() => onPaginationClick('prev')}>Previous</Button>
+				onClick={() => onPaginationClick('prev')}
+				><img
+					class="chevron-left"
+					src="/icon-chevron.svg"
+					alt="" />Previous</Button>
 			<Button
 				type="button"
 				style="tertiary"
-				onClick={() => onPaginationClick('next')}>Next</Button>
+				onClick={() => onPaginationClick('next')}
+				>Next<img
+					class="chevron-right"
+					src="/icon-chevron.svg"
+					alt="" /></Button>
 		</div>
 	</section>
 </div>
@@ -246,6 +254,22 @@
 	.pagination {
 		display: flex;
 		justify-content: space-between;
-		margin-top: 1rem;
+		margin-top: 2rem;
+	}
+
+	.chevron-left,
+	.chevron-right {
+		display: inline-block;
+		width: 1.4rem;
+	}
+
+	.chevron-left {
+		rotate: 90deg;
+		margin-right: 1rem;
+	}
+
+	.chevron-right {
+		rotate: -90deg;
+		margin-left: 1rem;
 	}
 </style>
