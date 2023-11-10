@@ -1,4 +1,5 @@
 import { updateSettingsStore } from '$houdini';
+import type { Interval } from '@graphql/types.js';
 import { redirect } from '@sveltejs/kit';
 export const actions = {
 	updateSettings: async (event) => {
@@ -7,6 +8,9 @@ export const actions = {
 		const lastName = data.get('lastName') as string;
 		const email = data.get('email') as string;
 		const id = data.get('id') as string;
+		const noticePeriod = parseInt(data.get('notice-period') as string);
+		const interval = data.get('interval') as Interval;
+		const currency = data.get('currency') as string;
 
 		const updateSettings = new updateSettingsStore();
 
@@ -16,9 +20,20 @@ export const actions = {
 				lastName,
 				email,
 				id,
+				noticePeriod,
+				interval,
+				currency,
 			},
 			{ event }
 		);
+
+		const { error } = await event.locals.supabase.auth.updateUser({
+			email,
+		});
+
+		if (error) {
+			console.log('error', error);
+		}
 
 		throw redirect(303, '/');
 	},

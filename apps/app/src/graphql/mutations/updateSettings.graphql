@@ -3,10 +3,20 @@ mutation updateSettings(
 	$firstName: String
 	$lastName: String
 	$email: String
+	$noticePeriod: Int
+	$interval: Interval
+	$currency: String
 ) {
 	updatesettingsCollection(
 		filter: { id: { eq: $id } }
-		set: { first_name: $firstName, last_name: $lastName, email: $email }
+		set: {
+			first_name: $firstName
+			last_name: $lastName
+			email: $email
+			notice_period: $noticePeriod
+			interval: $interval
+			currency: $currency
+		}
 	) {
 		affectedCount
 		records {
