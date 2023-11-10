@@ -1,4 +1,11 @@
-query getAllReminders($today: Date, $upcoming: Date) {
+query getAllReminders(
+	$today: Date
+	$upcoming: Date
+	$first: Int
+	$last: Int
+	$after: Cursor
+	$before: Cursor
+) {
 	upcoming: remindersCollection(
 		filter: { date: { gte: $today, lte: $upcoming } }
 	) {
@@ -17,7 +24,18 @@ query getAllReminders($today: Date, $upcoming: Date) {
 			}
 		}
 	}
-	reminders: remindersCollection {
+	reminders: remindersCollection(
+		first: $first
+		last: $last
+		after: $after
+		before: $before
+	) {
+		pageInfo {
+			startCursor
+			endCursor
+			hasPreviousPage
+			hasNextPage
+		}
 		list: edges {
 			reminder: node {
 				id

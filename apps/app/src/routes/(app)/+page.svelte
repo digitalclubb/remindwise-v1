@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button from 'components/button/Button.svelte';
 	import Header from '../../components/header/Header.svelte';
 	import type { PageData } from './$houdini';
 
@@ -7,10 +8,12 @@
 
 	$: upcoming = $getAllReminders.data?.upcoming?.list || [];
 	$: reminders = $getAllReminders.data?.reminders?.list || [];
+	$: pageInfo = $getAllReminders.data?.reminders?.pageInfo;
 
 	$: upcomingFilter = '1';
+	$: numberOfRemindersFilter = '5';
 
-	const onChange = async () => {
+	const onUpcomingChange = async () => {
 		const todayDate = new Date();
 		const upcomingDate = new Date();
 		upcomingDate.setMonth(upcomingDate.getMonth() + parseInt(upcomingFilter));
@@ -21,6 +24,39 @@
 				upcoming: upcomingDate,
 			},
 		});
+	};
+
+	const onRemindersNumberChange = async () => {
+		await getAllReminders.fetch({
+			variables: {
+				first: parseInt(numberOfRemindersFilter),
+				last: null,
+				before: null,
+				after: null,
+			},
+		});
+	};
+
+	const onPaginationClick = async (direction: 'prev' | 'next') => {
+		if (direction === 'next' && pageInfo?.hasNextPage) {
+			await getAllReminders.fetch({
+				variables: {
+					first: parseInt(numberOfRemindersFilter),
+					after: pageInfo.endCursor,
+					before: null,
+					last: null,
+				},
+			});
+		} else if (direction === 'prev' && pageInfo?.hasPreviousPage) {
+			await getAllReminders.fetch({
+				variables: {
+					last: parseInt(numberOfRemindersFilter),
+					before: pageInfo.startCursor,
+					first: null,
+					after: null,
+				},
+			});
+		}
 	};
 </script>
 
@@ -41,7 +77,7 @@
 					<span>({upcoming.length})</span>
 				{/if}
 			</h2>
-			<select bind:value={upcomingFilter} on:change={onChange}>
+			<select bind:value={upcomingFilter} on:change={onUpcomingChange}>
 				<option value="1">1 months</option>
 				<option value="3">3 months</option>
 				<option value="6">6 months</option>
@@ -106,12 +142,21 @@
 	</section>
 
 	<section>
-		<h2 class="heading-3">
-			Active
-			{#if reminders}
-				<span>({reminders.length})</span>
-			{/if}
-		</h2>
+		<div class="header">
+			<h2 class="heading-3">
+				Active
+				{#if reminders}
+					<span>({reminders.length})</span>
+				{/if}
+			</h2>
+			<select
+				bind:value={numberOfRemindersFilter}
+				on:change={onRemindersNumberChange}>
+				<option value="5">show 5</option>
+				<option value="10">show 10</option>
+				<option value="15">show 15</option>
+			</select>
+		</div>
 		<table>
 			<thead>
 				<tr>
@@ -158,6 +203,17 @@
 				{/if}
 			</tbody>
 		</table>
+
+		<div class="pagination">
+			<Button
+				type="button"
+				style="tertiary"
+				onClick={() => onPaginationClick('prev')}>Previous</Button>
+			<Button
+				type="button"
+				style="tertiary"
+				onClick={() => onPaginationClick('next')}>Next</Button>
+		</div>
 	</section>
 </div>
 
@@ -185,5 +241,11 @@
 		border: none;
 		font-size: 14px;
 		line-height: 38px;
+	}
+
+	.pagination {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 1rem;
 	}
 </style>
