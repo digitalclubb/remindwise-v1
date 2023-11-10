@@ -3,7 +3,11 @@ import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => {
 	const getReminder = new getReminderStore();
-	const { data } = await getReminder.fetch({ event });
+	const { data } = await getReminder.fetch({
+		event,
+		variables: { slug: event.params.slug },
+	});
+
 	const parentData = await event.parent();
 
 	const userId = parentData.session.user.id;
