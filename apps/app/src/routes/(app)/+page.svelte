@@ -28,14 +28,14 @@
 
 <div class="body">
 	<section>
-		<h2>
+		<h2 class="heading-3">
 			Total spend this year <span>(Jan '23 - Jan '24)</span>
 		</h2>
 	</section>
 
 	<section>
 		<div class="header">
-			<h2>
+			<h2 class="heading-3">
 				Upcoming renewals
 				{#if upcoming}
 					<span>({upcoming.length})</span>
@@ -106,7 +106,7 @@
 	</section>
 
 	<section>
-		<h2>
+		<h2 class="heading-3">
 			Active
 			{#if reminders}
 				<span>({reminders.length})</span>
