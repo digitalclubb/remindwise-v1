@@ -6,8 +6,6 @@
 
 	export let data: PageData;
 
-	$: console.log('FILE', data.file);
-
 	$: reminder = data?.data?.reminders?.list[0].reminder;
 
 	$: cost = reminder
@@ -70,27 +68,22 @@
 			{/if}
 		</div>
 
-		<aside>
-			<h3 class="heading-5">Your documents</h3>
-			<ul class="documents">
-				<li>
-					<!-- svelte-ignore a11y-invalid-attribute -->
-					<a href="">
-						<img src="/icon-pdf.svg" alt="" />
-						<p>Manypets-renewal-invation.Pdf</p>
-						<img src="/icon-view.svg" alt="" />
-					</a>
-				</li>
-				<li>
-					<!-- svelte-ignore a11y-invalid-attribute -->
-					<a href="">
-						<img src="/icon-pdf.svg" alt="" />
-						<p>Manypets-renewal-invation.Pdf</p>
-						<img src="/icon-view.svg" alt="" />
-					</a>
-				</li>
-			</ul>
-		</aside>
+		{#if data.files}
+			<aside>
+				<h3 class="heading-5">Your documents</h3>
+				<ul class="documents">
+					{#each data.files as file}
+						<li>
+							<a href={file.url}>
+								<img src="/icon-pdf.svg" alt="" />
+								<p>{file.name}</p>
+								<img src="/icon-view.svg" alt="" />
+							</a>
+						</li>
+					{/each}
+				</ul>
+			</aside>
+		{/if}
 	{/if}
 </article>
 

@@ -1,20 +1,46 @@
-import { getReminderStore, load_getReminder } from '$houdini';
+import { getReminderStore } from '$houdini';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => {
 	const getReminder = new getReminderStore();
 	const { data } = await getReminder.fetch({ event });
+	const parentData = await event.parent();
 
-	const { data: docData, error } = await event.locals.supabase.storage
+	const userId = parentData.session.user.id;
+
+	// Get all files for a user and a reminder (folder)
+	const { data: readFiles } = await event.locals.supabase.storage
 		.from('documents')
-		.download(`3c35ae9e-e8cf-4185-a9e5-d77f4d01ac44/zoopla.png`);
+		.list(`${userId}/${event.params.slug}`, {
+			limit: 100,
+			offset: 0,
+			sortBy: { column: 'name', order: 'asc' },
+		});
 
-	if (error) {
-		throw error;
-	}
+	// TODO: error?
+
+	// Just get the filename for us to get the download URL
+	const filenames =
+		readFiles?.map((file) => `${userId}/${event.params.slug}/${file.name}`) ||
+		[];
+
+	// Fetch all signed URLs for our files
+	const { data: signedUrls } = await event.locals.supabase.storage
+		.from('documents')
+		.createSignedUrls(filenames, 60);
+
+	// TODO: error?
+
+	// Clean data to just be file name and url
+	const files = signedUrls?.map((file, index) => {
+		return {
+			name: readFiles?.[index].name,
+			url: file.signedUrl,
+		};
+	});
 
 	return {
-		file: URL.createObjectURL(docData),
+		files,
 		data,
 	};
 };

@@ -59,10 +59,11 @@ export const actions = {
 		);
 
 		// Update documents in storage
+		// Store by userId/reminderId/filename.ext
 		for (const file of files) {
 			const { error } = await event.locals.supabase.storage
 				.from('documents')
-				.upload(`${userId}/${file.name}`, file);
+				.upload(`${userId}/${event.params.slug}/${file.name}`, file);
 
 			// TODO: Handle this gracefully!
 			if (error) {

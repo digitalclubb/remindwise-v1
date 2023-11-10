@@ -44,7 +44,7 @@ export const actions = {
 
 		// Add the new reminder
 		const addReminder = new addReminderStore();
-		await addReminder.mutate(
+		const reminder = await addReminder.mutate(
 			{
 				userId,
 				categoryId: newId || categoryId,
@@ -60,11 +60,15 @@ export const actions = {
 			{ event }
 		);
 
+		const reminderId =
+			reminder.data?.insertIntoremindersCollection?.records[0].id;
+
 		// Add documents to storage
+		// Store by userId/reminderId/filename.ext
 		for (const file of files) {
 			const { error } = await event.locals.supabase.storage
 				.from('documents')
-				.upload(`${userId}/${file.name}`, file);
+				.upload(`${userId}/${reminderId}/${file.name}`, file);
 
 			// TODO: Handle this gracefully!
 			if (error) {
