@@ -270,7 +270,7 @@
 				{/if}
 			</legend>
 			{#if uploads.length > 0}
-				<ul>
+				<ul class="">
 					{#each uploads as upload}
 						<li class="upload">
 							<img src="/icon-pdf.svg" alt="" />
