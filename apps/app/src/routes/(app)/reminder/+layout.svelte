@@ -44,7 +44,7 @@
 		uploads = [...uploads, ...filenames];
 	};
 
-	const deleteFile = (fileName: string) => {
+	const deleteFile = (fileName: string | undefined) => {
 		const index = uploads.findIndex((upload) => upload.name === fileName);
 		uploads.splice(index, 1);
 		uploads = uploads;
