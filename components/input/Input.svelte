@@ -3,10 +3,12 @@
 	interface $$Props extends HTMLInputAttributes {
 		label?: string;
 		inline?: boolean;
+		fullWidth?: boolean;
 	}
 
 	export let label: string | undefined = undefined;
 	export let inline: boolean = false;
+	export let fullWidth: boolean = false;
 </script>
 
 {#if label}
@@ -14,7 +16,7 @@
 		>{label}<i aria-hidden="true" hidden={!$$props.required}>*</i></label>
 {/if}
 
-<input class:inline {...$$restProps} />
+<input class:inline class:fullWidth {...$$restProps} />
 
 <style>
 	label {
@@ -38,5 +40,9 @@
 
 	.inline {
 		display: inline-block;
+	}
+
+	.fullWidth {
+		width: 100%;
 	}
 </style>

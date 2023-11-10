@@ -6,6 +6,9 @@ query getSettings {
 				first_name
 				last_name
 				email
+				notice_period
+				interval
+				currency
 			}
 		}
 	}
