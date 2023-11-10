@@ -33,13 +33,19 @@
 	$: categoryId = categories?.[0]?.category.id || '';
 
 	let files: FileList;
-	let uploads: Array<File> = [];
+	let uploads = data.files || [];
 	const fileUpload = (files: FileList) => {
-		uploads = [...uploads, ...files];
+		const filenames = Array.from(files).map((file) => {
+			return {
+				name: file.name,
+				url: '',
+			};
+		});
+		uploads = [...uploads, ...filenames];
 	};
 
 	const deleteFile = (fileName: string) => {
-		const index = uploads.findIndex((upload: File) => upload.name === fileName);
+		const index = uploads.findIndex((upload) => upload.name === fileName);
 		uploads.splice(index, 1);
 		uploads = uploads;
 	};
