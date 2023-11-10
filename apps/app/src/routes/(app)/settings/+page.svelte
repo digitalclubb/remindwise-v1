@@ -23,6 +23,7 @@
 			<h2>Reminder settings</h2>
 			<div>
 				<Input
+					fullWidth
 					label="Notice period"
 					type="number"
 					id="notice-period"
@@ -76,6 +77,7 @@
 			<input type="hidden" id="id" name="id" value={settings.id ?? ''} />
 			<div>
 				<Input
+					fullWidth
 					label="Email address"
 					type="text"
 					id="email"
@@ -84,6 +86,7 @@
 			</div>
 			<div>
 				<Input
+					fullWidth
 					label="First name"
 					type="text"
 					id="firstName"
@@ -93,6 +96,7 @@
 
 			<div>
 				<Input
+					fullWidth
 					label="Last name"
 					type="text"
 					id="lastName"
