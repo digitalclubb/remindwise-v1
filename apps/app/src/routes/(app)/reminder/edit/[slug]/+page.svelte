@@ -4,6 +4,7 @@
 	import { navigating, page } from '$app/stores';
 	import { deleteReminderStore, getReminderStore } from '$houdini';
 	import type { getReminder$result, QueryResult } from '$houdini';
+
 	import Modal from '../../../../../components/modal/Modal.svelte';
 
 	let showModal = false;
