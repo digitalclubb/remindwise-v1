@@ -249,8 +249,9 @@
 
 	.pagination {
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-end;
 		margin-top: 2rem;
+		gap: 2rem;
 	}
 
 	.chevron-left,
