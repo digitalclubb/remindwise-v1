@@ -22,8 +22,11 @@ export const actions = {
 		const autoRenewal = data.get('autoRenew') ? !!data.get('autoRenew') : null;
 		const notes = data.get('notes') as string;
 		const userId = data.get('userId') as string;
+		const files = data.getAll('documents') as File[];
 
 		let newId: number | undefined;
+
+		// Add new category if added
 		if (categoryId === -1) {
 			const addCategory = new addCategoryStore();
 
@@ -39,8 +42,9 @@ export const actions = {
 			newId = result.data?.insertIntocategoriesCollection?.records[0].id;
 		}
 
+		// Add the new reminder
 		const addReminder = new addReminderStore();
-		await addReminder.mutate(
+		const reminder = await addReminder.mutate(
 			{
 				userId,
 				categoryId: newId || categoryId,
@@ -55,6 +59,22 @@ export const actions = {
 			},
 			{ event }
 		);
+
+		const reminderId =
+			reminder.data?.insertIntoremindersCollection?.records[0].id;
+
+		// Add documents to storage
+		// Store by userId/reminderId/filename.ext
+		for (const file of files) {
+			const { error } = await event.locals.supabase.storage
+				.from('documents')
+				.upload(`${userId}/${reminderId}/${file.name}`, file);
+
+			// TODO: Handle this gracefully!
+			if (error) {
+				throw error;
+			}
+		}
 
 		// TODO on reminder add we want to take them to the categories page? the list might not be updated so need to look into how to bust cache
 		throw redirect(303, '/');

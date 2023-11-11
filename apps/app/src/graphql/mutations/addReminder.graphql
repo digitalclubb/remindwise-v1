@@ -27,5 +27,8 @@ mutation addReminder(
 		]
 	) {
 		affectedCount
+		records {
+			id
+		}
 	}
 }
