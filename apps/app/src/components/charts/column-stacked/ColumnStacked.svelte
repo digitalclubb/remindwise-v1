@@ -9,14 +9,8 @@
 		{#each series as d}
 			{@const yVals = $yGet(d)}
 			{@const columnHeight = yVals[0] - yVals[1]}
-			<rect
-				class="group-rect"
-				data-id={i}
-				x={$xGet(d)}
-				y={yVals[1]}
-				width={$xScale.bandwidth()}
-				height={columnHeight}
-				fill={$zGet(series)}></rect>
+
+			<path stroke="{$zGet(series)}" stroke-width="8" stroke-linejoin="round" d="M{$xGet(d)},{yVals[1]} h{$xScale.bandwidth()} v{columnHeight} H{$xGet(d)}Z" fill={$zGet(series)} />
 		{/each}
 	{/each}
 </g>
