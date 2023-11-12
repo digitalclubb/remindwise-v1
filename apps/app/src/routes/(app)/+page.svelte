@@ -2,6 +2,7 @@
 	import Button from 'components/button/Button.svelte';
 	import Header from '../../components/header/Header.svelte';
 	import type { PageData } from './$houdini';
+	import Test from '../../components/charts/column-stacked/Test.svelte';
 
 	export let data: PageData;
 	$: ({ getAllReminders } = data);
@@ -69,6 +70,8 @@
 		<h2 class="heading-3">
 			Total spend this year <span>(Jan '23 - Jan '24)</span>
 		</h2>
+
+		<Test />
 	</section>
 
 	<section>
