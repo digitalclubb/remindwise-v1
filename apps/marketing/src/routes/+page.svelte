@@ -18,18 +18,6 @@
 	};
 
 	// Images
-	const heroSmall = getCldImageUrl({
-		src: 'hero_llo9q9.png',
-		width: 480,
-		height: 273,
-	});
-
-	const hero = getCldImageUrl({
-		src: 'hero_llo9q9.png',
-		width: 805,
-		height: 458,
-	});
-
 	const reminders = getCldImageUrl({
 		src: 'reminders_su5hwt.png',
 		width: 495,
@@ -80,11 +68,7 @@
 				<Link href="#waitlist" type="button">Register interest</Link>
 			</div>
 
-			<img
-				src={hero}
-				alt="Large hand holding phone with Remindwise app open. Other hands in the background waving paper statements and bills."
-				srcset="{heroSmall} 480w, {hero} 805w"
-				sizes="(min-width: 768px) 805px, 100vw" />
+			<enhanced:img src="./images/hero.png" alt="Large hand holding phone with Remindwise app open. Other hands in the background waving paper statements and bills." />
 		</div>
 	</section>
 
