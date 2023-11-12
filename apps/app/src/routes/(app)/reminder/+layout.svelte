@@ -271,18 +271,15 @@
 			</legend>
 			{#if uploads.length > 0}
 				<ul class="">
-					{#each uploads as upload}
-						<li class="upload">
-							<img src="/icon-pdf.svg" alt="" />
-							<span>{upload.name}</span>
-							<div class="buttons">
-								<button type="button"
-									><img src="/icon-view.svg" alt="" /></button>
+						{#each uploads as upload}
+							<li class="upload">
+								<img src="/icon-pdf.svg" alt="" />
+								<span>{upload.name}</span>
 								<button type="button" on:click={() => deleteFile(upload.name)}
-									><img src="/icon-bin.svg" alt="" /></button>
-							</div>
-						</li>
-					{/each}
+										><img src="/icon-bin.svg" alt="" /></button>
+
+							</li>
+						{/each}
 				</ul>
 			{/if}
 			<label for="documents"
@@ -298,9 +295,11 @@
 				id="documents"
 				name="documents"
 				multiple
-				accept=".jpg, .jpeg, .png, .pdf"
 				bind:files
+				accept=".jpg, .jpeg, .png, .pdf"
 				on:change={() => fileUpload(files)} />
+			<input type="hidden" name="uploads" value={JSON.stringify(uploads)} />
+			<input type="hidden" name="existing" value={JSON.stringify(data.files)} />
 		</fieldset>
 
 		<slot />
@@ -501,13 +500,13 @@
 		margin-left: 1.5rem;
 	}
 
-	.buttons button {
+	button {
 		all: unset;
 		cursor: pointer;
 		margin-left: 1rem;
 	}
 
-	.buttons img {
+	.uploadFiles button img {
 		width: 1.5rem;
 	}
 </style>
