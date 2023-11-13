@@ -14,24 +14,34 @@
 
 	const data: Record<string, number | string>[] = [
 		{
-			category: 'Tv',
-			apples: 3840,
-			bananas: 1920,
+			category: 'TV',
+			total: 3840,
+			upcoming: 1920,
 		},
 		{
 			category: 'Music',
-			apples: 1600,
-			bananas: 1440,
+			total: 1600,
+			upcoming: 1440,
 		},
 		{
 			category: 'Telephone',
-			apples: 820,
-			bananas: 1000,
+			total: 820,
+			upcoming: 1000,
 		},
 		{
 			category: 'Insurance',
-			apples: 820,
-			bananas: 560,
+			total: 820,
+			upcoming: 560,
+		},
+		{
+			category: 'Streaming',
+			total: 820,
+			upcoming: 560,
+		},
+		{
+			category: 'Property',
+			total: 820,
+			upcoming: 560,
 		},
 	];
 
@@ -59,7 +69,7 @@
 		x={(d) => d.data[xKey]}
 		y={yKey}
 		z={zKey}
-		xScale={scaleBand().paddingInner(0.028).round(true)}
+		xScale={scaleBand().paddingInner(0.3).round(true)}
 		xDomain={uniques(data, xKey)}
 		zScale={scaleOrdinal()}
 		zDomain={seriesNames}
@@ -85,6 +95,7 @@
   */
 	.chart-container {
 		width: 100%;
-		height: 250px;
+		height: 30rem;
+		padding: 2rem;
 	}
 </style>

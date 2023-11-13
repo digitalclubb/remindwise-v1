@@ -74,10 +74,6 @@
 		width: 100%;
 		height: 100%;
 	}
-	.tick {
-		font-size: 0.725em;
-		font-weight: 200;
-	}
 
 	.gridline {
 		border-left: 1px dashed #aaa;
@@ -96,6 +92,16 @@
 		white-space: nowrap;
 		transform: translateX(-50%);
 	}
+
+	.x-axis {
+		box-sizing: content-box;
+		padding-bottom: 0.3rem;
+		border-bottom: 2px solid var(--cream);
+		border-left: 2px solid var(--cream);
+		font-size: 1.2rem;
+		color: var(--remindwise-grey);
+	}
+
 	/* This looks a little better at 40 percent than 50 */
 	.axis.snapTicks .tick:last-child {
 		transform: translateX(-40%);
