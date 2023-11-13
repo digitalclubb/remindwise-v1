@@ -23,7 +23,7 @@ export const actions = {
 		const notes = data.get('notes') as string;
 		const userId = data.get('userId') as string;
 		const files = data.getAll('documents') as File[];
-		const filesDeleted = data.get('deleted') as string;
+		const deleted = data.get('deleted') as string;
 
 		const updateReminder = new updateReminderStore();
 
@@ -60,15 +60,14 @@ export const actions = {
 		);
 
 		// Delete files
-		const filesDeletedParse = JSON.parse(filesDeleted);
-		if (filesDeletedParse.length) {
+		const deletedParse = JSON.parse(deleted);
+		if (deletedParse.length) {
+			const paths = deletedParse.map(
+				(name: string) => `${userId}/${event.params.slug}/${name}`
+			);
 			const { error } = await event.locals.supabase.storage
 				.from('documents')
-				.remove(
-					filesDeletedParse.map(
-						(name: string) => `${userId}/${event.params.slug}/${name}`
-					)
-				);
+				.remove(paths);
 
 			// TODO: Handle this gracefully!
 			if (error) {
