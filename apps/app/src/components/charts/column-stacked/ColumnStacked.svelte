@@ -5,7 +5,7 @@
 </script>
 
 <g class="column-group">
-	{#each $data as series, i}
+	{#each $data as series}
 		{#each series as d}
 			{@const yVals = $yGet(d)}
 			{@const columnHeight = yVals[0] - yVals[1]}
