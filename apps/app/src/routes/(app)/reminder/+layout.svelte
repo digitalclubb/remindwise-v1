@@ -34,15 +34,14 @@
 
 	let files: FileList;
 	let uploads = data.files || [];
-	let deleteStatus: Record<string, boolean> = {};
-
-	uploads.forEach((file) => {
-		file.name && (deleteStatus[file.name] = false);
-	});
+	let filesDeleted: string[] = [];
 
 	const fileUpload = (files: FileList) => {
 		const filenames = Array.from(files).map((file) => {
-			deleteStatus[file.name] = false;
+			// update the deleted files array in case file got re-added
+			const index = filesDeleted.indexOf(file.name);
+			filesDeleted.splice(index, 1);
+			filesDeleted = [...filesDeleted];
 			return {
 				name: file.name,
 				url: '',
@@ -55,7 +54,7 @@
 		const index = uploads.findIndex((upload) => upload.name === fileName);
 		uploads.splice(index, 1);
 		uploads = [...uploads];
-		fileName && (deleteStatus[fileName] = true);
+		fileName && (filesDeleted = [...filesDeleted, fileName]);
 	};
 </script>
 
@@ -305,7 +304,10 @@
 				bind:files
 				accept=".jpg, .jpeg, .png, .pdf"
 				on:change={() => fileUpload(files)} />
-			<input type="hidden" name="status" value={JSON.stringify(deleteStatus)} />
+			<input
+				type="hidden"
+				name="deleted"
+				value={JSON.stringify(filesDeleted)} />
 		</fieldset>
 
 		<slot />

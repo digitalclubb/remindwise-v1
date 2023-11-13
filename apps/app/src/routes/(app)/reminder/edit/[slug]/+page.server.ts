@@ -23,7 +23,7 @@ export const actions = {
 		const notes = data.get('notes') as string;
 		const userId = data.get('userId') as string;
 		const files = data.getAll('documents') as File[];
-		const status = data.get('status') as string;
+		const filesDeleted = data.get('deleted') as string;
 
 		const updateReminder = new updateReminderStore();
 
@@ -60,25 +60,19 @@ export const actions = {
 		);
 
 		// Delete files
-		// Check which file names have been set to get deleted
-		if (status.length) {
-			const missing: string[] = [];
+		const filesDeletedParse = JSON.parse(filesDeleted);
+		if (filesDeletedParse.length) {
+			const { error } = await event.locals.supabase.storage
+				.from('documents')
+				.remove(
+					filesDeletedParse.map(
+						(name: string) => `${userId}/${event.params.slug}/${name}`
+					)
+				);
 
-			Object.entries(JSON.parse(status)).forEach(([name, deleted]) => {
-				if (deleted) {
-					missing.push(`${userId}/${event.params.slug}/${name}`);
-				}
-			});
-
-			if (missing.length) {
-				const { error } = await event.locals.supabase.storage
-					.from('documents')
-					.remove(missing);
-
-				// TODO: Handle this gracefully!
-				if (error) {
-					throw error;
-				}
+			// TODO: Handle this gracefully!
+			if (error) {
+				throw error;
 			}
 		}
 
