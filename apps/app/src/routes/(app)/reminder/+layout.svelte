@@ -34,8 +34,15 @@
 
 	let files: FileList;
 	let uploads = data.files || [];
+	let deleteStatus: Record<string, boolean> = {};
+
+	uploads.forEach((file) => {
+		file.name && (deleteStatus[file.name] = false);
+	});
+
 	const fileUpload = (files: FileList) => {
 		const filenames = Array.from(files).map((file) => {
+			deleteStatus[file.name] = false;
 			return {
 				name: file.name,
 				url: '',
@@ -47,7 +54,8 @@
 	const deleteFile = (fileName: string | undefined) => {
 		const index = uploads.findIndex((upload) => upload.name === fileName);
 		uploads.splice(index, 1);
-		uploads = uploads;
+		uploads = [...uploads];
+		fileName && (deleteStatus[fileName] = true);
 	};
 </script>
 
@@ -271,15 +279,14 @@
 			</legend>
 			{#if uploads.length > 0}
 				<ul class="">
-						{#each uploads as upload}
-							<li class="upload">
-								<img src="/icon-pdf.svg" alt="" />
-								<span>{upload.name}</span>
-								<button type="button" on:click={() => deleteFile(upload.name)}
-										><img src="/icon-bin.svg" alt="" /></button>
-
-							</li>
-						{/each}
+					{#each uploads as upload}
+						<li class="upload">
+							<img src="/icon-pdf.svg" alt="" />
+							<span>{upload.name}</span>
+							<button type="button" on:click={() => deleteFile(upload.name)}
+								><img src="/icon-bin.svg" alt="" /></button>
+						</li>
+					{/each}
 				</ul>
 			{/if}
 			<label for="documents"
@@ -298,8 +305,7 @@
 				bind:files
 				accept=".jpg, .jpeg, .png, .pdf"
 				on:change={() => fileUpload(files)} />
-			<input type="hidden" name="uploads" value={JSON.stringify(uploads)} />
-			<input type="hidden" name="existing" value={JSON.stringify(data.files)} />
+			<input type="hidden" name="status" value={JSON.stringify(deleteStatus)} />
 		</fieldset>
 
 		<slot />

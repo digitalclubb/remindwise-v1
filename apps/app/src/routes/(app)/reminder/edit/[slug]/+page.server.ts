@@ -23,8 +23,7 @@ export const actions = {
 		const notes = data.get('notes') as string;
 		const userId = data.get('userId') as string;
 		const files = data.getAll('documents') as File[];
-		const uploads = data.get('uploads') as string;
-		const existing = data.get('existing') as string;
+		const status = data.get('status') as string;
 
 		const updateReminder = new updateReminderStore();
 
@@ -61,20 +60,20 @@ export const actions = {
 		);
 
 		// Delete files
-		// Check existing array direct from server vs uploads created on client
-		type Obj = {[key: string]: string};
-		if(existing !== 'undefined' && uploads.length) {
+		// Check which file names have been set to get deleted
+		if (status.length) {
 			const missing: string[] = [];
-			JSON.parse(existing).reduce((_, next: Obj) => {
-				const found = JSON.parse(uploads).find((file: Obj) => file.name === next.name);
-				if(!found) {
-					missing.push(`${userId}/${event.params.slug}/${next.name}`);
+
+			Object.entries(JSON.parse(status)).forEach(([name, deleted]) => {
+				if (deleted) {
+					missing.push(`${userId}/${event.params.slug}/${name}`);
 				}
-			}, []);
-			if(missing.length) {
+			});
+
+			if (missing.length) {
 				const { error } = await event.locals.supabase.storage
-						.from('documents')
-						.remove(missing);
+					.from('documents')
+					.remove(missing);
 
 				// TODO: Handle this gracefully!
 				if (error) {
