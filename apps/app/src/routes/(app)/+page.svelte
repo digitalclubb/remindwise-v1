@@ -5,11 +5,31 @@
 	import Test from '../../components/charts/column-stacked/Test.svelte';
 
 	export let data: PageData;
-	$: ({ getAllReminders } = data);
+	$: ({ getAllReminders, getCategories } = data);
 
 	$: upcoming = $getAllReminders.data?.upcoming?.list || [];
 	$: reminders = $getAllReminders.data?.reminders?.list || [];
 	$: pageInfo = $getAllReminders.data?.reminders?.pageInfo;
+	let barChartData = [];
+	let iconsMap = {};
+	$: for (const category of $getCategories.data.categories.list) {
+		let totalOngoing = 0;
+		let totalSingle = 0;
+		category.category.reminders.list.forEach((reminder) => {
+			if (reminder.reminder.type === 'ONGOING') {
+				totalOngoing += reminder.reminder.cost;
+			} else {
+				totalSingle += reminder.reminder.cost;
+			}
+		});
+		barChartData.push({
+			category: category.category.name,
+			totalOngoing: totalOngoing,
+			totalSingle: totalSingle,
+		});
+
+		iconsMap[category.category.name] = category.category.iconId;
+	}
 
 	$: upcomingFilter = '1';
 	$: numberOfRemindersFilter = '5';
@@ -71,7 +91,7 @@
 			Total spend this year <span>(Jan '23 - Jan '24)</span>
 		</h2>
 
-		<Test />
+		<Test data={barChartData} {iconsMap} />
 	</section>
 
 	<section>

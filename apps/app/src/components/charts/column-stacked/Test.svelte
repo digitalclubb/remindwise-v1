@@ -8,42 +8,15 @@
 	import AxisX from './AxisX.svelte';
 	import AxisY from './AxisY.svelte';
 
+	export let data;
+	export let iconsMap;
+
 	const xKey = 'category';
 	const yKey = [0, 1];
 	const zKey = 'key';
 
-	const data: Record<string, number | string>[] = [
-		{
-			category: 'TV',
-			total: 3840,
-			upcoming: 1920,
-		},
-		{
-			category: 'Music',
-			total: 1600,
-			upcoming: 1440,
-		},
-		{
-			category: 'Telephone',
-			total: 820,
-			upcoming: 1000,
-		},
-		{
-			category: 'Insurance',
-			total: 820,
-			upcoming: 560,
-		},
-		{
-			category: 'Streaming',
-			total: 820,
-			upcoming: 560,
-		},
-		{
-			category: 'Property',
-			total: 820,
-			upcoming: 560,
-		},
-	];
+	$: console.log(data);
+	$: console.log(iconsMap);
 
 	const seriesNames = Object.keys(data[0]).filter((d) => d !== xKey);
 	const seriesColors = ['var(--remindwise-grey)', 'var(--orange)'];

@@ -7,6 +7,13 @@ query getCategories @load {
 				iconId
 				reminders: remindersCollection {
 					totalCount
+					list: edges {
+						reminder: node {
+							name
+							cost
+							type
+						}
+					}
 				}
 			}
 		}
