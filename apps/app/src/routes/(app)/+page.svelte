@@ -3,19 +3,20 @@
 	import Header from '../../components/header/Header.svelte';
 	import type { PageData } from './$houdini';
 	import Test from '../../components/charts/column-stacked/Test.svelte';
+	import type { LayoutData } from './$types';
 
-	export let data: PageData;
+	export let data: LayoutData & PageData;
 	$: ({ getAllReminders, getCategories } = data);
 
 	$: upcoming = $getAllReminders.data?.upcoming?.list || [];
 	$: reminders = $getAllReminders.data?.reminders?.list || [];
 	$: pageInfo = $getAllReminders.data?.reminders?.pageInfo;
-	let barChartData = [];
-	let iconsMap = {};
-	$: for (const category of $getCategories.data.categories.list) {
+	let barChartData: Record<string, number | string>[] = [];
+	let iconsMap: Record<string, string> = {};
+	$: for (const category of $getCategories.data?.categories?.list || []) {
 		let totalOngoing = 0;
 		let totalSingle = 0;
-		category.category.reminders.list.forEach((reminder) => {
+		category.category.reminders?.list.forEach((reminder) => {
 			if (reminder.reminder.type === 'ONGOING') {
 				totalOngoing += reminder.reminder.cost;
 			} else {
@@ -28,7 +29,7 @@
 			totalSingle: totalSingle,
 		});
 
-		iconsMap[category.category.name] = category.category.iconId;
+		iconsMap[category.category.name] = category.category.iconId || '';
 	}
 
 	$: upcomingFilter = '1';

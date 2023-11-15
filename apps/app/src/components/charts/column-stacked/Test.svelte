@@ -8,8 +8,8 @@
 	import AxisX from './AxisX.svelte';
 	import AxisY from './AxisY.svelte';
 
-	export let data;
-	export let iconsMap;
+	export let data: Record<string, number | string>[];
+	export let iconsMap: Record<string, string>;
 
 	const xKey = 'category';
 	const yKey = [0, 1];
@@ -29,9 +29,10 @@
 
 	const stackData = stack().keys(seriesNames);
 
-	const series = stackData(data);
+	const series = stackData(data as Record<string, number>[]);
+	const xHandle = (d: { data: { [x: string]: any } }) => d.data[xKey];
 
-	const formatTickY = (d) => format(`.${precisionFixed(d)}s`)(d);
+	const formatTickY = (d: number) => format(`.${precisionFixed(d)}s`)(d);
 </script>
 
 <div class="chart-container">
@@ -39,7 +40,7 @@
 		ssr={true}
 		percentRange={true}
 		padding={{ top: 0, right: 0, bottom: 20, left: 20 }}
-		x={(d) => d.data[xKey]}
+		x={xHandle}
 		y={yKey}
 		z={zKey}
 		xScale={scaleBand().paddingInner(0.3).round(true)}

@@ -1,27 +1,23 @@
-<script>
+<script lang="ts">
 	import { getContext } from 'svelte';
+	import type { LayerCakeContext } from './context';
 
-	const { xScale } = getContext('LayerCake');
+	const { xScale } = getContext<LayerCakeContext>('LayerCake');
 
-	/** @type {Boolean} [gridlines=true] - Extend lines from the ticks into the chart space. */
+	/* Extend lines from the ticks into the chart space. */
 	export let gridlines = true;
-
-	/** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
+	/* Show a vertical mark for each tick. */
 	export let tickMarks = false;
-
-	/** @type {Boolean} [baseline=false]  Show a solid line at the bottom. */
+	/* Show a solid line at the bottom. */
 	export let baseline = false;
-
-	/** @type {Boolean} [snapTicks=false] - Instead of centering the text on the first and the last items, align them to the edges of the chart. */
+	/* Instead of centering the text on the first and the last items, align them to the edges of the chart. */
 	export let snapTicks = false;
-
-	/** @type {Function} [formatTick=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
-	export let formatTick = (d) => d;
-
-	/** @type {Number|Array|Function} [ticks] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function. */
-	export let ticks = undefined;
-
-	/** @type {Number} [yTick=7] - The distance from the baseline to place each tick value, in pixels. */
+	/* A function that passes the current tick value and expects a nicely formatted value in return. */
+	export let formatTick = (d: string) => d;
+	/* If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function. */
+	export let ticks: number | [] | ((param: unknown) => void) | undefined =
+		undefined;
+	/* The distance from the baseline to place each tick value, in pixels. */
 	export let yTick = 7;
 
 	$: isBandwidth = typeof $xScale.bandwidth === 'function';
