@@ -4,8 +4,6 @@
 
 	const { data, xGet, yGet, zGet, xScale } =
 		getContext<LayerCakeContext>('LayerCake');
-
-	const isRounded = (color: string) => color === 'var(--orange)';
 </script>
 
 <g class="column-group">
@@ -17,7 +15,7 @@
 			<path
 				stroke={$zGet(series)}
 				stroke-width="8"
-				stroke-linejoin={isRounded($zGet(series)) ? 'round' : undefined}
+				stroke-linejoin="round"
 				d="M{$xGet(
 					d
 				)},{yVals[1]} h{$xScale.bandwidth()} v{columnHeight} H{$xGet(d)}Z"
