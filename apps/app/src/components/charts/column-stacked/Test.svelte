@@ -4,7 +4,7 @@
 	import { scaleBand, scaleOrdinal } from 'd3-scale';
 	import { formatLocale } from 'd3-format';
 
-	import Columns from './Columns.svelte';
+	import Columns from './ColumnStacked.svelte';
 	import AxisX from './AxisX.svelte';
 	import AxisY from './AxisY.svelte';
 
@@ -14,8 +14,6 @@
 	const xKey = 'category';
 	const yKey = [0, 1];
 	const zKey = 'key';
-
-	$: console.log(data);
 
 	const seriesNames = Object.keys(data[0]).filter((d) => d !== xKey);
 	const seriesColors = ['var(--remindwise-grey)', 'var(--orange)'];

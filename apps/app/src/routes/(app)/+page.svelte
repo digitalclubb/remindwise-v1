@@ -3,6 +3,7 @@
 	import Header from '../../components/header/Header.svelte';
 	import type { PageData } from './$houdini';
 	import Test from '../../components/charts/column-stacked/Test.svelte';
+	import Line from '../../components/charts/line/Test.svelte';
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData & PageData;
@@ -91,6 +92,11 @@
 		<h2 class="heading-3">
 			Total spend this year <span>(Jan '23 - Jan '24)</span>
 		</h2>
+
+		<div class="charts">
+			<div></div>
+			<Line />
+		</div>
 
 		<Test data={barChartData} {iconsMap} />
 	</section>
@@ -262,6 +268,13 @@
 
 	h2 span {
 		font-weight: 300;
+	}
+
+	.charts {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 4.8rem;
+		margin-bottom: 2rem;
 	}
 
 	select {
