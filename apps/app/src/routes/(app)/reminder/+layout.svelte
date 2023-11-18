@@ -34,8 +34,14 @@
 
 	let files: FileList;
 	let uploads = data.files || [];
+	let filesDeleted: string[] = [];
+
 	const fileUpload = (files: FileList) => {
 		const filenames = Array.from(files).map((file) => {
+			// update the deleted files array in case file got re-added
+			const index = filesDeleted.indexOf(file.name);
+			filesDeleted.splice(index, 1);
+			filesDeleted = [...filesDeleted];
 			return {
 				name: file.name,
 				url: '',
@@ -47,7 +53,8 @@
 	const deleteFile = (fileName: string | undefined) => {
 		const index = uploads.findIndex((upload) => upload.name === fileName);
 		uploads.splice(index, 1);
-		uploads = uploads;
+		uploads = [...uploads];
+		fileName && (filesDeleted = [...filesDeleted, fileName]);
 	};
 </script>
 
@@ -275,12 +282,8 @@
 						<li class="upload">
 							<img src="/icon-pdf.svg" alt="" />
 							<span>{upload.name}</span>
-							<div class="buttons">
-								<button type="button"
-									><img src="/icon-view.svg" alt="" /></button>
-								<button type="button" on:click={() => deleteFile(upload.name)}
-									><img src="/icon-bin.svg" alt="" /></button>
-							</div>
+							<button type="button" on:click={() => deleteFile(upload.name)}
+								><img src="/icon-bin.svg" alt="" /></button>
 						</li>
 					{/each}
 				</ul>
@@ -298,9 +301,13 @@
 				id="documents"
 				name="documents"
 				multiple
-				accept=".jpg, .jpeg, .png, .pdf"
 				bind:files
+				accept=".jpg, .jpeg, .png, .pdf"
 				on:change={() => fileUpload(files)} />
+			<input
+				type="hidden"
+				name="deleted"
+				value={JSON.stringify(filesDeleted)} />
 		</fieldset>
 
 		<slot />
@@ -501,13 +508,13 @@
 		margin-left: 1.5rem;
 	}
 
-	.buttons button {
+	button {
 		all: unset;
 		cursor: pointer;
 		margin-left: 1rem;
 	}
 
-	.buttons img {
+	.uploadFiles button img {
 		width: 1.5rem;
 	}
 </style>
