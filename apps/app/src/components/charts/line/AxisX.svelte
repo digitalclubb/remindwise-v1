@@ -16,10 +16,10 @@
 	$: tickVals = Array.isArray(ticks)
 		? ticks
 		: isBandwidth
-		  ? $xScale.domain()
-		  : typeof ticks === 'function'
-		    ? ticks($xScale.ticks())
-		    : $xScale.ticks(ticks);
+		? $xScale.domain()
+		: typeof ticks === 'function'
+		? ticks($xScale.ticks())
+		: $xScale.ticks(ticks);
 </script>
 
 <div class="x-axis">
@@ -49,17 +49,5 @@
 		font-size: 1.2rem;
 		color: var(--remindwise-grey);
 		text-transform: capitalize;
-	}
-
-	.tick {
-		font-size: 0.725em;
-		font-weight: 200;
-	}
-
-	.tick .text {
-		color: #666;
-		position: relative;
-		white-space: nowrap;
-		transform: translateX(-50%);
 	}
 </style>

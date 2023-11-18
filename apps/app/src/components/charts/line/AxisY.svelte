@@ -18,13 +18,13 @@
 	$: tickVals = Array.isArray(ticks)
 		? ticks
 		: isBandwidth
-		  ? $yScale.domain()
-		  : typeof ticks === 'function'
-		    ? ticks($yScale.ticks())
-		    : $yScale.ticks(ticks);
+		? $yScale.domain()
+		: typeof ticks === 'function'
+		? ticks($yScale.ticks())
+		: $yScale.ticks(ticks);
 </script>
 
-<div class="axis y-axis" style="transform:translate(-{$padding.left}px, 0)">
+<div class="y-axis" style="transform:translate(-{$padding.left}px, 0)">
 	{#each tickVals as tick}
 		<div
 			class="tick"
@@ -46,22 +46,19 @@
 </div>
 
 <style>
-	.axis,
+	.y-axis,
 	.tick,
 	.text {
 		position: absolute;
 	}
-	.axis {
+	div.y-axis {
 		width: 100%;
 		height: 100%;
-	}
-	.tick {
-		font-size: 12px;
-		width: 100%;
-		font-weight: 100;
-	}
-
-	.tick .text {
-		color: #666;
+		box-sizing: content-box;
+		padding-bottom: 0.3rem;
+		font-size: 1.2rem;
+		color: var(--remindwise-grey);
+		text-transform: capitalize;
+		transform: translateX(-4rem);
 	}
 </style>
