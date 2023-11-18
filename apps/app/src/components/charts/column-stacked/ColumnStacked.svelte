@@ -7,8 +7,12 @@
 
 	// If ongoing and no one off, add rounded corners
 	// If one off, add rounded corners
-	const isRounded = (colour: string, { data }) => {
-		let rounded = undefined;
+	const isRounded = (
+		colour: string,
+		{ data }: { data: Record<string, string | number> }
+	) => {
+		let rounded: 'round' | 'inherit' | 'miter' | 'bevel' | undefined =
+			undefined;
 		if (
 			(colour === 'var(--remindwise-grey)' && data.totalSingle === 0) ||
 			colour === 'var(--orange)'
