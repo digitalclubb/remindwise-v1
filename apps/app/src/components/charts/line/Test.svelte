@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { LayerCake, ScaledSvg, Html } from 'layercake';
 
 	import Line from './Line.svelte';
@@ -10,9 +10,11 @@
 	const xKey = 'myX';
 	const yKey = 'myY';
 
-	data.forEach((d) => {
+	data.forEach((d: Record<string, string | number>) => {
 		d[yKey] = +d[yKey];
 	});
+
+	const y = (d: Record<string, string | number>) => d[yKey];
 </script>
 
 <div class="chart-container">
@@ -21,8 +23,9 @@
 		percentRange={true}
 		padding={{ top: 8, right: 10, bottom: 20, left: 25 }}
 		x={xKey}
-		y={(d) => d[yKey]}
+		{y}
 		yNice={4}
+		xDomain={[1, 12]}
 		yDomain={[0, null]}
 		{data}>
 		<Html>
