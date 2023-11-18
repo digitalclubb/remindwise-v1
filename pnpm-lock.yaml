@@ -45,8 +45,8 @@ importers:
         specifier: 22.1.0
         version: 22.1.0
       playwright-core:
-        specifier: ^1.38.1
-        version: 1.38.1
+        specifier: 1.40.0
+        version: 1.40.0
       prettier:
         specifier: 3.1.0
         version: 3.1.0
@@ -92,7 +92,7 @@ importers:
     devDependencies:
       '@axe-core/playwright':
         specifier: 4.8.1
-        version: 4.8.1(playwright-core@1.39.0)
+        version: 4.8.1(playwright-core@1.40.0)
       '@graphql-codegen/cli':
         specifier: ^5.0.0
         version: 5.0.0(@babel/core@7.22.6)(graphql@16.7.1)
@@ -168,7 +168,7 @@ importers:
     devDependencies:
       '@axe-core/playwright':
         specifier: 4.8.1
-        version: 4.8.1(playwright-core@1.39.0)
+        version: 4.8.1(playwright-core@1.40.0)
       '@playwright/test':
         specifier: 1.40.0
         version: 1.40.0
@@ -271,13 +271,13 @@ packages:
       - encoding
     dev: true
 
-  /@axe-core/playwright@4.8.1(playwright-core@1.39.0):
+  /@axe-core/playwright@4.8.1(playwright-core@1.40.0):
     resolution: {integrity: sha512-KC1X++UdRAwMLRvB+BIKFheyLHUnbJTL0t0Wbv6TJMozn2V2QyEtAcN6jyUiudtGiLUGhHCtj/eWorBnVZ4dAA==}
     peerDependencies:
       playwright-core: '>= 1.0.0'
     dependencies:
       axe-core: 4.8.2
-      playwright-core: 1.39.0
+      playwright-core: 1.40.0
     dev: true
 
   /@babel/code-frame@7.22.5:
@@ -5649,18 +5649,6 @@ packages:
       jsonc-parser: 3.2.0
       mlly: 1.4.0
       pathe: 1.1.1
-    dev: true
-
-  /playwright-core@1.38.1:
-    resolution: {integrity: sha512-tQqNFUKa3OfMf4b2jQ7aGLB8o9bS3bOY0yMEtldtC2+spf8QXG9zvXLTXUeRsoNuxEYMgLYR+NXfAa1rjKRcrg==}
-    engines: {node: '>=16'}
-    hasBin: true
-    dev: true
-
-  /playwright-core@1.39.0:
-    resolution: {integrity: sha512-+k4pdZgs1qiM+OUkSjx96YiKsXsmb59evFoqv8SKO067qBA+Z2s/dCzJij/ZhdQcs2zlTAgRKfeiiLm8PQ2qvw==}
-    engines: {node: '>=16'}
-    hasBin: true
     dev: true
 
   /playwright-core@1.40.0:
