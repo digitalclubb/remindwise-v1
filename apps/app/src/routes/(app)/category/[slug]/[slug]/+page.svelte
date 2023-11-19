@@ -59,17 +59,19 @@
 				<span class="highlight">automatically</span>
 			</p>
 
+			<h2 class="heading-4">Things to remember</h2>
 			{#if reminder.notes}
-				<h2 class="heading-4">Things to remember</h2>
 				<p class="remember">
 					{reminder.notes}
 				</p>
+			{:else}
+				<p class="no-notes">No notes have been added.</p>
 			{/if}
 		</div>
 
-		{#if data.files}
-			<aside>
-				<h3 class="heading-5">Your documents</h3>
+		<aside>
+			<h3 class="heading-5">Your documents</h3>
+			{#if data.files}
 				<ul class="documents">
 					{#each data.files as file}
 						<li>
@@ -85,8 +87,10 @@
 						</li>
 					{/each}
 				</ul>
-			</aside>
-		{/if}
+			{:else}
+				<p>No documents have been added.</p>
+			{/if}
+		</aside>
 	{/if}
 </article>
 
@@ -153,6 +157,11 @@
 		grid-area: aside;
 		background-color: var(--cream-light);
 		padding: 2rem;
+	}
+
+	aside p,
+	.no-notes {
+		font-weight: 300;
 	}
 
 	.documents li {

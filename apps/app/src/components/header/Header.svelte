@@ -1,12 +1,19 @@
 <script lang="ts">
 	export let title = '';
-	export let icon = '';
+	export let icon: string | null = '';
 	export let back: { text: string; href: string } | undefined = undefined;
 </script>
 
 <header>
 	{#if title}
-		<h1 class="title heading-2">{title} {icon}</h1>
+		<h1 class="title heading-2">
+			{title}
+			{#if icon}
+				<svg>
+					<use xlink:href="#{icon}"></use>
+				</svg>
+			{/if}
+		</h1>
 	{/if}
 	{#if back}
 		<h1 class="heading-5"><a class="back" href={back.href}>{back.text}</a></h1>
@@ -29,6 +36,16 @@
 	.title {
 		color: var(--orange);
 		text-transform: capitalize;
+		display: flex;
+		align-items: baseline;
+	}
+
+	.title svg {
+		width: 1.7rem;
+		height: 1.7rem;
+		fill: var(--cream-dark);
+		margin-left: 1.2rem;
+		transform: translateY(0.3rem);
 	}
 
 	.back {

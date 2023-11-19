@@ -66,13 +66,15 @@ export const actions = {
 		// Add documents to storage
 		// Store by userId/reminderId/filename.ext
 		for (const file of files) {
-			const { error } = await event.locals.supabase.storage
-				.from('documents')
-				.upload(`${userId}/${reminderId}/${file.name}`, file);
+			if (file.size > 0 && file.name.length > 0) {
+				const { error } = await event.locals.supabase.storage
+					.from('documents')
+					.upload(`${userId}/${reminderId}/${file.name}`, file);
 
-			// TODO: Handle this gracefully!
-			if (error) {
-				throw error;
+				// TODO: Handle this gracefully!
+				if (error) {
+					throw error;
+				}
 			}
 		}
 
