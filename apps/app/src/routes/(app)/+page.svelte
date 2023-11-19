@@ -109,7 +109,14 @@
 				</ul>
 				<div class="costs cost-upcoming">
 					<h4>Upcoming costs</h4>
-					<p>£450</p>
+					<div class="cost-switcher">
+						<select>
+							<option value="1">1 months</option>
+							<option value="3">3 months</option>
+							<option value="6">6 months</option>
+						</select>
+						<p>£450</p>
+					</div>
 				</div>
 			</div>
 			<Line />
@@ -289,7 +296,7 @@
 
 	.charts {
 		display: grid;
-		grid-template-columns: 1fr 1fr 2fr;
+		grid-template-columns: 0.5fr 1fr 2fr;
 		gap: 4.8rem;
 		margin-bottom: 2rem;
 		align-items: center;
@@ -336,6 +343,12 @@
 	.cost-upcoming h3::before {
 		background-color: var(--orange);
 	}
+
+	.cost-switcher {
+		display: flex;
+		justify-content: space-between;
+	}
+
 	select {
 		background: none;
 		border: none;
