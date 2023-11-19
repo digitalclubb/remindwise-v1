@@ -43,10 +43,9 @@
 				{reminder.name} <span>{reminder.category?.name}</span>
 			</h1>
 			<Link href={`/reminder/edit/${$page.params.slug}`}
-				>Edit reminder <img
-					src="/icon-edit-category.svg"
-					class="edit"
-					alt="" /></Link>
+				>Edit reminder <svg class="edit">
+					<use xlink:href="#icon-edit-category"></use>
+				</svg></Link>
 		</div>
 
 		<div class="content">
@@ -75,9 +74,13 @@
 					{#each data.files as file}
 						<li>
 							<a href={file.url}>
-								<img src="/icon-pdf.svg" alt="" />
+								<svg>
+									<use xlink:href="#icon-pdf"></use>
+								</svg>
 								<p>{file.name}</p>
-								<img src="/icon-view.svg" alt="" />
+								<svg>
+									<use xlink:href="#icon-view"></use>
+								</svg>
 							</a>
 						</li>
 					{/each}
@@ -118,6 +121,7 @@
 		width: 2rem;
 		height: 2rem;
 		margin-left: 0.8rem;
+		fill: var(--orange);
 	}
 
 	.content {
@@ -157,7 +161,7 @@
 		margin-top: 1rem;
 	}
 
-	.documents img {
+	.documents svg {
 		width: 2rem;
 		height: 2rem;
 		margin-right: 1.8rem;

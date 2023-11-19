@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Modal from '../modal/Modal.svelte';
-	import { icons } from '../icons/icons';
+	import { icons } from '../icons/categories';
 
 	import { Button } from 'components';
 
@@ -118,7 +118,9 @@
 				width="170"
 				height="27" /></a>
 		<button on:click={() => (showNavigation = true)}
-			><img src="/icon-menu.svg" class="menu" alt="View menu icon" /></button>
+			><svg class="menu">
+				<use xlink:href="#icon-menu"></use>
+			</svg></button>
 	</div>
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -138,20 +140,27 @@
 				<li>{$settingsStore.errors}</li>
 			{:else if settings}
 				<h3>
-					<img src="/icon-profile.svg" alt="" />
+					<svg>
+						<use xlink:href="#icon-profile"></use>
+					</svg>
 					{getUsername()}
 				</h3>
 			{/if}
 
 			<Link type="button" href="/reminder/add"
-				><img class="add" src="/icon-add.svg" alt="" /> Add a new reminder</Link>
+				><svg class="add">
+					<use xlink:href="#icon-add"></use>
+				</svg> Add a new reminder</Link>
 		</div>
 		<ul class="categories">
 			<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
 			<li
 				class:selected={selected === ''}
 				on:click={() => (showNavigation = false)}>
-				<a href="/"><img src="/icon-dashboard.svg" alt="" /> Dashboard</a>
+				<a href="/"
+					><svg>
+						<use xlink:href="#icon-dashboard"></use>
+					</svg> Dashboard</a>
 			</li>
 			{#if $categoriesStore.fetching}
 				<li>Loading...</li>
@@ -180,10 +189,14 @@
 							on:click={(e) => {
 								e.stopPropagation();
 								onClickOptions(index);
-							}}><img src="/icon-edit.svg" alt="" /></button>
+							}}
+							><svg>
+								<use xlink:href="#icon-edit"></use>
+							</svg></button>
 						<ul class="options" class:active={clicked === index}>
 							<li>
 								<button
+									class="edit"
 									on:click={() => {
 										currentCategory = {
 											id: category.category.id,
@@ -192,7 +205,10 @@
 										};
 										showAddModal = true;
 										clicked = -1;
-									}}>Rename <img src="/icon-rename.svg" alt="" /></button>
+									}}
+									>Edit <svg>
+										<use xlink:href="#icon-edit-category"></use>
+									</svg></button>
 							</li>
 							<li>
 								<button
@@ -204,14 +220,19 @@
 										};
 										showDeleteModal = true;
 										clicked = -1;
-									}}>Delete <img src="/icon-delete.svg" alt="" /></button>
+									}}
+									>Delete <svg>
+										<use xlink:href="#icon-delete"></use>
+									</svg></button>
 							</li>
 						</ul>
 					</li>
 				{/each}
 			{/if}
 			<li class="add-category">
-				<img src="/icon-add.svg" alt="" />
+				<svg>
+					<use xlink:href="#icon-add"></use>
+				</svg>
 				<Button
 					style="tertiary"
 					onClick={() => {
@@ -221,13 +242,23 @@
 			</li>
 		</ul>
 		<ul class="settings">
-			<li><a href="/help"><img src="/icon-help.svg" alt="" /> Help</a></li>
 			<li>
-				<a href="/settings"><img src="/icon-settings.svg" alt="" /> Settings</a>
+				<a href="/help"
+					><svg>
+						<use xlink:href="#icon-help"></use>
+					</svg> Help</a>
+			</li>
+			<li>
+				<a href="/settings"
+					><svg>
+						<use xlink:href="#icon-settings"></use>
+					</svg> Settings</a>
 			</li>
 			<li>
 				<a href="/" on:click={signOut}
-					><img src="/icon-logout.svg" alt="" /> Logout</a>
+					><svg>
+						<use xlink:href="#icon-logout"></use>
+					</svg> Logout</a>
 			</li>
 		</ul>
 	</div>
@@ -338,8 +369,7 @@
 		height: calc(100% - 8.8rem);
 	}
 
-	.content svg,
-	.content img {
+	.content svg {
 		height: 1.8rem;
 		width: 1.8rem;
 		vertical-align: middle;
@@ -390,14 +420,8 @@
 		gap: 1rem;
 		margin: 0;
 	}
-	.profile img {
-		margin-left: 1rem;
-		height: 1.7rem;
-		width: 1.7rem;
-	}
 
-	.add {
-		display: inline-block;
+	.content .add {
 		height: 1.4rem;
 		margin-right: 0.9rem;
 	}
@@ -426,6 +450,10 @@
 
 	li:hover .icon-button {
 		display: flex;
+	}
+
+	.edit svg {
+		fill: var(--cream);
 	}
 
 	.count {
@@ -517,10 +545,6 @@
 		margin-bottom: 2.6rem;
 	}
 
-	.settings img {
-		fill: var(--cream);
-	}
-
 	.icon-button {
 		background: none;
 		border: none;
@@ -541,16 +565,10 @@
 
 	.options {
 		display: none;
-	}
-
-	.options.active {
-		display: flex;
 		position: absolute;
-		background: var(--orange);
+		background-color: var(--orange);
 		color: var(--cream);
 		border-radius: 3px 0 3px 3px;
-		padding: 1.5rem;
-		gap: 2rem;
 		flex-direction: column;
 		width: 12.3rem;
 		top: 2.9rem;
@@ -558,19 +576,23 @@
 		right: 1.7rem;
 	}
 
-	.options.active li {
-		padding: 0;
+	.options.active {
+		display: flex;
 	}
 
-	.options.active button {
+	.options li {
+		padding: 1.5rem;
+	}
+
+	.options li:hover {
+		background-color: var(--orange-dark);
+	}
+
+	.options button {
 		display: flex;
 		justify-content: space-between;
 		padding: 0;
 		width: 100%;
-	}
-
-	.options img {
-		fill: var(--cream);
 	}
 
 	.deleteModal h2 {
@@ -621,10 +643,6 @@
 			padding: 2.5rem 3.6rem 6.5rem 3.6rem;
 			align-items: center;
 			gap: 2.2rem;
-		}
-
-		.profile img {
-			margin-left: 0;
 		}
 
 		.content a {
