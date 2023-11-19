@@ -3,6 +3,7 @@
 	import Header from '../../components/header/Header.svelte';
 	import type { PageData } from './$houdini';
 	import Test from '../../components/charts/column-stacked/Test.svelte';
+	import Donut from '../../components/charts/donut/Test.svelte';
 	import Line from '../../components/charts/line/Test.svelte';
 	import type { LayoutData } from './$types';
 
@@ -94,7 +95,23 @@
 		</h2>
 
 		<div class="charts">
-			<div></div>
+			<Donut />
+			<div class="costs-data">
+				<ul class="costs">
+					<li class="cost">
+						<h3 class="heading-5">Spent so far</h3>
+						<p>£560</p>
+					</li>
+					<li class="cost cost-upcoming">
+						<h3 class="heading-5">Upcoming</h3>
+						<p>£560</p>
+					</li>
+				</ul>
+				<div class="costs cost-upcoming">
+					<h4>Upcoming costs</h4>
+					<p>£450</p>
+				</div>
+			</div>
 			<Line />
 		</div>
 
@@ -156,8 +173,8 @@
 								>{reminder.reminder.autoRenewal?.valueOf() === undefined
 									? '-'
 									: reminder.reminder.autoRenewal?.valueOf()
-									  ? 'Yes'
-									  : 'No'}</td>
+									? 'Yes'
+									: 'No'}</td>
 							<td>
 								<a
 									href="/category/{reminder.reminder.category?.name}/{reminder
@@ -272,11 +289,53 @@
 
 	.charts {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1fr 1fr 2fr;
 		gap: 4.8rem;
 		margin-bottom: 2rem;
+		align-items: center;
+		justify-items: center;
 	}
 
+	.costs-data {
+		justify-self: stretch;
+	}
+
+	.costs {
+		border: 1px solid var(--cream);
+		border-radius: 0.6rem;
+		padding: 2rem;
+	}
+
+	ul.costs {
+		margin-bottom: 1.2rem;
+	}
+
+	.cost {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.cost p {
+		font-size: 1.6rem;
+	}
+
+	.cost-upcoming p {
+		color: var(--orange);
+	}
+
+	.cost h3::before {
+		content: '';
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background-color: var(--remindwise-grey);
+		margin-right: 1rem;
+	}
+
+	.cost-upcoming h3::before {
+		background-color: var(--orange);
+	}
 	select {
 		background: none;
 		border: none;
