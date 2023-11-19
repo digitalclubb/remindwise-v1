@@ -180,6 +180,17 @@ type Mutation {
     filter: categoriesFilter
   ): categoriesDeleteResponse!
 
+  """Deletes zero or more records from the `historical` collection"""
+  deleteFromhistoricalCollection(
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: historicalFilter
+  ): historicalDeleteResponse!
+
   """Deletes zero or more records from the `reminders` collection"""
   deleteFromremindersCollection(
     """
@@ -205,6 +216,9 @@ type Mutation {
   """Adds one or more `categories` records to the collection"""
   insertIntocategoriesCollection(objects: [categoriesInsertInput!]!): categoriesInsertResponse
 
+  """Adds one or more `historical` records to the collection"""
+  insertIntohistoricalCollection(objects: [historicalInsertInput!]!): historicalInsertResponse
+
   """Adds one or more `reminders` records to the collection"""
   insertIntoremindersCollection(objects: [remindersInsertInput!]!): remindersInsertResponse
 
@@ -226,6 +240,22 @@ type Mutation {
     """
     set: categoriesUpdateInput!
   ): categoriesUpdateResponse!
+
+  """Updates zero or more records in the `historical` collection"""
+  updatehistoricalCollection(
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: historicalFilter
+
+    """
+    Fields that are set will be updated for all records matching the `filter`
+    """
+    set: historicalUpdateInput!
+  ): historicalUpdateResponse!
 
   """Updates zero or more records in the `reminders` collection"""
   updateremindersCollection(
@@ -334,6 +364,27 @@ type Query {
     """Sort order to apply to the collection"""
     orderBy: [categoriesOrderBy!]
   ): categoriesConnection
+
+  """A pagable collection of type `historical`"""
+  historicalCollection(
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: historicalFilter
+
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Sort order to apply to the collection"""
+    orderBy: [historicalOrderBy!]
+  ): historicalConnection
 
   """Retrieve a record by its `ID`"""
   node(
@@ -481,6 +532,25 @@ input UUIDFilter {
 
 type categories implements Node {
   created_at: Datetime
+  historicalCollection(
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: historicalFilter
+
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Sort order to apply to the collection"""
+    orderBy: [historicalOrderBy!]
+  ): historicalConnection
   iconId: String
   id: BigInt!
   isLocked: Boolean
@@ -580,6 +650,92 @@ type categoriesUpdateResponse {
   records: [categories!]!
 }
 
+type historical implements Node {
+  categories: categories!
+  categoryid: BigInt!
+  created_at: Datetime!
+  date: Date!
+  id: BigInt!
+  monthTotals: [Float]!
+
+  """Globally Unique Record Identifier"""
+  nodeId: ID!
+  settings: settings!
+  total: Float!
+  userid: UUID!
+}
+
+type historicalConnection {
+  edges: [historicalEdge!]!
+  pageInfo: PageInfo!
+}
+
+type historicalDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [historical!]!
+}
+
+type historicalEdge {
+  cursor: String!
+  node: historical!
+}
+
+input historicalFilter {
+  categoryid: BigIntFilter
+  created_at: DatetimeFilter
+  date: DateFilter
+  id: BigIntFilter
+  nodeId: IDFilter
+  total: FloatFilter
+  userid: UUIDFilter
+}
+
+input historicalInsertInput {
+  categoryid: BigInt
+  created_at: Datetime
+  date: Date
+  monthTotals: [Float]
+  total: Float
+  userid: UUID
+}
+
+type historicalInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [historical!]!
+}
+
+input historicalOrderBy {
+  categoryid: OrderByDirection
+  created_at: OrderByDirection
+  date: OrderByDirection
+  id: OrderByDirection
+  total: OrderByDirection
+  userid: OrderByDirection
+}
+
+input historicalUpdateInput {
+  categoryid: BigInt
+  created_at: Datetime
+  date: Date
+  monthTotals: [Float]
+  total: Float
+  userid: UUID
+}
+
+type historicalUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [historical!]!
+}
+
 type reminders implements Node {
   autoRenewal: Boolean
   category: categories
@@ -596,6 +752,7 @@ type reminders implements Node {
   nodeId: ID!
   notes: String
   settings: settings
+  total: Float!
   type: Type!
   userid: UUID
 }
@@ -633,6 +790,7 @@ input remindersFilter {
   name: StringFilter
   nodeId: IDFilter
   notes: StringFilter
+  total: FloatFilter
   type: TypeFilter
   userid: UUIDFilter
 }
@@ -647,6 +805,7 @@ input remindersInsertInput {
   frequency: Frequency
   name: String
   notes: String
+  total: Float
   type: Type
   userid: UUID
 }
@@ -670,6 +829,7 @@ input remindersOrderBy {
   id: OrderByDirection
   name: OrderByDirection
   notes: OrderByDirection
+  total: OrderByDirection
   type: OrderByDirection
   userid: OrderByDirection
 }
@@ -684,6 +844,7 @@ input remindersUpdateInput {
   frequency: Frequency
   name: String
   notes: String
+  total: Float
   type: Type
   userid: UUID
 }
@@ -719,6 +880,25 @@ type settings implements Node {
   currency: String
   email: String
   first_name: String
+  historicalCollection(
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: historicalFilter
+
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Sort order to apply to the collection"""
+    orderBy: [historicalOrderBy!]
+  ): historicalConnection
   id: UUID!
   interval: Interval
   last_name: String

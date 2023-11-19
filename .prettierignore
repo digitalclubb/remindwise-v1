@@ -10,6 +10,7 @@ types.ts
 .svelte-kit
 
 pnpm-lock.yaml
+**/playwright-report/index.html
 .vercel
 
 $houdini

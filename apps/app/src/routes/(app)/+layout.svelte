@@ -16,21 +16,6 @@
 
 		return () => data.subscription.unsubscribe();
 	});
-
-	$: if (session) {
-		// const headers = {
-		// 	apikey: PUBLIC_SUPABASE_KEY,
-		// 	authorization: `Bearer ${session?.access_token}`,
-		// };
-		// const client = createClient({
-		// 	url: `${PUBLIC_SUPABASE_URL}/graphql/v1`,
-		// 	exchanges: [cacheExchange, fetchExchange],
-		// 	fetchOptions: function createFetchOptions() {
-		// 		return { headers };
-		// 	},
-		// });
-		// setContextClient(client);
-	}
 </script>
 
 <main>

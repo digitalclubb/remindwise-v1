@@ -1,0 +1,13 @@
+query getHistorical($yearStart: Date, $yearEnd: Date) {
+	historical: historicalCollection(
+		filter: { date: { gte: $yearStart, lte: $yearEnd } }
+	) {
+		list: edges {
+			historical: node {
+				categoryid
+				monthTotals
+				total
+			}
+		}
+	}
+}
