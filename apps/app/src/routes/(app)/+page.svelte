@@ -95,7 +95,9 @@
 		</h2>
 
 		<div class="charts">
-			<Donut />
+			<div class="donut">
+				<Donut />
+			</div>
 			<div class="costs-data">
 				<ul class="costs">
 					<li class="cost">
@@ -119,7 +121,9 @@
 					</div>
 				</div>
 			</div>
-			<Line />
+			<div class="line">
+				<Line />
+			</div>
 		</div>
 
 		<Test data={barChartData} {iconsMap} />
@@ -296,15 +300,28 @@
 
 	.charts {
 		display: grid;
-		grid-template-columns: 0.5fr 1fr 2fr;
+		grid-template-columns: 0.5fr 1fr;
+		grid-template-areas:
+			'donut data'
+			'line line';
 		gap: 4.8rem;
 		margin-bottom: 2rem;
 		align-items: center;
 		justify-items: center;
 	}
 
+	.donut {
+		grid-area: donut;
+	}
+
 	.costs-data {
+		grid-area: data;
 		justify-self: stretch;
+	}
+
+	.line {
+		grid-area: line;
+		width: 100%;
 	}
 
 	.costs {
@@ -377,5 +394,12 @@
 	.chevron-right {
 		rotate: -90deg;
 		margin-left: 1rem;
+	}
+
+	@media screen and (min-width: 768px) {
+		.charts {
+			grid-template-areas: 'donut data line';
+			grid-template-columns: 0.5fr 1fr 2fr;
+		}
 	}
 </style>
