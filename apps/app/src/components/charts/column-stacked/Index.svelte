@@ -27,6 +27,7 @@
 	const stackData = stack().keys(seriesNames);
 
 	const series = stackData(data as Record<string, number>[]);
+	/* eslint-disable  @typescript-eslint/no-explicit-any */
 	const xHandle = (d: { data: { [x: string]: any } }) => d.data[xKey];
 
 	const gbp = formatLocale({

@@ -2,7 +2,7 @@
 	import { getContext } from 'svelte';
 	import type { LayerCakeContext } from './context';
 
-	const { padding, xRange, yScale } = getContext<LayerCakeContext>('LayerCake');
+	const { xRange, yScale } = getContext<LayerCakeContext>('LayerCake');
 
 	/* A function that passes the current tick value and expects a nicely formatted value in return. */
 	export let formatTick = (d: number) => `${d}`;
@@ -14,14 +14,14 @@
 	$: tickVals = Array.isArray(ticks)
 		? ticks
 		: isBandwidth
-		  ? $yScale.domain()
-		  : typeof ticks === 'function'
-		    ? ticks($yScale.ticks())
-		    : $yScale.ticks(ticks);
+		? $yScale.domain()
+		: typeof ticks === 'function'
+		? ticks($yScale.ticks())
+		: $yScale.ticks(ticks);
 </script>
 
 <div class="y-axis">
-	{#each tickVals as tick, i (tick)}
+	{#each tickVals as tick}
 		<div
 			class="tick"
 			style="top:{$yScale(tick) +
