@@ -339,7 +339,7 @@
 		justify-content: space-between;
 	}
 
-	.cost p {
+	.costs p {
 		font-size: 1.6rem;
 	}
 
