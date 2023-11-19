@@ -63,7 +63,9 @@
 	};
 </script>
 
-<Header title={$page.params.slug} />
+<Header
+	title={$page.params.slug}
+	icon={reminders[0]?.reminder.category?.iconId} />
 
 <div class="body">
 	<section>
