@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let title = '';
-	export let icon: string | undefined = '';
+	export let icon: string | null = '';
 	export let back: { text: string; href: string } | undefined = undefined;
 </script>
 
@@ -8,9 +8,11 @@
 	{#if title}
 		<h1 class="title heading-2">
 			{title}
-			<svg>
-				<use xlink:href="#{icon}"></use>
-			</svg>
+			{#if icon}
+				<svg>
+					<use xlink:href="#{icon}"></use>
+				</svg>
+			{/if}
 		</h1>
 	{/if}
 	{#if back}
