@@ -8,7 +8,9 @@
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData & PageData;
-	$: ({ getAllReminders, getCategories } = data);
+	$: ({ getAllReminders, getCategories, getHistorical } = data);
+
+	$: console.log($getHistorical.data?.historical?.list[0].historical);
 
 	$: upcoming = $getAllReminders.data?.upcoming?.list || [];
 	$: reminders = $getAllReminders.data?.reminders?.list || [];
@@ -184,8 +186,8 @@
 								>{reminder.reminder.autoRenewal?.valueOf() === undefined
 									? '-'
 									: reminder.reminder.autoRenewal?.valueOf()
-									? 'Yes'
-									: 'No'}</td>
+									  ? 'Yes'
+									  : 'No'}</td>
 							<td>
 								<a
 									href="/category/{reminder.reminder.category?.name}/{reminder
@@ -249,7 +251,11 @@
 									style: 'currency',
 									currency: 'GBP',
 								}).format(reminder.reminder.cost || 0)}</td>
-							<td></td>
+							<td
+								>{new Intl.NumberFormat('en-GB', {
+									style: 'currency',
+									currency: 'GBP',
+								}).format(reminder.reminder.total || 0)}</td>
 							<td>
 								<a
 									href="/category/{reminder.reminder.category?.name}/{reminder
@@ -337,6 +343,7 @@
 	.cost {
 		display: flex;
 		justify-content: space-between;
+		align-items: first baseline;
 	}
 
 	.costs p {

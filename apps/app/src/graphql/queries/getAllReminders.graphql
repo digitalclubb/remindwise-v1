@@ -42,6 +42,7 @@ query getAllReminders(
 				name
 				company
 				cost
+				total
 				category {
 					iconId
 					name
