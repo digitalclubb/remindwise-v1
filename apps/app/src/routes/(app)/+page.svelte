@@ -2,7 +2,7 @@
 	import Button from 'components/button/Button.svelte';
 	import Header from '../../components/header/Header.svelte';
 	import type { PageData } from './$houdini';
-	import Test from '../../components/charts/column-stacked/Test.svelte';
+	import Bar from '../../components/charts/column-stacked/Test.svelte';
 	import Donut from '../../components/charts/donut/Test.svelte';
 	import Line from '../../components/charts/line/Test.svelte';
 	import type { LayoutData } from './$types';
@@ -128,7 +128,7 @@
 			</div>
 		</div>
 
-		<Test data={barChartData} {iconsMap} />
+		<Bar data={barChartData} {iconsMap} />
 	</section>
 
 	<section>
