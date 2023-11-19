@@ -1,5 +1,6 @@
 <script lang="ts">
-	import Sprite from '../../components/icons/Sprite.svelte';
+	import IconsCategory from '../../components/icons/Categories.svelte';
+	import IconsUI from '../../components/icons/Icons.svelte';
 	import Navigation from '../../components/navigation/Navigation.svelte';
 
 	import { invalidate } from '$app/navigation';
@@ -24,7 +25,8 @@
 		<slot />
 	</div>
 </main>
-<svelte:component this={Sprite} />
+<svelte:component this={IconsUI} />
+<svelte:component this={IconsCategory} />
 
 <style>
 	main {

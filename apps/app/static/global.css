@@ -205,6 +205,15 @@ td {
 	text-align: center;
 }
 
+td svg {
+	width: 1.6rem;
+	height: 1.6rem;
+}
+
+td.view {
+	text-align: center;
+}
+
 .table-icon {
 	width: 1.8rem;
 	height: 1.8rem;

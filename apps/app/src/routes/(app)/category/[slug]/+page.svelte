@@ -129,12 +129,14 @@
 									: reminder.reminder.autoRenewal?.valueOf()
 									  ? 'Yes'
 									  : 'No'}</td>
-							<td>
+							<td class="view">
 								<a
 									href="/category/{reminder.reminder.category?.name}/{reminder
 										.reminder.id}"
 									class="table-link">
-									<img src="/icon-view.svg" alt="" />
+									<svg>
+										<use xlink:href="#icon-view"></use>
+									</svg>
 								</a>
 							</td>
 						</tr>
@@ -193,12 +195,14 @@
 									currency: 'GBP',
 								}).format(reminder.reminder.cost || 0)}</td>
 							<td></td>
-							<td>
+							<td class="view">
 								<a
 									href="/category/{reminder.reminder.category?.name}/{reminder
 										.reminder.id}"
 									class="table-link">
-									<img src="/icon-view.svg" alt="" />
+									<svg>
+										<use xlink:href="#icon-view"></use>
+									</svg>
 								</a>
 							</td>
 						</tr>
@@ -209,15 +213,13 @@
 
 		<div class="pagination">
 			<Button type="button" style="tertiary" onClick={onPrevious}
-				><img
-					class="chevron-left"
-					src="/icon-chevron.svg"
-					alt="" />Previous</Button>
+				><svg class="chevron-left">
+					<use xlink:href="#icon-chevron"></use>
+				</svg> Previous</Button>
 			<Button type="button" style="tertiary" onClick={onNext}
-				>Next<img
-					class="chevron-right"
-					src="/icon-chevron.svg"
-					alt="" /></Button>
+				>Next <svg class="chevron-right">
+					<use xlink:href="#icon-chevron"></use>
+				</svg></Button>
 		</div>
 	</section>
 </div>
@@ -259,6 +261,7 @@
 	.chevron-right {
 		display: inline-block;
 		width: 1.4rem;
+		height: 1.4rem;
 	}
 
 	.chevron-left {

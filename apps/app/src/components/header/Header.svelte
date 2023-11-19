@@ -12,7 +12,9 @@
 		<h1 class="heading-5"><a class="back" href={back.href}>{back.text}</a></h1>
 	{/if}
 	<a href="/notifications" class="notification">
-		<img src="/notification.svg" alt="" width="" height="" />
+		<svg>
+			<use xlink:href="#icon-notification"></use>
+		</svg>
 		<span>3</span>
 	</a>
 </header>
@@ -46,7 +48,7 @@
 	.notification {
 		position: relative;
 	}
-	.notification img {
+	.notification svg {
 		width: 3rem;
 		height: 3rem;
 	}

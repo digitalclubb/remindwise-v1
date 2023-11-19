@@ -280,16 +280,22 @@
 				<ul class="">
 					{#each uploads as upload}
 						<li class="upload">
-							<img src="/icon-pdf.svg" alt="" />
+							<svg>
+								<use xlink:href="#icon-pdf"></use>
+							</svg>
 							<span>{upload.name}</span>
 							<button type="button" on:click={() => deleteFile(upload.name)}
-								><img src="/icon-bin.svg" alt="" /></button>
+								><svg>
+									<use xlink:href="#icon-bin"></use>
+								</svg></button>
 						</li>
 					{/each}
 				</ul>
 			{/if}
 			<label for="documents"
-				><img src="/icon-upload.svg" alt="" />
+				><svg>
+					<use xlink:href="#icon-upload"></use>
+				</svg>
 				{#if uploads.length > 0}
 					Add another document
 				{:else}
@@ -486,8 +492,9 @@
 		background-color: var(--cream);
 	}
 
-	.uploadFiles img {
+	.uploadFiles svg {
 		width: 2.5rem;
+		height: 2.5rem;
 	}
 
 	.types {
@@ -514,7 +521,7 @@
 		margin-left: 1rem;
 	}
 
-	.uploadFiles button img {
+	.uploadFiles button svg {
 		width: 1.5rem;
 	}
 </style>
