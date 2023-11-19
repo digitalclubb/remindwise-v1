@@ -651,8 +651,8 @@ type categoriesUpdateResponse {
 }
 
 type historical implements Node {
-  category: categories!
-  categoryId: BigInt!
+  categories: categories!
+  categoryid: BigInt!
   created_at: Datetime!
   date: Date!
   id: BigInt!
@@ -684,7 +684,7 @@ type historicalEdge {
 }
 
 input historicalFilter {
-  categoryId: BigIntFilter
+  categoryid: BigIntFilter
   created_at: DatetimeFilter
   date: DateFilter
   id: BigIntFilter
@@ -694,7 +694,7 @@ input historicalFilter {
 }
 
 input historicalInsertInput {
-  categoryId: BigInt
+  categoryid: BigInt
   created_at: Datetime
   date: Date
   monthTotals: [Float]
@@ -711,7 +711,7 @@ type historicalInsertResponse {
 }
 
 input historicalOrderBy {
-  categoryId: OrderByDirection
+  categoryid: OrderByDirection
   created_at: OrderByDirection
   date: OrderByDirection
   id: OrderByDirection
@@ -720,7 +720,7 @@ input historicalOrderBy {
 }
 
 input historicalUpdateInput {
-  categoryId: BigInt
+  categoryid: BigInt
   created_at: Datetime
   date: Date
   monthTotals: [Float]

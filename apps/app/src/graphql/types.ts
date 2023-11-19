@@ -557,8 +557,8 @@ export type CategoriesUpdateResponse = {
 
 export type Historical = Node & {
   __typename?: 'historical';
-  category: Categories;
-  categoryId: Scalars['BigInt']['output'];
+  categories: Categories;
+  categoryid: Scalars['BigInt']['output'];
   created_at: Scalars['Datetime']['output'];
   date: Scalars['Date']['output'];
   id: Scalars['BigInt']['output'];
@@ -591,7 +591,7 @@ export type HistoricalEdge = {
 };
 
 export type HistoricalFilter = {
-  categoryId?: InputMaybe<BigIntFilter>;
+  categoryid?: InputMaybe<BigIntFilter>;
   created_at?: InputMaybe<DatetimeFilter>;
   date?: InputMaybe<DateFilter>;
   id?: InputMaybe<BigIntFilter>;
@@ -601,7 +601,7 @@ export type HistoricalFilter = {
 };
 
 export type HistoricalInsertInput = {
-  categoryId?: InputMaybe<Scalars['BigInt']['input']>;
+  categoryid?: InputMaybe<Scalars['BigInt']['input']>;
   created_at?: InputMaybe<Scalars['Datetime']['input']>;
   date?: InputMaybe<Scalars['Date']['input']>;
   monthTotals?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
@@ -618,7 +618,7 @@ export type HistoricalInsertResponse = {
 };
 
 export type HistoricalOrderBy = {
-  categoryId?: InputMaybe<OrderByDirection>;
+  categoryid?: InputMaybe<OrderByDirection>;
   created_at?: InputMaybe<OrderByDirection>;
   date?: InputMaybe<OrderByDirection>;
   id?: InputMaybe<OrderByDirection>;
@@ -627,7 +627,7 @@ export type HistoricalOrderBy = {
 };
 
 export type HistoricalUpdateInput = {
-  categoryId?: InputMaybe<Scalars['BigInt']['input']>;
+  categoryid?: InputMaybe<Scalars['BigInt']['input']>;
   created_at?: InputMaybe<Scalars['Datetime']['input']>;
   date?: InputMaybe<Scalars['Date']['input']>;
   monthTotals?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
