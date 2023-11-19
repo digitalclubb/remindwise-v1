@@ -2,9 +2,9 @@
 	import Button from 'components/button/Button.svelte';
 	import Header from '../../components/header/Header.svelte';
 	import type { PageData } from './$houdini';
-	import Bar from '../../components/charts/column-stacked/Test.svelte';
-	import Donut from '../../components/charts/donut/Test.svelte';
-	import Line from '../../components/charts/line/Test.svelte';
+	import Bar from '../../components/charts/column-stacked/Index.svelte';
+	import Donut from '../../components/charts/donut/Index.svelte';
+	import Line from '../../components/charts/line/Index.svelte';
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData & PageData;
@@ -186,8 +186,8 @@
 								>{reminder.reminder.autoRenewal?.valueOf() === undefined
 									? '-'
 									: reminder.reminder.autoRenewal?.valueOf()
-									  ? 'Yes'
-									  : 'No'}</td>
+									? 'Yes'
+									: 'No'}</td>
 							<td>
 								<a
 									href="/category/{reminder.reminder.category?.name}/{reminder
