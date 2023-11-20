@@ -1,4 +1,4 @@
-<svg width="0" height="0" class="hidden">
+<svg width="0" height="0" style="display:none;">
 	<symbol
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
