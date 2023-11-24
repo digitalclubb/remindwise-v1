@@ -21,7 +21,7 @@
 
 <main>
 	<Navigation categoriesStore={getCategories} settingsStore={getSettings} />
-	<div>
+	<div class="content">
 		<slot />
 	</div>
 </main>
@@ -32,18 +32,22 @@
 	main {
 		display: grid;
 		grid-template-columns: 100%;
-		grid-template-rows: 70px 1fr;
 		grid-template-areas:
-			'navigation'
-			'content   ';
+							'header'
+							'navigation'
+							'content';
 		min-height: 100vh;
+	}
+
+	.content {
+		grid-area: content;
 	}
 
 	@media screen and (min-width: 768px) {
 		main {
 			grid-template-columns: 25.8rem 1fr;
-			grid-template-rows: auto;
-			grid-template-areas: 'navigation content';
+			grid-template-areas: 'header content'
+								'navigation content';
 		}
 	}
 </style>
