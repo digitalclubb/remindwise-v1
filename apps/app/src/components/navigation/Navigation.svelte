@@ -513,8 +513,14 @@
 		margin-right: 0.9rem;
 	}
 
+	.body {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
 	.categories {
-		flex-grow: 2;
+		flex-grow: 1;
 	}
 
 	li {
@@ -738,6 +744,11 @@
 
 		.content a {
 			padding: 1rem 0 1rem 4rem;
+		}
+
+		.settings {
+			position: sticky;
+			bottom: 0;
 		}
 	}
 </style>
