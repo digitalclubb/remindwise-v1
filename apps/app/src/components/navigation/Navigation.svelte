@@ -145,178 +145,180 @@
 	$: clicked = -1;
 </script>
 
-<div class="header">
-	<a href="/"
-		><img
-			src="/logo.svg"
-			alt="remindwise.io logo"
-			class="logo"
-			width="170"
-			height="27" /></a>
-	<button on:click={() => (showNavigation = true)}
-		><svg class="menu">
-			<use xlink:href="#icon-menu"></use>
-		</svg></button>
-</div>
-
-<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-<nav
-	class="navigation"
-	class:show={showNavigation}
-	class:fullscreen={navFullHeight}
-	class:dragging={isDragging}
-	on:mousemove={(event) => dragging(event)}
-	on:touchmove={(event) => dragging(event)}
-	on:mouseup={dragStop}
-	on:touchend={dragStop}>
-	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<!-- svelte-ignore a11y-no-static-element-interactions -->
-	<div
-		class="overlay"
-		on:click={() => {
-			showNavigation = false;
-		}}
-		hidden={!showNavigation}>
+<div>
+	<div class="header">
+		<a href="/"
+			><img
+				src="/logo.svg"
+				alt="remindwise.io logo"
+				class="logo"
+				width="170"
+				height="27" /></a>
+		<button on:click={() => (showNavigation = true)}
+			><svg class="menu">
+				<use xlink:href="#icon-menu"></use>
+			</svg></button>
 	</div>
-	<div class="content" style="height:{navHeight}vh;">
+
+	<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+	<nav
+		class="navigation"
+		class:show={showNavigation}
+		class:fullscreen={navFullHeight}
+		class:dragging={isDragging}
+		on:mousemove={(event) => dragging(event)}
+		on:touchmove={(event) => dragging(event)}
+		on:mouseup={dragStop}
+		on:touchend={dragStop}>
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<div
-			class="drag-icon"
-			on:mousedown={(event) => dragStart(event)}
-			on:touchstart={(event) => dragStart(event)}>
-			<span></span>
+			class="overlay"
+			on:click={() => {
+				showNavigation = false;
+			}}
+			hidden={!showNavigation}>
 		</div>
-		<div class="body">
-			<div class="profile">
-				{#if $settingsStore.fetching}
-					<li>Loading...</li>
-				{:else if $settingsStore.errors}
-					<li>{$settingsStore.errors}</li>
-				{:else if settings}
-					<h3>
-						<svg>
-							<use xlink:href="#icon-profile"></use>
-						</svg>
-						{getUsername()}
-					</h3>
-				{/if}
-
-				<Link type="button" href="/reminder/add"
-					><svg class="add">
-						<use xlink:href="#icon-add"></use>
-					</svg> Add a new reminder</Link>
+		<div class="content" style="height:{navHeight}vh;">
+			<!-- svelte-ignore a11y-no-static-element-interactions -->
+			<div
+				class="drag-icon"
+				on:mousedown={(event) => dragStart(event)}
+				on:touchstart={(event) => dragStart(event)}>
+				<span></span>
 			</div>
-			<ul class="categories">
-				<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
-				<li
-					class:selected={selected === ''}
-					on:click={() => (showNavigation = false)}>
-					<a href="/"
-						><svg>
-							<use xlink:href="#icon-dashboard"></use>
-						</svg> Dashboard</a>
-				</li>
-				{#if $categoriesStore.fetching}
-					<li>Loading...</li>
-				{:else if $categoriesStore.errors}
-					<li>{$categoriesStore.errors}</li>
-				{:else if categories}
-					{#each categories as category, index}
-						<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
-						<li
-							class:selected={selected === category.category.name}
-							on:click={() => (showNavigation = false)}>
-							<a href="/category/{category.category.name}"
-								><svg fill="var(--cream)"
-									><use xlink:href="#{category.category.iconId}" /></svg>
-								<span
-									>{category.category.name}
-									{#if category.category.reminders}
-										<span class="count"
-											>({category.category.reminders.totalCount})</span>
-									{/if}
-								</span>
-							</a>
-							<button
-								class="icon-button"
-								class:active={clicked === index}
-								on:click={(e) => {
-									e.stopPropagation();
-									onClickOptions(index);
-								}}
-								><svg>
-									<use xlink:href="#icon-edit"></use>
-								</svg></button>
-							<ul class="options" class:active={clicked === index}>
-								<li>
-									<button
-										class="edit"
-										on:click={() => {
-											currentCategory = {
-												id: category.category.id,
-												name: category.category.name,
-												iconId: category.category.iconId,
-											};
-											showAddModal = true;
-											clicked = -1;
-										}}
-										>Edit <svg>
-											<use xlink:href="#icon-edit-category"></use>
-										</svg></button>
-								</li>
-								<li>
-									<button
-										on:click={() => {
-											currentCategory = {
-												id: category.category.id,
-												name: category.category.name,
-												iconId: category.category.iconId,
-											};
-											showDeleteModal = true;
-											clicked = -1;
-										}}
-										>Delete <svg>
-											<use xlink:href="#icon-delete"></use>
-										</svg></button>
-								</li>
-							</ul>
-						</li>
-					{/each}
-				{/if}
-				<li class="add-category">
-					<svg>
-						<use xlink:href="#icon-add"></use>
-					</svg>
-					<Button
-						style="tertiary"
-						onClick={() => {
-							currentCategory = undefined;
-							showAddModal = true;
-						}}>Add a category</Button>
-				</li>
-			</ul>
-			<ul class="settings">
-				<li>
-					<a href="/help"
-						><svg>
-							<use xlink:href="#icon-help"></use>
-						</svg> Help</a>
-				</li>
-				<li>
-					<a href="/settings"
-						><svg>
-							<use xlink:href="#icon-settings"></use>
-						</svg> Settings</a>
-				</li>
-				<li>
-					<a href="/" on:click={signOut}
-						><svg>
-							<use xlink:href="#icon-logout"></use>
-						</svg> Logout</a>
-				</li>
-			</ul>
+			<div class="body">
+				<div class="profile">
+					{#if $settingsStore.fetching}
+						<li>Loading...</li>
+					{:else if $settingsStore.errors}
+						<li>{$settingsStore.errors}</li>
+					{:else if settings}
+						<h3>
+							<svg>
+								<use xlink:href="#icon-profile"></use>
+							</svg>
+							{getUsername()}
+						</h3>
+					{/if}
+
+					<Link type="button" href="/reminder/add"
+						><svg class="add">
+							<use xlink:href="#icon-add"></use>
+						</svg> Add a new reminder</Link>
+				</div>
+				<ul class="categories">
+					<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
+					<li
+						class:selected={selected === ''}
+						on:click={() => (showNavigation = false)}>
+						<a href="/"
+							><svg>
+								<use xlink:href="#icon-dashboard"></use>
+							</svg> Dashboard</a>
+					</li>
+					{#if $categoriesStore.fetching}
+						<li>Loading...</li>
+					{:else if $categoriesStore.errors}
+						<li>{$categoriesStore.errors}</li>
+					{:else if categories}
+						{#each categories as category, index}
+							<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
+							<li
+								class:selected={selected === category.category.name}
+								on:click={() => (showNavigation = false)}>
+								<a href="/category/{category.category.name}"
+									><svg fill="var(--cream)"
+										><use xlink:href="#{category.category.iconId}" /></svg>
+									<span
+										>{category.category.name}
+										{#if category.category.reminders}
+											<span class="count"
+												>({category.category.reminders.totalCount})</span>
+										{/if}
+									</span>
+								</a>
+								<button
+									class="icon-button"
+									class:active={clicked === index}
+									on:click={(e) => {
+										e.stopPropagation();
+										onClickOptions(index);
+									}}
+									><svg>
+										<use xlink:href="#icon-edit"></use>
+									</svg></button>
+								<ul class="options" class:active={clicked === index}>
+									<li>
+										<button
+											class="edit"
+											on:click={() => {
+												currentCategory = {
+													id: category.category.id,
+													name: category.category.name,
+													iconId: category.category.iconId,
+												};
+												showAddModal = true;
+												clicked = -1;
+											}}
+											>Edit <svg>
+												<use xlink:href="#icon-edit-category"></use>
+											</svg></button>
+									</li>
+									<li>
+										<button
+											on:click={() => {
+												currentCategory = {
+													id: category.category.id,
+													name: category.category.name,
+													iconId: category.category.iconId,
+												};
+												showDeleteModal = true;
+												clicked = -1;
+											}}
+											>Delete <svg>
+												<use xlink:href="#icon-delete"></use>
+											</svg></button>
+									</li>
+								</ul>
+							</li>
+						{/each}
+					{/if}
+					<li class="add-category">
+						<svg>
+							<use xlink:href="#icon-add"></use>
+						</svg>
+						<Button
+							style="tertiary"
+							onClick={() => {
+								currentCategory = undefined;
+								showAddModal = true;
+							}}>Add a category</Button>
+					</li>
+				</ul>
+				<ul class="settings">
+					<li>
+						<a href="/help"
+							><svg>
+								<use xlink:href="#icon-help"></use>
+							</svg> Help</a>
+					</li>
+					<li>
+						<a href="/settings"
+							><svg>
+								<use xlink:href="#icon-settings"></use>
+							</svg> Settings</a>
+					</li>
+					<li>
+						<a href="/" on:click={signOut}
+							><svg>
+								<use xlink:href="#icon-logout"></use>
+							</svg> Logout</a>
+					</li>
+				</ul>
+			</div>
 		</div>
-	</div>
+	</nav>
 	<Modal bind:showModal={showAddModal}>
 		<h2 class="modalTitle">
 			{currentCategory
@@ -381,7 +383,7 @@
 			form="category-actions"
 			onClick={onDeleteCategory}>Yes delete</Button>
 	</Modal>
-</nav>
+</div>
 
 <style>
 	.header {
@@ -460,6 +462,7 @@
 		display: block;
 		background: #c7d0e1;
 		border-radius: 50px;
+		margin: 0 auto;
 	}
 
 	.content svg {
@@ -702,6 +705,11 @@
 	}
 
 	@media screen and (min-width: 768px) {
+		.header {
+			justify-content: center;
+		}
+
+		.header button,
 		.drag-icon {
 			display: none;
 		}

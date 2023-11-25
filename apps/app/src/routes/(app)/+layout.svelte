@@ -33,9 +33,9 @@
 		display: grid;
 		grid-template-columns: 100%;
 		grid-template-areas:
-							'header'
-							'navigation'
-							'content';
+			'header'
+			'navigation'
+			'content';
 		min-height: 100vh;
 	}
 
@@ -46,8 +46,7 @@
 	@media screen and (min-width: 768px) {
 		main {
 			grid-template-columns: 25.8rem 1fr;
-			grid-template-areas: 'header content'
-								'navigation content';
+			grid-template-areas: 'navigation content';
 		}
 	}
 </style>
