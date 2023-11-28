@@ -19,7 +19,7 @@
 	},
 	"dependencies": {
 		"@supabase/auth-helpers-sveltekit": "0.10.7",
-		"@supabase/supabase-js": "2.38.5",
+		"@supabase/supabase-js": "2.39.0",
 		"components": "workspace:*",
 		"d3-format": "3.1.0",
 		"d3-scale": "4.0.2",
@@ -43,7 +43,7 @@
 		"houdini": "1.2.33",
 		"houdini-svelte": "1.2.33",
 		"svelte": "4.2.7",
-		"svelte-check": "3.6.1",
+		"svelte-check": "3.6.2",
 		"svelte-preprocess": "5.1.1",
 		"tslib": "2.6.2",
 		"vite": "4.5.0",
