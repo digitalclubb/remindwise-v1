@@ -27,7 +27,7 @@
 		"layercake": "8.0.2"
 	},
 	"devDependencies": {
-		"@axe-core/playwright": "4.8.1",
+		"@axe-core/playwright": "4.8.2",
 		"@graphql-codegen/cli": "^5.0.0",
 		"@graphql-codegen/typed-document-node": "^5.0.1",
 		"@graphql-codegen/typescript": "^4.0.1",
@@ -35,7 +35,7 @@
 		"@graphql-typed-document-node/core": "^3.2.0",
 		"@playwright/test": "1.40.1",
 		"@sveltejs/adapter-vercel": "3.1.0",
-		"@sveltejs/kit": "1.27.6",
+		"@sveltejs/kit": "1.27.7",
 		"@testing-library/svelte": "4.0.5",
 		"@types/d3-format": "3.0.4",
 		"@types/d3-scale": "4.0.8",
