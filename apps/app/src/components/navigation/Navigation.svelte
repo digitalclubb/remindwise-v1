@@ -38,17 +38,32 @@
 
 	let showNavigation = false;
 	let navFullHeight = false;
-	let navHeight = 80;
+	let navHeight: number;
+
 	let isDragging = false;
 	let startY: number;
 	let startHeight: number;
+
 	const navContent = browser ? document.querySelector('.content') : '';
 
+	// Show navigation on button click
+	const showNav = () => {
+		showNavigation = true;
+		updateNavHeight(80);
+	};
+
+	// Update the height on show or drag2w
 	const updateNavHeight = (height: number) => {
 		navHeight = height;
 		if (height === 100) navFullHeight = true;
 	};
 
+	// Hide navigation on overlay click
+	const hideNav = () => {
+		showNavigation = false;
+	};
+
+	// Drag icon mousedown or touchstart
 	const dragStart = (e) => {
 		isDragging = true;
 		startY = e.pageY || e.touches?.[0].pageY;
@@ -71,6 +86,13 @@
 			  ? updateNavHeight(100)
 			  : updateNavHeight(50);
 	};
+
+	if (browser) {
+		document.addEventListener('mousemove', dragging);
+		document.addEventListener('touchmove', dragging);
+		document.addEventListener('mouseup', dragStop);
+		document.addEventListener('touchend', dragStop);
+	}
 
 	const onAddCategory = async (event: SubmitEvent) => {
 		const addCategory = new addCategoryStore();
@@ -145,6 +167,16 @@
 	$: clicked = -1;
 </script>
 
+<svelte:head>
+	{#if showNavigation}
+		<style>
+			body {
+				overflow-y: hidden;
+			}
+		</style>
+	{/if}
+</svelte:head>
+
 <div>
 	<div class="header">
 		<a href="/"
@@ -154,7 +186,7 @@
 				class="logo"
 				width="170"
 				height="27" /></a>
-		<button on:click={() => (showNavigation = true)}
+		<button on:click={showNav}
 			><svg class="menu">
 				<use xlink:href="#icon-menu"></use>
 			</svg></button>
@@ -165,20 +197,10 @@
 		class="navigation"
 		class:show={showNavigation}
 		class:fullscreen={navFullHeight}
-		class:dragging={isDragging}
-		on:mousemove={(event) => dragging(event)}
-		on:touchmove={(event) => dragging(event)}
-		on:mouseup={dragStop}
-		on:touchend={dragStop}>
+		class:dragging={isDragging}>
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
-		<div
-			class="overlay"
-			on:click={() => {
-				showNavigation = false;
-			}}
-			hidden={!showNavigation}>
-		</div>
+		<div class="overlay" on:click={hideNav} hidden={!showNavigation}></div>
 		<div class="content" style="height:{navHeight}vh;">
 			<!-- svelte-ignore a11y-no-static-element-interactions -->
 			<div
