@@ -58,11 +58,6 @@
 		if (height === 100) navFullHeight = true;
 	};
 
-	// Hide navigation on overlay click
-	const hideNav = () => {
-		showNavigation = false;
-	};
-
 	// Drag icon mousedown or touchstart
 	const dragStart = (e) => {
 		isDragging = true;
@@ -70,6 +65,7 @@
 		startHeight = parseInt(navContent?.style.height);
 	};
 
+	// Document mousemove or touchmove
 	const dragging = (e) => {
 		if (!isDragging) return;
 		const delta = startY - (e.pageY || e.touches?.[0].pageY);
@@ -77,6 +73,7 @@
 		updateNavHeight(newHeight);
 	};
 
+	// Document mouseup or touchend
 	const dragStop = () => {
 		isDragging = false;
 		const sheetHeight = parseInt(navContent?.style.height);
@@ -87,6 +84,7 @@
 			  : updateNavHeight(50);
 	};
 
+	// document only exists in the browser
 	if (browser) {
 		document.addEventListener('mousemove', dragging);
 		document.addEventListener('touchmove', dragging);
@@ -200,7 +198,11 @@
 		class:dragging={isDragging}>
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
-		<div class="overlay" on:click={hideNav} hidden={!showNavigation}></div>
+		<div
+			class="overlay"
+			on:click={() => (showNavigation = false)}
+			hidden={!showNavigation}>
+		</div>
 		<div class="content" style="height:{navHeight}vh;">
 			<!-- svelte-ignore a11y-no-static-element-interactions -->
 			<div
