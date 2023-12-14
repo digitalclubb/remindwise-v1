@@ -90,8 +90,8 @@
 		sheetHeight < 25
 			? hideNav()
 			: sheetHeight > 75
-			  ? updateNavHeight(100)
-			  : updateNavHeight(50);
+				? updateNavHeight(100)
+				: updateNavHeight(50);
 	};
 
 	// document only exists in the browser
