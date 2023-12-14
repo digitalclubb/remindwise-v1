@@ -32,7 +32,7 @@
 		"svelte": "4.2.8",
 		"turbo": "1.11.2",
 		"typescript": "5.3.3",
-		"vitest": "0.34.6"
+		"vitest": "1.0.4"
 	},
 	"prepare": "svelte-kit sync",
 	"packageManager": "pnpm@8.12.1"
