@@ -49,7 +49,13 @@
 	// Show navigation on button click
 	const showNav = () => {
 		showNavigation = true;
+		document.body.style.overflowY = 'hidden';
 		updateNavHeight(80);
+	};
+
+	const hideNav = () => {
+		showNavigation = false;
+		document.body.style.overflowY = 'auto';
 	};
 
 	// Update the height on show or drag2w
@@ -78,7 +84,7 @@
 		isDragging = false;
 		const sheetHeight = parseInt(navContent?.style.height);
 		sheetHeight < 25
-			? (showNavigation = false)
+			? hideNav()
 			: sheetHeight > 75
 			  ? updateNavHeight(100)
 			  : updateNavHeight(50);
@@ -165,16 +171,6 @@
 	$: clicked = -1;
 </script>
 
-<svelte:head>
-	{#if showNavigation}
-		<style>
-			body {
-				overflow-y: hidden;
-			}
-		</style>
-	{/if}
-</svelte:head>
-
 <div>
 	<div class="header">
 		<a href="/"
@@ -198,11 +194,7 @@
 		class:dragging={isDragging}>
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
-		<div
-			class="overlay"
-			on:click={() => (showNavigation = false)}
-			hidden={!showNavigation}>
-		</div>
+		<div class="overlay" on:click={hideNav} hidden={!showNavigation}></div>
 		<div class="content" style="height:{navHeight}vh;">
 			<!-- svelte-ignore a11y-no-static-element-interactions -->
 			<div
