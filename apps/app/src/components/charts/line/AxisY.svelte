@@ -18,10 +18,10 @@
 	$: tickVals = Array.isArray(ticks)
 		? ticks
 		: isBandwidth
-		  ? $yScale.domain()
-		  : typeof ticks === 'function'
-		    ? ticks($yScale.ticks())
-		    : $yScale.ticks(ticks);
+			? $yScale.domain()
+			: typeof ticks === 'function'
+				? ticks($yScale.ticks())
+				: $yScale.ticks(ticks);
 </script>
 
 <div class="y-axis" style="transform:translate(-{$padding.left}px, 0)">
