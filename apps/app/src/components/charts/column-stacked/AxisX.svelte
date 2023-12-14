@@ -19,10 +19,10 @@
 	$: tickVals = Array.isArray(ticks)
 		? ticks
 		: isBandwidth
-		  ? $xScale.domain()
-		  : typeof ticks === 'function'
-		    ? ticks($xScale.ticks())
-		    : $xScale.ticks(ticks);
+			? $xScale.domain()
+			: typeof ticks === 'function'
+				? ticks($xScale.ticks())
+				: $xScale.ticks(ticks);
 </script>
 
 <div class="x-axis">
