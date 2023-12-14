@@ -44,7 +44,9 @@
 	let startY: number;
 	let startHeight: number;
 
-	const navContent = browser ? document.querySelector('.content') : '';
+	const navContent = browser
+		? (document.querySelector('.content') as HTMLElement)
+		: null;
 
 	// Show navigation on button click
 	const showNav = () => {
@@ -65,16 +67,18 @@
 	};
 
 	// Drag icon mousedown or touchstart
-	const dragStart = (e) => {
+	const dragStart = (e: MouseEvent | TouchEvent) => {
 		isDragging = true;
-		startY = e.pageY || e.touches?.[0].pageY;
-		startHeight = parseInt(navContent?.style.height);
+		startY = (e as MouseEvent).pageY || (e as TouchEvent).touches?.[0].pageY;
+		startHeight = parseInt(navContent?.style.height || '');
 	};
 
 	// Document mousemove or touchmove
-	const dragging = (e) => {
+	const dragging = (e: MouseEvent | TouchEvent) => {
 		if (!isDragging) return;
-		const delta = startY - (e.pageY || e.touches?.[0].pageY);
+		const delta =
+			startY -
+			((e as MouseEvent).pageY || (e as TouchEvent).touches?.[0].pageY);
 		const newHeight = startHeight + (delta / window.innerHeight) * 100;
 		updateNavHeight(newHeight);
 	};
@@ -82,7 +86,7 @@
 	// Document mouseup or touchend
 	const dragStop = () => {
 		isDragging = false;
-		const sheetHeight = parseInt(navContent?.style.height);
+		const sheetHeight = parseInt(navContent?.style.height || '');
 		sheetHeight < 25
 			? hideNav()
 			: sheetHeight > 75
