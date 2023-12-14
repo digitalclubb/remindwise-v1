@@ -46,7 +46,7 @@
 		"svelte-check": "3.6.2",
 		"svelte-preprocess": "5.1.2",
 		"tslib": "2.6.2",
-		"vite": "4.5.1",
+		"vite": "5.0.9",
 		"vite-plugin-graphql-loader": "^2.0.0",
 		"vitest": "0.34.6"
 	},
