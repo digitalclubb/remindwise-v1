@@ -222,16 +222,14 @@
 						</h3>
 					{/if}
 
-					<Link type="button" href="/reminder/add"
+					<Link type="button" href="/reminder/add" on:click={hideNav}
 						><svg class="add">
 							<use xlink:href="#icon-add"></use>
 						</svg> Add a new reminder</Link>
 				</div>
 				<ul class="categories">
 					<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
-					<li
-						class:selected={selected === ''}
-						on:click={() => (showNavigation = false)}>
+					<li class:selected={selected === ''} on:click={hideNav}>
 						<a href="/"
 							><svg>
 								<use xlink:href="#icon-dashboard"></use>
@@ -246,7 +244,7 @@
 							<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
 							<li
 								class:selected={selected === category.category.name}
-								on:click={() => (showNavigation = false)}>
+								on:click={hideNav}>
 								<a href="/category/{category.category.name}"
 									><svg fill="var(--cream)"
 										><use xlink:href="#{category.category.iconId}" /></svg>
