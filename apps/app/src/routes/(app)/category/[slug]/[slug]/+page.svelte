@@ -12,24 +12,24 @@
 		? new Intl.NumberFormat('en-GB', {
 				style: 'currency',
 				currency: 'GBP',
-			}).format(reminder.cost || 0)
+		  }).format(reminder.cost || 0)
 		: '';
 
 	$: date = reminder
 		? new Intl.DateTimeFormat('en-GB').format(
 				Date.parse(reminder?.date?.toString() || '') || new Date()
-			)
+		  )
 		: '';
 
 	$: back = reminder
 		? {
 				text: `Back to ${reminder.category?.name}`,
 				href: `/category/${reminder.category?.name}`,
-			}
+		  }
 		: {
 				text: '',
 				href: '',
-			};
+		  };
 </script>
 
 <Header {back} />

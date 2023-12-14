@@ -186,8 +186,8 @@
 								>{reminder.reminder.autoRenewal?.valueOf() === undefined
 									? '-'
 									: reminder.reminder.autoRenewal?.valueOf()
-										? 'Yes'
-										: 'No'}</td>
+									  ? 'Yes'
+									  : 'No'}</td>
 							<td class="view">
 								<a
 									href="/category/{reminder.reminder.category?.name}/{reminder
