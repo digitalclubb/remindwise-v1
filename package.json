@@ -6,7 +6,7 @@
 		"dev": "turbo run dev --parallel",
 		"lint": "turbo run lint",
 		"format": "turbo run format",
-		"format:write": "prettier --write . '**/*.{css,ts,tsx,js,json,md,svelte}'",
+		"format:write": "turbo run format:write",
 		"test": "turbo run test",
 		"test:watch": "turbo run test:watch",
 		"test:a11y": "turbo run test:a11y",
@@ -14,19 +14,9 @@
 		"types": "turbo run types"
 	},
 	"devDependencies": {
-		"@graphql-codegen/cli": "5.0.0",
 		"@playwright/test": "1.40.1",
-		"@sveltejs/kit": "2.0.0",
 		"@testing-library/jest-dom": "6.1.5",
-		"@typescript-eslint/parser": "6.14.0",
-		"eslint": "8.56.0",
-		"jsdom": "23.0.1",
-		"playwright-core": "1.40.1",
-		"prettier": "3.1.1",
-		"prettier-plugin-svelte": "3.1.2",
-		"svelte": "4.2.8",
-		"turbo": "1.11.2",
-		"typescript": "5.3.3"
+		"turbo": "1.11.2"
 	},
 	"prepare": "svelte-kit sync",
 	"packageManager": "pnpm@8.12.1"
