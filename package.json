@@ -14,6 +14,8 @@
 		"types": "turbo run types"
 	},
 	"devDependencies": {
+		"@playwright/test": "1.40.1",
+		"@testing-library/jest-dom": "6.1.5",
 		"turbo": "1.11.2"
 	},
 	"prepare": "svelte-kit sync",

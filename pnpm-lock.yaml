@@ -8,6 +8,12 @@ importers:
 
   .:
     devDependencies:
+      '@playwright/test':
+        specifier: 1.40.1
+        version: 1.40.1
+      '@testing-library/jest-dom':
+        specifier: 6.1.5
+        version: 6.1.5(vitest@1.0.4)
       turbo:
         specifier: 1.11.2
         version: 1.11.2
@@ -171,10 +177,10 @@ importers:
         version: 4.2.8
       svelte-check:
         specifier: 3.6.2
-        version: 3.6.2(svelte@4.2.8)
+        version: 3.6.2(@babel/core@7.22.6)(svelte@4.2.8)
       svelte-preprocess:
         specifier: 5.1.2
-        version: 5.1.2(postcss@8.4.32)(svelte@4.2.8)(typescript@5.3.3)
+        version: 5.1.2(@babel/core@7.22.6)(svelte@4.2.8)(typescript@5.3.3)
       tslib:
         specifier: 2.6.2
         version: 2.6.2
@@ -199,9 +205,6 @@ importers:
       '@sveltejs/vite-plugin-svelte':
         specifier: 3.0.1
         version: 3.0.1(svelte@4.2.8)(vite@5.0.9)
-      '@testing-library/jest-dom':
-        specifier: 6.1.5
-        version: 6.1.5(vitest@1.0.4)
       '@testing-library/svelte':
         specifier: 4.0.5
         version: 4.0.5(svelte@4.2.8)
@@ -229,6 +232,9 @@ importers:
       svelte:
         specifier: 4.2.8
         version: 4.2.8
+      svelte-eslint-parser:
+        specifier: ^0.33.1
+        version: 0.33.1(svelte@4.2.8)
       svelte-preprocess:
         specifier: 5.1.2
         version: 5.1.2(postcss@8.4.32)(svelte@4.2.8)(typescript@5.3.3)
@@ -4012,7 +4018,7 @@ packages:
       postcss-selector-parser: 6.0.13
       semver: 7.5.4
       svelte: 4.2.8
-      svelte-eslint-parser: 0.33.0(svelte@4.2.8)
+      svelte-eslint-parser: 0.33.1(svelte@4.2.8)
     transitivePeerDependencies:
       - supports-color
       - ts-node
@@ -5968,11 +5974,11 @@ packages:
       postcss: 8.4.32
     dev: true
 
-  /postcss-scss@4.0.7(postcss@8.4.32):
-    resolution: {integrity: sha512-xPv2GseoyXPa58Nro7M73ZntttusuCmZdeOojUFR5PZDz2BR62vfYx1w9TyOnp1+nYFowgOMipsCBhxzVkAEPw==}
+  /postcss-scss@4.0.9(postcss@8.4.32):
+    resolution: {integrity: sha512-AjKOeiwAitL/MXxQW2DliT28EKukvvbEWx3LBmJIRN8KfBGZbRTxNYW0kSqi1COiTZ57nZ9NW06S6ux//N1c9A==}
     engines: {node: '>=12.0'}
     peerDependencies:
-      postcss: ^8.4.19
+      postcss: ^8.4.29
     dependencies:
       postcss: 8.4.32
     dev: true
@@ -6557,33 +6563,6 @@ packages:
       - sugarss
     dev: true
 
-  /svelte-check@3.6.2(svelte@4.2.8):
-    resolution: {integrity: sha512-E6iFh4aUCGJLRz6QZXH3gcN/VFfkzwtruWSRmlKrLWQTiO6VzLsivR6q02WYLGNAGecV3EocqZuCDrC2uttZ0g==}
-    hasBin: true
-    peerDependencies:
-      svelte: ^3.55.0 || ^4.0.0-next.0 || ^4.0.0 || ^5.0.0-next.0
-    dependencies:
-      '@jridgewell/trace-mapping': 0.3.18
-      chokidar: 3.5.3
-      fast-glob: 3.3.0
-      import-fresh: 3.3.0
-      picocolors: 1.0.0
-      sade: 1.8.1
-      svelte: 4.2.8
-      svelte-preprocess: 5.1.2(postcss@8.4.32)(svelte@4.2.8)(typescript@5.3.3)
-      typescript: 5.3.3
-    transitivePeerDependencies:
-      - '@babel/core'
-      - coffeescript
-      - less
-      - postcss
-      - postcss-load-config
-      - pug
-      - sass
-      - stylus
-      - sugarss
-    dev: true
-
   /svelte-cloudinary@1.1.1(svelte@4.2.8):
     resolution: {integrity: sha512-ZPSA0fbKQfw6g8ougYTKIpGfWxY1uUvTAv85lBaMm1riao2JUmarAPf7Lu2QFXfqSfatgLv/kQfqho5GCdK3fg==}
     peerDependencies:
@@ -6597,8 +6576,8 @@ packages:
       svelte: 4.2.8
     dev: false
 
-  /svelte-eslint-parser@0.33.0(svelte@4.2.8):
-    resolution: {integrity: sha512-5awZ6Bs+Tb/zQwa41PSdcLynAVQTwW0HGyCBjtbAQ59taLZqDgQSMzRlDmapjZdDtzERm0oXDZNE0E+PKJ6ryg==}
+  /svelte-eslint-parser@0.33.1(svelte@4.2.8):
+    resolution: {integrity: sha512-vo7xPGTlKBGdLH8T5L64FipvTrqv3OQRx9d2z5X05KKZDlF4rQk8KViZO4flKERY+5BiVdOh7zZ7JGJWo5P0uA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       svelte: ^3.37.0 || ^4.0.0
@@ -6610,7 +6589,7 @@ packages:
       eslint-visitor-keys: 3.4.3
       espree: 9.6.1
       postcss: 8.4.32
-      postcss-scss: 4.0.7(postcss@8.4.32)
+      postcss-scss: 4.0.9(postcss@8.4.32)
       svelte: 4.2.8
     dev: true
 
