@@ -8,45 +8,9 @@ importers:
 
   .:
     devDependencies:
-      '@graphql-codegen/cli':
-        specifier: 5.0.0
-        version: 5.0.0(@babel/core@7.22.6)(graphql@16.7.1)
-      '@playwright/test':
-        specifier: 1.40.1
-        version: 1.40.1
-      '@sveltejs/kit':
-        specifier: 2.0.0
-        version: 2.0.0(@sveltejs/vite-plugin-svelte@3.0.1)(svelte@4.2.8)(vite@5.0.9)
-      '@testing-library/jest-dom':
-        specifier: 6.1.5
-        version: 6.1.5(vitest@1.0.4)
-      '@typescript-eslint/parser':
-        specifier: 6.14.0
-        version: 6.14.0(eslint@8.55.0)(typescript@5.3.3)
-      eslint:
-        specifier: 8.55.0
-        version: 8.55.0
-      jsdom:
-        specifier: 23.0.1
-        version: 23.0.1
-      playwright-core:
-        specifier: 1.40.1
-        version: 1.40.1
-      prettier:
-        specifier: 3.1.1
-        version: 3.1.1
-      prettier-plugin-svelte:
-        specifier: 3.1.2
-        version: 3.1.2(prettier@3.1.1)(svelte@4.2.8)
-      svelte:
-        specifier: 4.2.8
-        version: 4.2.8
       turbo:
         specifier: 1.11.2
         version: 1.11.2
-      typescript:
-        specifier: 5.3.3
-        version: 5.3.3
 
   apps/app:
     dependencies:
@@ -114,12 +78,27 @@ importers:
       '@types/d3-shape':
         specifier: 3.1.6
         version: 3.1.6
+      '@typescript-eslint/parser':
+        specifier: 6.14.0
+        version: 6.14.0(eslint@8.55.0)(typescript@5.3.3)
+      eslint:
+        specifier: 8.55.0
+        version: 8.55.0
       houdini:
         specifier: 1.2.34
         version: 1.2.34
       houdini-svelte:
         specifier: 1.2.34
         version: 1.2.34
+      playwright-core:
+        specifier: 1.40.1
+        version: 1.40.1
+      prettier:
+        specifier: 3.1.1
+        version: 3.1.1
+      prettier-plugin-svelte:
+        specifier: 3.1.2
+        version: 3.1.2(prettier@3.1.1)(svelte@4.2.8)
       svelte:
         specifier: 4.2.8
         version: 4.2.8
@@ -128,10 +107,13 @@ importers:
         version: 3.6.2(@babel/core@7.22.6)(svelte@4.2.8)
       svelte-preprocess:
         specifier: 5.1.2
-        version: 5.1.2(@babel/core@7.22.6)(postcss@8.4.32)(svelte@4.2.8)(typescript@5.3.3)
+        version: 5.1.2(@babel/core@7.22.6)(svelte@4.2.8)(typescript@5.3.3)
       tslib:
         specifier: 2.6.2
         version: 2.6.2
+      typescript:
+        specifier: 5.3.3
+        version: 5.3.3
       vite:
         specifier: 5.0.9
         version: 5.0.9
@@ -166,18 +148,33 @@ importers:
       '@sveltejs/kit':
         specifier: 2.0.0
         version: 2.0.0(@sveltejs/vite-plugin-svelte@3.0.1)(svelte@4.2.8)(vite@5.0.9)
+      '@testing-library/jest-dom':
+        specifier: 6.1.5
+        version: 6.1.5(vitest@1.0.4)
       '@testing-library/svelte':
         specifier: 4.0.5
         version: 4.0.5(svelte@4.2.8)
+      eslint:
+        specifier: 8.55.0
+        version: 8.55.0
+      playwright-core:
+        specifier: 1.40.1
+        version: 1.40.1
+      prettier:
+        specifier: 3.1.1
+        version: 3.1.1
+      prettier-plugin-svelte:
+        specifier: 3.1.2
+        version: 3.1.2(prettier@3.1.1)(svelte@4.2.8)
       svelte:
         specifier: 4.2.8
         version: 4.2.8
       svelte-check:
         specifier: 3.6.2
-        version: 3.6.2(@babel/core@7.22.6)(svelte@4.2.8)
+        version: 3.6.2(svelte@4.2.8)
       svelte-preprocess:
         specifier: 5.1.2
-        version: 5.1.2(@babel/core@7.22.6)(postcss@8.4.32)(svelte@4.2.8)(typescript@5.3.3)
+        version: 5.1.2(postcss@8.4.32)(svelte@4.2.8)(typescript@5.3.3)
       tslib:
         specifier: 2.6.2
         version: 2.6.2
@@ -211,18 +208,33 @@ importers:
       '@typescript-eslint/eslint-plugin':
         specifier: 6.14.0
         version: 6.14.0(@typescript-eslint/parser@6.14.0)(eslint@8.55.0)(typescript@5.3.3)
+      '@typescript-eslint/parser':
+        specifier: 6.14.0
+        version: 6.14.0(eslint@8.55.0)(typescript@5.3.3)
       eslint-config-prettier:
-        specifier: ^9.0.0
+        specifier: 9.0.0
         version: 9.0.0(eslint@8.55.0)
       eslint-plugin-svelte:
         specifier: 2.35.1
         version: 2.35.1(eslint@8.55.0)(svelte@4.2.8)
+      jsdom:
+        specifier: 23.0.1
+        version: 23.0.1
+      prettier:
+        specifier: 3.1.1
+        version: 3.1.1
+      prettier-plugin-svelte:
+        specifier: 3.1.2
+        version: 3.1.2(prettier@3.1.1)(svelte@4.2.8)
       svelte:
         specifier: 4.2.8
         version: 4.2.8
       svelte-preprocess:
         specifier: 5.1.2
-        version: 5.1.2(@babel/core@7.22.6)(postcss@8.4.32)(svelte@4.2.8)(typescript@5.3.3)
+        version: 5.1.2(postcss@8.4.32)(svelte@4.2.8)(typescript@5.3.3)
+      typescript:
+        specifier: 5.3.3
+        version: 5.3.3
       vitest:
         specifier: 1.0.4
         version: 1.0.4(jsdom@23.0.1)
@@ -2884,12 +2896,12 @@ packages:
       acorn: 8.9.0
     dev: true
 
-  /acorn-jsx@5.3.2(acorn@8.9.0):
+  /acorn-jsx@5.3.2(acorn@8.11.2):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
       acorn: ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
-      acorn: 8.9.0
+      acorn: 8.11.2
     dev: true
 
   /acorn-walk@8.3.1:
@@ -4073,8 +4085,8 @@ packages:
     resolution: {integrity: sha512-oruZaFkjorTpF32kDSI5/75ViwGeZginGGy2NoOSg3Q9bnwlnmDm4HLnkl0RE3n+njDXR037aY1+x58Z/zFdwQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
-      acorn: 8.9.0
-      acorn-jsx: 5.3.2(acorn@8.9.0)
+      acorn: 8.11.2
+      acorn-jsx: 5.3.2(acorn@8.11.2)
       eslint-visitor-keys: 3.4.3
     dev: true
 
@@ -6043,11 +6055,6 @@ packages:
     resolution: {integrity: sha512-jmYNElW7yvO7TV33CjSmvSiE2yco3bV2czu/OzDKdMNVZQWfxCblURLhf+47syQRBntjfLdd/H0egrzIG+oaFQ==}
     dev: true
 
-  /punycode@2.3.0:
-    resolution: {integrity: sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==}
-    engines: {node: '>=6'}
-    dev: true
-
   /punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
@@ -6536,8 +6543,35 @@ packages:
       picocolors: 1.0.0
       sade: 1.8.1
       svelte: 4.2.8
-      svelte-preprocess: 5.1.2(@babel/core@7.22.6)(svelte@4.2.8)(typescript@5.3.2)
-      typescript: 5.3.2
+      svelte-preprocess: 5.1.2(@babel/core@7.22.6)(svelte@4.2.8)(typescript@5.3.3)
+      typescript: 5.3.3
+    transitivePeerDependencies:
+      - '@babel/core'
+      - coffeescript
+      - less
+      - postcss
+      - postcss-load-config
+      - pug
+      - sass
+      - stylus
+      - sugarss
+    dev: true
+
+  /svelte-check@3.6.2(svelte@4.2.8):
+    resolution: {integrity: sha512-E6iFh4aUCGJLRz6QZXH3gcN/VFfkzwtruWSRmlKrLWQTiO6VzLsivR6q02WYLGNAGecV3EocqZuCDrC2uttZ0g==}
+    hasBin: true
+    peerDependencies:
+      svelte: ^3.55.0 || ^4.0.0-next.0 || ^4.0.0 || ^5.0.0-next.0
+    dependencies:
+      '@jridgewell/trace-mapping': 0.3.18
+      chokidar: 3.5.3
+      fast-glob: 3.3.0
+      import-fresh: 3.3.0
+      picocolors: 1.0.0
+      sade: 1.8.1
+      svelte: 4.2.8
+      svelte-preprocess: 5.1.2(postcss@8.4.32)(svelte@4.2.8)(typescript@5.3.3)
+      typescript: 5.3.3
     transitivePeerDependencies:
       - '@babel/core'
       - coffeescript
@@ -6597,7 +6631,7 @@ packages:
     dependencies:
       svelte: 4.2.8
 
-  /svelte-preprocess@5.1.2(@babel/core@7.22.6)(postcss@8.4.32)(svelte@4.2.8)(typescript@5.3.3):
+  /svelte-preprocess@5.1.2(@babel/core@7.22.6)(svelte@4.2.8)(typescript@5.3.3):
     resolution: {integrity: sha512-XF0aliMAcYnP4hLETvB6HRAMnaL09ASYT1Z2I1Gwu0nz6xbdg/dSgAEthtFZJA4AKrNhFDFdmUDO+H9d/6xg5g==}
     engines: {node: '>= 14.10.0'}
     requiresBuild: true
@@ -6636,6 +6670,53 @@ packages:
         optional: true
     dependencies:
       '@babel/core': 7.22.6
+      '@types/pug': 2.0.6
+      detect-indent: 6.1.0
+      magic-string: 0.27.0
+      sorcery: 0.11.0
+      strip-indent: 3.0.0
+      svelte: 4.2.8
+      typescript: 5.3.3
+    dev: true
+
+  /svelte-preprocess@5.1.2(postcss@8.4.32)(svelte@4.2.8)(typescript@5.3.3):
+    resolution: {integrity: sha512-XF0aliMAcYnP4hLETvB6HRAMnaL09ASYT1Z2I1Gwu0nz6xbdg/dSgAEthtFZJA4AKrNhFDFdmUDO+H9d/6xg5g==}
+    engines: {node: '>= 14.10.0'}
+    requiresBuild: true
+    peerDependencies:
+      '@babel/core': ^7.10.2
+      coffeescript: ^2.5.1
+      less: ^3.11.3 || ^4.0.0
+      postcss: ^7 || ^8
+      postcss-load-config: ^2.1.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
+      pug: ^3.0.0
+      sass: ^1.26.8
+      stylus: ^0.55.0
+      sugarss: ^2.0.0 || ^3.0.0 || ^4.0.0
+      svelte: ^3.23.0 || ^4.0.0-next.0 || ^4.0.0 || ^5.0.0-next.0
+      typescript: '>=3.9.5 || ^4.0.0 || ^5.0.0'
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      coffeescript:
+        optional: true
+      less:
+        optional: true
+      postcss:
+        optional: true
+      postcss-load-config:
+        optional: true
+      pug:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
       '@types/pug': 2.0.6
       detect-indent: 6.1.0
       magic-string: 0.27.0
@@ -6644,54 +6725,6 @@ packages:
       strip-indent: 3.0.0
       svelte: 4.2.8
       typescript: 5.3.3
-    dev: true
-
-  /svelte-preprocess@5.1.2(@babel/core@7.22.6)(svelte@4.2.8)(typescript@5.3.2):
-    resolution: {integrity: sha512-XF0aliMAcYnP4hLETvB6HRAMnaL09ASYT1Z2I1Gwu0nz6xbdg/dSgAEthtFZJA4AKrNhFDFdmUDO+H9d/6xg5g==}
-    engines: {node: '>= 14.10.0'}
-    requiresBuild: true
-    peerDependencies:
-      '@babel/core': ^7.10.2
-      coffeescript: ^2.5.1
-      less: ^3.11.3 || ^4.0.0
-      postcss: ^7 || ^8
-      postcss-load-config: ^2.1.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
-      pug: ^3.0.0
-      sass: ^1.26.8
-      stylus: ^0.55.0
-      sugarss: ^2.0.0 || ^3.0.0 || ^4.0.0
-      svelte: ^3.23.0 || ^4.0.0-next.0 || ^4.0.0 || ^5.0.0-next.0
-      typescript: '>=3.9.5 || ^4.0.0 || ^5.0.0'
-    peerDependenciesMeta:
-      '@babel/core':
-        optional: true
-      coffeescript:
-        optional: true
-      less:
-        optional: true
-      postcss:
-        optional: true
-      postcss-load-config:
-        optional: true
-      pug:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      typescript:
-        optional: true
-    dependencies:
-      '@babel/core': 7.22.6
-      '@types/pug': 2.0.6
-      detect-indent: 6.1.0
-      magic-string: 0.27.0
-      sorcery: 0.11.0
-      strip-indent: 3.0.0
-      svelte: 4.2.8
-      typescript: 5.3.2
     dev: true
 
   /svelte@3.59.2:
@@ -6801,7 +6834,7 @@ packages:
     engines: {node: '>=6'}
     dependencies:
       psl: 1.9.0
-      punycode: 2.3.0
+      punycode: 2.3.1
       universalify: 0.2.0
       url-parse: 1.5.10
     dev: true
@@ -6933,12 +6966,6 @@ packages:
       is-typedarray: 1.0.0
     dev: false
 
-  /typescript@5.3.2:
-    resolution: {integrity: sha512-6l+RyNy7oAHDfxC4FzSJcz9vnjTKxrLpDG5M2Vu4SHRVNg6xzqZp6LYSR9zjqQTu8DU/f5xwxUdADOkbrIX2gQ==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-    dev: true
-
   /typescript@5.3.3:
     resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
     engines: {node: '>=14.17'}
@@ -7011,7 +7038,7 @@ packages:
   /uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
     dependencies:
-      punycode: 2.3.0
+      punycode: 2.3.1
     dev: true
 
   /url-parse@1.5.10:

@@ -10,6 +10,7 @@
 		},
 		"test": {},
 		"format": {},
+		"format:write": {},
 		"lint": {
 			"outputs": []
 		},
