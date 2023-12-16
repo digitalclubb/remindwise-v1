@@ -14,9 +14,9 @@
 		"test:functional": "playwright test --grep @functional"
 	},
 	"dependencies": {
-		"@vercel/analytics": "^1.1.1",
+		"@vercel/analytics": "1.1.1",
 		"components": "workspace:*",
-		"svelte-cloudinary": "^1.1.1"
+		"svelte-cloudinary": "1.1.1"
 	},
 	"devDependencies": {
 		"@axe-core/playwright": "4.8.2",
