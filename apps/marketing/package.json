@@ -14,6 +14,7 @@
 		"test:functional": "playwright test --grep @functional"
 	},
 	"dependencies": {
+		"@vercel/analytics": "^1.1.1",
 		"components": "workspace:*",
 		"svelte-cloudinary": "^1.1.1"
 	},
