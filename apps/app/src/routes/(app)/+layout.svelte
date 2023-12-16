@@ -34,7 +34,6 @@
 		grid-template-columns: 100%;
 		grid-template-areas:
 			'header'
-			'navigation'
 			'content';
 		min-height: 100vh;
 	}
@@ -43,7 +42,7 @@
 		grid-area: content;
 	}
 
-	@media screen and (min-width: 768px) {
+	@media screen and (min-width: 1024px) {
 		main {
 			grid-template-columns: 25.8rem 1fr;
 			grid-template-areas: 'navigation content';

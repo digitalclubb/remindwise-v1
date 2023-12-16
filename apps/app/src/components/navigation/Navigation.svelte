@@ -52,7 +52,7 @@
 	const showNav = () => {
 		showNavigation = true;
 		document.body.style.overflowY = 'hidden';
-		updateNavHeight(80);
+		updateNavHeight(90);
 	};
 
 	const hideNav = () => {
@@ -91,7 +91,7 @@
 			? hideNav()
 			: sheetHeight > 75
 				? updateNavHeight(100)
-				: updateNavHeight(50);
+				: updateNavHeight(90);
 	};
 
 	// document only exists in the browser
@@ -207,7 +207,7 @@
 				on:touchstart={(event) => dragStart(event)}>
 				<span></span>
 			</div>
-			<div class="body">
+			<div class="nav-body">
 				<div class="profile">
 					{#if $settingsStore.fetching}
 						<li>Loading...</li>
@@ -408,7 +408,7 @@
 		grid-area: header;
 		background-color: var(--remindwise-grey);
 		align-self: flex-start;
-		padding: 2.2rem 2.1rem;
+		padding: 2.4rem 2.1rem;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -531,7 +531,7 @@
 		margin-right: 0.9rem;
 	}
 
-	.body {
+	.nav-body {
 		height: 100%;
 		display: flex;
 		flex-direction: column;
@@ -544,7 +544,6 @@
 	li {
 		color: var(--cream);
 		font-weight: 500;
-		text-transform: capitalize;
 		display: flex;
 		align-items: center;
 		padding-right: 1.7rem;
@@ -728,7 +727,7 @@
 		quotes: '‘' '’';
 	}
 
-	@media screen and (min-width: 768px) {
+	@media screen and (min-width: 1024px) {
 		.header {
 			justify-content: center;
 		}
@@ -756,7 +755,6 @@
 		.profile {
 			background-color: var(--grey-light);
 			padding: 2.5rem 3.6rem 6.5rem 3.6rem;
-			align-items: center;
 			gap: 2.2rem;
 		}
 
@@ -766,7 +764,7 @@
 
 		.settings {
 			position: sticky;
-			bottom: 0;
+			bottom: 3rem;
 		}
 	}
 </style>

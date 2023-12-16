@@ -42,7 +42,7 @@
 		border-radius: 0.6rem;
 	}
 
-	@media screen and (min-width: 768px) {
+	@media screen and (min-width: 1024px) {
 		.box-manual {
 			padding: 2rem 4.8rem 4rem 3.8rem;
 		}

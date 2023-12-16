@@ -113,7 +113,7 @@
 		background: linear-gradient(180deg, #f6f6f6 0%, var(--greyed-out) 100%);
 	}
 
-	@media screen and (min-width: 768px) {
+	@media screen and (min-width: 1024px) {
 		main :global(.boxes) {
 			flex-direction: row;
 			margin-bottom: 4rem;

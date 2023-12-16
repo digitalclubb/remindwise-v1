@@ -148,9 +148,13 @@ h5,
 	}
 }
 
+.body {
+	padding: 2.4rem 1.6rem;
+}
+
 table {
 	display: grid;
-	grid-template-columns: 16.5rem 1fr;
+	grid-template-columns: minmax(max-content, 16.5rem) 1fr;
 	border-collapse: collapse;
 	width: 100%;
 	overflow-x: auto;
@@ -178,6 +182,14 @@ th {
 	display: block;
 }
 
+th:first-child {
+	border-top-left-radius: 0.6rem;
+}
+
+th:last-child {
+	border-bottom-left-radius: 0.6rem;
+}
+
 tr {
 	display: block;
 	scroll-snap-align: start;
@@ -193,7 +205,8 @@ tbody tr {
 	flex-direction: column;
 	justify-content: space-between;
 	background-color: var(--cream-light);
-	min-width: 30rem;
+	min-width: 17.5rem;
+	width: 100%;
 }
 
 td {
@@ -202,7 +215,10 @@ td {
 	padding: 1rem 2rem;
 	border-top: 1px solid var(--white);
 	text-wrap: nowrap;
-	text-align: center;
+}
+
+.cell-no-data {
+	text-wrap: wrap;
 }
 
 td svg {
@@ -210,18 +226,22 @@ td svg {
 	height: 1.6rem;
 }
 
-td.view {
+.view {
 	text-align: center;
+}
+
+.name {
+	display: flex;
 }
 
 .table-icon {
 	width: 1.8rem;
 	height: 1.8rem;
 	vertical-align: middle;
-	margin-right: 2.5rem;
+	margin-left: 2.5rem;
 }
 
-.table-no-data {
+.cell-no-data {
 	color: var(--grey-light);
 	padding-left: 3rem;
 }
@@ -258,7 +278,12 @@ th:has(.alert) {
 	margin-left: 0.6rem;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1024px) {
+	.body {
+		padding-left: 4.2rem;
+		padding-right: 4.2rem;
+	}
+
 	table {
 		display: table;
 	}
@@ -277,15 +302,21 @@ th:has(.alert) {
 
 	th:first-child {
 		padding-left: 6.3rem; /* cell padding + icon width & margin */
-		border-top-left-radius: 0.6rem;
 	}
 
 	th:last-child {
 		border-top-right-radius: 0.6rem;
+		border-bottom-left-radius: 0;
 		text-align: center;
 	}
 
 	tbody {
 		display: table-row-group;
+	}
+
+	.table-icon {
+		margin-left: 0;
+		margin-right: 2.5rem;
+		order: -1;
 	}
 }

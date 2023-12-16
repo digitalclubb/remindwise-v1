@@ -29,15 +29,15 @@
 <style>
 	header {
 		background: linear-gradient(180deg, #fff 0%, #f6f6f6 100%);
-		padding: 2.4rem 4.2rem;
+		padding: 2rem 4.2rem;
 		display: flex;
 		justify-content: space-between;
 	}
 	.title {
 		color: var(--orange);
-		text-transform: capitalize;
 		display: flex;
 		align-items: baseline;
+		margin-bottom: 0;
 	}
 
 	.title svg {
