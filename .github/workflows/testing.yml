@@ -53,7 +53,7 @@ jobs:
         run: pnpm test:a11y
       - name: Functional tests
         run: pnpm test:functional
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report
