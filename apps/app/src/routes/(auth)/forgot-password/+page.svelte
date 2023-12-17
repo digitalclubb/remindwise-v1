@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-	<title>remindwise.io - Forgot password</title>
+	<title>Recover password · remindwise.io</title>
 </svelte:head>
 
 <div class="boxes">

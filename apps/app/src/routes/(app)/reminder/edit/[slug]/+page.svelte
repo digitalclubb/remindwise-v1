@@ -26,6 +26,10 @@
 	};
 </script>
 
+<svelte:head>
+	<title>Edit "{reminder?.name}" · remindwise.io</title>
+</svelte:head>
+
 <div class="actions">
 	<Button type="button" style="delete" onClick={() => (showModal = true)}
 		>Delete this reminder</Button>

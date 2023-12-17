@@ -11,6 +11,10 @@
 	$: interval = settings?.interval || '';
 </script>
 
+<svelte:head>
+	<title>Account settings · remindwise.io</title>
+</svelte:head>
+
 <Header title="Settings" />
 
 <form method="POST" action="?/updateSettings">
