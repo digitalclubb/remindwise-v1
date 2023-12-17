@@ -6,7 +6,7 @@
 		id="icon-add">
 		<path
 			d="M5.54561 8.23092H0V5.75333H5.54561V-0.00390625H7.92884V5.76127H13.4744V8.23886H7.92884V14.004H5.54561V8.23886V8.23092Z"
-			fill="#F7F7F7"></path>
+			fill="currentColor"></path>
 	</symbol>
 	<symbol
 		xmlns="http://www.w3.org/2000/svg"
