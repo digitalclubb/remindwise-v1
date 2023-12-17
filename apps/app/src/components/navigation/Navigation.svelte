@@ -160,8 +160,10 @@
 
 	const onClickOptions = (index: number) => {
 		if (clicked === index) {
+			document.removeEventListener('click', () => (clicked = -1));
 			clicked = -1;
 		} else {
+			document.addEventListener('click', () => (clicked = -1));
 			clicked = index;
 		}
 	};
