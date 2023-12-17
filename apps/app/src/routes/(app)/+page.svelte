@@ -159,8 +159,8 @@
 			<tbody>
 				{#if upcoming?.length === 0}
 					<tr>
-						<td colspan="6"
-							><p class="table-no-data">
+						<td colspan="6" class="cell-no-data"
+							><p>
 								No upcoming reminders in the next {upcomingFilter !== '1'
 									? upcomingFilter
 									: ''}
@@ -170,11 +170,12 @@
 				{:else}
 					{#each upcoming as reminder}
 						<tr>
-							<td
-								><svg class="table-icon" fill="var(--cream-dark)"
+							<td class="name">
+								{reminder.reminder.name}
+								<svg class="table-icon" fill="var(--cream-dark)"
 									><use
-										xlink:href="#{reminder.reminder.category?.iconId}" /></svg>
-								{reminder.reminder.name}</td>
+										xlink:href="#{reminder.reminder.category?.iconId}" /></svg
+								></td>
 							<td>{reminder.reminder.company}</td>
 							<td
 								>{new Intl.NumberFormat('en-GB', {
@@ -234,19 +235,18 @@
 			<tbody>
 				{#if reminders?.length === 0}
 					<tr>
-						<td
-							><p class="table-no-data">
-								Add some categories and reminders to get started
-							</p></td>
+						<td class="cell-no-data"
+							><p>Add some categories and reminders to get started</p></td>
 					</tr>
 				{:else}
 					{#each reminders as reminder}
 						<tr>
-							<td
-								><svg class="table-icon" fill="var(--cream-dark)"
+							<td class="name">
+								{reminder.reminder.name}
+								<svg class="table-icon" fill="var(--cream-dark)"
 									><use
-										xlink:href="#{reminder.reminder.category?.iconId}" /></svg>
-								{reminder.reminder.name}</td>
+										xlink:href="#{reminder.reminder.category?.iconId}" /></svg
+								></td>
 							<td>{reminder.reminder.company}</td>
 							<td
 								>{new Intl.NumberFormat('en-GB', {
@@ -288,10 +288,6 @@
 </div>
 
 <style>
-	.body {
-		padding: 2.4rem 4.2rem;
-	}
-
 	section {
 		margin-bottom: 3rem;
 	}
@@ -304,32 +300,7 @@
 
 	h2 span {
 		font-weight: 300;
-	}
-
-	.charts {
-		display: grid;
-		grid-template-columns: 0.5fr 1fr;
-		grid-template-areas:
-			'donut data'
-			'line line';
-		gap: 4.8rem;
-		margin-bottom: 2rem;
-		align-items: center;
-		justify-items: center;
-	}
-
-	.donut {
-		grid-area: donut;
-	}
-
-	.costs-data {
-		grid-area: data;
-		justify-self: stretch;
-	}
-
-	.line {
-		grid-area: line;
-		width: 100%;
+		display: block;
 	}
 
 	.costs {
@@ -406,7 +377,41 @@
 		margin-left: 1rem;
 	}
 
-	@media screen and (min-width: 768px) {
+	@media screen and (min-width: 500px) {
+		.charts {
+			display: grid;
+			grid-template-columns: 0.5fr 1fr;
+			grid-template-areas:
+				'donut data'
+				'line line';
+			gap: 4.8rem;
+			margin-bottom: 2rem;
+			align-items: center;
+			justify-items: center;
+		}
+
+		.donut {
+			grid-area: donut;
+		}
+
+		.costs-data {
+			grid-area: data;
+			justify-self: stretch;
+		}
+
+		.line {
+			grid-area: line;
+			width: 100%;
+		}
+	}
+
+	@media screen and (min-width: 500px) {
+		h2 span {
+			display: inline;
+		}
+	}
+
+	@media screen and (min-width: 1280px) {
 		.charts {
 			grid-template-areas: 'donut data line';
 			grid-template-columns: 0.5fr 1fr 2fr;

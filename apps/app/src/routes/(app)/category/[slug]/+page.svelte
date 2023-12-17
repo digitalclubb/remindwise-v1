@@ -102,8 +102,8 @@
 			<tbody>
 				{#if upcoming?.length === 0}
 					<tr>
-						<td colspan="6"
-							><p class="table-no-data">
+						<td colspan="6" class="cell-no-data"
+							><p>
 								No upcoming reminders in the next {upcomingFilter !== '1'
 									? upcomingFilter
 									: ''}
@@ -113,11 +113,12 @@
 				{:else}
 					{#each upcoming as reminder}
 						<tr>
-							<td
-								><svg class="table-icon" fill="var(--cream-dark)"
+							<td class="name">
+								{reminder.reminder.name}
+								<svg class="table-icon" fill="var(--cream-dark)"
 									><use
-										xlink:href="#{reminder.reminder.category?.iconId}" /></svg>
-								{reminder.reminder.name}</td>
+										xlink:href="#{reminder.reminder.category?.iconId}" /></svg
+								></td>
 							<td>{reminder.reminder.company}</td>
 							<td
 								>{new Intl.NumberFormat('en-GB', {
@@ -177,19 +178,18 @@
 			<tbody>
 				{#if reminders?.length === 0}
 					<tr>
-						<td colspan="5"
-							><p class="table-no-data">
-								Add some reminders to get started
-							</p></td>
+						<td colspan="5" class="cell-no-data"
+							><p>Add some reminders to get started</p></td>
 					</tr>
 				{:else}
 					{#each reminders as reminder}
 						<tr>
-							<td
-								><svg class="table-icon" fill="var(--cream-dark)"
+							<td class="name">
+								{reminder.reminder.name}
+								<svg class="table-icon" fill="var(--cream-dark)"
 									><use
-										xlink:href="#{reminder.reminder.category?.iconId}" /></svg>
-								{reminder.reminder.name}</td>
+										xlink:href="#{reminder.reminder.category?.iconId}" /></svg
+								></td>
 							<td>{reminder.reminder.company}</td>
 							<td
 								>{new Intl.NumberFormat('en-GB', {
@@ -227,10 +227,6 @@
 </div>
 
 <style>
-	.body {
-		padding: 2.4rem 4.2rem;
-	}
-
 	section {
 		margin-bottom: 3rem;
 	}

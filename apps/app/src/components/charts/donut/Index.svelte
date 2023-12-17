@@ -28,5 +28,6 @@
 	.container {
 		width: 16rem;
 		height: 16rem;
+		margin: 0 auto 2rem;
 	}
 </style>

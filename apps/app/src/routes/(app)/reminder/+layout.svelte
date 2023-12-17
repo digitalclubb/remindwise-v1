@@ -327,10 +327,6 @@
 </div>
 
 <style>
-	.body {
-		padding: 2.4rem 4.2rem;
-	}
-
 	form {
 		max-width: 64rem;
 		display: flex;

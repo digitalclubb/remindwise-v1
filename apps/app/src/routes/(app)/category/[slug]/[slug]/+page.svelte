@@ -96,7 +96,6 @@
 
 <style>
 	.body {
-		padding: 2.4rem 4.2rem;
 		display: grid;
 		grid-template-areas:
 			'header'
@@ -112,7 +111,6 @@
 	}
 
 	h1 {
-		text-transform: capitalize;
 		margin-bottom: 0;
 	}
 
