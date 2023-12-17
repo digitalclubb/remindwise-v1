@@ -227,113 +227,115 @@
 							<use xlink:href="#icon-add"></use>
 						</svg> Add a new reminder</Link>
 				</div>
-				<ul class="categories">
-					<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
-					<li class:selected={selected === ''} on:click={hideNav}>
-						<a href="/"
-							><svg>
-								<use xlink:href="#icon-dashboard"></use>
-							</svg> Dashboard</a>
-					</li>
-					{#if $categoriesStore.fetching}
-						<li>Loading...</li>
-					{:else if $categoriesStore.errors}
-						<li>{$categoriesStore.errors}</li>
-					{:else if categories}
-						{#each categories as category, index}
-							<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
-							<li
-								class:selected={selected === category.category.name}
-								on:click={hideNav}>
-								<a href="/category/{category.category.name}"
-									><svg fill="var(--cream)"
-										><use xlink:href="#{category.category.iconId}" /></svg>
-									<span
-										>{category.category.name}
-										{#if category.category.reminders}
-											<span class="count"
-												>({category.category.reminders.totalCount})</span>
-										{/if}
-									</span>
-								</a>
-								<button
-									class="icon-button"
-									class:active={clicked === index}
-									on:click={(e) => {
-										e.stopPropagation();
-										onClickOptions(index);
-									}}
-									><svg>
-										<use xlink:href="#icon-edit"></use>
-									</svg></button>
-								<ul class="options" class:active={clicked === index}>
-									<li>
-										<button
-											class="edit"
-											on:click={() => {
-												currentCategory = {
-													id: category.category.id,
-													name: category.category.name,
-													iconId: category.category.iconId,
-												};
-												showAddModal = true;
-												clicked = -1;
-											}}
-											>Edit <svg>
-												<use xlink:href="#icon-edit-category"></use>
-											</svg></button>
-									</li>
-									<li>
-										<button
-											on:click={() => {
-												currentCategory = {
-													id: category.category.id,
-													name: category.category.name,
-													iconId: category.category.iconId,
-												};
-												showDeleteModal = true;
-												clicked = -1;
-											}}
-											>Delete <svg>
-												<use xlink:href="#icon-delete"></use>
-											</svg></button>
-									</li>
-								</ul>
-							</li>
-						{/each}
-					{/if}
-					<li class="add-category">
-						<svg>
-							<use xlink:href="#icon-add"></use>
-						</svg>
-						<Button
-							style="tertiary"
-							onClick={() => {
-								currentCategory = undefined;
-								showAddModal = true;
-							}}>Add a category</Button>
-					</li>
-				</ul>
-				<ul class="settings">
-					<li>
-						<a href="/help"
-							><svg>
-								<use xlink:href="#icon-help"></use>
-							</svg> Help</a>
-					</li>
-					<li>
-						<a href="/settings"
-							><svg>
-								<use xlink:href="#icon-settings"></use>
-							</svg> Settings</a>
-					</li>
-					<li>
-						<a href="/" on:click={signOut}
-							><svg>
-								<use xlink:href="#icon-logout"></use>
-							</svg> Logout</a>
-					</li>
-				</ul>
+				<div class="overflow">
+					<ul class="categories">
+						<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
+						<li class:selected={selected === ''} on:click={hideNav}>
+							<a href="/"
+								><svg>
+									<use xlink:href="#icon-dashboard"></use>
+								</svg> Dashboard</a>
+						</li>
+						{#if $categoriesStore.fetching}
+							<li>Loading...</li>
+						{:else if $categoriesStore.errors}
+							<li>{$categoriesStore.errors}</li>
+						{:else if categories}
+							{#each categories as category, index}
+								<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
+								<li
+									class:selected={selected === category.category.name}
+									on:click={hideNav}>
+									<a href="/category/{category.category.name}"
+										><svg fill="var(--cream)"
+											><use xlink:href="#{category.category.iconId}" /></svg>
+										<span
+											>{category.category.name}
+											{#if category.category.reminders}
+												<span class="count"
+													>({category.category.reminders.totalCount})</span>
+											{/if}
+										</span>
+									</a>
+									<button
+										class="icon-button"
+										class:active={clicked === index}
+										on:click={(e) => {
+											e.stopPropagation();
+											onClickOptions(index);
+										}}
+										><svg>
+											<use xlink:href="#icon-edit"></use>
+										</svg></button>
+									<ul class="options" class:active={clicked === index}>
+										<li>
+											<button
+												class="edit"
+												on:click={() => {
+													currentCategory = {
+														id: category.category.id,
+														name: category.category.name,
+														iconId: category.category.iconId,
+													};
+													showAddModal = true;
+													clicked = -1;
+												}}
+												>Edit <svg>
+													<use xlink:href="#icon-edit-category"></use>
+												</svg></button>
+										</li>
+										<li>
+											<button
+												on:click={() => {
+													currentCategory = {
+														id: category.category.id,
+														name: category.category.name,
+														iconId: category.category.iconId,
+													};
+													showDeleteModal = true;
+													clicked = -1;
+												}}
+												>Delete <svg>
+													<use xlink:href="#icon-delete"></use>
+												</svg></button>
+										</li>
+									</ul>
+								</li>
+							{/each}
+						{/if}
+						<li class="add-category">
+							<svg>
+								<use xlink:href="#icon-add"></use>
+							</svg>
+							<Button
+								style="tertiary"
+								onClick={() => {
+									currentCategory = undefined;
+									showAddModal = true;
+								}}>Add a category</Button>
+						</li>
+					</ul>
+					<ul class="settings">
+						<li>
+							<a href="/help"
+								><svg>
+									<use xlink:href="#icon-help"></use>
+								</svg> Help</a>
+						</li>
+						<li>
+							<a href="/settings"
+								><svg>
+									<use xlink:href="#icon-settings"></use>
+								</svg> Settings</a>
+						</li>
+						<li>
+							<a href="/" on:click={signOut}
+								><svg>
+									<use xlink:href="#icon-logout"></use>
+								</svg> Logout</a>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</nav>
@@ -537,6 +539,26 @@
 		flex-direction: column;
 	}
 
+	.overflow {
+		overflow-y: auto;
+	}
+
+	.overflow::-webkit-scrollbar,
+	.icons::-webkit-scrollbar {
+		width: 0.7rem;
+	}
+
+	.overflow::-webkit-scrollbar-track,
+	.icons::-webkit-scrollbar-track {
+		background-color: var(--cream);
+	}
+
+	.overflow::-webkit-scrollbar-thumb,
+	.icons::-webkit-scrollbar-thumb {
+		background-color: var(--orange);
+		border-radius: 0.6rem;
+	}
+
 	.categories {
 		flex-grow: 1;
 	}
@@ -611,7 +633,7 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.5rem;
-		height: 20%;
+		max-height: 55rem;
 		overflow-y: auto;
 	}
 
