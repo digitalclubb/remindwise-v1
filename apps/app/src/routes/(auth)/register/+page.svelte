@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-	<title>remindwise.io - Register</title>
+	<title>Create a new account · remindwise.io</title>
 </svelte:head>
 
 <div class="boxes">

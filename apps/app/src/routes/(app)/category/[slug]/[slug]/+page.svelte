@@ -32,6 +32,10 @@
 			};
 </script>
 
+<svelte:head>
+	<title>{reminder?.name} · {reminder?.category?.name} · remindwise.io</title>
+</svelte:head>
+
 <Header {back} />
 
 <article class="body">

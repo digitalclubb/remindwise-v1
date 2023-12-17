@@ -88,6 +88,10 @@
 	};
 </script>
 
+<svelte:head>
+	<title>Dashboard · remindwise.io</title>
+</svelte:head>
+
 <Header title="Dashboard" />
 
 <div class="body">

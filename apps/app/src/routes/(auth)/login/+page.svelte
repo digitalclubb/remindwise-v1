@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-	<title>remindwise.io - Login</title>
+	<title>Sign in or register · remindwise.io</title>
 </svelte:head>
 
 <div class="boxes">

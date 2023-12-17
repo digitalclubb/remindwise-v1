@@ -226,6 +226,10 @@
 	</section>
 </div>
 
+<svelte:head>
+	<title>{$page.params.slug} reminders · remindwise.io</title>
+</svelte:head>
+
 <style>
 	section {
 		margin-bottom: 3rem;
