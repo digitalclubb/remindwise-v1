@@ -29,23 +29,16 @@
 <svelte:component this={IconsCategory} />
 
 <style>
-	main {
-		display: grid;
-		grid-template-columns: 100%;
-		grid-template-areas:
-			'header'
-			'content';
-		min-height: 100vh;
-	}
-
-	.content {
-		grid-area: content;
-	}
-
 	@media screen and (min-width: 1024px) {
 		main {
+			display: grid;
 			grid-template-columns: 25.8rem 1fr;
 			grid-template-areas: 'navigation content';
+			min-height: 100vh;
+		}
+
+		.content {
+			grid-area: content;
 		}
 	}
 </style>

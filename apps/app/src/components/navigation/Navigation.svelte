@@ -418,16 +418,11 @@
 	}
 	.navigation {
 		position: fixed;
-		top: 0;
+		bottom: 0;
 		left: 0;
 		width: 100%;
-		height: 100%;
-		display: flex;
 		opacity: 0;
 		pointer-events: none;
-		align-items: center;
-		flex-direction: column;
-		justify-content: flex-end;
 		transition: 0.1s linear;
 		z-index: 1;
 	}
@@ -534,13 +529,16 @@
 	}
 
 	.nav-body {
-		height: 100%;
 		display: flex;
 		flex-direction: column;
+		height: 100%;
 	}
 
 	.overflow {
 		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
 	}
 
 	.overflow::-webkit-scrollbar,
@@ -560,7 +558,7 @@
 	}
 
 	.categories {
-		flex-grow: 1;
+		flex: 1;
 	}
 
 	li {
@@ -590,6 +588,10 @@
 
 	.count {
 		font-weight: 300;
+	}
+
+	.content {
+		padding-bottom: 3.5rem;
 	}
 
 	.content a {
@@ -671,10 +673,6 @@
 		margin-top: 1rem;
 		justify-content: flex-start;
 		padding: 1rem 0 1rem 4rem;
-	}
-
-	.settings {
-		margin-bottom: 2.6rem;
 	}
 
 	.icon-button {
@@ -760,18 +758,23 @@
 		}
 
 		.navigation {
+			display: block;
 			position: static;
 			opacity: 1;
 			grid-area: navigation;
 			pointer-events: auto;
+			height: calc(100% - 7.5rem);
 		}
 
 		.content {
 			transform: translateY(0);
-			padding: 0;
 			height: 100% !important; /*yuk*/
 			max-height: none;
 			border-radius: 0;
+		}
+
+		.overflow {
+			overflow-y: visible;
 		}
 
 		.profile {
@@ -786,7 +789,7 @@
 
 		.settings {
 			position: sticky;
-			bottom: 3rem;
+			bottom: 3.5rem;
 		}
 	}
 </style>
