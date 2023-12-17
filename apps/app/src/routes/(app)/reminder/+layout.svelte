@@ -22,7 +22,7 @@
 	});
 
 	$: categories = $getCategories.data?.categories?.list.filter((category) =>
-		category.category.name.startsWith(categoryName)
+		category.category.name.toLowerCase().startsWith(categoryName.toLowerCase())
 	);
 
 	$: type = reminder?.type || '';
@@ -56,6 +56,16 @@
 		uploads = [...uploads];
 		fileName && (filesDeleted = [...filesDeleted, fileName]);
 	};
+
+	const showCategoryList = () => {
+		document.addEventListener('click', () => (showCategories = false));
+		showCategories = true;
+	};
+
+	const hideCategoryList = () => {
+		document.removeEventListener('click', () => (showCategories = false));
+		showCategories = false;
+	};
 </script>
 
 <Header title={$page.data.title} />
@@ -68,25 +78,29 @@
 		use:enhance>
 		<div class="category">
 			<label for="category">Category<i aria-hidden="true">*</i></label>
-			<input
-				type="text"
-				name="category"
-				id="category"
-				placeholder="Type to select or create a new category"
-				value={categoryName}
-				on:input={(e) => {
-					categoryName = e.currentTarget.value;
-					if (categoryName.length > 1) {
-						showCategories = true;
-					} else {
-						showCategories = false;
-					}
-				}}
-				autocomplete="off"
-				aria-haspopup="listbox"
-				required />
-
-			<input type="hidden" bind:value={categoryId} name="categoryId" />
+			<div class="category-input">
+				<svg class="add">
+					<use xlink:href="#icon-add"></use>
+				</svg>
+				<input
+					type="text"
+					name="category"
+					id="category"
+					placeholder="Type to select or create a new category"
+					value={categoryName}
+					on:input={(e) => {
+						categoryName = e.currentTarget.value;
+						if (categoryName.length > 1) {
+							showCategoryList();
+						} else {
+							hideCategoryList();
+						}
+					}}
+					autocomplete="off"
+					aria-haspopup="listbox"
+					required />
+				<input type="hidden" bind:value={categoryId} name="categoryId" />
+			</div>
 
 			{#if categories}
 				<ul
@@ -99,9 +113,9 @@
 								type="button"
 								on:click={() => {
 									categoryName = category.category.name;
-									showCategories = false;
+									hideCategoryList();
 								}}
-								><svg class="table-icon" fill="var(--cream-dark)"
+								><svg fill="var(--cream-dark)"
 									><use xlink:href="#{category.category.iconId}" /></svg
 								>{category.category.name}</button>
 						</li>
@@ -110,11 +124,11 @@
 					{#if categories.length === 0}
 						<li>
 							<button
+								class="category-select"
 								type="button"
-								on:click={() => {
-									showCategories = false;
-								}}>
-								Category not found. It will be created when you submit the form.</button>
+								on:click={hideCategoryList}>
+								Category not found. It will be created when you add the
+								reminder.</button>
 						</li>
 					{/if}
 				</ul>
@@ -364,10 +378,34 @@
 		border: none;
 		text-align: left;
 		cursor: pointer;
+		margin-left: 0;
 	}
 
-	.category input {
+	.categories-list svg {
+		width: 1.8rem;
+		height: 1.8rem;
+		margin-right: 1rem;
+		vertical-align: middle;
+	}
+
+	.category-input {
+		position: relative;
+	}
+
+	.category-input svg {
+		display: block;
+		color: var(--orange);
+		width: 1.4rem;
+		height: 1.4rem;
+		position: absolute;
+		top: 50%;
+		left: 1.3rem;
+		transform: translateY(-50%);
+	}
+
+	.category-input input {
 		width: 100%;
+		padding-left: 3.8rem;
 	}
 
 	label,
