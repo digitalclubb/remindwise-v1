@@ -157,7 +157,7 @@
 					<th>Cost</th>
 					<th>Due date</th>
 					<th>Auto renewal</th>
-					<th>Info</th>
+					<th>View</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -193,7 +193,7 @@
 									: reminder.reminder.autoRenewal?.valueOf()
 										? 'Yes'
 										: 'No'}</td>
-							<td data-heading="Info" class="view">
+							<td data-heading="View" class="view">
 								<a
 									href="/category/{reminder.reminder.category?.name}/{reminder
 										.reminder.id}"
@@ -233,7 +233,7 @@
 					<th>Company</th>
 					<th>Re-occuring cost</th>
 					<th>Total accured</th>
-					<th>Info</th>
+					<th>View</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -262,7 +262,7 @@
 									style: 'currency',
 									currency: 'GBP',
 								}).format(reminder.reminder.total || 0)}</td>
-							<td data-heading="Info" class="view">
+							<td data-heading="View" class="view">
 								<a
 									href="/category/{reminder.reminder.category?.name}/{reminder
 										.reminder.id}"
