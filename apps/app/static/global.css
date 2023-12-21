@@ -173,6 +173,7 @@ td {
 	padding: 1rem 2rem 1rem 17rem;
 	border-top: 1px solid var(--white);
 	position: relative;
+	min-height: 4.2rem;
 }
 
 td:not(.cell-no-data)::before {
