@@ -275,7 +275,6 @@ th:has(.alert) {
 	tbody tr,
 	tr {
 		display: table-row;
-		min-width: auto;
 	}
 
 	th {
@@ -296,8 +295,8 @@ th:has(.alert) {
 		text-align: center;
 	}
 
-	tbody {
-		display: table-row-group;
+	tbody tr {
+		margin-top: 0;
 	}
 
 	tr:hover td {
@@ -307,6 +306,7 @@ th:has(.alert) {
 	td {
 		display: table-cell;
 		padding-left: 2rem;
+		position: static;
 	}
 
 	td::before {
