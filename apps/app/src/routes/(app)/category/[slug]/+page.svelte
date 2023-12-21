@@ -96,7 +96,7 @@
 					<th>Cost</th>
 					<th>Due date</th>
 					<th>Auto renewal</th>
-					<th>Info</th>
+					<th>View</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -113,26 +113,26 @@
 				{:else}
 					{#each upcoming as reminder}
 						<tr>
-							<td class="name">
+							<td data-heading="Name" class="name">
 								{reminder.reminder.name}
 								<svg class="table-icon" fill="var(--cream-dark)"
 									><use
 										xlink:href="#{reminder.reminder.category?.iconId}" /></svg
 								></td>
-							<td>{reminder.reminder.company}</td>
-							<td
+							<td data-heading="Company">{reminder.reminder.company}</td>
+							<td data-heading="Cost"
 								>{new Intl.NumberFormat('en-GB', {
 									style: 'currency',
 									currency: 'GBP',
 								}).format(reminder.reminder.cost || 0)}</td>
-							<td>{reminder.reminder.date}</td>
-							<td
+							<td data-heading="Due date">{reminder.reminder.date}</td>
+							<td data-heading="Auto renewal"
 								>{reminder.reminder.autoRenewal?.valueOf() === undefined
 									? '-'
 									: reminder.reminder.autoRenewal?.valueOf()
 										? 'Yes'
 										: 'No'}</td>
-							<td class="view">
+							<td data-heading="View" class="view">
 								<a
 									href="/category/{reminder.reminder.category?.name}/{reminder
 										.reminder.id}"
@@ -172,7 +172,7 @@
 					<th>Company</th>
 					<th>Re-occuring cost</th>
 					<th>Total accured</th>
-					<th>Info</th>
+					<th>View</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -184,20 +184,20 @@
 				{:else}
 					{#each reminders as reminder}
 						<tr>
-							<td class="name">
+							<td data-heading="Name" class="name">
 								{reminder.reminder.name}
 								<svg class="table-icon" fill="var(--cream-dark)"
 									><use
 										xlink:href="#{reminder.reminder.category?.iconId}" /></svg
 								></td>
-							<td>{reminder.reminder.company}</td>
-							<td
+							<td data-heading="Company">{reminder.reminder.company}</td>
+							<td data-heading="Re-occuring cost"
 								>{new Intl.NumberFormat('en-GB', {
 									style: 'currency',
 									currency: 'GBP',
 								}).format(reminder.reminder.cost || 0)}</td>
-							<td></td>
-							<td class="view">
+							<td data-heading="Total accured"></td>
+							<td data-heading="View" class="view">
 								<a
 									href="/category/{reminder.reminder.category?.name}/{reminder
 										.reminder.id}"
