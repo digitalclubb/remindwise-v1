@@ -1,19 +1,22 @@
 declare
    current integer;
    reminder integer;
+   currentYear integer;
    total float;
+   spent float;
    new_total_spent float;
    new_total_upcoming float;
    select_historical historical%rowtype;
 begin
   current := CAST(to_char(current_date, 'MM') as integer);
   reminder := CAST(to_char(new.date, 'MM') as integer);
-
+  -- Need information of current date so I can get the correct historical record   
   -- Get existing historical data from db
   select * from public.historical where new."categoryId" = categoryid into select_historical;
 
   -- If it's a monthly recurring reminder we need to update all the following months as well
   if new.type = 'ONGOING' and new.frequency = 'MONTHLY' then
+    total := 0;
     for i in 1..ARRAY_LENGTH(select_historical."monthTotals", 1) loop
        if i >= reminder then
          select_historical."monthTotals"[i] := select_historical."monthTotals"[i] + new.cost;
@@ -27,8 +30,9 @@ begin
      new_total_spent := select_historical."totalSpent";
     else
      -- Calculate new total spent and new total upcoming
-     new_total_spent := select_historical."totalSpent" + (((current - reminder) + 1) * new.cost);
-     new_total_upcoming := select_historical."totalUpcoming" + (abs(total - new_total_spent));
+     spent := ((current - reminder) + 1) * new.cost;
+     new_total_spent := select_historical."totalSpent" + spent;
+     new_total_upcoming := select_historical."totalUpcoming" + (abs(total - spent));
     end if;
   else 
     -- Update just for affected month

@@ -17,7 +17,7 @@
 **I added a monthly recurring reminder which starts in November, today is September:**
 - I need to update Nov and Dec on the month totals array
 - Total spent remains untouched
-- I need to update total upcoming with cost x 2 months (Oct, Nov, Dec)
+- I need to update total upcoming with cost x 2 months (Nov, Dec)
 
 ⠀
 **I deleted a monthly recurring reminder from today (Sep):**
