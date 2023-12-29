@@ -12,8 +12,8 @@ importers:
         specifier: 1.40.1
         version: 1.40.1
       '@testing-library/jest-dom':
-        specifier: 6.1.5
-        version: 6.1.5
+        specifier: 6.1.6
+        version: 6.1.6
       turbo:
         specifier: 1.11.2
         version: 1.11.2
@@ -100,11 +100,11 @@ importers:
         specifier: 2.35.1
         version: 2.35.1(eslint@8.56.0)(svelte@4.2.8)
       houdini:
-        specifier: 1.2.34
-        version: 1.2.34
+        specifier: 1.2.35
+        version: 1.2.35
       houdini-svelte:
-        specifier: 1.2.34
-        version: 1.2.34
+        specifier: 1.2.35
+        version: 1.2.35
       playwright-core:
         specifier: 1.40.1
         version: 1.40.1
@@ -264,8 +264,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /@adobe/css-tools@4.3.1:
-    resolution: {integrity: sha512-/62yikz7NLScCGAAST5SHdnjaDJQBDq0M2muyRTpf2VQhw6StBg2ALiu73zSJQ4fMVLA+0uBhBHAle7Wg+2kSg==}
+  /@adobe/css-tools@4.3.2:
+    resolution: {integrity: sha512-DA5a1C0gD/pLOvhv33YMrbf2FK3oUzwNl9oOJqE4XVjuEtt6XIakRcsd7eLiOSPkp1kTRQGICTA8cKra/vFbjw==}
     dev: true
 
   /@ampproject/remapping@2.2.1:
@@ -2161,10 +2161,6 @@ packages:
       playwright: 1.40.1
     dev: true
 
-  /@polka/url@1.0.0-next.21:
-    resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
-    dev: true
-
   /@polka/url@1.0.0-next.24:
     resolution: {integrity: sha512-2LuNTFBIO0m7kKIQvvPHN6UE63VjpmL9rnEEaOOaiSPbZK+zUOYIzBAWcED+3XYzhYsd/0mD57VdxAEqqV52CQ==}
 
@@ -2382,7 +2378,7 @@ packages:
       mrmime: 1.0.1
       sade: 1.8.1
       set-cookie-parser: 2.6.0
-      sirv: 2.0.3
+      sirv: 2.0.4
       svelte: 3.59.2
       tiny-glob: 0.2.9
       undici: 5.26.4
@@ -2500,8 +2496,8 @@ packages:
       pretty-format: 27.5.1
     dev: true
 
-  /@testing-library/jest-dom@6.1.5:
-    resolution: {integrity: sha512-3y04JLW+EceVPy2Em3VwNr95dOKqA8DhR0RJHhHKDZNYXcVXnEK7WIrpj4eYU8SVt/qYZ2aRWt/WgQ+grNES8g==}
+  /@testing-library/jest-dom@6.1.6:
+    resolution: {integrity: sha512-YwuiOdYEcxhfC2u5iNKlvg2Q5MgbutovP6drq7J1HrCbvR+G58BbtoCoq+L/kNlrNFsu2Kt3jaFAviLVxYHJZg==}
     engines: {node: '>=14', npm: '>=6', yarn: '>=1'}
     peerDependencies:
       '@jest/globals': '>= 28'
@@ -2518,7 +2514,7 @@ packages:
       vitest:
         optional: true
     dependencies:
-      '@adobe/css-tools': 4.3.1
+      '@adobe/css-tools': 4.3.2
       '@babel/runtime': 7.22.6
       aria-query: 5.3.0
       chalk: 3.0.0
@@ -4672,15 +4668,15 @@ packages:
       tslib: 2.6.2
     dev: true
 
-  /houdini-svelte@1.2.34:
-    resolution: {integrity: sha512-YlDAUf5fKBmOHJatKZTpG+pIdprm2mffa7rfh4coLWsAJ23YE/JAH7fyTnEKaqWK3rOCo8NqsB1Ad+l4cpNeZA==}
+  /houdini-svelte@1.2.35:
+    resolution: {integrity: sha512-6BmvQO08sov7jqeCPybdvpbVl/baXG31vnhUK4lGcD+GY4tf52j3/Sky3eNyf9k3jbRQV80V6TBpFaTetS0gXg==}
     dependencies:
       '@kitql/helpers': 0.8.2
       '@sveltejs/kit': 1.30.3(svelte@3.59.2)(vite@4.5.1)
       ast-types: 0.16.1
       estree-walker: 3.0.3
       graphql: 15.8.0
-      houdini: 1.2.34
+      houdini: 1.2.35
       recast: 0.23.4
       rollup: 3.28.1
       svelte: 3.59.2
@@ -4696,8 +4692,8 @@ packages:
       - terser
     dev: true
 
-  /houdini@1.2.34:
-    resolution: {integrity: sha512-toBmBHb5qUZFKWyva/GOOzXoLYSKK/Vxl+hEn+o9nMJITr3dNsF6MRS8mgWyUrI1Yp6Pj/lvmGvwsOscYDQM8Q==}
+  /houdini@1.2.35:
+    resolution: {integrity: sha512-hjckRc7B5R1iPL6MjdSDv/ZtCN89wO9gaOD0DGH6M1sabOMJyPJx+LnbiBtTVN52qQh/Mcl0nTGCW4EuYQip0A==}
     hasBin: true
     dependencies:
       '@babel/parser': 7.22.6
@@ -6378,15 +6374,6 @@ packages:
 
   /signedsource@1.0.0:
     resolution: {integrity: sha512-6+eerH9fEnNmi/hyM1DXcRK3pWdoMQtlkQ+ns0ntzunjKqp5i3sKCc80ym8Fib3iaYhdJUOPdhlJWj1tvge2Ww==}
-    dev: true
-
-  /sirv@2.0.3:
-    resolution: {integrity: sha512-O9jm9BsID1P+0HOi81VpXPoDxYP374pkOLzACAoyUQ/3OUVndNpsz6wMnY2z+yOxzbllCKZrM+9QrWsv4THnyA==}
-    engines: {node: '>= 10'}
-    dependencies:
-      '@polka/url': 1.0.0-next.21
-      mrmime: 1.0.1
-      totalist: 3.0.1
     dev: true
 
   /sirv@2.0.4:
