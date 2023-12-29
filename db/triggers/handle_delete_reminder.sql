@@ -10,7 +10,7 @@ begin
   reminder := CAST(to_char(old.date, 'MM') as integer);
 
   -- Get existing historical data from db
-  select * from public.historical where old."categoryId" = categoryid into select_historical;
+  select * from public.historical where date_part('year', date) = date_part('year', current_date) and old."categoryId" = categoryid into select_historical;
   total := 0;
    -- If it's a monthly recurring reminder we need to update all the following months as well
   if old.type = 'ONGOING' and old.frequency = 'MONTHLY' then
@@ -23,7 +23,7 @@ begin
     new_total_upcoming := select_historical."totalUpcoming" - total;
     if total > 0 then
       -- Update historical record with new upcoming values
-      update public.historical set "totalUpcoming" = new_total_upcoming, "monthTotals" = select_historical."monthTotals" where old."categoryId" = categoryid and auth.uid() = select_historical.userid;
+      update public.historical set "totalUpcoming" = new_total_upcoming, "monthTotals" = select_historical."monthTotals" where old."categoryId" = categoryid and auth.uid() = select_historical.userid and date_part('year', date) = date_part('year', current_date);
     end if;
   else
     -- If reminder month is greater then current we'll want to update our upcoming data
@@ -33,7 +33,7 @@ begin
       new_total_upcoming := select_historical."totalUpcoming" - old.cost;
       
       -- Update historical record with new upcoming values
-      update public.historical set "totalUpcoming" = new_total_upcoming, "monthTotals" = select_historical."monthTotals" where old."categoryId" = categoryid and auth.uid() = select_historical.userid;
+      update public.historical set "totalUpcoming" = new_total_upcoming, "monthTotals" = select_historical."monthTotals" where old."categoryId" = categoryid and auth.uid() = select_historical.userid and date_part('year', date) = date_part('year', current_date);
     end if;
   end if;
 

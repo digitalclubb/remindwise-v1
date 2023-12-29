@@ -12,7 +12,7 @@ begin
   reminder := CAST(to_char(new.date, 'MM') as integer);
   -- Need information of current date so I can get the correct historical record   
   -- Get existing historical data from db
-  select * from public.historical where new."categoryId" = categoryid into select_historical;
+  select * from public.historical where date_part('year', date) = date_part('year', current_date) and new."categoryId" = categoryid into select_historical;
 
   -- If it's a monthly recurring reminder we need to update all the following months as well
   if new.type = 'ONGOING' and new.frequency = 'MONTHLY' then
@@ -50,6 +50,6 @@ begin
     end if;
   end if;
 
-  update public.historical set "totalUpcoming" = new_total_upcoming, "totalSpent" = new_total_spent, "monthTotals" = select_historical."monthTotals" where new."categoryId" = categoryid and auth.uid() = select_historical.userid;
+  update public.historical set "totalUpcoming" = new_total_upcoming, "totalSpent" = new_total_spent, "monthTotals" = select_historical."monthTotals" where new."categoryId" = categoryid and auth.uid() = select_historical.userid and date_part('year', date) = date_part('year', current_date);
   return new;
 end;
