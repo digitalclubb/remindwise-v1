@@ -2,7 +2,8 @@
 	import Button from 'components/button/Button.svelte';
 	import Header from '../../components/header/Header.svelte';
 	import type { PageData } from './$houdini';
-	import Bar from '../../components/charts/column-stacked/Index.svelte';
+	import Bar from '../../components/charts/bar-stacked/Index.svelte';
+	import Column from '../../components/charts/column-stacked/Index.svelte';
 	import Donut from '../../components/charts/donut/Index.svelte';
 	import Line from '../../components/charts/line/Index.svelte';
 	import type { LayoutData } from './$types';
@@ -132,7 +133,12 @@
 			</div>
 		</div>
 
-		<Bar data={barChartData} {iconsMap} />
+		<div class="chart-column">
+			<Column data={barChartData} {iconsMap} />
+		</div>
+		<div class="chart-bar">
+			<Bar data={barChartData} {iconsMap} />
+		</div>
 	</section>
 
 	<section>
@@ -380,6 +386,10 @@
 		margin-left: 1rem;
 	}
 
+	.chart-column {
+		display: none;
+	}
+
 	@media screen and (min-width: 500px) {
 		.charts {
 			display: grid;
@@ -405,6 +415,16 @@
 		.line {
 			grid-area: line;
 			width: 100%;
+		}
+	}
+
+	@media screen and (min-width: 1024px) {
+		.chart-column {
+			display: block;
+		}
+
+		.chart-bar {
+			display: none;
 		}
 	}
 
