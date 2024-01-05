@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { LayerCakeContext } from './context';
+	import type { LayerCakeContext } from '../column-stacked/context';
 
 	const { xScale } = getContext<LayerCakeContext>('LayerCake');
 

@@ -1,14 +1,12 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import type { LayerCakeContext } from './context';
+	import type { LayerCakeContext } from '../column-stacked/context';
 
 	const { padding, xRange, yScale } = getContext<LayerCakeContext>('LayerCake');
 
-	/** @type {Function} [formatTick=d => d] - A function that passes the current tick value and expects a nicely formatted value in return. */
-	export let formatTick = (d) => d;
-
 	/** @type {Number|Array|Function} [ticks=4] - If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. */
-	export let ticks = 4;
+	export let ticks: number | [] | ((param: unknown) => void) | undefined =
+		undefined;
 
 	/** @type {Number} [xTick=-4] - How far over to position the text marker. */
 	export let xTick = -4;

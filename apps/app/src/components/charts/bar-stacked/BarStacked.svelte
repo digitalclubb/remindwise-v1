@@ -1,9 +1,11 @@
-<script>
+<script lang="ts">
 	import { getContext } from 'svelte';
+	import type { LayerCakeContext } from '../column-stacked/context';
 
-	const { data, xGet, yGet, zGet, yScale } = getContext('LayerCake');
+	const { data, xGet, yGet, zGet, yScale } =
+		getContext<LayerCakeContext>('LayerCake');
 
-	$: columnWidth = (d) => {
+	$: columnWidth = (d: string) => {
 		const xVals = $xGet(d);
 		return xVals[1] - xVals[0];
 	};
