@@ -26,7 +26,7 @@
 
 	const stackData = stack().keys(seriesNames);
 
-	const series = stackData(data);
+	const series = stackData(data as Record<string, number>[]);
 
 	/* eslint-disable  @typescript-eslint/no-explicit-any */
 	const yHandle = (d: { data: { [x: string]: any } }) => d.data[xKey];
