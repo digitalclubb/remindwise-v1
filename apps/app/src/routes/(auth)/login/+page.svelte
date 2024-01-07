@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { Button, Input, Link } from 'components';
-
-	export let form;
 </script>
 
 <svelte:head>
@@ -18,7 +16,8 @@
 				id="email"
 				name="email"
 				type="email"
-				value={form?.email ?? ''}
+				autocomplete="username"
+				value=""
 				placeholder="Enter your email address"
 				required />
 
@@ -29,6 +28,7 @@
 				type="password"
 				autocomplete="current-password"
 				placeholder="Enter your password"
+				value=""
 				required />
 
 			<a href="/forgot-password" class="forgotten">Forgotten your password?</a>
