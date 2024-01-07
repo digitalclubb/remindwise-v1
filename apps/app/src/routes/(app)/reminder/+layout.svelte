@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { navigating, page } from '$app/stores';
 	import { enhance } from '$app/forms';
 	import Header from '../../../components/header/Header.svelte';
 	import type { LayoutData } from './$houdini';
@@ -16,6 +16,10 @@
 	let result = {} as QueryResult<getReminder$result>;
 
 	$: reminder = result.data?.reminders?.list[0].reminder;
+
+	$: if ($navigating && $page.url.pathname === '/reminder/add') {
+		result = {} as QueryResult<getReminder$result>;
+	}
 
 	$: ($page.data.getReminder as getReminderStore)?.subscribe((value) => {
 		result = value;
