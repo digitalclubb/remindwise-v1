@@ -15,18 +15,23 @@
 	const yKey = [0, 1];
 	const zKey = 'key';
 
-	const seriesNames = Object.keys(data[0]).filter((d) => d !== xKey);
+	let seriesNames: string[] = [];
 	const seriesColors = ['var(--remindwise-grey)', 'var(--orange)'];
+	let stackData = stack().keys(seriesNames);
+	let series = stackData(data as Record<string, number>[]);
 
-	data.forEach((d) => {
-		seriesNames.forEach((name) => {
-			d[name] = +d[name];
+	$: if (data[0]) {
+		seriesNames = Object.keys(data[0]).filter((d) => d !== xKey);
+
+		data.forEach((d) => {
+			seriesNames.forEach((name) => {
+				d[name] = +d[name];
+			});
 		});
-	});
 
-	const stackData = stack().keys(seriesNames);
-
-	const series = stackData(data as Record<string, number>[]);
+		stackData = stack().keys(seriesNames);
+		series = stackData(data as Record<string, number>[]);
+	}
 
 	/* eslint-disable  @typescript-eslint/no-explicit-any */
 	const yHandle = (d: { data: { [x: string]: any } }) => d.data[xKey];
