@@ -26,7 +26,7 @@
 </script>
 
 <div class="x-axis">
-	{#each tickVals as tick, i (tick)}
+	{#each tickVals as tick}
 		<div
 			class="ticks"
 			style="left:{$xScale(tick) +

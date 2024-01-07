@@ -195,7 +195,8 @@
 							<td data-heading="Cost"
 								>{new Intl.NumberFormat('en-GB', {
 									style: 'currency',
-									currency: currency,
+									currency,
+									currencyDisplay: 'narrowSymbol',
 								}).format(reminder.reminder.cost || 0)}</td>
 							<td data-heading="Due date">{reminder.reminder.date}</td>
 							<td data-heading="Auto renewal"
@@ -266,12 +267,14 @@
 							<td data-heading="Re-occuring cost"
 								>{new Intl.NumberFormat('en-GB', {
 									style: 'currency',
-									currency: currency,
+									currency,
+									currencyDisplay: 'narrowSymbol',
 								}).format(reminder.reminder.cost || 0)}</td>
 							<td data-heading="Total accured"
 								>{new Intl.NumberFormat('en-GB', {
 									style: 'currency',
-									currency: currency,
+									currency,
+									currencyDisplay: 'narrowSymbol',
 								}).format(reminder.reminder.total || 0)}</td>
 							<td data-heading="View" class="view">
 								<a

@@ -2,6 +2,7 @@
 	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
 	import Header from '../../../components/header/Header.svelte';
+	import { getCurrency } from '../../../utils/currency';
 	import type { LayoutData } from './$houdini';
 	import type {
 		getReminderStore,
@@ -11,11 +12,13 @@
 
 	export let data: LayoutData;
 	let showCategories: boolean;
-	$: ({ getCategories } = data);
+	$: ({ getCategories, getSettings } = data);
 
 	let result = {} as QueryResult<getReminder$result>;
 
 	$: reminder = result.data?.reminders?.list[0].reminder;
+	$: currency = $getSettings.data?.settings?.list[0].setting.currency || '';
+	$: currencySymbol = getCurrency(currency);
 
 	$: if ($page.url.pathname === '/reminder/add') {
 		result = {} as QueryResult<getReminder$result>;
@@ -197,7 +200,7 @@
 					{/if}
 				</label>
 				<div class="currency">
-					<span>&pound;</span>
+					<span>{currencySymbol}</span>
 					<input
 						type="number"
 						min="0"

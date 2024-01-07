@@ -5,13 +5,16 @@
 	import { page } from '$app/stores';
 
 	export let data: PageData;
+	$: ({ getSettings } = data);
 
 	$: reminder = data?.data?.reminders?.list[0].reminder;
+	$: currency = $getSettings.data?.settings?.list[0].setting.currency || '';
 
 	$: cost = reminder
 		? new Intl.NumberFormat('en-GB', {
 				style: 'currency',
-				currency: 'GBP',
+				currency,
+				currencyDisplay: 'narrowSymbol',
 			}).format(reminder.cost || 0)
 		: '';
 
