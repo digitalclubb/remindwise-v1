@@ -142,6 +142,10 @@
 
 		await deleteCategory.mutate({ id: currentCategory?.id });
 
+		if (currentCategory?.name === selected) {
+			await goto('/');
+		}
+
 		showDeleteModal = false;
 		currentCategory = undefined;
 		refresh.update((n) => !n);
