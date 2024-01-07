@@ -424,7 +424,7 @@
 		border: 1px solid var(--greyed-out);
 		border-radius: 0.6rem;
 		padding: 0.9rem 1.4rem;
-		width: 28.5rem;
+		width: 100%;
 	}
 
 	fieldset {
@@ -432,11 +432,12 @@
 	}
 
 	.options {
-		display: flex;
-		flex: 1;
+		margin-top: 2rem;
 	}
 
+	.options,
 	.option {
+		display: flex;
 		flex: 1;
 	}
 
@@ -477,20 +478,10 @@
 		color: var(--white);
 	}
 
-	.columns {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 4rem;
-	}
-
 	.currency {
 		display: flex;
 		gap: 1rem;
 		align-items: center;
-	}
-
-	.currency input {
-		width: 26rem;
 	}
 
 	.currency span {
@@ -557,5 +548,25 @@
 
 	.uploadFiles button svg {
 		width: 1.5rem;
+	}
+
+	@media screen and (min-width: 500px) {
+		.columns {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 4rem;
+		}
+
+		.options {
+			margin-top: 0;
+		}
+
+		input {
+			width: 28.5rem;
+		}
+
+		.currency input {
+			width: 26rem;
+		}
 	}
 </style>
