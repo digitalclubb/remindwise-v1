@@ -17,6 +17,10 @@
 
 	$: reminder = result.data?.reminders?.list[0].reminder;
 
+	$: if ($page.url.pathname === '/reminder/add') {
+		result = {} as QueryResult<getReminder$result>;
+	}
+
 	$: ($page.data.getReminder as getReminderStore)?.subscribe((value) => {
 		result = value;
 	});
