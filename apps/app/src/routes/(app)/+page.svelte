@@ -9,13 +9,12 @@
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData & PageData;
-	$: ({ getAllReminders, getCategories, getHistorical } = data);
-
-	$: console.log($getHistorical.data?.historical?.list[0].historical);
+	$: ({ getAllReminders, getCategories } = data);
 
 	$: upcoming = $getAllReminders.data?.upcoming?.list || [];
 	$: reminders = $getAllReminders.data?.reminders?.list || [];
 	$: pageInfo = $getAllReminders.data?.reminders?.pageInfo;
+
 	let barChartData: Record<string, number | string>[] = [];
 	let iconsMap: Record<string, string> = {};
 	$: for (const category of $getCategories.data?.categories?.list || []) {
@@ -28,13 +27,15 @@
 				totalSingle += reminder.reminder.cost;
 			}
 		});
-		barChartData.push({
-			category: category.category.name,
-			totalOngoing: totalOngoing,
-			totalSingle: totalSingle,
-		});
 
-		iconsMap[category.category.name] = category.category.iconId || '';
+		barChartData = [
+			...barChartData,
+			{
+				category: category.category.name,
+				totalOngoing: totalOngoing,
+				totalSingle: totalSingle,
+			},
+		];
 	}
 
 	$: upcomingFilter = '1';
