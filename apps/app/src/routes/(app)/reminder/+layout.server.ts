@@ -1,4 +1,7 @@
 import type { LayoutServerLoad } from './$types';
+import { superValidate } from 'sveltekit-superforms/server';
+import { reminderSchema } from './schema';
+import { getReminderStore } from '$houdini';
 
 export const load: LayoutServerLoad = async (event) => {
 	const parentData = await event.parent();
@@ -35,7 +38,34 @@ export const load: LayoutServerLoad = async (event) => {
 		};
 	});
 
+	if (event.params.slug) {
+		const getReminder = new getReminderStore();
+		const { data } = await getReminder.fetch({
+			event,
+			variables: { slug: event.params.slug },
+		});
+
+		const rem = data?.reminders?.list[0].reminder;
+		console.log(
+			'reminder',
+			data?.reminders?.list[0].reminder,
+			event.params.slug
+		);
+		const form = await superValidate(
+			{ category: rem?.category?.name, name: rem?.name },
+			reminderSchema
+		);
+
+		return {
+			files,
+			form,
+		};
+	}
+
+	const form = await superValidate(reminderSchema);
+
 	return {
 		files,
+		form,
 	};
 };

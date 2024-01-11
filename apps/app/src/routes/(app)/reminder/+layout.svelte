@@ -8,8 +8,15 @@
 		getReminder$result,
 		QueryResult,
 	} from '$houdini';
+	import { superForm } from 'sveltekit-superforms/client';
+	import { reminderSchema } from './schema';
 
 	export let data: LayoutData;
+
+	const { form, errors, constraints } = superForm(data.form, {
+		validators: reminderSchema,
+	});
+
 	let showCategories: boolean;
 	$: ({ getCategories } = data);
 
@@ -76,6 +83,7 @@
 
 <div class="body">
 	<form
+		novalidate
 		method="POST"
 		action={$page.data.action}
 		enctype="multipart/form-data"
@@ -91,7 +99,6 @@
 					name="category"
 					id="category"
 					placeholder="Type to select or create a new category"
-					value={categoryName}
 					on:input={(e) => {
 						categoryName = e.currentTarget.value;
 						if (categoryName.length > 1) {
@@ -102,10 +109,15 @@
 					}}
 					autocomplete="off"
 					aria-haspopup="listbox"
-					required />
+					aria-invalid={$errors.category ? 'true' : undefined}
+					bind:value={$form.category}
+					{...$constraints.category} />
 				<input type="hidden" bind:value={categoryId} name="categoryId" />
 			</div>
 
+			{#if $errors.category}
+				<p class="error">{$errors.category}</p>
+			{/if}
 			{#if categories}
 				<ul
 					class="categories-list"
@@ -146,8 +158,12 @@
 				name="name"
 				id="name"
 				placeholder="Enter a name for your reminder"
-				value={reminder?.name || ''}
-				required />
+				aria-invalid={$errors.name ? 'true' : undefined}
+				bind:value={$form.name}
+				{...$constraints.name} />
+			{#if $errors.name}
+				<p class="error">{$errors.name}</p>
+			{/if}
 		</div>
 
 		<fieldset class="options">
@@ -552,6 +568,11 @@
 
 	.uploadFiles button svg {
 		width: 1.5rem;
+	}
+
+	.error {
+		color: var(--red);
+		margin-top: 1rem;
 	}
 
 	@media screen and (min-width: 500px) {
