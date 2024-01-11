@@ -5,11 +5,13 @@
 
 	export let data;
 
-	$: ({ getReminders } = data);
+	$: ({ getReminders, getSettings } = data);
 
 	$: upcoming = $getReminders.data?.upcoming?.list || [];
 	$: reminders = $getReminders.data?.reminders?.list || [];
 	$: pageInfo = $getReminders.data?.reminders?.pageInfo;
+
+	$: currency = $getSettings.data?.settings?.list[0].setting.currency || '';
 
 	$: upcomingFilter = '1';
 	$: numberOfRemindersFilter = '5';
@@ -123,7 +125,8 @@
 							<td data-heading="Cost"
 								>{new Intl.NumberFormat('en-GB', {
 									style: 'currency',
-									currency: 'GBP',
+									currency,
+									currencyDisplay: 'narrowSymbol',
 								}).format(reminder.reminder.cost || 0)}</td>
 							<td data-heading="Due date">{reminder.reminder.date}</td>
 							<td data-heading="Auto renewal"
@@ -194,7 +197,8 @@
 							<td data-heading="Re-occuring cost"
 								>{new Intl.NumberFormat('en-GB', {
 									style: 'currency',
-									currency: 'GBP',
+									currency,
+									currencyDisplay: 'narrowSymbol',
 								}).format(reminder.reminder.cost || 0)}</td>
 							<td data-heading="Total accured"></td>
 							<td data-heading="View" class="view">

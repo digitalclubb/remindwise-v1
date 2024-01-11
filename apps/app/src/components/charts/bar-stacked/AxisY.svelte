@@ -28,7 +28,7 @@
 </script>
 
 <div class="y-axis" style="transform:translate(-{$padding.left}px, 0)">
-	{#each tickVals as tick, i (tick)}
+	{#each tickVals as tick}
 		<div
 			class="tick"
 			style="top:{$yScale(tick) +

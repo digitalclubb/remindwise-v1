@@ -7,13 +7,17 @@
 	import Donut from '../../components/charts/donut/Index.svelte';
 	import Line from '../../components/charts/line/Index.svelte';
 	import type { LayoutData } from './$types';
+	import { getCurrency } from '../../utils/currency';
 
 	export let data: LayoutData & PageData;
-	$: ({ getAllReminders, getCategories } = data);
+	$: ({ getAllReminders, getCategories, getSettings } = data);
 
 	$: upcoming = $getAllReminders.data?.upcoming?.list || [];
 	$: reminders = $getAllReminders.data?.reminders?.list || [];
 	$: pageInfo = $getAllReminders.data?.reminders?.pageInfo;
+
+	$: currency = $getSettings.data?.settings?.list[0].setting.currency || '';
+	$: currencySymbol = getCurrency(currency);
 
 	let barChartData: Record<string, number | string>[] = [];
 	let iconsMap: Record<string, string> = {};
@@ -110,11 +114,11 @@
 				<ul class="costs">
 					<li class="cost">
 						<h3 class="heading-5">Spent so far</h3>
-						<p>£560</p>
+						<p>{currencySymbol}560</p>
 					</li>
 					<li class="cost cost-upcoming">
 						<h3 class="heading-5">Upcoming</h3>
-						<p>£560</p>
+						<p>{currencySymbol}560</p>
 					</li>
 				</ul>
 				<div class="costs cost-upcoming">
@@ -125,7 +129,7 @@
 							<option value="3">3 months</option>
 							<option value="6">6 months</option>
 						</select>
-						<p>£450</p>
+						<p>{currencySymbol}450</p>
 					</div>
 				</div>
 			</div>
@@ -191,7 +195,8 @@
 							<td data-heading="Cost"
 								>{new Intl.NumberFormat('en-GB', {
 									style: 'currency',
-									currency: 'GBP',
+									currency,
+									currencyDisplay: 'narrowSymbol',
 								}).format(reminder.reminder.cost || 0)}</td>
 							<td data-heading="Due date">{reminder.reminder.date}</td>
 							<td data-heading="Auto renewal"
@@ -262,12 +267,14 @@
 							<td data-heading="Re-occuring cost"
 								>{new Intl.NumberFormat('en-GB', {
 									style: 'currency',
-									currency: 'GBP',
+									currency,
+									currencyDisplay: 'narrowSymbol',
 								}).format(reminder.reminder.cost || 0)}</td>
 							<td data-heading="Total accured"
 								>{new Intl.NumberFormat('en-GB', {
 									style: 'currency',
-									currency: 'GBP',
+									currency,
+									currencyDisplay: 'narrowSymbol',
 								}).format(reminder.reminder.total || 0)}</td>
 							<td data-heading="View" class="view">
 								<a
