@@ -134,7 +134,7 @@ importers:
         version: 5.1.3(@babel/core@7.22.6)(postcss@8.4.32)(svelte@4.2.8)(typescript@5.3.3)
       sveltekit-superforms:
         specifier: 1.13.2
-        version: 1.13.2(@sveltejs/kit@2.1.0)(svelte@4.2.8)(zod@3.22.4)
+        version: 1.13.2(@sveltejs/kit@2.3.2)(svelte@4.2.8)(zod@3.22.4)
       typescript:
         specifier: 5.3.3
         version: 5.3.3
@@ -6649,14 +6649,14 @@ packages:
       magic-string: 0.30.5
       periscopic: 3.1.0
 
-  /sveltekit-superforms@1.13.2(@sveltejs/kit@2.1.0)(svelte@4.2.8)(zod@3.22.4):
+  /sveltekit-superforms@1.13.2(@sveltejs/kit@2.3.2)(svelte@4.2.8)(zod@3.22.4):
     resolution: {integrity: sha512-5PKnL1v+9P3G6HPissMlAyV7bNjvrPAkfkAEgJcrCH5lSkaw23Wf8obUMD4EDwLp3b5d6J7JPQCR6hYUsi2BLg==}
     peerDependencies:
       '@sveltejs/kit': 1.x || 2.x
       svelte: 3.x || 4.x
       zod: 3.x
     dependencies:
-      '@sveltejs/kit': 2.1.0(@sveltejs/vite-plugin-svelte@3.0.1)(svelte@4.2.8)(vite@5.0.11)
+      '@sveltejs/kit': 2.3.2(@sveltejs/vite-plugin-svelte@3.0.1)(svelte@4.2.8)(vite@5.0.11)
       svelte: 4.2.8
       zod: 3.22.4
     dev: true
