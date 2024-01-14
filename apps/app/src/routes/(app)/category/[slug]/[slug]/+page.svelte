@@ -60,7 +60,11 @@
 				with <span class="highlight">{reminder.company}</span><br /> at a cost
 				of
 				<span class="highlight">{cost}</span><br />
-				due for renewal on
+				{#if reminder.type === 'SINGLE'}
+					with a date of
+				{:else}
+					due for renewal on
+				{/if}
 				<span class="highlight">{date}</span>
 				{#if reminder.type === 'ONGOING'}
 					<br />will be charged
