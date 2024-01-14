@@ -61,9 +61,16 @@
 				of
 				<span class="highlight">{cost}</span><br />
 				due for renewal on
-				<span class="highlight">{date}</span><br /> will be charged
-				<span class="highlight">monthly</span><br /> and will be renewed
-				<span class="highlight">automatically</span>
+				<span class="highlight">{date}</span>
+				{#if reminder.type === 'ONGOING'}
+					<br />will be charged
+					<span class="highlight">{reminder.frequency?.toLowerCase()}</span
+					>
+				{/if}
+				{#if reminder.autoRenewal}
+					<br />and will be renewed
+					<span class="highlight">automatically</span>
+				{/if}
 			</p>
 
 			<h2 class="heading-4">Things to remember</h2>

@@ -40,6 +40,8 @@
 				totalSingle: totalSingle,
 			},
 		];
+
+		iconsMap[category.category.name] = category.category.iconId || '';
 	}
 
 	$: upcomingFilter = '1';

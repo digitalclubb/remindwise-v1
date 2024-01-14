@@ -7,7 +7,7 @@ const config = {
 	extends: './.svelte-kit/tsconfig.json',
 	// Consult https://github.com/sveltejs/svelte-preprocess
 	// for more information about preprocessors
-	preprocess: preprocess(),
+	preprocess: [preprocess()],
 
 	kit: {
 		adapter: adapter({
