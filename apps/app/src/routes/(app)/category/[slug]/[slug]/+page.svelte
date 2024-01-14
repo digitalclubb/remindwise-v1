@@ -68,8 +68,7 @@
 				<span class="highlight">{date}</span>
 				{#if reminder.type === 'ONGOING'}
 					<br />will be charged
-					<span class="highlight">{reminder.frequency?.toLowerCase()}</span
-					>
+					<span class="highlight">{reminder.frequency?.toLowerCase()}</span>
 				{/if}
 				{#if reminder.autoRenewal}
 					<br />and will be renewed
