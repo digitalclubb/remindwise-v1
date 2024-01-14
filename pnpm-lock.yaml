@@ -20,9 +20,6 @@ importers:
 
   apps/app:
     dependencies:
-      '@supabase/auth-helpers-shared':
-        specifier: 0.6.3
-        version: 0.6.3(@supabase/supabase-js@2.39.3)
       '@supabase/auth-helpers-sveltekit':
         specifier: 0.10.7
         version: 0.10.7(@supabase/supabase-js@2.39.3)(@sveltejs/kit@2.3.2)
