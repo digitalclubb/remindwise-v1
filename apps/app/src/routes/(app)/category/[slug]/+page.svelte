@@ -1,7 +1,10 @@
 <script lang="ts">
-	import Button from 'components/button/Button.svelte';
 	import { page } from '$app/stores';
+	import Button from 'components/button/Button.svelte';
+	import Donut from '../../../../components/charts/donut/Index.svelte';
+	import Line from '../../../../components/charts/line/Index.svelte';
 	import Header from '../../../../components/header/Header.svelte';
+	import { getCurrency } from '../../../../utils/currency';
 
 	export let data;
 
@@ -12,6 +15,7 @@
 	$: pageInfo = $getReminders.data?.reminders?.pageInfo;
 
 	$: currency = $getSettings.data?.settings?.list[0].setting.currency || '';
+	$: currencySymbol = getCurrency(currency);
 
 	$: upcomingFilter = '1';
 	$: numberOfRemindersFilter = '5';
@@ -74,6 +78,37 @@
 		<h2 class="heading-3">
 			Total {$page.params.slug} spend this year <span>(Jan '23 - Jan '24)</span>
 		</h2>
+		<div class="charts">
+			<div class="donut">
+				<Donut />
+			</div>
+			<div class="costs-data">
+				<ul class="costs">
+					<li class="cost">
+						<h3 class="heading-5">Spent so far</h3>
+						<p>{currencySymbol}560</p>
+					</li>
+					<li class="cost cost-upcoming">
+						<h3 class="heading-5">Upcoming</h3>
+						<p>{currencySymbol}560</p>
+					</li>
+				</ul>
+				<div class="costs cost-upcoming">
+					<h4>Upcoming costs</h4>
+					<div class="cost-switcher">
+						<select>
+							<option value="1">1 months</option>
+							<option value="3">3 months</option>
+							<option value="6">6 months</option>
+						</select>
+						<p>{currencySymbol}450</p>
+					</div>
+				</div>
+			</div>
+			<div class="line">
+				<Line />
+			</div>
+		</div>
 	</section>
 
 	<section>
@@ -278,5 +313,84 @@
 	.chevron-right {
 		rotate: -90deg;
 		margin-left: 1rem;
+	}
+
+	/* Duplicated from main page */
+	.costs {
+		border: 1px solid var(--cream);
+		border-radius: 0.6rem;
+		padding: 2rem;
+	}
+
+	ul.costs {
+		margin-bottom: 1.2rem;
+	}
+
+	.cost {
+		display: flex;
+		justify-content: space-between;
+		align-items: first baseline;
+	}
+
+	.costs p {
+		font-size: 1.6rem;
+	}
+
+	.cost-upcoming p {
+		color: var(--orange);
+	}
+
+	.cost h3::before {
+		content: '';
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background-color: var(--remindwise-grey);
+		margin-right: 1rem;
+	}
+
+	.cost-upcoming h3::before {
+		background-color: var(--orange);
+	}
+
+	.cost-switcher {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	@media screen and (min-width: 500px) {
+		.charts {
+			display: grid;
+			grid-template-columns: 0.5fr 1fr;
+			grid-template-areas:
+				'donut data'
+				'line line';
+			gap: 4.8rem;
+			margin-bottom: 2rem;
+			align-items: center;
+			justify-items: center;
+		}
+
+		.donut {
+			grid-area: donut;
+		}
+
+		.costs-data {
+			grid-area: data;
+			justify-self: stretch;
+		}
+
+		.line {
+			grid-area: line;
+			width: 100%;
+		}
+	}
+
+	@media screen and (min-width: 1280px) {
+		.charts {
+			grid-template-areas: 'donut data line';
+			grid-template-columns: 0.5fr 1fr 2fr;
+		}
 	}
 </style>
