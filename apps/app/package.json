@@ -19,7 +19,7 @@
 	},
 	"dependencies": {
 		"@supabase/auth-helpers-sveltekit": "0.10.7",
-		"@supabase/supabase-js": "2.39.3",
+		"@supabase/supabase-js": "2.39.2",
 		"@vercel/analytics": "1.1.1",
 		"components": "workspace:*",
 		"d3-format": "3.1.0",
