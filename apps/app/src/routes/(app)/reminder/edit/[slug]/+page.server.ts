@@ -19,7 +19,7 @@ export const actions = {
 			? new Date(data.get('date') as string)
 			: new Date();
 		const frequency = data.get('frequency') as Frequency;
-		const autoRenewal = data.get('autoRenew') ? !!data.get('autoRenew') : null;
+		const autoRenewal = data.get('autoRenew') === 'true';
 		const notes = data.get('notes') as string;
 		const userId = data.get('userId') as string;
 		const files = data.getAll('documents') as File[];

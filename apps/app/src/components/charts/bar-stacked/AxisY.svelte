@@ -55,6 +55,7 @@
 	.text {
 		position: absolute;
 	}
+
 	div.y-axis {
 		width: 100%;
 		height: 100%;
