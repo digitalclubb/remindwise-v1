@@ -1,4 +1,8 @@
 import type { LayoutServerLoad } from './$types';
+import { superValidate } from 'sveltekit-superforms/server';
+import { reminderSchema } from './schema';
+import { getReminderStore } from '$houdini';
+import { Frequency, Type } from '@graphql/types';
 
 export const load: LayoutServerLoad = async (event) => {
 	const parentData = await event.parent();
@@ -35,7 +39,44 @@ export const load: LayoutServerLoad = async (event) => {
 		};
 	});
 
+	// If we're on the edit page, then we want to fetch the data and prepropulate our form
+	if (event.params.slug) {
+		const getReminder = new getReminderStore();
+		const { data } = await getReminder.fetch({
+			event,
+			variables: { slug: event.params.slug },
+		});
+
+		const reminder = data?.reminders?.list[0].reminder;
+
+		if (reminder) {
+			const form = await superValidate(
+				{
+					categoryId: reminder.category?.id,
+					category: reminder.category?.name,
+					name: reminder.name,
+					type: reminder.type as Type, // Is there better way to do this?
+					company: reminder.company,
+					cost: reminder.cost,
+					frequency: reminder.frequency as Frequency,
+					date: String(reminder.date),
+					autoRenew: reminder.autoRenewal,
+					notes: reminder.notes || '',
+				},
+				reminderSchema
+			);
+
+			return {
+				files,
+				form,
+			};
+		}
+	}
+
+	const form = await superValidate(reminderSchema);
+
 	return {
 		files,
+		form,
 	};
 };

@@ -6,7 +6,8 @@ query getHistorical($yearStart: Date, $yearEnd: Date) {
 			historical: node {
 				categoryid
 				monthTotals
-				total
+				totalUpcoming
+				totalSpent
 			}
 		}
 	}

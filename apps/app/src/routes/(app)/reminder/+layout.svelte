@@ -4,44 +4,35 @@
 	import Header from '../../../components/header/Header.svelte';
 	import { getCurrency } from '../../../utils/currency';
 	import type { LayoutData } from './$houdini';
-	import type {
-		getReminderStore,
-		getReminder$result,
-		QueryResult,
-	} from '$houdini';
+	import { superForm } from 'sveltekit-superforms/client';
+	import { reminderSchema } from './schema';
 
 	export let data: LayoutData;
+
+	const { form, errors, constraints } = superForm(data.form, {
+		validators: reminderSchema,
+	});
+
 	let showCategories: boolean;
 	$: ({ getCategories, getSettings } = data);
 
-	let result = {} as QueryResult<getReminder$result>;
-
-	$: reminder = result.data?.reminders?.list[0].reminder;
 	$: currency = $getSettings.data?.settings?.list[0].setting.currency || '';
 	$: currencySymbol = getCurrency(currency);
 
-	$: if ($page.url.pathname === '/reminder/add') {
-		result = {} as QueryResult<getReminder$result>;
-	}
-
-	$: ($page.data.getReminder as getReminderStore)?.subscribe((value) => {
-		result = value;
-	});
-
 	$: categories = $getCategories.data?.categories?.list.filter((category) =>
-		category.category.name.toLowerCase().startsWith(categoryName.toLowerCase())
+		category.category.name
+			.toLowerCase()
+			.startsWith($form.category.toLowerCase())
 	);
-
-	$: type = reminder?.type || '';
-	$: autoRenew = String(reminder?.autoRenewal) || '';
-	$: frequency = reminder?.frequency || '';
-
-	$: categoryName = reminder?.category?.name || '';
-	$: categoryId = categories?.[0]?.category.id || '';
 
 	let files: FileList;
 	let uploads = data.files || [];
 	let filesDeleted: string[] = [];
+
+	$: if ($page.url.pathname === '/reminder/add') {
+		uploads = [];
+		filesDeleted = [];
+	}
 
 	const fileUpload = (files: FileList) => {
 		const filenames = Array.from(files).map((file) => {
@@ -79,6 +70,7 @@
 
 <div class="body">
 	<form
+		novalidate
 		method="POST"
 		action={$page.data.action}
 		enctype="multipart/form-data"
@@ -94,10 +86,9 @@
 					name="category"
 					id="category"
 					placeholder="Type to select or create a new category"
-					value={categoryName}
 					on:input={(e) => {
-						categoryName = e.currentTarget.value;
-						if (categoryName.length > 1) {
+						$form.category = e.currentTarget.value;
+						if ($form.category.length > 1) {
 							showCategoryList();
 						} else {
 							hideCategoryList();
@@ -105,10 +96,15 @@
 					}}
 					autocomplete="off"
 					aria-haspopup="listbox"
-					required />
-				<input type="hidden" bind:value={categoryId} name="categoryId" />
+					aria-invalid={$errors.category ? 'true' : undefined}
+					bind:value={$form.category}
+					{...$constraints.category} />
+				<input type="hidden" bind:value={$form.categoryId} name="categoryId" />
 			</div>
 
+			{#if $errors.category}
+				<p class="error">{$errors.category}</p>
+			{/if}
 			{#if categories}
 				<ul
 					class="categories-list"
@@ -119,7 +115,7 @@
 							<button
 								type="button"
 								on:click={() => {
-									categoryName = category.category.name;
+									$form.category = category.category.name;
 									hideCategoryList();
 								}}
 								><svg fill="var(--cream-dark)"
@@ -149,35 +145,43 @@
 				name="name"
 				id="name"
 				placeholder="Enter a name for your reminder"
-				value={reminder?.name || ''}
-				required />
+				aria-invalid={$errors.name ? 'true' : undefined}
+				bind:value={$form.name}
+				{...$constraints.name} />
+			{#if $errors.name}
+				<p class="error">{$errors.name}</p>
+			{/if}
 		</div>
 
-		<fieldset class="options">
-			<legend>What type of reminder is this?<i aria-hidden="true">*</i></legend>
-			<div class="option option-first">
-				<input
-					type="radio"
-					name="type"
-					id="ongoing"
-					value="ONGOING"
-					checked={type === 'ONGOING'}
-					on:change={() => (type = 'ONGOING')}
-					required />
-				<label for="ongoing">Ongoing subscription</label>
-			</div>
-			<div class="option option-last">
-				<input
-					type="radio"
-					name="type"
-					id="single"
-					value="SINGLE"
-					checked={type === 'SINGLE'}
-					on:change={() => (type = 'SINGLE')}
-					required />
-				<label for="single">Single record</label>
-			</div>
-		</fieldset>
+		<div>
+			<fieldset class="options">
+				<legend
+					>What type of reminder is this?<i aria-hidden="true">*</i></legend>
+				<div class="option option-first">
+					<input
+						type="radio"
+						name="type"
+						id="ongoing"
+						value="ONGOING"
+						bind:group={$form.type}
+						{...$constraints.type} />
+					<label for="ongoing">Ongoing subscription</label>
+				</div>
+				<div class="option option-last">
+					<input
+						type="radio"
+						name="type"
+						id="single"
+						value="SINGLE"
+						bind:group={$form.type}
+						{...$constraints.type} />
+					<label for="single">Single record</label>
+				</div>
+			</fieldset>
+			{#if $errors.type}
+				<p class="error">{$errors.type}</p>
+			{/if}
+		</div>
 
 		<div>
 			<label for="company">Company<i aria-hidden="true">*</i></label>
@@ -186,14 +190,18 @@
 				name="company"
 				id="company"
 				placeholder="Enter the name of the company"
-				value={reminder?.company || ''}
-				required />
+				aria-invalid={$errors.company ? 'true' : undefined}
+				bind:value={$form.company}
+				{...$constraints.company} />
+			{#if $errors.company}
+				<p class="error">{$errors.company}</p>
+			{/if}
 		</div>
 
 		<div class="columns">
 			<div>
 				<label for="cost">
-					{#if type === 'SINGLE'}
+					{#if $form.type === 'SINGLE'}
 						What is the total?<i aria-hidden="true">*</i>
 					{:else}
 						What is the re-occuring cost?<i aria-hidden="true">*</i>
@@ -203,80 +211,103 @@
 					<span>{currencySymbol}</span>
 					<input
 						type="number"
-						min="0"
 						step="any"
 						name="cost"
 						id="cost"
 						placeholder="How much is charged?"
-						value={reminder?.cost || ''}
-						required />
+						aria-invalid={$errors.cost ? 'true' : undefined}
+						bind:value={$form.cost}
+						{...$constraints.cost} />
 				</div>
+				{#if $errors.cost}
+					<p class="error">{$errors.cost}</p>
+				{/if}
 			</div>
 
-			{#if type === 'ONGOING'}
-				<fieldset class="options">
-					<legend>When is it charged?</legend>
-					<div class="option option-first">
-						<input
-							type="radio"
-							name="frequency"
-							id="annual"
-							value="ANNUAL"
-							required
-							checked={frequency === 'ANNUAL'}
-							on:change={() => (frequency = 'ANNUAL')} />
-						<label for="annual">Annual</label>
-					</div>
-					<div class="option option-last">
-						<input
-							type="radio"
-							name="frequency"
-							id="monthly"
-							value="MONTHLY"
-							required
-							checked={frequency === 'MONTHLY'}
-							on:change={() => (frequency = 'MONTHLY')} />
-						<label for="monthly">Monthly</label>
-					</div>
-				</fieldset>
+			{#if $form.type === 'ONGOING'}
+				<div class="options-wrapper">
+					<fieldset class="options">
+						<legend>When is it charged?</legend>
+						<div class="option option-first">
+							<input
+								type="radio"
+								name="frequency"
+								id="annual"
+								value="ANNUAL"
+								bind:group={$form.frequency}
+								{...$constraints.frequency} />
+							<label for="annual">Annual</label>
+						</div>
+						<div class="option option-last">
+							<input
+								type="radio"
+								name="frequency"
+								id="monthly"
+								value="MONTHLY"
+								bind:group={$form.frequency}
+								{...$constraints.frequency} />
+							<label for="monthly">Monthly</label>
+						</div>
+					</fieldset>
+
+					{#if $errors.frequency}
+						<p class="error">{$errors.frequency}</p>
+					{/if}
+				</div>
 			{/if}
 		</div>
 
 		<div class="columns">
 			<div>
 				<label for="date"
-					>{#if type === 'SINGLE'}
+					>{#if $form.type === 'SINGLE'}
 						What is the date?
 					{:else}
 						When is it due for renewal?
 					{/if}</label>
-				<input type="date" name="date" id="date" value={reminder?.date || ''} />
+				<input
+					type="date"
+					name="date"
+					id="date"
+					aria-invalid={$errors.date ? 'true' : undefined}
+					bind:value={$form.date}
+					{...$constraints.date} />
+
+				{#if $errors.date}
+					<p class="error">{$errors.date}</p>
+				{/if}
 			</div>
 
-			{#if type === 'ONGOING'}
-				<fieldset class="options">
-					<legend>Will it auto-renew?</legend>
-					<div class="option option-first">
-						<input
-							type="radio"
-							name="autoRenew"
-							id="yes"
-							value="true"
-							checked={autoRenew === 'true'}
-							on:change={() => (autoRenew = 'true')} />
-						<label for="yes">Yes</label>
-					</div>
-					<div class="option option-last">
-						<input
-							type="radio"
-							name="autoRenew"
-							id="no"
-							value="false"
-							checked={autoRenew === 'false'}
-							on:change={() => (autoRenew = 'false')} />
-						<label for="no">No</label>
-					</div>
-				</fieldset>
+			{#if $form.type === 'ONGOING'}
+				<div class="options-wrapper">
+					<fieldset class="options">
+						<legend>Will it auto-renew?</legend>
+						<div class="option option-first">
+							<input
+								type="radio"
+								name="autoRenew"
+								id="yes"
+								value={true}
+								bind:group={$form.autoRenew}
+								{...$constraints.autoRenew} />
+							<label for="yes">Yes</label>
+						</div>
+						<div class="option option-last">
+							<input
+								type="radio"
+								name="autoRenew"
+								id="no"
+								value={false}
+								bind:group={$form.autoRenew}
+								{...$constraints.autoRenew} />
+							<label for="no">No</label>
+						</div>
+					</fieldset>
+
+					{#if $errors.autoRenew}
+						<p class="error">{$errors.autoRenew}</p>
+					{/if}
+				</div>
 			{/if}
 		</div>
 
@@ -286,7 +317,13 @@
 				name="notes"
 				id="notes"
 				placeholder="Enter things like policy number, quick contact details for the company etc."
-				value={reminder?.notes || ''} />
+				aria-invalid={$errors.notes ? 'true' : undefined}
+				bind:value={$form.notes}
+				{...$constraints.notes} />
+
+			{#if $errors.notes}
+				<p class="error">{$errors.notes}</p>
+			{/if}
 		</div>
 
 		<fieldset class="uploadFiles">
@@ -438,6 +475,10 @@
 		all: unset;
 	}
 
+	.options-wrapper {
+		flex: 1;
+	}
+
 	.options {
 		margin-top: 2rem;
 	}
@@ -555,6 +596,11 @@
 
 	.uploadFiles button svg {
 		width: 1.5rem;
+	}
+
+	.error {
+		color: var(--red);
+		margin-top: 1rem;
 	}
 
 	@media screen and (min-width: 500px) {

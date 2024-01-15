@@ -5,7 +5,7 @@ mutation updateSettings(
 	$email: String
 	$noticePeriod: Int
 	$interval: Interval
-	$currency: String
+	$currency: Currency
 ) {
 	updatesettingsCollection(
 		filter: { id: { eq: $id } }

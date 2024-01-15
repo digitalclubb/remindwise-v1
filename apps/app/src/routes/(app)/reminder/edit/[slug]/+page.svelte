@@ -2,32 +2,23 @@
 	import { goto } from '$app/navigation';
 	import { Button } from 'components';
 	import { navigating, page } from '$app/stores';
-	import { deleteReminderStore, getReminderStore } from '$houdini';
-	import type { getReminder$result, QueryResult } from '$houdini';
+	import { deleteReminderStore } from '$houdini';
 
 	import Modal from '../../../../../components/modal/Modal.svelte';
 
 	let showModal = false;
 	let previousPage = $navigating?.from?.url.pathname;
 
-	let result = {} as QueryResult<getReminder$result>;
-
-	$: reminder = result.data?.reminders?.list[0].reminder;
-
-	$: ($page.data.getReminder as getReminderStore)?.subscribe((value) => {
-		result = value;
-	});
-
 	const onDelete = async () => {
 		const deleteReminder = new deleteReminderStore();
 		await deleteReminder.mutate({ id: $page.params.slug });
 
-		await goto(`/category/${reminder?.category?.name}`);
+		await goto(`/category/${$page.data.form.data.category}`);
 	};
 </script>
 
 <svelte:head>
-	<title>Edit "{reminder?.name}" · remindwise.io</title>
+	<title>Edit "{$page.data.form.data.name}" · remindwise.io</title>
 </svelte:head>
 
 <div class="actions">

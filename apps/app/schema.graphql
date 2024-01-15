@@ -1,17 +1,3 @@
-enum Annual {
-  ANNUAL
-}
-
-"""
-Boolean expression comparing fields on type "Annual"
-"""
-input AnnualFilter {
-  eq: Annual
-  in: [Annual!]
-  is: FilterIs
-  neq: Annual
-}
-
 """A high precision floating point value represented as a string"""
 scalar BigFloat
 
@@ -52,6 +38,25 @@ Boolean expression comparing fields on type "Boolean"
 input BooleanFilter {
   eq: Boolean
   is: FilterIs
+}
+
+enum Currency {
+  AUD
+  CAD
+  EUR
+  GBP
+  JPY
+  USD
+}
+
+"""
+Boolean expression comparing fields on type "Currency"
+"""
+input CurrencyFilter {
+  eq: Currency
+  in: [Currency!]
+  is: FilterIs
+  neq: Currency
 }
 
 """
@@ -295,20 +300,6 @@ interface Node {
   nodeId: ID!
 }
 
-enum Ongoing {
-  ONGOING
-}
-
-"""
-Boolean expression comparing fields on type "Ongoing"
-"""
-input OngoingFilter {
-  eq: Ongoing
-  in: [Ongoing!]
-  is: FilterIs
-  neq: Ongoing
-}
-
 """Any type not handled by the type system"""
 scalar Opaque
 
@@ -435,20 +426,6 @@ type Query {
   ): settingsConnection
 }
 
-enum Single {
-  SINGLE
-}
-
-"""
-Boolean expression comparing fields on type "Single"
-"""
-input SingleFilter {
-  eq: Single
-  in: [Single!]
-  is: FilterIs
-  neq: Single
-}
-
 """
 Boolean expression comparing fields on type "String"
 """
@@ -466,22 +443,6 @@ input StringFilter {
   neq: String
   regex: String
   startsWith: String
-}
-
-enum Test {
-  a
-  b
-  c
-}
-
-"""
-Boolean expression comparing fields on type "Test"
-"""
-input TestFilter {
-  eq: Test
-  in: [Test!]
-  is: FilterIs
-  neq: Test
 }
 
 """A time without date information"""
@@ -515,6 +476,21 @@ input TypeFilter {
   in: [Type!]
   is: FilterIs
   neq: Type
+}
+
+enum Types {
+  ONGOING
+  SINGLE
+}
+
+"""
+Boolean expression comparing fields on type "Types"
+"""
+input TypesFilter {
+  eq: Types
+  in: [Types!]
+  is: FilterIs
+  neq: Types
 }
 
 """A universally unique identifier"""
@@ -661,7 +637,8 @@ type historical implements Node {
   """Globally Unique Record Identifier"""
   nodeId: ID!
   settings: settings!
-  total: Float!
+  totalSpent: Float!
+  totalUpcoming: Float!
   userid: UUID!
 }
 
@@ -689,7 +666,8 @@ input historicalFilter {
   date: DateFilter
   id: BigIntFilter
   nodeId: IDFilter
-  total: FloatFilter
+  totalSpent: FloatFilter
+  totalUpcoming: FloatFilter
   userid: UUIDFilter
 }
 
@@ -698,7 +676,8 @@ input historicalInsertInput {
   created_at: Datetime
   date: Date
   monthTotals: [Float]
-  total: Float
+  totalSpent: Float
+  totalUpcoming: Float
   userid: UUID
 }
 
@@ -715,7 +694,8 @@ input historicalOrderBy {
   created_at: OrderByDirection
   date: OrderByDirection
   id: OrderByDirection
-  total: OrderByDirection
+  totalSpent: OrderByDirection
+  totalUpcoming: OrderByDirection
   userid: OrderByDirection
 }
 
@@ -724,7 +704,8 @@ input historicalUpdateInput {
   created_at: Datetime
   date: Date
   monthTotals: [Float]
-  total: Float
+  totalSpent: Float
+  totalUpcoming: Float
   userid: UUID
 }
 
@@ -737,7 +718,7 @@ type historicalUpdateResponse {
 }
 
 type reminders implements Node {
-  autoRenewal: Boolean
+  autoRenewal: Boolean!
   category: categories
   categoryId: BigInt
   company: String!
@@ -877,7 +858,7 @@ type settings implements Node {
     """Sort order to apply to the collection"""
     orderBy: [categoriesOrderBy!]
   ): categoriesConnection
-  currency: String
+  currency: Currency
   email: String
   first_name: String
   historicalCollection(
@@ -947,7 +928,7 @@ type settingsEdge {
 }
 
 input settingsFilter {
-  currency: StringFilter
+  currency: CurrencyFilter
   email: StringFilter
   first_name: StringFilter
   id: UUIDFilter
@@ -959,7 +940,7 @@ input settingsFilter {
 }
 
 input settingsInsertInput {
-  currency: String
+  currency: Currency
   email: String
   first_name: String
   id: UUID
@@ -989,7 +970,7 @@ input settingsOrderBy {
 }
 
 input settingsUpdateInput {
-  currency: String
+  currency: Currency
   email: String
   first_name: String
   id: UUID
