@@ -1,5 +1,5 @@
 import { updateSettingsStore } from '$houdini';
-import type { Interval } from '@graphql/types.js';
+import type { Currency, Interval } from '@graphql/types.js';
 import { redirect } from '@sveltejs/kit';
 export const actions = {
 	updateSettings: async (event) => {
@@ -10,7 +10,7 @@ export const actions = {
 		const id = data.get('id') as string;
 		const noticePeriod = parseInt(data.get('notice-period') as string);
 		const interval = data.get('interval') as Interval;
-		const currency = data.get('currency') as string;
+		const currency = data.get('currency') as Currency;
 
 		const updateSettings = new updateSettingsStore();
 
