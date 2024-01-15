@@ -39,6 +39,7 @@ export const load: LayoutServerLoad = async (event) => {
 		};
 	});
 
+	// If we're on the edit page, then we want to fetch the data and prepropulate our form
 	if (event.params.slug) {
 		const getReminder = new getReminderStore();
 		const { data } = await getReminder.fetch({
@@ -59,7 +60,7 @@ export const load: LayoutServerLoad = async (event) => {
 					cost: reminder.cost,
 					frequency: reminder.frequency as Frequency,
 					date: String(reminder.date),
-					autoRenew: !!reminder.autoRenewal,
+					autoRenew: reminder.autoRenewal,
 					notes: reminder.notes || '',
 				},
 				reminderSchema
