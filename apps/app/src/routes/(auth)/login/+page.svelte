@@ -48,13 +48,14 @@
 				<p class="error">{$errors.password}</p>
 			{/if}
 
-			{#if $message}
-				<p class="error">{$message}</p>
-			{/if}
 			<a href="/forgot-password" class="forgotten">Forgotten your password?</a>
 			<div class="login">
 				<Button>Login</Button>
 			</div>
+
+			{#if $message}
+				<p class="error">{$message}</p>
+			{/if}
 		</form>
 	</div>
 	<div class="box box-social">
