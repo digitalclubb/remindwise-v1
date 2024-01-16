@@ -1,5 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
+import { message, superValidate } from 'sveltekit-superforms/server';
+import { loginSchema } from './schema';
 
 export const load: PageServerLoad = async ({ url, locals: { getSession } }) => {
 	const session = await getSession();
@@ -9,31 +11,32 @@ export const load: PageServerLoad = async ({ url, locals: { getSession } }) => {
 		throw redirect(303, '/');
 	}
 
-	return { url: url.origin };
+	const form = await superValidate(loginSchema);
+
+	return { url: url.origin, form };
 };
 
 export const actions = {
 	default: async ({ request, locals: { supabase } }) => {
 		const formData = await request.formData();
-		const email = formData.get('email') as string;
-		const password = formData.get('password') as string;
+		const form = await superValidate(formData, loginSchema);
+		const { valid, data } = form;
+
+		if (!valid) {
+			return fail(400, { form });
+		}
+
 		const { error } = await supabase.auth.signInWithPassword({
-			email,
-			password,
+			email: data.email,
+			password: data.password,
 		});
 
 		if (error) {
-			return fail(500, {
-				message: 'Server error. Try again later.',
-				success: false,
-				email,
+			return message(form, error.message, {
+				status: 400,
 			});
 		}
 
-		return {
-			message:
-				'Please check your email for a magic link to log into the website.',
-			success: true,
-		};
+		return message(form, 'Login successful');
 	},
 };

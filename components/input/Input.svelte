@@ -4,11 +4,13 @@
 		label?: string;
 		inline?: boolean;
 		fullWidth?: boolean;
+		value?: string | number;
 	}
 
 	export let label: string | undefined = undefined;
 	export let inline: boolean = false;
 	export let fullWidth: boolean = false;
+	export let value: string | number | null = null;
 </script>
 
 {#if label}
@@ -16,7 +18,7 @@
 		>{label}<i aria-hidden="true" hidden={!$$props.required}>*</i></label>
 {/if}
 
-<input class:inline class:fullWidth {...$$restProps} />
+<input class:inline class:fullWidth bind:value {...$$restProps} />
 
 <style>
 	label {

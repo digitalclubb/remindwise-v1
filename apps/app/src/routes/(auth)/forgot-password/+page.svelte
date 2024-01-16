@@ -1,8 +1,15 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { Button, Input } from 'components';
+	import type { PageData } from './$types';
+	import { forgotPasswordSchema } from './schema';
+	import { superForm } from 'sveltekit-superforms/client';
 
-	export let form;
+	export let data: PageData;
+
+	const { form, errors, constraints, message } = superForm(data.form, {
+		validators: forgotPasswordSchema,
+	});
 </script>
 
 <svelte:head>
@@ -13,23 +20,28 @@
 	<div class="box box-manual">
 		<h1 class="heading-3">Forgot password</h1>
 
-		{#if form?.success || form?.error}
-			<p>{form?.message}</p>
-		{/if}
-
-		<form method="post" use:enhance>
+		<form method="post" use:enhance novalidate>
 			<Input
 				label="Email"
 				id="email"
 				name="email"
 				type="email"
-				value={form?.email ?? ''}
 				placeholder="Enter your email address"
-				required />
+				aria-invalid={$errors.email ? 'true' : undefined}
+				bind:value={$form.email}
+				{...$constraints.email} />
+
+			{#if $errors.email}
+				<p class="error">{$errors.email}</p>
+			{/if}
 
 			<div class="login">
 				<Button>Reset password</Button>
 			</div>
+
+			{#if $message}
+				<p class="error">{$message}</p>
+			{/if}
 		</form>
 
 		<a href="/login" class="forgotten">Back to login</a>
@@ -50,5 +62,10 @@
 
 	p {
 		color: var(--remindwise-grey);
+	}
+
+	.error {
+		color: var(--red);
+		margin-top: 1rem;
 	}
 </style>

@@ -1,8 +1,15 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { Button, Input, Link } from 'components';
+	import type { PageData } from './$types';
+	import { superForm } from 'sveltekit-superforms/client';
+	import { registerSchema } from './schema';
 
-	export let form;
+	export let data: PageData;
+
+	const { form, errors, constraints, message } = superForm(data.form, {
+		validators: registerSchema,
+	});
 </script>
 
 <svelte:head>
@@ -12,16 +19,21 @@
 <div class="boxes">
 	<div class="box box-manual">
 		<h1 class="heading-3">Sign up</h1>
-		<form method="post" use:enhance>
+		<form method="post" use:enhance novalidate>
 			<Input
 				label="Email"
 				id="email"
 				name="email"
 				type="email"
-				value={form?.email ?? ''}
+				autocomplete="email"
 				placeholder="Enter your email address"
-				required />
+				aria-invalid={$errors.email ? 'true' : undefined}
+				bind:value={$form.email}
+				{...$constraints.email} />
 
+			{#if $errors.email}
+				<p class="error">{$errors.email}</p>
+			{/if}
 			<Input
 				label="Password"
 				id="password"
@@ -29,10 +41,19 @@
 				type="password"
 				autocomplete="new-password"
 				placeholder="Enter your password"
-				required />
+				aria-invalid={$errors.password ? 'true' : undefined}
+				bind:value={$form.password}
+				{...$constraints.password} />
+			{#if $errors.password}
+				<p class="error">{$errors.password}</p>
+			{/if}
 			<div class="login">
 				<Button>Sign up</Button>
 			</div>
+
+			{#if $message}
+				<p class="error">{$message}</p>
+			{/if}
 		</form>
 	</div>
 	<div class="box box-social">
@@ -63,3 +84,10 @@
 	<span>Already have an account?</span>
 	<Link href="/login" type="button">Login now</Link>
 </p>
+
+<style>
+	.error {
+		color: var(--red);
+		margin-top: 1rem;
+	}
+</style>
