@@ -10,9 +10,7 @@ const config = {
 	preprocess: [preprocess()],
 
 	kit: {
-		adapter: adapter({
-			runtime: 'nodejs20.x',
-		}),
+		adapter: adapter(),
 		alias: {
 			'@graphql': 'src/graphql',
 			$houdini: path.resolve('.', '$houdini'),
