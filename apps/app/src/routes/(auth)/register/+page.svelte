@@ -18,6 +18,7 @@
 				id="email"
 				name="email"
 				type="email"
+				autocomplete="email"
 				value={form?.email ?? ''}
 				placeholder="Enter your email address"
 				required />
