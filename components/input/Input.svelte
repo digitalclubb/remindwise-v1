@@ -4,13 +4,13 @@
 		label?: string;
 		inline?: boolean;
 		fullWidth?: boolean;
-		value?: string;
+		value?: string | number;
 	}
 
 	export let label: string | undefined = undefined;
 	export let inline: boolean = false;
 	export let fullWidth: boolean = false;
-	export let value: string | null = null;
+	export let value: string | number | null = null;
 </script>
 
 {#if label}
