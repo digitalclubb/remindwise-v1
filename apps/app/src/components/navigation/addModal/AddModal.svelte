@@ -4,6 +4,7 @@
 		updateCategoryStore
 	} from '$houdini';
     import { page } from '$app/stores';
+	import { superForm, superValidateSync } from 'sveltekit-superforms/client';
     import { refresh } from '../../../stores';
 
     import Input from 'components/input/Input.svelte';
@@ -11,8 +12,9 @@
 
     import Modal from '../../modal/Modal.svelte';
     import { icons } from '../../icons/categories';
-   
 
+	import { addCategorySchema } from './schema';
+   
     import type { Categories } from '@graphql/types';
 
     export let showAddModal = false;
@@ -20,20 +22,19 @@
 
     const onAddCategory = async (event: SubmitEvent) => {
 		const addCategory = new addCategoryStore();
-		const target = event.target as HTMLFormElement;
-		const formData = new FormData(target);
+		const { valid, data, errors } = superValidateSync($form, addCategorySchema);
+
+		if (!valid) return;
 
 		await addCategory.mutate({
-			category: formData.get('category')?.toString().toLowerCase() || '',
+			category: data.category,
 			isLocked: false,
-			iconId: formData.get('icon')?.toString() || '',
+			iconId: data.icon,
 			userId: $page.data.session?.user.id,
 		});
 
 		showAddModal = false;
 		refresh.update((n) => !n);
-
-		target.reset();
 	};
 
 	const onEditCategory = async (event: SubmitEvent) => {
@@ -52,6 +53,11 @@
 		refresh.update((n) => !n);
 		target.reset();
 	};
+
+	const superValidate = superValidateSync(addCategorySchema);
+	const { form, errors, constraints } = superForm(superValidate, {
+		validators: addCategorySchema,
+	});
 </script>
 
 <Modal bind:showModal={showAddModal}>
@@ -64,7 +70,8 @@
         on:submit|preventDefault={currentCategory
             ? onEditCategory
             : onAddCategory}
-        id="category-actions">
+        id="category-actions" 
+		novalidate>
         <Input
             inline
             label={currentCategory ? 'Rename category' : 'Category name'}
@@ -73,9 +80,14 @@
             id="category"
             placeholder={currentCategory
                 ? 'Enter a new name for your category'
-                : 'Enter a name for your category'}
-            value={currentCategory?.name || ''}
-            required />
+                : 'Enter a name for your category'}			
+			aria-invalid={$errors.category ? 'true' : undefined}
+			bind:value={$form.category}
+			{...$constraints.category} />
+
+			{#if $errors.category}
+				<p class="error">{$errors.category}</p>
+			{/if}
 
         <p>
             {currentCategory
@@ -89,10 +101,15 @@
                     name="icon"
                     value={icon}
                     id="{icon}-icon"
-                    checked={icon === currentCategory?.iconId} />
+					bind:group={$form.icon}
+					{...$constraints.icon}
+					/>
                 <label for="{icon}-icon"
                     ><svg><use xlink:href="#{icon}" /></svg></label>
             {/each}
+			{#if $errors.icon}
+				<p class="error">{$errors.icon}</p>
+			{/if}
         </div>
     </form>
     <Button slot="action" type="submit" form="category-actions"
