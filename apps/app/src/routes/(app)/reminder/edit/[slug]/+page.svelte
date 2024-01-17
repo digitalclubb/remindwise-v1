@@ -14,6 +14,11 @@
 		await deleteReminder.mutate({ id: $page.params.slug });
 
 		await goto(`/category/${$page.data.form.data.category}`);
+
+		// TODO: delete any files?
+		if ($page.data.files.length) {
+
+		}
 	};
 </script>
 
