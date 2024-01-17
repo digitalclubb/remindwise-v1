@@ -65,4 +65,10 @@
 		font-weight: 300;
 		margin: 0;
 	}
+
+    q {
+		color: var(--orange);
+		text-transform: capitalize;
+		quotes: '‘' '’';
+	}
 </style>
