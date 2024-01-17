@@ -13,12 +13,18 @@
 		const deleteReminder = new deleteReminderStore();
 		await deleteReminder.mutate({ id: $page.params.slug });
 
-		await goto(`/category/${$page.data.form.data.category}`);
-
-		// TODO: delete any files?
+		// Delete any files in storage
 		if ($page.data.files.length) {
+			const toDelete = $page.data.files.map(
+				(file: { name: string; url: string }) => {
+					return `${$page.data.session?.user.id}/${$page.params.slug}/${file.name}`;
+				}
+			);
 
+			await $page.data.supabase.storage.from('documents').remove(toDelete);
 		}
+
+		await goto(`/category/${$page.data.form.data.category}`);
 	};
 </script>
 
