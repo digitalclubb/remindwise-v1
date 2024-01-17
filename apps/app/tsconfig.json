@@ -10,7 +10,7 @@
 		"sourceMap": true,
 		"strict": true,
 		"ignoreDeprecations": "5.0",
-		"rootDirs": [".", "./.svelte-kit/types", "./$houdini/types"]
+		"rootDirs": [".", "./.svelte-kit/types", "./$houdini/types"],
 	},
 	"include": [
 		"./src/graphql.d.ts",
@@ -22,6 +22,6 @@
 		"./src/**/*.svelte",
 		"./tests/**/*.js",
 		"./tests/**/*.ts",
-		"./tests/**/*.svelte"
-	]
+		"./tests/**/*.svelte",
+	],
 }
