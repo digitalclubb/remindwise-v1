@@ -50,19 +50,26 @@
 
 	const onEditCategory = async (event: SubmitEvent) => {
 		const updateCategory = new updateCategoryStore();
-		const target = event.target as HTMLFormElement;
-		const formData = new FormData(target);
+		const {
+			valid,
+			data,
+			errors: validatedErrors,
+		} = superValidateSync($form, addCategorySchema);
+
+		if (!valid) {
+			$errors = { ...validatedErrors };
+			return;
+		}
 
 		await updateCategory.mutate({
 			id: currentCategory?.id,
-			name: formData.get('category')?.toString().toLowerCase() || '',
-			iconId: formData.get('icon')?.toString() || '',
+			name: data.category,
+			iconId: data.icon,
 		});
 
 		currentCategory = undefined;
 		showAddModal = false;
 		refresh.update((n) => !n);
-		target.reset();
 	};
 </script>
 

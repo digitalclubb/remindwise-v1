@@ -100,7 +100,7 @@
 		? $page.url.pathname.split('/')[2]
 		: '';
 
-	$: selected, (clicked = -1);
+	$: clicked = -1;
 
 	const signOut = async () => {
 		await $page.data.supabase.auth.signOut();
@@ -122,8 +122,6 @@
 			return settings?.first_name + ' ' + (settings?.last_name || '');
 		return settings?.email;
 	};
-
-	$: clicked = -1;
 </script>
 
 <div>
@@ -290,7 +288,7 @@
 			</div>
 		</div>
 	</nav>
-	<AddModal bind:showAddModal {currentCategory} />
+	<AddModal bind:showAddModal bind:currentCategory />
 
 	<DeleteModal bind:showDeleteModal {currentCategory} {selected} />
 </div>
