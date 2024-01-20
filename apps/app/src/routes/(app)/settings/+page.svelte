@@ -2,13 +2,14 @@
 	import { Button } from 'components';
 	import Header from '../../../components/header/Header.svelte';
 	import Input from 'components/input/Input.svelte';
+	import { settingsSchema } from './schema';
+	import { superForm } from 'sveltekit-superforms/client';
 
 	export let data;
 
-	$: ({ getSettings } = data);
-	$: settings = $getSettings.data?.settings?.list[0].setting;
-
-	$: interval = settings?.interval || '';
+	const { form, errors, constraints } = superForm(data.form, {
+		validators: settingsSchema,
+	});
 </script>
 
 <svelte:head>
@@ -17,120 +18,132 @@
 
 <Header title="Settings" />
 
-<form method="POST" action="?/updateSettings">
-	{#if $getSettings.fetching}
-		<li>Loading...</li>
-	{:else if $getSettings.errors}
-		<li>{$getSettings.errors}</li>
-	{:else if settings}
-		<section>
-			<h2 class="heading-3">Reminder settings</h2>
-			<div>
-				<Input
-					fullWidth
-					label="Notice period"
-					type="number"
-					id="notice-period"
-					name="notice-period"
-					min="1"
-					pattern="[0-9]*"
-					value={settings.notice_period ?? ''} />
-			</div>
+<form method="POST" action="?/updateSettings" novalidate>
+	<section>
+		<h2 class="heading-3">Reminder settings</h2>
+		<div>
+			<Input
+				fullWidth
+				step="any"
+				label="Notice period"
+				type="number"
+				id="noticePeriod"
+				name="noticePeriod"
+				aria-invalid={$errors.noticePeriod ? 'true' : undefined}
+				bind:value={$form.noticePeriod}
+				{...$constraints.noticePeriod} />
 
-			<fieldset class="options">
-				<legend>Interval</legend>
-				<div class="option option-first">
-					<input
-						type="radio"
-						name="interval"
-						id="days"
-						value="DAYS"
-						checked={interval === 'DAYS'}
-						on:change={() => (interval = 'DAYS')}
-						required />
-					<label for="days">Days</label>
-				</div>
-				<div class="option">
-					<input
-						type="radio"
-						name="interval"
-						id="months"
-						value="MONTHS"
-						checked={interval === 'MONTHS'}
-						on:change={() => (interval = 'MONTHS')}
-						required />
-					<label for="months">Months</label>
-				</div>
-				<div class="option option-last">
-					<input
-						type="radio"
-						name="interval"
-						id="years"
-						value="YEARS"
-						checked={interval === 'YEARS'}
-						on:change={() => (interval = 'YEARS')}
-						required />
-					<label for="years">Years</label>
-				</div>
-			</fieldset>
-		</section>
+			{#if $errors.noticePeriod}
+				<p class="error">{$errors.noticePeriod}</p>
+			{/if}
+		</div>
 
-		<section>
-			<h2 class="heading-3">Account settings</h2>
+		<fieldset class="options">
+			<legend>Interval</legend>
+			<div class="option option-first">
+				<input
+					type="radio"
+					name="interval"
+					id="days"
+					value="DAYS"
+					bind:group={$form.interval}
+					{...$constraints.interval} />
+				<label for="days">Days</label>
+			</div>
+			<div class="option">
+				<input
+					type="radio"
+					name="interval"
+					id="months"
+					value="MONTHS"
+					bind:group={$form.interval}
+					{...$constraints.interval} />
+				<label for="months">Months</label>
+			</div>
+			<div class="option option-last">
+				<input
+					type="radio"
+					name="interval"
+					id="years"
+					value="YEARS"
+					bind:group={$form.interval}
+					{...$constraints.interval} />
+				<label for="years">Years</label>
+			</div>
+		</fieldset>
 
-			<input type="hidden" id="id" name="id" value={settings.id ?? ''} />
-			<div>
-				<Input
-					fullWidth
-					label="Email address"
-					type="text"
-					id="email"
-					name="email"
-					value={settings.email ?? ''} />
-			</div>
-			<div>
-				<Input
-					fullWidth
-					label="First name"
-					type="text"
-					id="firstName"
-					name="firstName"
-					value={settings.first_name ?? ''} />
-			</div>
+		{#if $errors.interval}
+			<p class="error">{$errors.interval}</p>
+		{/if}
+	</section>
 
-			<div>
-				<Input
-					fullWidth
-					label="Last name"
-					type="text"
-					id="lastName"
-					name="lastName"
-					value={settings.last_name ?? ''} />
-			</div>
-			<div class="currency">
-				<label for="currency">Currency</label>
-				<select name="currency" id="currency">
-					<option value="">Select your currency</option>
-					<option value="GBP" selected={settings.currency === 'GBP'}
-						>£ GBP</option>
-					<option value="USD" selected={settings.currency === 'USD'}
-						>$ USD</option>
-					<option value="EUR" selected={settings.currency === 'EUR'}
-						>€ EUR</option>
-					<option value="CAD" selected={settings.currency === 'CAD'}
-						>$ CAD</option>
-					<option value="AUD" selected={settings.currency === 'AUD'}
-						>$ AUD</option>
-					<option value="JPY" selected={settings.currency === 'JPY'}
-						>¥ JPY</option>
-				</select>
-			</div>
+	<section>
+		<h2 class="heading-3">Account settings</h2>
 
-			<div class="actions">
-				<Button type="submit">Update account</Button>
-			</div>
-		</section>
-	{/if}
+		<input type="hidden" id="id" name="id" value={$form.id} />
+		<div>
+			<Input
+				fullWidth
+				label="Email address"
+				type="text"
+				id="email"
+				name="email"
+				aria-invalid={$errors.email ? 'true' : undefined}
+				bind:value={$form.email}
+				{...$constraints.email} />
+
+			{#if $errors.email}
+				<p class="error">{$errors.email}</p>
+			{/if}
+		</div>
+		<div>
+			<Input
+				fullWidth
+				label="First name"
+				type="text"
+				id="firstName"
+				name="firstName"
+				aria-invalid={$errors.firstName ? 'true' : undefined}
+				bind:value={$form.firstName}
+				{...$constraints.firstName} />
+
+			{#if $errors.firstName}
+				<p class="error">{$errors.firstName}</p>
+			{/if}
+		</div>
+
+		<div>
+			<Input
+				fullWidth
+				label="Last name"
+				type="text"
+				id="lastName"
+				name="lastName"
+				aria-invalid={$errors.lastName ? 'true' : undefined}
+				bind:value={$form.lastName}
+				{...$constraints.lastName} />
+
+			{#if $errors.lastName}
+				<p class="error">{$errors.lastName}</p>
+			{/if}
+		</div>
+		<div class="currency">
+			<label for="currency">Currency</label>
+			<select name="currency" id="currency" bind:value={$form.currency}>
+				<option value="">Select your currency</option>
+				<option value="GBP">£ GBP</option>
+				<option value="USD">$ USD</option>
+				<option value="EUR">€ EUR</option>
+				<option value="CAD">$ CAD</option>
+				<option value="AUD">$ AUD</option>
+				<option value="JPY">¥ JPY</option>
+			</select>
+		</div>
+
+		<div class="actions">
+			<Button type="submit">Update account</Button>
+		</div>
+	</section>
 </form>
 
 <style>
@@ -225,5 +238,9 @@
 
 	.currency {
 		max-width: 18.8rem;
+	}
+
+	.error {
+		color: var(--red);
 	}
 </style>

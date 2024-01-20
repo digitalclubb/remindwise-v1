@@ -2,8 +2,14 @@
 	import { enhance } from '$app/forms';
 	import { Button, Input } from 'components';
 	import Header from '../../../../components/header/Header.svelte';
+	import { updatePasswordSchema } from '../schema';
+	import { superForm } from 'sveltekit-superforms/client';
 
-	export let form;
+	export let data;
+
+	const { form, errors, constraints, message } = superForm(data.form, {
+		validators: updatePasswordSchema,
+	});
 </script>
 
 <Header title="Settings" />
@@ -11,11 +17,7 @@
 <section>
 	<h2>Update Password</h2>
 
-	{#if form?.success || form?.error}
-		<p>{form?.message}</p>
-	{/if}
-
-	<form method="post" use:enhance>
+	<form method="post" use:enhance novalidate>
 		<Input
 			label="Password"
 			id="password"
@@ -23,9 +25,20 @@
 			type="password"
 			placeholder="Enter your new password"
 			autocomplete="new-password"
-			required />
+			aria-invalid={$errors.password ? 'true' : undefined}
+			bind:value={$form.password}
+			{...$constraints.password} />
+
+		{#if $errors.password}
+			<p class="error">{$errors.password}</p>
+		{/if}
+
 		<Button>Update password</Button>
 	</form>
+
+	{#if $message}
+		<p class="error">{$message}</p>
+	{/if}
 </section>
 
 <style>
@@ -37,5 +50,9 @@
 
 	section {
 		padding: 2rem;
+	}
+
+	.error {
+		color: var(--red);
 	}
 </style>

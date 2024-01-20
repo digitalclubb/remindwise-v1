@@ -1,34 +1,61 @@
-import { updateSettingsStore } from '$houdini';
-import type { Currency, Interval } from '@graphql/types.js';
-import { redirect } from '@sveltejs/kit';
+import { getSettingsStore, updateSettingsStore } from '$houdini';
+import { fail, redirect } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
+import { superValidate } from 'sveltekit-superforms/server';
+import { settingsSchema } from './schema';
+import type { Currency, Interval } from '@graphql/types';
+
+export const load: PageServerLoad = async (event) => {
+	const getSettings = new getSettingsStore();
+	const { data } = await getSettings.fetch({
+		event,
+	});
+	const settings = data?.settings?.list[0].setting;
+
+	const form = await superValidate(
+		{
+			firstName: settings?.first_name || undefined,
+			lastName: settings?.last_name || undefined,
+			email: settings?.email || undefined,
+			interval: settings?.interval as Interval,
+			currency: settings?.currency as Currency,
+			noticePeriod: settings?.notice_period ?? undefined,
+			id: settings?.id,
+		},
+		settingsSchema
+	);
+
+	return {
+		form,
+	};
+};
+
 export const actions = {
 	updateSettings: async (event) => {
-		const data = await event.request.formData();
-		const firstName = data.get('firstName') as string;
-		const lastName = data.get('lastName') as string;
-		const email = data.get('email') as string;
-		const id = data.get('id') as string;
-		const noticePeriod = parseInt(data.get('notice-period') as string);
-		const interval = data.get('interval') as Interval;
-		const currency = data.get('currency') as Currency;
+		const formData = await event.request.formData();
+		const form = await superValidate(formData, settingsSchema);
+		const { valid, data } = form;
+
+		if (!valid) {
+			return fail(400, { form });
+		}
 
 		const updateSettings = new updateSettingsStore();
-
 		await updateSettings.mutate(
 			{
-				firstName,
-				lastName,
-				email,
-				id,
-				noticePeriod,
-				interval,
-				currency,
+				firstName: data.firstName,
+				lastName: data.lastName,
+				email: data.email,
+				id: data.id,
+				noticePeriod: data.noticePeriod,
+				interval: data.interval,
+				currency: data.currency,
 			},
 			{ event }
 		);
 
 		const { error } = await event.locals.supabase.auth.updateUser({
-			email,
+			email: data.email,
 		});
 
 		if (error) {
