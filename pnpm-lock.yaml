@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@supabase/supabase-js': 2.39.3
+
 importers:
 
   .:
@@ -2501,7 +2504,7 @@ packages:
   /@supabase/auth-helpers-shared@0.6.3(@supabase/supabase-js@2.39.3):
     resolution: {integrity: sha512-xYQRLFeFkL4ZfwC7p9VKcarshj3FB2QJMgJPydvOY7J5czJe6xSG5/wM1z63RmAzGbCkKg+dzpq61oeSyWiGBQ==}
     peerDependencies:
-      '@supabase/supabase-js': ^2.19.0
+      '@supabase/supabase-js': 2.39.3
     dependencies:
       '@supabase/supabase-js': 2.39.3
       jose: 4.14.4
@@ -2510,7 +2513,7 @@ packages:
   /@supabase/auth-helpers-sveltekit@0.11.0(@supabase/supabase-js@2.39.3)(@sveltejs/kit@2.3.3):
     resolution: {integrity: sha512-m+AxtRVvEJGtnm9Amnb6c1fG9Z/DP8p3Ov7tRpDkgxNEhA75jJrMiTmBJ1oCy+JlXXuHcQ+RJGQwRHTGcTSq8g==}
     peerDependencies:
-      '@supabase/supabase-js': ^2.19.0
+      '@supabase/supabase-js': 2.39.3
       '@sveltejs/kit': ^1.15.4 || ^2.0.0
     dependencies:
       '@supabase/auth-helpers-shared': 0.6.3(@supabase/supabase-js@2.39.3)

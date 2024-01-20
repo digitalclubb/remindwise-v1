@@ -1,30 +1,41 @@
 <script lang="ts">
-    import {
-        addCategoryStore,
-		updateCategoryStore
-	} from '$houdini';
-    import { page } from '$app/stores';
+	import { addCategoryStore, updateCategoryStore } from '$houdini';
+	import { page } from '$app/stores';
 	import { superForm, superValidateSync } from 'sveltekit-superforms/client';
-    import { refresh } from '../../../stores';
+	import { refresh } from '../../../stores';
 
-    import Input from 'components/input/Input.svelte';
-    import { Button } from 'components';
+	import Input from 'components/input/Input.svelte';
+	import { Button } from 'components';
 
-    import Modal from '../../modal/Modal.svelte';
-    import { icons } from '../../icons/categories';
+	import Modal from '../../modal/Modal.svelte';
+	import { icons } from '../../icons/categories';
 
 	import { addCategorySchema } from './schema';
-   
-    import type { Categories } from '@graphql/types';
 
-    export let showAddModal = false;
-    export let currentCategory: Pick<Categories, 'id' | 'iconId' | 'name'> | undefined;
+	import type { Categories } from '@graphql/types';
 
-    const onAddCategory = async (event: SubmitEvent) => {
+	export let showAddModal = false;
+	export let currentCategory:
+		| Pick<Categories, 'id' | 'iconId' | 'name'>
+		| undefined;
+
+	const superValidate = superValidateSync(addCategorySchema);
+	const { form, errors, constraints } = superForm(superValidate, {
+		validators: addCategorySchema,
+	});
+
+	const onAddCategory = async () => {
 		const addCategory = new addCategoryStore();
-		const { valid, data, errors } = superValidateSync($form, addCategorySchema);
+		const {
+			valid,
+			data,
+			errors: validatedErrors,
+		} = superValidateSync($form, addCategorySchema);
 
-		if (!valid) return;
+		if (!valid) {
+			$errors = { ...validatedErrors };
+			return;
+		}
 
 		await addCategory.mutate({
 			category: data.category,
@@ -53,84 +64,75 @@
 		refresh.update((n) => !n);
 		target.reset();
 	};
-
-	const superValidate = superValidateSync(addCategorySchema);
-	const { form, errors, constraints } = superForm(superValidate, {
-		validators: addCategorySchema,
-	});
 </script>
 
 <Modal bind:showModal={showAddModal}>
-    <h2 class="modalTitle">
-        {currentCategory
-            ? `Edit your ${currentCategory.name} category`
-            : 'Add a new category'}
-    </h2>
-    <form
-        on:submit|preventDefault={currentCategory
-            ? onEditCategory
-            : onAddCategory}
-        id="category-actions" 
+	<h2 class="modalTitle">
+		{currentCategory
+			? `Edit your ${currentCategory.name} category`
+			: 'Add a new category'}
+	</h2>
+	<form
+		on:submit|preventDefault={currentCategory ? onEditCategory : onAddCategory}
+		id="category-actions"
 		novalidate>
-        <Input
-            inline
-            label={currentCategory ? 'Rename category' : 'Category name'}
-            type="text"
-            name="category"
-            id="category"
-            placeholder={currentCategory
-                ? 'Enter a new name for your category'
-                : 'Enter a name for your category'}			
+		<Input
+			inline
+			label={currentCategory ? 'Rename category' : 'Category name'}
+			type="text"
+			name="category"
+			id="category"
+			placeholder={currentCategory
+				? 'Enter a new name for your category'
+				: 'Enter a name for your category'}
 			aria-invalid={$errors.category ? 'true' : undefined}
 			bind:value={$form.category}
 			{...$constraints.category} />
 
-			{#if $errors.category}
-				<p class="error">{$errors.category}</p>
-			{/if}
+		{#if $errors.category}
+			<p class="error">{$errors.category}</p>
+		{/if}
 
-        <p>
-            {currentCategory
-                ? 'Select a new icon for your category  '
-                : 'Select an icon for your category'}
-        </p>
-        <div class="icons">
-            {#each icons as icon}
-                <input
-                    type="radio"
-                    name="icon"
-                    value={icon}
-                    id="{icon}-icon"
+		<p>
+			{currentCategory
+				? 'Select a new icon for your category  '
+				: 'Select an icon for your category'}
+		</p>
+		<div class="icons">
+			{#each icons as icon}
+				<input
+					type="radio"
+					name="icon"
+					value={icon}
+					id="{icon}-icon"
 					bind:group={$form.icon}
-					{...$constraints.icon}
-					/>
-                <label for="{icon}-icon"
-                    ><svg><use xlink:href="#{icon}" /></svg></label>
-            {/each}
+					{...$constraints.icon} />
+				<label for="{icon}-icon"><svg><use xlink:href="#{icon}" /></svg></label>
+			{/each}
 			{#if $errors.icon}
 				<p class="error">{$errors.icon}</p>
 			{/if}
-        </div>
-    </form>
-    <Button slot="action" type="submit" form="category-actions"
-        >{currentCategory ? 'Change category' : 'Add category'}</Button>
+		</div>
+	</form>
+	<Button slot="action" type="submit" form="category-actions"
+		>{currentCategory ? 'Change category' : 'Add category'}</Button>
 </Modal>
 
 <style>
-    .icons::-webkit-scrollbar {
-        width: 0.7rem;
-    }
+	.icons::-webkit-scrollbar {
+		width: 0.7rem;
+	}
 
-    .icons::-webkit-scrollbar-track {
-        background-color: var(--cream);
-    }
+	.icons::-webkit-scrollbar-track {
+		background-color: var(--cream);
+	}
 
-    .icons::-webkit-scrollbar-thumb {
-        background-color: var(--orange);
-        border-radius: 0.6rem;
-    }
+	.icons::-webkit-scrollbar-thumb {
+		background-color: var(--orange);
+		border-radius: 0.6rem;
+	}
 
-    .modalTitle {
+	.modalTitle {
 		color: var(--remindwise-grey);
 		font-size: 20px;
 		font-weight: 600;
@@ -178,5 +180,10 @@
 		border-radius: 0.5rem;
 		border: 1px solid var(--greyed-out);
 		fill: var(--orange);
+	}
+
+	.error {
+		color: var(--red);
+		margin-top: 1rem;
 	}
 </style>
