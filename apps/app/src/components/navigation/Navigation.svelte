@@ -3,7 +3,6 @@
 
 	import AddModal from './addModal/AddModal.svelte';
 	import DeleteModal from './deleteModal/DeleteModal.svelte';
-	
 
 	import { Button } from 'components';
 
@@ -11,12 +10,9 @@
 	import { goto } from '$app/navigation';
 	import { refresh } from '../../stores';
 
-	import {
-		getSettingsStore,
-		getCategoriesStore
-	} from '$houdini';
+	import { getSettingsStore, getCategoriesStore } from '$houdini';
 	import Link from 'components/link/Link.svelte';
-	
+
 	import type { Categories } from '@graphql/types';
 	export let categoriesStore: getCategoriesStore;
 	export let settingsStore: getSettingsStore;
@@ -294,9 +290,9 @@
 			</div>
 		</div>
 	</nav>
-	<AddModal {showAddModal} {currentCategory} />
+	<AddModal bind:showAddModal {currentCategory} />
 
-	<DeleteModal {showDeleteModal} {currentCategory} {selected} />
+	<DeleteModal bind:showDeleteModal {currentCategory} {selected} />
 </div>
 
 <style>
