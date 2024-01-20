@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 
-	import Modal from '../modal/Modal.svelte';
-	import { icons } from '../icons/categories';
+	import AddModal from './addModal/AddModal.svelte';
+	import DeleteModal from './deleteModal/DeleteModal.svelte';
 
 	import { Button } from 'components';
 
@@ -10,15 +10,9 @@
 	import { goto } from '$app/navigation';
 	import { refresh } from '../../stores';
 
-	import {
-		getSettingsStore,
-		getCategoriesStore,
-		addCategoryStore,
-		updateCategoryStore,
-		deleteCategoryStore,
-	} from '$houdini';
+	import { getSettingsStore, getCategoriesStore } from '$houdini';
 	import Link from 'components/link/Link.svelte';
-	import Input from 'components/input/Input.svelte';
+
 	import type { Categories } from '@graphql/types';
 	export let categoriesStore: getCategoriesStore;
 	export let settingsStore: getSettingsStore;
@@ -102,60 +96,11 @@
 		document.addEventListener('touchend', dragStop);
 	}
 
-	const onAddCategory = async (event: SubmitEvent) => {
-		const addCategory = new addCategoryStore();
-		const target = event.target as HTMLFormElement;
-		const formData = new FormData(target);
-
-		await addCategory.mutate({
-			category: formData.get('category')?.toString().toLowerCase() || '',
-			isLocked: false,
-			iconId: formData.get('icon')?.toString() || '',
-			userId: $page.data.session?.user.id,
-		});
-
-		showAddModal = false;
-		refresh.update((n) => !n);
-
-		target.reset();
-	};
-
-	const onEditCategory = async (event: SubmitEvent) => {
-		const updateCategory = new updateCategoryStore();
-		const target = event.target as HTMLFormElement;
-		const formData = new FormData(target);
-
-		await updateCategory.mutate({
-			id: currentCategory?.id,
-			name: formData.get('category')?.toString().toLowerCase() || '',
-			iconId: formData.get('icon')?.toString() || '',
-		});
-
-		currentCategory = undefined;
-		showAddModal = false;
-		refresh.update((n) => !n);
-		target.reset();
-	};
-
-	const onDeleteCategory = async () => {
-		const deleteCategory = new deleteCategoryStore();
-
-		await deleteCategory.mutate({ id: currentCategory?.id });
-
-		if (currentCategory?.name === selected) {
-			await goto('/');
-		}
-
-		showDeleteModal = false;
-		currentCategory = undefined;
-		refresh.update((n) => !n);
-	};
-
 	$: selected = $page.url.pathname.includes('category')
 		? $page.url.pathname.split('/')[2]
 		: '';
 
-	$: selected, (clicked = -1);
+	$: clicked = -1;
 
 	const signOut = async () => {
 		await $page.data.supabase.auth.signOut();
@@ -177,8 +122,6 @@
 			return settings?.first_name + ' ' + (settings?.last_name || '');
 		return settings?.email;
 	};
-
-	$: clicked = -1;
 </script>
 
 <div>
@@ -345,70 +288,9 @@
 			</div>
 		</div>
 	</nav>
-	<Modal bind:showModal={showAddModal}>
-		<h2 class="modalTitle">
-			{currentCategory
-				? `Edit your ${currentCategory.name} category`
-				: 'Add a new category'}
-		</h2>
-		<form
-			on:submit|preventDefault={currentCategory
-				? onEditCategory
-				: onAddCategory}
-			id="category-actions">
-			<Input
-				inline
-				label={currentCategory ? 'Rename category' : 'Category name'}
-				type="text"
-				name="category"
-				id="category"
-				placeholder={currentCategory
-					? 'Enter a new name for your category'
-					: 'Enter a name for your category'}
-				value={currentCategory?.name || ''}
-				required />
+	<AddModal bind:showAddModal bind:currentCategory />
 
-			<p>
-				{currentCategory
-					? 'Select a new icon for your category  '
-					: 'Select an icon for your category'}
-			</p>
-			<div class="icons">
-				{#each icons as icon}
-					<input
-						type="radio"
-						name="icon"
-						value={icon}
-						id="{icon}-icon"
-						checked={icon === currentCategory?.iconId} />
-					<label for="{icon}-icon"
-						><svg><use xlink:href="#{icon}" /></svg></label>
-				{/each}
-			</div>
-		</form>
-		<Button slot="action" type="submit" form="category-actions"
-			>{currentCategory ? 'Change category' : 'Add category'}</Button>
-	</Modal>
-
-	<Modal size="small" bind:showModal={showDeleteModal}>
-		<div class="deleteModal">
-			<h2>
-				Are you sure you want to delete the <q>{currentCategory?.name}</q> category?
-			</h2>
-			<p>
-				This will delete all of the reminders associated with this category and
-				it can't be undone. If you want to keep the reminders make sure you
-				assign them to a new category.
-			</p>
-		</div>
-
-		<Button
-			slot="action"
-			type="submit"
-			style="delete"
-			form="category-actions"
-			onClick={onDeleteCategory}>Yes delete</Button>
-	</Modal>
+	<DeleteModal bind:showDeleteModal {currentCategory} {selected} />
 </div>
 
 <style>
@@ -547,18 +429,15 @@
 		height: 100%;
 	}
 
-	.overflow::-webkit-scrollbar,
-	.icons::-webkit-scrollbar {
+	.overflow::-webkit-scrollbar {
 		width: 0.7rem;
 	}
 
-	.overflow::-webkit-scrollbar-track,
-	.icons::-webkit-scrollbar-track {
+	.overflow::-webkit-scrollbar-track {
 		background-color: var(--cream);
 	}
 
-	.overflow::-webkit-scrollbar-thumb,
-	.icons::-webkit-scrollbar-thumb {
+	.overflow::-webkit-scrollbar-thumb {
 		background-color: var(--orange);
 		border-radius: 0.6rem;
 	}
@@ -622,56 +501,6 @@
 		fill: var(--orange);
 	}
 
-	.modalTitle {
-		color: var(--remindwise-grey);
-		font-size: 20px;
-		font-weight: 600;
-		line-height: 38px;
-		margin-bottom: 2rem;
-	}
-
-	p {
-		display: block;
-		margin-top: 2rem;
-		margin-bottom: 2rem;
-		color: var(--remindwise-grey);
-	}
-
-	.icons {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-		max-height: 55rem;
-		overflow-y: auto;
-	}
-
-	.icons label {
-		cursor: pointer;
-		display: inline-block;
-		padding: 5px;
-		border: 0.1rem solid transparent;
-	}
-
-	.icons label:hover {
-		fill: var(--orange);
-	}
-
-	.icons svg {
-		width: 2.6rem;
-		height: 2.6rem;
-	}
-
-	input[type='radio'] {
-		display: none;
-	}
-
-	input[type='radio']:active + label,
-	input[type='radio']:checked + label {
-		border-radius: 0.5rem;
-		border: 1px solid var(--greyed-out);
-		fill: var(--orange);
-	}
-
 	.add-category {
 		display: flex;
 		align-items: center;
@@ -729,28 +558,6 @@
 		justify-content: space-between;
 		padding: 0;
 		width: 100%;
-	}
-
-	.deleteModal h2 {
-		color: var(--remindwise-grey);
-		text-align: center;
-		font-size: 20px;
-		font-weight: 600;
-		line-height: 28px;
-	}
-
-	.deleteModal p {
-		color: var(--remindwise-grey);
-		text-align: center;
-		font-size: 14px;
-		font-weight: 300;
-		margin: 0;
-	}
-
-	q {
-		color: var(--orange);
-		text-transform: capitalize;
-		quotes: '‘' '’';
 	}
 
 	@media screen and (min-width: 1024px) {
