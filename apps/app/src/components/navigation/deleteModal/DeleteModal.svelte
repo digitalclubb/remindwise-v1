@@ -1,20 +1,20 @@
 <script lang="ts">
-    import {
-		deleteCategoryStore
-	} from '$houdini';
-    import { goto } from '$app/navigation';
-    import { refresh } from '../../../stores';
+	import { deleteCategoryStore } from '$houdini';
+	import { goto } from '$app/navigation';
+	import { refresh } from '../../../stores';
 
-    import { Button } from 'components';
-    import Modal from '../../modal/Modal.svelte';
+	import { Button } from 'components';
+	import Modal from '../../modal/Modal.svelte';
 
-    import type { Categories } from '@graphql/types';
+	import type { Categories } from '@graphql/types';
 
-    export let showDeleteModal = false;
-    export let currentCategory: Pick<Categories, 'id' | 'iconId' | 'name'> | undefined;
-    export let selected: string;
+	export let showDeleteModal = false;
+	export let currentCategory:
+		| Pick<Categories, 'id' | 'iconId' | 'name'>
+		| undefined;
+	export let selected: string;
 
-    const onDeleteCategory = async () => {
+	const onDeleteCategory = async () => {
 		const deleteCategory = new deleteCategoryStore();
 
 		await deleteCategory.mutate({ id: currentCategory?.id });
@@ -30,27 +30,27 @@
 </script>
 
 <Modal size="small" bind:showModal={showDeleteModal}>
-    <div class="deleteModal">
-        <h2>
-            Are you sure you want to delete the <q>{currentCategory?.name}</q> category?
-        </h2>
-        <p>
-            This will delete all of the reminders associated with this category and
-            it can't be undone. If you want to keep the reminders make sure you
-            assign them to a new category.
-        </p>
-    </div>
+	<div class="deleteModal">
+		<h2>
+			Are you sure you want to delete the <q>{currentCategory?.name}</q> category?
+		</h2>
+		<p>
+			This will delete all of the reminders associated with this category and it
+			can't be undone. If you want to keep the reminders make sure you assign
+			them to a new category.
+		</p>
+	</div>
 
-    <Button
-        slot="action"
-        type="submit"
-        style="delete"
-        form="category-actions"
-        onClick={onDeleteCategory}>Yes delete</Button>
+	<Button
+		slot="action"
+		type="submit"
+		style="delete"
+		form="category-actions"
+		onClick={onDeleteCategory}>Yes delete</Button>
 </Modal>
 
 <style>
-    .deleteModal h2 {
+	.deleteModal h2 {
 		color: var(--remindwise-grey);
 		text-align: center;
 		font-size: 20px;
@@ -66,7 +66,7 @@
 		margin: 0;
 	}
 
-    q {
+	q {
 		color: var(--orange);
 		text-transform: capitalize;
 		quotes: '‘' '’';
