@@ -1,22 +1,36 @@
 import { fail } from '@sveltejs/kit';
+import type { PageServerLoad } from '../$types';
+import { updatePasswordSchema } from '../schema';
+import { message, superValidate } from 'sveltekit-superforms/server';
+
+export const load: PageServerLoad = async () => {
+	const form = await superValidate(updatePasswordSchema);
+
+	return {
+		form,
+	};
+};
 
 export const actions = {
 	default: async ({ request, locals: { supabase } }) => {
 		const formData = await request.formData();
-		const password = formData.get('password') as string;
+		const form = await superValidate(formData, updatePasswordSchema);
+		const { valid, data } = form;
 
-		const { error } = await supabase.auth.updateUser({ password });
+		if (!valid) {
+			return fail(400, { form });
+		}
+
+		const { error } = await supabase.auth.updateUser({
+			password: data.password,
+		});
 
 		if (error) {
-			return fail(500, {
-				message: error.message || 'Server error. Try again later.',
-				error: true,
+			return message(form, error.message || 'Server error. Try again later.', {
+				status: 400,
 			});
 		}
 
-		return {
-			message: 'Password updated successfully.',
-			success: true,
-		};
+		return message(form, 'Password updated successfully.');
 	},
 };
