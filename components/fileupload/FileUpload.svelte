@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 
 	export let uploads: {
-		name: string;
+		name: string | undefined;
 		url: string;
 	}[] = [];
 
