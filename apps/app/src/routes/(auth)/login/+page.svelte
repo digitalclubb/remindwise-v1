@@ -82,7 +82,7 @@
 	</div>
 </div>
 
-<p>
+<p class="registerIntro">
 	<span>Don't have a remindwise account yet?</span>
 	<Link href="/register" type="button">Register now</Link>
 </p>

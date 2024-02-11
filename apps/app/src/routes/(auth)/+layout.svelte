@@ -58,7 +58,7 @@
 		text-transform: uppercase;
 	}
 
-	main :global(p) {
+	main :global(.registerIntro) {
 		color: var(--white);
 		font-size: 1.8rem;
 		line-height: 2.4rem;
