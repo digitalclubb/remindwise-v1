@@ -1,16 +1,21 @@
 <script lang="ts">
-	import type { HTMLInputAttributes } from 'svelte/elements';
+	import type { FormEventHandler, HTMLInputAttributes } from 'svelte/elements';
 	interface $$Props extends HTMLInputAttributes {
 		label?: string;
 		inline?: boolean;
 		fullWidth?: boolean;
 		value?: string | number;
+		icon?: string;
+		onInput?: FormEventHandler<HTMLInputElement>;
 	}
 
 	export let label: string | undefined = undefined;
 	export let inline: boolean = false;
 	export let fullWidth: boolean = false;
 	export let value: string | number | null = null;
+	export let icon: string | null = null;
+	export let onInput: FormEventHandler<HTMLInputElement> | undefined =
+		undefined;
 </script>
 
 {#if label}
@@ -18,7 +23,29 @@
 		>{label}<i aria-hidden="true" hidden={!$$props.required}>*</i></label>
 {/if}
 
-<input class:inline class:fullWidth bind:value {...$$restProps} />
+{#if icon}
+	<div class="icon-wrapper">
+		<svg>
+			<use xlink:href={`#${icon}`}></use>
+		</svg>
+
+		<input
+			class:inline
+			class:fullWidth
+			class:icon
+			bind:value
+			{...$$restProps}
+			on:input={onInput} />
+	</div>
+{:else}
+	<input
+		class:inline
+		class:fullWidth
+		class:icon
+		bind:value
+		{...$$restProps}
+		on:input={onInput} />
+{/if}
 
 <style>
 	label {
@@ -55,5 +82,24 @@
 
 	.fullWidth {
 		width: 100%;
+	}
+
+	.icon-wrapper {
+		position: relative;
+	}
+
+	.icon-wrapper svg {
+		display: block;
+		color: var(--orange);
+		width: 1.4rem;
+		height: 1.4rem;
+		position: absolute;
+		top: 50%;
+		left: 1.3rem;
+		transform: translateY(-50%);
+	}
+
+	.icon {
+		padding-left: 3.8rem;
 	}
 </style>

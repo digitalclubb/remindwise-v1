@@ -158,10 +158,6 @@ importers:
         specifier: 3.22.4
         version: 3.22.4
 
-  apps/app/$houdini/plugins/houdini-svelte/runtime: {}
-
-  apps/app/$houdini/runtime: {}
-
   apps/marketing:
     dependencies:
       '@vercel/analytics':

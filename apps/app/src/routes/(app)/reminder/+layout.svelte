@@ -5,6 +5,7 @@
 	import type { LayoutData } from './$houdini';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { reminderSchema } from './schema';
+	import { Input } from 'components';
 
 	export let data: LayoutData;
 
@@ -75,31 +76,28 @@
 		enctype="multipart/form-data"
 		use:enhance>
 		<div class="category">
-			<label for="category">Category<i aria-hidden="true">*</i></label>
-			<div class="category-input">
-				<svg class="add">
-					<use xlink:href="#icon-add"></use>
-				</svg>
-				<input
-					type="text"
-					name="category"
-					id="category"
-					placeholder="Type to select or create a new category"
-					on:input={(e) => {
-						$form.category = e.currentTarget.value;
-						if ($form.category.length > 1) {
-							showCategoryList();
-						} else {
-							hideCategoryList();
-						}
-					}}
-					autocomplete="off"
-					aria-haspopup="listbox"
-					aria-invalid={$errors.category ? 'true' : undefined}
-					bind:value={$form.category}
-					{...$constraints.category} />
-				<input type="hidden" bind:value={$form.categoryId} name="categoryId" />
-			</div>
+			<Input
+				label="Category"
+				type="text"
+				name="category"
+				id="category"
+				icon="icon-add"
+				fullWidth
+				placeholder="Type to select or create a new category"
+				onInput={(e) => {
+					$form.category = e.currentTarget?.value;
+					if ($form.category.length > 1) {
+						showCategoryList();
+					} else {
+						hideCategoryList();
+					}
+				}}
+				autocomplete="off"
+				aria-haspopup="listbox"
+				aria-invalid={$errors.category ? 'true' : undefined}
+				bind:value={$form.category}
+				{...$constraints.category} />
+			<input type="hidden" bind:value={$form.categoryId} name="categoryId" />
 
 			{#if $errors.category}
 				<p class="error">{$errors.category}</p>
@@ -138,14 +136,15 @@
 		</div>
 
 		<div>
-			<label for="name">Reminder name<i aria-hidden="true">*</i></label>
-			<input
+			<Input
+				label="Reminder name"
 				type="text"
 				name="name"
 				id="name"
 				placeholder="Enter a name for your reminder"
 				aria-invalid={$errors.name ? 'true' : undefined}
 				bind:value={$form.name}
+				fullWidth
 				{...$constraints.name} />
 			{#if $errors.name}
 				<p class="error">{$errors.name}</p>
@@ -183,15 +182,17 @@
 		</div>
 
 		<div>
-			<label for="company">Company<i aria-hidden="true">*</i></label>
-			<input
+			<Input
+				label="Company"
 				type="text"
 				name="company"
 				id="company"
+				fullWidth
 				placeholder="Enter the name of the company"
 				aria-invalid={$errors.company ? 'true' : undefined}
 				bind:value={$form.company}
 				{...$constraints.company} />
+
 			{#if $errors.company}
 				<p class="error">{$errors.company}</p>
 			{/if}
@@ -429,26 +430,6 @@
 		height: 1.8rem;
 		margin-right: 1rem;
 		vertical-align: middle;
-	}
-
-	.category-input {
-		position: relative;
-	}
-
-	.category-input svg {
-		display: block;
-		color: var(--orange);
-		width: 1.4rem;
-		height: 1.4rem;
-		position: absolute;
-		top: 50%;
-		left: 1.3rem;
-		transform: translateY(-50%);
-	}
-
-	.category-input input {
-		width: 100%;
-		padding-left: 3.8rem;
 	}
 
 	label,
