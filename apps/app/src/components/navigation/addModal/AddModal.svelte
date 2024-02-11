@@ -80,6 +80,7 @@
 			: 'Add a new category'}
 	</h2>
 	<form
+		method="post"
 		on:submit|preventDefault={currentCategory ? onEditCategory : onAddCategory}
 		id="category-actions"
 		novalidate>

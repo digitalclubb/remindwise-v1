@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import { Button, Input } from 'components';
 	import type { PageData } from './$types';
 	import { forgotPasswordSchema } from './schema';
@@ -7,7 +6,7 @@
 
 	export let data: PageData;
 
-	const { form, errors, constraints, message } = superForm(data.form, {
+	const { form, errors, constraints, message, enhance } = superForm(data.form, {
 		validators: forgotPasswordSchema,
 	});
 </script>

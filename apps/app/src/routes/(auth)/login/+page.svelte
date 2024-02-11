@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import { Button, Input, Link } from 'components';
 	import { superForm } from 'sveltekit-superforms/client';
 	import type { PageData } from './$types';
@@ -7,7 +6,7 @@
 
 	export let data: PageData;
 
-	const { form, errors, constraints, message } = superForm(data.form, {
+	const { form, errors, constraints, message, enhance } = superForm(data.form, {
 		validators: loginSchema,
 	});
 </script>
