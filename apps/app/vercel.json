@@ -1,3 +1,0 @@
-{
-	"installCommand": "pnpm install && ls -lr /var/task/node_modules/.pnpm"
-}
