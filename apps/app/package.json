@@ -64,5 +64,6 @@
 		"vite-plugin-graphql-loader": "3.0.1",
 		"zod": "3.22.4"
 	},
-	"type": "module"
+	"type": "module",
+	"packageManager": "pnpm@8.14.0"
 }
