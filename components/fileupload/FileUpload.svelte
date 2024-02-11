@@ -1,7 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 
-	export let uploads = [];
+	export let uploads: {
+		name: string;
+		url: string;
+	}[] = [];
 
 	let files: FileList;
 	let filesDeleted: string[] = [];
