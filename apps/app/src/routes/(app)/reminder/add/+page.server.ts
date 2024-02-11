@@ -38,9 +38,9 @@ export const actions = {
 			{
 				userId: data.userId,
 				categoryId: newId || parseInt(data.categoryId),
-				name: data.category,
+				name: data.name,
 				type: data.type,
-				company: data.category,
+				company: data.company,
 				cost: data.cost,
 				date: data.date ? new Date(data.date) : new Date(),
 				frequency: data.frequency,

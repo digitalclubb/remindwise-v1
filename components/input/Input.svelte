@@ -34,8 +34,8 @@
 			class:fullWidth
 			class:icon
 			bind:value
-			{...$$restProps}
-			on:input={onInput} />
+			on:input={onInput}
+			{...$$restProps} />
 	</div>
 {:else}
 	<input
