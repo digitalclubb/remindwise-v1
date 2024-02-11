@@ -79,7 +79,7 @@
 	</div>
 </div>
 
-<p>
+<p class="registerIntro">
 	<span>Already have an account?</span>
 	<Link href="/login" type="button">Login now</Link>
 </p>
