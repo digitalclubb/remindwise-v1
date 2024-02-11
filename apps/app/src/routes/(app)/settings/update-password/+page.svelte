@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import { Button, Input } from 'components';
 	import Header from '../../../../components/header/Header.svelte';
 	import { updatePasswordSchema } from '../schema';
@@ -7,7 +6,7 @@
 
 	export let data;
 
-	const { form, errors, constraints, message } = superForm(data.form, {
+	const { form, errors, constraints, message, enhance } = superForm(data.form, {
 		validators: updatePasswordSchema,
 	});
 </script>
@@ -50,9 +49,5 @@
 
 	section {
 		padding: 2rem;
-	}
-
-	.error {
-		color: var(--red);
 	}
 </style>

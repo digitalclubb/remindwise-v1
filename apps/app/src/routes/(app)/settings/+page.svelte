@@ -7,7 +7,7 @@
 
 	export let data;
 
-	const { form, errors, constraints } = superForm(data.form, {
+	const { form, errors, constraints, enhance } = superForm(data.form, {
 		validators: settingsSchema,
 	});
 </script>
@@ -18,7 +18,7 @@
 
 <Header title="Settings" />
 
-<form method="POST" action="?/updateSettings" novalidate>
+<form method="POST" action="?/updateSettings" novalidate use:enhance>
 	<section>
 		<h2 class="heading-3">Reminder settings</h2>
 		<div>
@@ -238,9 +238,5 @@
 
 	.currency {
 		max-width: 18.8rem;
-	}
-
-	.error {
-		color: var(--red);
 	}
 </style>

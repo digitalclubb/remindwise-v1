@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { enhance } from '$app/forms';
 	import Header from '../../../components/header/Header.svelte';
 	import { getCurrency } from '../../../utils/currency';
 	import type { LayoutData } from './$houdini';
@@ -9,7 +8,7 @@
 
 	export let data: LayoutData;
 
-	const { form, errors, constraints } = superForm(data.form, {
+	const { form, errors, constraints, enhance } = superForm(data.form, {
 		validators: reminderSchema,
 	});
 
@@ -596,11 +595,6 @@
 
 	.uploadFiles button svg {
 		width: 1.5rem;
-	}
-
-	.error {
-		color: var(--red);
-		margin-top: 1rem;
 	}
 
 	@media screen and (min-width: 500px) {

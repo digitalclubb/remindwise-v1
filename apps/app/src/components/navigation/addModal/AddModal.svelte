@@ -48,7 +48,7 @@
 		refresh.update((n) => !n);
 	};
 
-	const onEditCategory = async (event: SubmitEvent) => {
+	const onEditCategory = async () => {
 		const updateCategory = new updateCategoryStore();
 		const {
 			valid,
@@ -80,18 +80,16 @@
 			: 'Add a new category'}
 	</h2>
 	<form
+		method="post"
 		on:submit|preventDefault={currentCategory ? onEditCategory : onAddCategory}
 		id="category-actions"
 		novalidate>
 		<Input
-			inline
+			fullWidth
 			label={currentCategory ? 'Rename category' : 'Category name'}
 			type="text"
 			name="category"
 			id="category"
-			placeholder={currentCategory
-				? 'Enter a new name for your category'
-				: 'Enter a name for your category'}
 			aria-invalid={$errors.category ? 'true' : undefined}
 			bind:value={$form.category}
 			{...$constraints.category} />
@@ -100,7 +98,7 @@
 			<p class="error">{$errors.category}</p>
 		{/if}
 
-		<p>
+		<p class="selectIntro">
 			{currentCategory
 				? 'Select a new icon for your category  '
 				: 'Select an icon for your category'}
@@ -116,10 +114,10 @@
 					{...$constraints.icon} />
 				<label for="{icon}-icon"><svg><use xlink:href="#{icon}" /></svg></label>
 			{/each}
-			{#if $errors.icon}
-				<p class="error">{$errors.icon}</p>
-			{/if}
 		</div>
+		{#if $errors.icon}
+			<p class="error">{$errors.icon}</p>
+		{/if}
 	</form>
 	<Button slot="action" type="submit" form="category-actions"
 		>{currentCategory ? 'Change category' : 'Add category'}</Button>
@@ -147,7 +145,7 @@
 		margin-bottom: 2rem;
 	}
 
-	p {
+	.selectIntro {
 		display: block;
 		margin-top: 2rem;
 		margin-bottom: 2rem;
@@ -187,10 +185,5 @@
 		border-radius: 0.5rem;
 		border: 1px solid var(--greyed-out);
 		fill: var(--orange);
-	}
-
-	.error {
-		color: var(--red);
-		margin-top: 1rem;
 	}
 </style>
