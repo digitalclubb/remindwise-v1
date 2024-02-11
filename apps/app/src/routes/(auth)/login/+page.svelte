@@ -86,10 +86,3 @@
 	<span>Don't have a remindwise account yet?</span>
 	<Link href="/register" type="button">Register now</Link>
 </p>
-
-<style>
-	.error {
-		color: var(--red);
-		margin-top: 1rem;
-	}
-</style>

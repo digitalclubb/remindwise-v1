@@ -20,7 +20,7 @@
 		| undefined;
 
 	const superValidate = superValidateSync(addCategorySchema);
-	const { form, errors, constraints } = superForm(superValidate, {
+	const { form, errors, constraints, enhance } = superForm(superValidate, {
 		validators: addCategorySchema,
 	});
 
@@ -82,7 +82,8 @@
 	<form
 		on:submit|preventDefault={currentCategory ? onEditCategory : onAddCategory}
 		id="category-actions"
-		novalidate>
+		novalidate
+		use:enhance>
 		<Input
 			inline
 			label={currentCategory ? 'Rename category' : 'Category name'}
@@ -187,10 +188,5 @@
 		border-radius: 0.5rem;
 		border: 1px solid var(--greyed-out);
 		fill: var(--orange);
-	}
-
-	.error {
-		color: var(--red);
-		margin-top: 1rem;
 	}
 </style>

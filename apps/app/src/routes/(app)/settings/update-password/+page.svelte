@@ -51,8 +51,4 @@
 	section {
 		padding: 2rem;
 	}
-
-	.error {
-		color: var(--red);
-	}
 </style>

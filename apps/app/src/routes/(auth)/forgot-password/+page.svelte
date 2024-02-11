@@ -63,9 +63,4 @@
 	p {
 		color: var(--remindwise-grey);
 	}
-
-	.error {
-		color: var(--red);
-		margin-top: 1rem;
-	}
 </style>

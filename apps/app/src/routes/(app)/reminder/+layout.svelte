@@ -598,11 +598,6 @@
 		width: 1.5rem;
 	}
 
-	.error {
-		color: var(--red);
-		margin-top: 1rem;
-	}
-
 	@media screen and (min-width: 500px) {
 		.columns {
 			display: flex;

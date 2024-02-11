@@ -84,10 +84,3 @@
 	<span>Already have an account?</span>
 	<Link href="/login" type="button">Login now</Link>
 </p>
-
-<style>
-	.error {
-		color: var(--red);
-		margin-top: 1rem;
-	}
-</style>
