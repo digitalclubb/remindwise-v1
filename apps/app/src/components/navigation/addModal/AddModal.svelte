@@ -20,7 +20,7 @@
 		| undefined;
 
 	const superValidate = superValidateSync(addCategorySchema);
-	const { form, errors, constraints, enhance } = superForm(superValidate, {
+	const { form, errors, constraints } = superForm(superValidate, {
 		validators: addCategorySchema,
 	});
 
@@ -82,17 +82,13 @@
 	<form
 		on:submit|preventDefault={currentCategory ? onEditCategory : onAddCategory}
 		id="category-actions"
-		novalidate
-		use:enhance>
+		novalidate>
 		<Input
-			inline
+			fullWidth
 			label={currentCategory ? 'Rename category' : 'Category name'}
 			type="text"
 			name="category"
 			id="category"
-			placeholder={currentCategory
-				? 'Enter a new name for your category'
-				: 'Enter a name for your category'}
 			aria-invalid={$errors.category ? 'true' : undefined}
 			bind:value={$form.category}
 			{...$constraints.category} />
@@ -101,7 +97,7 @@
 			<p class="error">{$errors.category}</p>
 		{/if}
 
-		<p>
+		<p class="selectIntro">
 			{currentCategory
 				? 'Select a new icon for your category  '
 				: 'Select an icon for your category'}
@@ -117,10 +113,10 @@
 					{...$constraints.icon} />
 				<label for="{icon}-icon"><svg><use xlink:href="#{icon}" /></svg></label>
 			{/each}
-			{#if $errors.icon}
-				<p class="error">{$errors.icon}</p>
-			{/if}
 		</div>
+		{#if $errors.icon}
+			<p class="error">{$errors.icon}</p>
+		{/if}
 	</form>
 	<Button slot="action" type="submit" form="category-actions"
 		>{currentCategory ? 'Change category' : 'Add category'}</Button>
@@ -148,7 +144,7 @@
 		margin-bottom: 2rem;
 	}
 
-	p {
+	.selectIntro {
 		display: block;
 		margin-top: 2rem;
 		margin-bottom: 2rem;
