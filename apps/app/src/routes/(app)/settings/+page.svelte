@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from 'components';
+	import { Button, Radio } from 'components';
 	import Header from '../../../components/header/Header.svelte';
 	import Input from 'components/input/Input.svelte';
 	import { settingsSchema } from './schema';
@@ -38,39 +38,16 @@
 			{/if}
 		</div>
 
-		<fieldset class="options">
-			<legend>Interval</legend>
-			<div class="option option-first">
-				<input
-					type="radio"
-					name="interval"
-					id="days"
-					value="DAYS"
-					bind:group={$form.interval}
-					{...$constraints.interval} />
-				<label for="days">Days</label>
-			</div>
-			<div class="option">
-				<input
-					type="radio"
-					name="interval"
-					id="months"
-					value="MONTHS"
-					bind:group={$form.interval}
-					{...$constraints.interval} />
-				<label for="months">Months</label>
-			</div>
-			<div class="option option-last">
-				<input
-					type="radio"
-					name="interval"
-					id="years"
-					value="YEARS"
-					bind:group={$form.interval}
-					{...$constraints.interval} />
-				<label for="years">Years</label>
-			</div>
-		</fieldset>
+		<Radio
+			legend="Interval"
+			name="interval"
+			options={[
+				{ id: 'days', label: 'Days', value: 'DAYS' },
+				{ id: 'months', label: 'Months', value: 'MONTHS' },
+				{ id: 'years', label: 'Years', value: 'YEARS' },
+			]}
+			bind:group={$form.interval}
+			constraints={$constraints.interval} />
 
 		{#if $errors.interval}
 			<p class="error">{$errors.interval}</p>
@@ -155,8 +132,7 @@
 		gap: 3.4rem;
 	}
 
-	label,
-	legend {
+	label {
 		display: block;
 		margin-right: 0.7rem;
 		margin-bottom: 0.7rem;
@@ -183,57 +159,6 @@
 		text-align: right;
 		max-width: 64rem;
 		margin-top: 3rem;
-	}
-
-	fieldset {
-		all: unset;
-	}
-
-	.options {
-		display: flex;
-		flex: 1;
-	}
-
-	.option {
-		flex: 1;
-	}
-
-	.option input {
-		position: absolute;
-		visibility: hidden;
-	}
-
-	.option label {
-		background-color: var(--cream-light);
-		border-top: 1px solid var(--cream);
-		border-bottom: 1px solid var(--cream);
-		padding-top: 1rem;
-		padding-bottom: 1rem;
-		margin-bottom: 0;
-		width: 100%;
-		text-align: center;
-	}
-
-	.option-first label {
-		border-top-left-radius: 2rem;
-		border-bottom-left-radius: 2rem;
-		border-right: 1px solid var(--cream);
-	}
-
-	.option-last label {
-		border-top-right-radius: 2rem;
-		border-bottom-right-radius: 2rem;
-		border-left: 1px solid var(--cream);
-	}
-
-	.option label:hover {
-		background-color: var(--cream);
-		cursor: pointer;
-	}
-
-	.options input[type='radio']:checked + label {
-		background-color: var(--orange);
-		color: var(--white);
 	}
 
 	.currency {

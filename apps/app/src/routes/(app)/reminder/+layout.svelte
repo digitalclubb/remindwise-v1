@@ -5,7 +5,7 @@
 	import type { LayoutData } from './$houdini';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { reminderSchema } from './schema';
-	import { Input } from 'components';
+	import { Input, Radio } from 'components';
 
 	export let data: LayoutData;
 
@@ -97,7 +97,10 @@
 				aria-invalid={$errors.category ? 'true' : undefined}
 				bind:value={$form.category}
 				{...$constraints.category} />
-			<input type="hidden" bind:value={$form.categoryId} name="categoryId" />
+			<input
+				type="hidden"
+				value={categories?.[0]?.category.id || ''}
+				name="categoryId" />
 
 			{#if $errors.category}
 				<p class="error">{$errors.category}</p>
@@ -152,30 +155,18 @@
 		</div>
 
 		<div>
-			<fieldset class="options">
-				<legend
-					>What type of reminder is this?<i aria-hidden="true">*</i></legend>
-				<div class="option option-first">
-					<input
-						type="radio"
-						name="type"
-						id="ongoing"
-						value="ONGOING"
-						bind:group={$form.type}
-						{...$constraints.type} />
-					<label for="ongoing">Ongoing subscription</label>
-				</div>
-				<div class="option option-last">
-					<input
-						type="radio"
-						name="type"
-						id="single"
-						value="SINGLE"
-						bind:group={$form.type}
-						{...$constraints.type} />
-					<label for="single">Single record</label>
-				</div>
-			</fieldset>
+			<Radio
+				required
+				legend="What type of reminder is this?"
+				name="type"
+				options={[
+					{ id: 'ongoing', label: 'Ongoing subscription', value: 'ONGOING' },
+					{ id: 'single', label: 'Single record', value: 'SINGLE' },
+				]}
+				bind:group={$form.type}
+				constraints={$constraints.type}
+				aria-invalid={$errors.type ? 'true' : undefined} />
+
 			{#if $errors.type}
 				<p class="error">{$errors.type}</p>
 			{/if}
@@ -226,29 +217,17 @@
 
 			{#if $form.type === 'ONGOING'}
 				<div class="options-wrapper">
-					<fieldset class="options">
-						<legend>When is it charged?</legend>
-						<div class="option option-first">
-							<input
-								type="radio"
-								name="frequency"
-								id="annual"
-								value="ANNUAL"
-								bind:group={$form.frequency}
-								{...$constraints.frequency} />
-							<label for="annual">Annual</label>
-						</div>
-						<div class="option option-last">
-							<input
-								type="radio"
-								name="frequency"
-								id="monthly"
-								value="MONTHLY"
-								bind:group={$form.frequency}
-								{...$constraints.frequency} />
-							<label for="monthly">Monthly</label>
-						</div>
-					</fieldset>
+					<Radio
+						required
+						legend="When is it charged?"
+						name="frequency"
+						options={[
+							{ id: 'annual', label: 'Annual', value: 'ANNUAL' },
+							{ id: 'monthly', label: 'Monthly', value: 'MONTHLY' },
+						]}
+						bind:group={$form.frequency}
+						constraints={$constraints.frequency}
+						aria-invalid={$errors.frequency ? 'true' : undefined} />
 
 					{#if $errors.frequency}
 						<p class="error">{$errors.frequency}</p>
@@ -280,29 +259,16 @@
 
 			{#if $form.type === 'ONGOING'}
 				<div class="options-wrapper">
-					<fieldset class="options">
-						<legend>Will it auto-renew?</legend>
-						<div class="option option-first">
-							<input
-								type="radio"
-								name="autoRenew"
-								id="yes"
-								value={true}
-								bind:group={$form.autoRenew}
-								{...$constraints.autoRenew} />
-							<label for="yes">Yes</label>
-						</div>
-						<div class="option option-last">
-							<input
-								type="radio"
-								name="autoRenew"
-								id="no"
-								value={false}
-								bind:group={$form.autoRenew}
-								{...$constraints.autoRenew} />
-							<label for="no">No</label>
-						</div>
-					</fieldset>
+					<Radio
+						legend="Will it auto-renew?"
+						name="autoRenew"
+						options={[
+							{ id: 'yes', label: 'Yes', value: true },
+							{ id: 'no', label: 'No', value: false },
+						]}
+						bind:group={$form.autoRenew}
+						constraints={$constraints.autoRenew}
+						aria-invalid={$errors.autoRenew ? 'true' : undefined} />
 
 					{#if $errors.autoRenew}
 						<p class="error">{$errors.autoRenew}</p>
@@ -432,8 +398,11 @@
 		vertical-align: middle;
 	}
 
-	label,
-	legend {
+	fieldset {
+		all: unset;
+	}
+
+	label {
 		display: inline-block;
 		margin-bottom: 1rem;
 	}
@@ -451,59 +420,8 @@
 		width: 100%;
 	}
 
-	fieldset {
-		all: unset;
-	}
-
 	.options-wrapper {
 		flex: 1;
-	}
-
-	.options {
-		margin-top: 2rem;
-	}
-
-	.options,
-	.option {
-		display: flex;
-		flex: 1;
-	}
-
-	.option input {
-		position: absolute;
-		visibility: hidden;
-	}
-
-	.option label {
-		background-color: var(--cream-light);
-		border-top: 1px solid var(--cream);
-		border-bottom: 1px solid var(--cream);
-		padding-top: 1rem;
-		padding-bottom: 1rem;
-		margin-bottom: 0;
-		width: 100%;
-		text-align: center;
-	}
-
-	.option-first label {
-		border-top-left-radius: 2rem;
-		border-bottom-left-radius: 2rem;
-		border-right: 1px solid var(--cream);
-	}
-
-	.option-last label {
-		border-top-right-radius: 2rem;
-		border-bottom-right-radius: 2rem;
-	}
-
-	.option label:hover {
-		background-color: var(--cream);
-		cursor: pointer;
-	}
-
-	.options input[type='radio']:checked + label {
-		background-color: var(--orange);
-		color: var(--white);
 	}
 
 	.currency {
