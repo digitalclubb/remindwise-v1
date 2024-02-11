@@ -48,7 +48,7 @@
 		refresh.update((n) => !n);
 	};
 
-	const onEditCategory = async (event: SubmitEvent) => {
+	const onEditCategory = async () => {
 		const updateCategory = new updateCategoryStore();
 		const {
 			valid,
