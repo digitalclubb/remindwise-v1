@@ -45,7 +45,7 @@ export const actions = {
 				date: data.date ? new Date(data.date) : new Date(),
 				frequency: data.frequency,
 				autoRenewal: data.autoRenew,
-				notes: data.notes,
+				notes: data.notes ?? null,
 			},
 			{ event }
 		);
