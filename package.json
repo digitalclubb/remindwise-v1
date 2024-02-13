@@ -19,7 +19,7 @@
 		"turbo": "1.12.3"
 	},
 	"prepare": "svelte-kit sync",
-	"packageManager": "pnpm@8.15.1",
+	"packageManager": "pnpm@8.15.2",
 	"pnpm": {
 		"overrides": {
 			"playwright-core": "1.41.2"
