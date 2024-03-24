@@ -14,18 +14,18 @@
 		"types": "turbo run types"
 	},
 	"devDependencies": {
-		"@playwright/test": "1.41.2",
+		"@playwright/test": "1.42.1",
 		"@testing-library/jest-dom": "6.4.2",
-		"turbo": "1.12.4"
+		"turbo": "1.13.0"
 	},
 	"prepare": "svelte-kit sync",
-	"packageManager": "pnpm@8.15.4",
+	"packageManager": "pnpm@8.15.5",
 	"pnpm": {
 		"overrides": {
-			"playwright-core": "1.41.2"
+			"playwright-core": "1.42.1"
 		}
 	},
 	"dependencies": {
-		"@supabase/supabase-js": "2.39.7"
+		"@supabase/supabase-js": "2.39.8"
 	}
 }
