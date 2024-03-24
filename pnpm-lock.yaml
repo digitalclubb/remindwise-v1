@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  playwright-core: 1.41.2
+  playwright-core: 1.42.1
 
 importers:
 
@@ -87,7 +87,7 @@ importers:
     devDependencies:
       '@axe-core/playwright':
         specifier: 4.8.5
-        version: 4.8.5(playwright-core@1.41.2)
+        version: 4.8.5(playwright-core@1.42.1)
       '@graphql-codegen/cli':
         specifier: 5.0.2
         version: 5.0.2(@babel/core@7.22.6)(graphql@16.8.1)
@@ -134,8 +134,8 @@ importers:
         specifier: 2.35.1
         version: 2.35.1(eslint@8.57.0)(svelte@4.2.12)
       playwright-core:
-        specifier: 1.41.2
-        version: 1.41.2
+        specifier: 1.42.1
+        version: 1.42.1
       prettier:
         specifier: 3.2.5
         version: 3.2.5
@@ -166,7 +166,7 @@ importers:
     devDependencies:
       '@axe-core/playwright':
         specifier: 4.8.5
-        version: 4.8.5(playwright-core@1.41.2)
+        version: 4.8.5(playwright-core@1.42.1)
       '@playwright/test':
         specifier: 1.42.1
         version: 1.42.1
@@ -195,8 +195,8 @@ importers:
         specifier: 2.35.1
         version: 2.35.1(eslint@8.57.0)(svelte@4.2.12)
       playwright-core:
-        specifier: 1.41.2
-        version: 1.41.2
+        specifier: 1.42.1
+        version: 1.42.1
       prettier:
         specifier: 3.2.5
         version: 3.2.5
@@ -336,13 +336,13 @@ packages:
       - encoding
     dev: true
 
-  /@axe-core/playwright@4.8.5(playwright-core@1.41.2):
+  /@axe-core/playwright@4.8.5(playwright-core@1.42.1):
     resolution: {integrity: sha512-GFdXXAEn9uk0Vyzgl2eEP+VwvgGzas0YSnacoJ/0U237G83zWZ1PhbP/RDymm0cqevoA+xRjMo+ONzh9Q711nw==}
     peerDependencies:
-      playwright-core: 1.41.2
+      playwright-core: 1.42.1
     dependencies:
       axe-core: 4.8.4
-      playwright-core: 1.41.2
+      playwright-core: 1.42.1
     dev: true
 
   /@babel/code-frame@7.22.5:
@@ -6088,8 +6088,8 @@ packages:
       pathe: 1.1.1
     dev: true
 
-  /playwright-core@1.41.2:
-    resolution: {integrity: sha512-VaTvwCA4Y8kxEe+kfm2+uUUw5Lubf38RxF7FpBxLPmGe5sdNkSg5e3ChEigaGrX7qdqT3pt2m/98LiyvU2x6CA==}
+  /playwright-core@1.42.1:
+    resolution: {integrity: sha512-mxz6zclokgrke9p1vtdy/COWBH+eOZgYUVVU34C73M+4j4HLlQJHtfcqiqqxpP0o8HhMkflvfbquLX5dg6wlfA==}
     engines: {node: '>=16'}
     hasBin: true
     dev: true
@@ -6099,7 +6099,7 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
-      playwright-core: 1.41.2
+      playwright-core: 1.42.1
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
