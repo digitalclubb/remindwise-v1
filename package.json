@@ -26,6 +26,6 @@
 		}
 	},
 	"dependencies": {
-		"@supabase/supabase-js": "2.39.8"
+		"@supabase/supabase-js": "2.40.0"
 	}
 }
