@@ -33,6 +33,6 @@
 		"vitest": "1.4.0"
 	},
 	"dependencies": {
-		"sveltekit-superforms": "1.13.4"
+		"sveltekit-superforms": "2.12.2"
 	}
 }
