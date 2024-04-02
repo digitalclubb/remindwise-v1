@@ -1,0 +1,94 @@
+Outstanding questions
+- Do we want to have a cron job which updates the future data when we're 6 months over the year? This is in case people want to see upcoming 6 month costs...
+- Do we want to give people the option to select when their recurring sub ends or tell it to stop without deleting? Or we make it clear that when they delete we still keep the historical spent data?
+- How do we handle creating the future records? When does this happen?
+- Do we want to separate the add a reminder trigger functions per type? To make tidier?
+- Recurring records have a created date but how about next renewalDate? Should we track that as well?
+- Keep a log of when renewals happen? Is this a separate table?
+- WHAT IF THEY CHANGE CATEGORY???
+- Maybe we shouldn't allow them to change date, overly complicated. Just delete and add again. Same with cost potentially.
+
+# Add a reminder
+
+## Single record
+- Select from table the row that matches the year and category of the new reminder
+- If it does exist then update the new reminder month with the new cost
+- If it doesn't exist, create the new table row (past/future) with the new reminder month set to the new cost
+
+## Monthly record
+- Select from table the row that matches the year and category of the new reminder
+- If it does exist then update the new reminder month and all future months with the new cost
+    - Do we update future year records?
+- If it doesn't exist and if year is in the future (ignore or create?)
+- If it doesn't exist and if year is in the past, select all the historical rows for that category
+    - Create the new table row with the new reminder month and all future months set to the new cost
+    - Calculate how many years between today and the year of reminder.
+    - Update all the year records and create records if missing with all months updated with the new cost
+
+## Yearly record
+- Select from table the row that matches the year and category of the new reminder
+- If it does exist then update the new reminder month with the new cost
+- If it doesn't exist and if year is in the future (ignore or create?)
+- If it doesn't exist and if year is in the past, select all the historical rows for that category
+    - Create the new table row with the new reminder month set to the new cost
+    - Calculate how many years between today and the year of reminder.
+    - Update all the year records and create records if missing with the new month updated with the new cost
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Delete a reminder
+
+## Single record
+- If it's in the past, ignore
+- If it's in the future, select from table the row that matches the year and category of the reminder
+    - Remove the cost from that month
+
+## Monthly record
+- Select from table the row that matches the CURRENT year and category of the reminder
+- Update any months after the current month to remove the cost of the reminder
+- Should we also get future year rows?
+
+## Yearly record
+- If the month is current or before current month, then select all future rows only and update affected month to remove cost
+- If the month is after current, then select from table the row that matches the CURRENT year and category of the reminder
+    - Update affected month to remove cost
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Update a reminder
+
+## Single record
+
+- If cost changed
+    - Select from table the row that matches the year and category of the reminder
+    - Update month with new cost (subtract old and add new)
+
+- If date changed
+    - Select from table the row that matches the old year and category of the reminder
+    - Remove cost from old month
+    - If new date is still same year, update new month with cost
+    - If new date is different year, select row that matches the new year and category of the reminder
+        - If it does exist, update new month with cost
+        - If it doesn't exist, create new table row with value
+
+## Monthly record
+
+- If cost changed
+    - Select from table the row that matches the year (and future years) and category of the reminder
+    - Update future months with new cost (subtract old and add new)
+
+- If date changed
+    - Select from table the row that matches the old year and category of the reminder
+    - If new date is still same year, remove the cost from all the months since old date and then add the cost to all the months since new date
+    - If new date is in the past, add the cost to the rest of the months in old date year
+        - Select from table all the rows that are between the new year and old year and category of the reminder
+        - Add any missing records and update all the months to have the cost
+    - If new date is in the future
+        - Select from table all the rows that are between the new year and old year and category of the reminder
+        - Remove the cost from all the months
+        - Add the new future record and update all the months to have the cost
+        
+
+## Yearly record
+
+Similar to monthly
