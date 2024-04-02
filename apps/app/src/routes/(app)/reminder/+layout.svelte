@@ -6,11 +6,12 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	import { reminderSchema } from './schema';
 	import { Input, Radio, FileUpload } from 'components';
+	import { zodClient } from 'sveltekit-superforms/adapters';
 
 	export let data: LayoutData;
 
 	const { form, errors, constraints, enhance } = superForm(data.form, {
-		validators: reminderSchema,
+		validators: zodClient(reminderSchema),
 	});
 
 	let showCategories: boolean;

@@ -463,7 +463,6 @@ input TimeFilter {
 }
 
 enum Type {
-  ANNUAL
   ONGOING
   SINGLE
 }
@@ -476,21 +475,6 @@ input TypeFilter {
   in: [Type!]
   is: FilterIs
   neq: Type
-}
-
-enum Types {
-  ONGOING
-  SINGLE
-}
-
-"""
-Boolean expression comparing fields on type "Types"
-"""
-input TypesFilter {
-  eq: Types
-  in: [Types!]
-  is: FilterIs
-  neq: Types
 }
 
 """A universally unique identifier"""
@@ -576,12 +560,24 @@ type categoriesEdge {
 }
 
 input categoriesFilter {
+  """
+  Returns true only if all its inner filters are true, otherwise returns false
+  """
+  and: [categoriesFilter!]
   created_at: DatetimeFilter
   iconId: StringFilter
   id: BigIntFilter
   isLocked: BooleanFilter
   name: StringFilter
   nodeId: IDFilter
+
+  """Negates a filter"""
+  not: categoriesFilter
+
+  """
+  Returns true if at least one of its inner filters is true, otherwise returns false
+  """
+  or: [categoriesFilter!]
   userid: UUIDFilter
 }
 
@@ -637,8 +633,6 @@ type historical implements Node {
   """Globally Unique Record Identifier"""
   nodeId: ID!
   settings: settings!
-  totalSpent: Float!
-  totalUpcoming: Float!
   userid: UUID!
 }
 
@@ -661,13 +655,23 @@ type historicalEdge {
 }
 
 input historicalFilter {
+  """
+  Returns true only if all its inner filters are true, otherwise returns false
+  """
+  and: [historicalFilter!]
   categoryid: BigIntFilter
   created_at: DatetimeFilter
   date: DateFilter
   id: BigIntFilter
   nodeId: IDFilter
-  totalSpent: FloatFilter
-  totalUpcoming: FloatFilter
+
+  """Negates a filter"""
+  not: historicalFilter
+
+  """
+  Returns true if at least one of its inner filters is true, otherwise returns false
+  """
+  or: [historicalFilter!]
   userid: UUIDFilter
 }
 
@@ -676,8 +680,6 @@ input historicalInsertInput {
   created_at: Datetime
   date: Date
   monthTotals: [Float]
-  totalSpent: Float
-  totalUpcoming: Float
   userid: UUID
 }
 
@@ -694,8 +696,6 @@ input historicalOrderBy {
   created_at: OrderByDirection
   date: OrderByDirection
   id: OrderByDirection
-  totalSpent: OrderByDirection
-  totalUpcoming: OrderByDirection
   userid: OrderByDirection
 }
 
@@ -704,8 +704,6 @@ input historicalUpdateInput {
   created_at: Datetime
   date: Date
   monthTotals: [Float]
-  totalSpent: Float
-  totalUpcoming: Float
   userid: UUID
 }
 
@@ -760,6 +758,10 @@ type remindersEdge {
 }
 
 input remindersFilter {
+  """
+  Returns true only if all its inner filters are true, otherwise returns false
+  """
+  and: [remindersFilter!]
   autoRenewal: BooleanFilter
   categoryId: BigIntFilter
   company: StringFilter
@@ -770,7 +772,15 @@ input remindersFilter {
   id: BigIntFilter
   name: StringFilter
   nodeId: IDFilter
+
+  """Negates a filter"""
+  not: remindersFilter
   notes: StringFilter
+
+  """
+  Returns true if at least one of its inner filters is true, otherwise returns false
+  """
+  or: [remindersFilter!]
   total: FloatFilter
   type: TypeFilter
   userid: UUIDFilter
@@ -928,6 +938,10 @@ type settingsEdge {
 }
 
 input settingsFilter {
+  """
+  Returns true only if all its inner filters are true, otherwise returns false
+  """
+  and: [settingsFilter!]
   currency: CurrencyFilter
   email: StringFilter
   first_name: StringFilter
@@ -935,7 +949,15 @@ input settingsFilter {
   interval: IntervalFilter
   last_name: StringFilter
   nodeId: IDFilter
+
+  """Negates a filter"""
+  not: settingsFilter
   notice_period: IntFilter
+
+  """
+  Returns true if at least one of its inner filters is true, otherwise returns false
+  """
+  or: [settingsFilter!]
   updated_at: DatetimeFilter
 }
 

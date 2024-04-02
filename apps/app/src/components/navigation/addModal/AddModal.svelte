@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { addCategoryStore, updateCategoryStore } from '$houdini';
 	import { page } from '$app/stores';
-	import { superForm, superValidateSync } from 'sveltekit-superforms/client';
+	import { defaults, superForm } from 'sveltekit-superforms/client';
 	import { refresh } from '../../../stores';
 
 	import Input from 'components/input/Input.svelte';
@@ -13,24 +13,24 @@
 	import { addCategorySchema } from './schema';
 
 	import type { Categories } from '@graphql/types';
+	import { zod } from 'sveltekit-superforms/adapters';
 
 	export let showAddModal = false;
 	export let currentCategory:
 		| Pick<Categories, 'id' | 'iconId' | 'name'>
 		| undefined;
 
-	const superValidate = superValidateSync(addCategorySchema);
-	const { form, errors, constraints } = superForm(superValidate, {
-		validators: addCategorySchema,
-	});
+	const { form, errors, constraints, validateForm } = superForm(
+		defaults(zod(addCategorySchema)),
+		{
+			SPA: true,
+			validators: zod(addCategorySchema),
+		}
+	);
 
 	const onAddCategory = async () => {
 		const addCategory = new addCategoryStore();
-		const {
-			valid,
-			data,
-			errors: validatedErrors,
-		} = superValidateSync($form, addCategorySchema);
+		const { valid, errors: validatedErrors, data } = await validateForm();
 
 		if (!valid) {
 			$errors = { ...validatedErrors };
@@ -50,11 +50,7 @@
 
 	const onEditCategory = async () => {
 		const updateCategory = new updateCategoryStore();
-		const {
-			valid,
-			data,
-			errors: validatedErrors,
-		} = superValidateSync($form, addCategorySchema);
+		const { valid, errors: validatedErrors, data } = await validateForm();
 
 		if (!valid) {
 			$errors = { ...validatedErrors };

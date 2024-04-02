@@ -4,11 +4,12 @@
 	import Input from 'components/input/Input.svelte';
 	import { settingsSchema } from './schema';
 	import { superForm } from 'sveltekit-superforms/client';
+	import { zodClient } from 'sveltekit-superforms/adapters';
 
 	export let data;
 
 	const { form, errors, constraints, enhance } = superForm(data.form, {
-		validators: settingsSchema,
+		validators: zodClient(settingsSchema),
 	});
 </script>
 

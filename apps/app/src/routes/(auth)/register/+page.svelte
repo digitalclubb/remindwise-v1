@@ -3,11 +3,12 @@
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { registerSchema } from './schema';
+	import { zodClient } from 'sveltekit-superforms/adapters';
 
 	export let data: PageData;
 
 	const { form, errors, constraints, message, enhance } = superForm(data.form, {
-		validators: registerSchema,
+		validators: zodClient(registerSchema),
 	});
 </script>
 
