@@ -18,7 +18,7 @@
 		"test:functional": "playwright test --grep @functional"
 	},
 	"dependencies": {
-		"@supabase/auth-helpers-sveltekit": "0.13.0",
+		"@supabase/ssr": "0.3.0",
 		"@supabase/supabase-js": "2.43.0",
 		"@sveltejs/adapter-vercel": "5.3.0",
 		"@sveltejs/kit": "2.5.7",

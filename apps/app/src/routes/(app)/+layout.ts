@@ -1,25 +1,61 @@
-import { PUBLIC_SUPABASE_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
-import { createSupabaseLoadClient } from '@supabase/auth-helpers-sveltekit';
-import type { LayoutLoad } from './$types';
 import { load_getSettings, load_getCategories } from '$houdini';
 
-export const load: LayoutLoad = async (event) => {
+import { PUBLIC_SUPABASE_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
+import type { LayoutLoad } from './$types';
+import {
+	createBrowserClient,
+	createServerClient,
+	isBrowser,
+	parse,
+} from '@supabase/ssr';
+
+export const load = (async (event) => {
+	/**
+	 * Declare a dependency so the layout can be invalidated, for example, on
+	 * session refresh.
+	 */
 	event.depends('supabase:auth');
 
-	const { session: sessionServer } = event.data;
-	const supabase = createSupabaseLoadClient({
-		supabaseUrl: PUBLIC_SUPABASE_URL,
-		supabaseKey: PUBLIC_SUPABASE_KEY,
-		event: { fetch: event.fetch },
-		serverSession: sessionServer,
-	});
+	const supabase = isBrowser()
+		? createBrowserClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY, {
+				global: {
+					fetch: event.fetch,
+				},
+				cookies: {
+					get(key) {
+						const cookie = parse(document.cookie);
+						return cookie[key];
+					},
+				},
+			})
+		: createServerClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY, {
+				global: {
+					fetch,
+				},
+				cookies: {
+					get() {
+						return JSON.stringify(event.data.session);
+					},
+				},
+			});
 
+	/**
+	 * It's fine to use `getSession` here, because on the client, `getSession` is
+	 * safe, and on the server, it reads `session` from the `LayoutData`, which
+	 * safely checked the session using `safeGetSession`.
+	 */
 	const {
 		data: { session },
 	} = await supabase.auth.getSession();
+
+	const {
+		data: { user },
+	} = await supabase.auth.getUser();
+
 	return {
 		supabase,
 		session,
+		user,
 		...(await load_getCategories({
 			event,
 		})),
@@ -27,4 +63,4 @@ export const load: LayoutLoad = async (event) => {
 			event,
 		})),
 	};
-};
+}) satisfies LayoutLoad;

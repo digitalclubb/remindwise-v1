@@ -30,9 +30,9 @@ importers:
 
   apps/app:
     dependencies:
-      '@supabase/auth-helpers-sveltekit':
-        specifier: 0.13.0
-        version: 0.13.0(@supabase/supabase-js@2.43.0)(@sveltejs/kit@2.5.7(@sveltejs/vite-plugin-svelte@3.1.0(svelte@4.2.15)(vite@5.2.10(@types/node@20.3.3)))(svelte@4.2.15)(vite@5.2.10(@types/node@20.3.3)))
+      '@supabase/ssr':
+        specifier: 0.3.0
+        version: 0.3.0(@supabase/supabase-js@2.43.0)
       '@supabase/supabase-js':
         specifier: 2.43.0
         version: 2.43.0
@@ -1352,17 +1352,6 @@ packages:
   '@sinclair/typebox@0.27.8':
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
 
-  '@supabase/auth-helpers-shared@0.7.0':
-    resolution: {integrity: sha512-FBFf2ei2R7QC+B/5wWkthMha8Ca2bWHAndN+syfuEUUfufv4mLcAgBCcgNg5nJR8L0gZfyuaxgubtOc9aW3Cpg==}
-    peerDependencies:
-      '@supabase/supabase-js': ^2.39.8
-
-  '@supabase/auth-helpers-sveltekit@0.13.0':
-    resolution: {integrity: sha512-nNZUJv49e0RpEaRBWAEqzPQkeTfWiN6XhVxBJJWGkS9BIk47H+dDRJvvDd1lCT+u6xKXkgnp2VHosT5UK2UOcg==}
-    peerDependencies:
-      '@supabase/supabase-js': ^2.39.8
-      '@sveltejs/kit': ^1.30.3 || ^2.0.0
-
   '@supabase/auth-js@2.64.1':
     resolution: {integrity: sha512-tA2PXLoWEzhD0N1Vysree+HftfeWBbFV0E+taND5rj/pZTjkwKq/9GlrnXkbs5pnw+tsnABDRo2WLZmymihGdA==}
 
@@ -1378,6 +1367,11 @@ packages:
 
   '@supabase/realtime-js@2.9.5':
     resolution: {integrity: sha512-TEHlGwNGGmKPdeMtca1lFTYCedrhTAv3nZVoSjrKQ+wkMmaERuCe57zkC5KSWFzLYkb5FVHW8Hrr+PX1DDwplQ==}
+
+  '@supabase/ssr@0.3.0':
+    resolution: {integrity: sha512-lcVyQ7H6eumb2FB1Wa2N+jYWMfq6CFza3KapikT0fgttMQ+QvDgpNogx9jI8bZgKds+XFSMCojxFvFb+gwdbfA==}
+    peerDependencies:
+      '@supabase/supabase-js': ^2.33.1
 
   '@supabase/storage-js@2.5.5':
     resolution: {integrity: sha512-OpLoDRjFwClwc2cjTJZG8XviTiQH4Ik8sCiMK5v7et0MDu2QlXjCAW3ljxJB5+z/KazdMOTnySi+hysxWUPu3w==}
@@ -2793,9 +2787,6 @@ packages:
     resolution: {integrity: sha512-gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==}
     hasBin: true
 
-  jose@4.15.5:
-    resolution: {integrity: sha512-jc7BFxgKPKi94uOvEmzlSWFFe2+vASyXaKUpdQKatWAESU2MWjDfFf0fdfc83CDKcA5QecabZeNLyfhe3yKNkg==}
-
   jose@5.2.4:
     resolution: {integrity: sha512-6ScbIk2WWCeXkmzF6bRPmEuaqy1m8SbsRFMa/FLrSCkGIhj8OLVG/IH+XHVmNMx/KUo8cVWEE6oKR4dJ+S0Rkg==}
 
@@ -3374,6 +3365,9 @@ packages:
 
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
+
+  ramda@0.29.1:
+    resolution: {integrity: sha512-OfxIeWzd4xdUNxlWhgFazxsA/nl3mS4/jGZI5n00uWOoSSFRhC1b6gl6xvmzUamgmqELraWp0J/qqVlXYPDPyA==}
 
   react-is@17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
@@ -5409,17 +5403,6 @@ snapshots:
 
   '@sinclair/typebox@0.27.8': {}
 
-  '@supabase/auth-helpers-shared@0.7.0(@supabase/supabase-js@2.43.0)':
-    dependencies:
-      '@supabase/supabase-js': 2.43.0
-      jose: 4.15.5
-
-  '@supabase/auth-helpers-sveltekit@0.13.0(@supabase/supabase-js@2.43.0)(@sveltejs/kit@2.5.7(@sveltejs/vite-plugin-svelte@3.1.0(svelte@4.2.15)(vite@5.2.10(@types/node@20.3.3)))(svelte@4.2.15)(vite@5.2.10(@types/node@20.3.3)))':
-    dependencies:
-      '@supabase/auth-helpers-shared': 0.7.0(@supabase/supabase-js@2.43.0)
-      '@supabase/supabase-js': 2.43.0
-      '@sveltejs/kit': 2.5.7(@sveltejs/vite-plugin-svelte@3.1.0(svelte@4.2.15)(vite@5.2.10(@types/node@20.3.3)))(svelte@4.2.15)(vite@5.2.10(@types/node@20.3.3))
-
   '@supabase/auth-js@2.64.1':
     dependencies:
       '@supabase/node-fetch': 2.6.15
@@ -5445,6 +5428,12 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+
+  '@supabase/ssr@0.3.0(@supabase/supabase-js@2.43.0)':
+    dependencies:
+      '@supabase/supabase-js': 2.43.0
+      cookie: 0.5.0
+      ramda: 0.29.1
 
   '@supabase/storage-js@2.5.5':
     dependencies:
@@ -7168,8 +7157,6 @@ snapshots:
 
   jiti@1.21.0: {}
 
-  jose@4.15.5: {}
-
   jose@5.2.4: {}
 
   js-tokens@4.0.0: {}
@@ -7714,6 +7701,8 @@ snapshots:
   querystringify@2.2.0: {}
 
   queue-microtask@1.2.3: {}
+
+  ramda@0.29.1: {}
 
   react-is@17.0.2: {}
 

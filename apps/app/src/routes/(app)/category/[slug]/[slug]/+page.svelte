@@ -13,7 +13,7 @@
 	$: cost = reminder
 		? new Intl.NumberFormat('en-GB', {
 				style: 'currency',
-				currency,
+				currency: currency || undefined,
 				currencyDisplay: 'narrowSymbol',
 			}).format(reminder.cost || 0)
 		: '';
