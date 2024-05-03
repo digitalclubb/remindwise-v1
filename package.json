@@ -15,7 +15,7 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "1.43.1",
-		"@testing-library/jest-dom": "6.4.2",
+		"@testing-library/jest-dom": "6.4.5",
 		"globals": "15.1.0",
 		"turbo": "1.13.3"
 	},
@@ -27,6 +27,6 @@
 		}
 	},
 	"dependencies": {
-		"@supabase/supabase-js": "2.43.0"
+		"@supabase/supabase-js": "2.43.1"
 	}
 }
