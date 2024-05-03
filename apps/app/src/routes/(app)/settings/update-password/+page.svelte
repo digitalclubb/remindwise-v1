@@ -3,11 +3,12 @@
 	import Header from '../../../../components/header/Header.svelte';
 	import { updatePasswordSchema } from '../schema';
 	import { superForm } from 'sveltekit-superforms/client';
+	import { zodClient } from 'sveltekit-superforms/adapters';
 
 	export let data;
 
 	const { form, errors, constraints, message, enhance } = superForm(data.form, {
-		validators: updatePasswordSchema,
+		validators: zodClient(updatePasswordSchema),
 	});
 </script>
 

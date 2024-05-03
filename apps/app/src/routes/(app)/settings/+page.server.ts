@@ -1,9 +1,10 @@
 import { getSettingsStore, updateSettingsStore } from '$houdini';
-import { fail, redirect } from '@sveltejs/kit';
+import { fail, redirect, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { superValidate } from 'sveltekit-superforms/server';
 import { settingsSchema } from './schema';
 import type { Currency, Interval } from '@graphql/types';
+import { zod } from 'sveltekit-superforms/adapters';
 
 export const load: PageServerLoad = async (event) => {
 	const getSettings = new getSettingsStore();
@@ -13,16 +14,17 @@ export const load: PageServerLoad = async (event) => {
 	const settings = data?.settings?.list[0].setting;
 
 	const form = await superValidate(
-		{
-			firstName: settings?.first_name || undefined,
-			lastName: settings?.last_name || undefined,
-			email: settings?.email || undefined,
-			interval: settings?.interval as Interval,
-			currency: settings?.currency as Currency,
-			noticePeriod: settings?.notice_period ?? undefined,
-			id: settings?.id,
-		},
-		settingsSchema
+		zod(settingsSchema, {
+			defaults: {
+				firstName: settings?.first_name || '',
+				lastName: settings?.last_name || '',
+				email: settings?.email || '',
+				interval: settings?.interval as Interval,
+				currency: settings?.currency as Currency,
+				noticePeriod: settings?.notice_period ?? 3,
+				id: settings?.id || '',
+			},
+		})
 	);
 
 	return {
@@ -30,10 +32,9 @@ export const load: PageServerLoad = async (event) => {
 	};
 };
 
-export const actions = {
+export const actions: Actions = {
 	updateSettings: async (event) => {
-		const formData = await event.request.formData();
-		const form = await superValidate(formData, settingsSchema);
+		const form = await superValidate(event.request, zod(settingsSchema));
 		const { valid, data } = form;
 
 		if (!valid) {

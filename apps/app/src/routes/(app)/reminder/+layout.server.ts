@@ -3,6 +3,7 @@ import { superValidate } from 'sveltekit-superforms/server';
 import { reminderSchema } from './schema';
 import { getReminderStore } from '$houdini';
 import { Frequency, Type } from '@graphql/types';
+import { zod } from 'sveltekit-superforms/adapters';
 
 export const load: LayoutServerLoad = async (event) => {
 	const parentData = await event.parent();
@@ -51,19 +52,21 @@ export const load: LayoutServerLoad = async (event) => {
 
 		if (reminder) {
 			const form = await superValidate(
-				{
-					categoryId: reminder.category?.id,
-					category: reminder.category?.name,
-					name: reminder.name,
-					type: reminder.type as Type, // Is there better way to do this?
-					company: reminder.company,
-					cost: reminder.cost,
-					frequency: reminder.frequency as Frequency,
-					date: String(reminder.date),
-					autoRenew: reminder.autoRenewal,
-					notes: reminder.notes || '',
-				},
-				reminderSchema
+				zod(reminderSchema, {
+					defaults: {
+						userId: userId || '',
+						categoryId: reminder.category?.id,
+						category: reminder.category?.name || '',
+						name: reminder.name,
+						type: reminder.type as Type, // Is there better way to do this?
+						company: reminder.company,
+						cost: reminder.cost,
+						frequency: reminder.frequency as Frequency,
+						date: String(reminder.date),
+						autoRenew: reminder.autoRenewal,
+						notes: reminder.notes || '',
+					},
+				})
 			);
 
 			return {
@@ -73,8 +76,7 @@ export const load: LayoutServerLoad = async (event) => {
 		}
 	}
 
-	const form = await superValidate(reminderSchema);
-
+	const form = await superValidate(zod(reminderSchema));
 	return {
 		files,
 		form,

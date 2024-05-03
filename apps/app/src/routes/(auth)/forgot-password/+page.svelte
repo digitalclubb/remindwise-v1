@@ -3,11 +3,12 @@
 	import type { PageData } from './$types';
 	import { forgotPasswordSchema } from './schema';
 	import { superForm } from 'sveltekit-superforms/client';
+	import { zodClient } from 'sveltekit-superforms/adapters';
 
 	export let data: PageData;
 
 	const { form, errors, constraints, message, enhance } = superForm(data.form, {
-		validators: forgotPasswordSchema,
+		validators: zodClient(forgotPasswordSchema),
 	});
 </script>
 

@@ -1,20 +1,20 @@
-import { fail } from '@sveltejs/kit';
+import { fail, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from '../$types';
 import { updatePasswordSchema } from '../schema';
 import { message, superValidate } from 'sveltekit-superforms/server';
+import { zod } from 'sveltekit-superforms/adapters';
 
 export const load: PageServerLoad = async () => {
-	const form = await superValidate(updatePasswordSchema);
+	const form = await superValidate(zod(updatePasswordSchema));
 
 	return {
 		form,
 	};
 };
 
-export const actions = {
+export const actions: Actions = {
 	default: async ({ request, locals: { supabase } }) => {
-		const formData = await request.formData();
-		const form = await superValidate(formData, updatePasswordSchema);
+		const form = await superValidate(request, zod(updatePasswordSchema));
 		const { valid, data } = form;
 
 		if (!valid) {

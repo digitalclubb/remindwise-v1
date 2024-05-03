@@ -11,10 +11,10 @@ declare global {
 			supabase: SupabaseClient;
 			safeGetSession: () => Promise<{
 				session: AuthSession | null;
-				user: User | null;
+				user: AuthUser | null;
 			}>;
 			session: AuthSession | null;
-			user: User | null;
+			user: AuthUser | null;
 		}
 		// interface PageData {}
 		// interface Error {}

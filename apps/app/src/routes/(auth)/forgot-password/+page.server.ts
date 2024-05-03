@@ -1,18 +1,18 @@
-import { fail } from '@sveltejs/kit';
+import { fail, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { forgotPasswordSchema } from './schema';
+import { zod } from 'sveltekit-superforms/adapters';
 
 export const load: PageServerLoad = async ({ url }) => {
-	const form = await superValidate(forgotPasswordSchema);
+	const form = await superValidate(zod(forgotPasswordSchema));
 
 	return { url: url.origin, form };
 };
 
-export const actions = {
+export const actions: Actions = {
 	default: async ({ request, url, locals: { supabase } }) => {
-		const formData = await request.formData();
-		const form = await superValidate(formData, forgotPasswordSchema);
+		const form = await superValidate(request, zod(forgotPasswordSchema));
 		const { valid, data } = form;
 
 		if (!valid) {
