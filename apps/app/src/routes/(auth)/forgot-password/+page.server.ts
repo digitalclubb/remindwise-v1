@@ -1,16 +1,9 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { forgotPasswordSchema } from './schema';
 
-export const load: PageServerLoad = async ({ url, locals: { getSession } }) => {
-	const session = await getSession();
-
-	// Logged in users go to app
-	if (session) {
-		throw redirect(303, '/');
-	}
-
+export const load: PageServerLoad = async ({ url }) => {
 	const form = await superValidate(forgotPasswordSchema);
 
 	return { url: url.origin, form };
