@@ -54,7 +54,7 @@ export const load: LayoutServerLoad = async (event) => {
 			const form = await superValidate(
 				zod(reminderSchema, {
 					defaults: {
-						userId,
+						userId: userId || '',
 						categoryId: reminder.category?.id,
 						category: reminder.category?.name || '',
 						name: reminder.name,
