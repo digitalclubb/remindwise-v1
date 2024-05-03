@@ -323,6 +323,7 @@ export type QueryCategoriesCollectionArgs = {
   filter?: InputMaybe<CategoriesFilter>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<CategoriesOrderBy>>;
 };
 
@@ -334,6 +335,7 @@ export type QueryHistoricalCollectionArgs = {
   filter?: InputMaybe<HistoricalFilter>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<HistoricalOrderBy>>;
 };
 
@@ -351,6 +353,7 @@ export type QueryRemindersCollectionArgs = {
   filter?: InputMaybe<RemindersFilter>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<RemindersOrderBy>>;
 };
 
@@ -362,6 +365,7 @@ export type QuerySettingsCollectionArgs = {
   filter?: InputMaybe<SettingsFilter>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<SettingsOrderBy>>;
 };
 
@@ -437,6 +441,7 @@ export type CategoriesHistoricalCollectionArgs = {
   filter?: InputMaybe<HistoricalFilter>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<HistoricalOrderBy>>;
 };
 
@@ -447,6 +452,7 @@ export type CategoriesRemindersCollectionArgs = {
   filter?: InputMaybe<RemindersFilter>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<RemindersOrderBy>>;
 };
 
@@ -768,6 +774,7 @@ export type SettingsCategoriesCollectionArgs = {
   filter?: InputMaybe<CategoriesFilter>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<CategoriesOrderBy>>;
 };
 
@@ -778,6 +785,7 @@ export type SettingsHistoricalCollectionArgs = {
   filter?: InputMaybe<HistoricalFilter>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<HistoricalOrderBy>>;
 };
 
@@ -788,6 +796,7 @@ export type SettingsRemindersCollectionArgs = {
   filter?: InputMaybe<RemindersFilter>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<RemindersOrderBy>>;
 };
 

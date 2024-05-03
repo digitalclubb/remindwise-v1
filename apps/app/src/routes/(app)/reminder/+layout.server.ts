@@ -7,7 +7,7 @@ import { zod } from 'sveltekit-superforms/adapters';
 
 export const load: LayoutServerLoad = async (event) => {
 	const parentData = await event.parent();
-	const userId = parentData.session.user.id;
+	const userId = parentData.session?.user.id;
 
 	// Get all files for a user and a reminder (folder)
 	const { data: readFiles } = await event.locals.supabase.storage

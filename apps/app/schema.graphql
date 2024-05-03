@@ -352,6 +352,11 @@ type Query {
     """Query the last `n` records in the collection"""
     last: Int
 
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
+
     """Sort order to apply to the collection"""
     orderBy: [categoriesOrderBy!]
   ): categoriesConnection
@@ -372,6 +377,11 @@ type Query {
 
     """Query the last `n` records in the collection"""
     last: Int
+
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
 
     """Sort order to apply to the collection"""
     orderBy: [historicalOrderBy!]
@@ -400,6 +410,11 @@ type Query {
     """Query the last `n` records in the collection"""
     last: Int
 
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
+
     """Sort order to apply to the collection"""
     orderBy: [remindersOrderBy!]
   ): remindersConnection
@@ -420,6 +435,11 @@ type Query {
 
     """Query the last `n` records in the collection"""
     last: Int
+
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
 
     """Sort order to apply to the collection"""
     orderBy: [settingsOrderBy!]
@@ -508,6 +528,11 @@ type categories implements Node {
     """Query the last `n` records in the collection"""
     last: Int
 
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
+
     """Sort order to apply to the collection"""
     orderBy: [historicalOrderBy!]
   ): historicalConnection
@@ -533,6 +558,11 @@ type categories implements Node {
 
     """Query the last `n` records in the collection"""
     last: Int
+
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
 
     """Sort order to apply to the collection"""
     orderBy: [remindersOrderBy!]
@@ -865,6 +895,11 @@ type settings implements Node {
     """Query the last `n` records in the collection"""
     last: Int
 
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
+
     """Sort order to apply to the collection"""
     orderBy: [categoriesOrderBy!]
   ): categoriesConnection
@@ -886,6 +921,11 @@ type settings implements Node {
 
     """Query the last `n` records in the collection"""
     last: Int
+
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
 
     """Sort order to apply to the collection"""
     orderBy: [historicalOrderBy!]
@@ -912,6 +952,11 @@ type settings implements Node {
 
     """Query the last `n` records in the collection"""
     last: Int
+
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
 
     """Sort order to apply to the collection"""
     orderBy: [remindersOrderBy!]
