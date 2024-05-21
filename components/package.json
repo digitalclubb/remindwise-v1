@@ -18,8 +18,8 @@
 		"@sveltejs/kit": "2.5.9",
 		"@sveltejs/vite-plugin-svelte": "3.1.0",
 		"@testing-library/svelte": "4.2.3",
-		"@typescript-eslint/eslint-plugin": "7.9.0",
-		"@typescript-eslint/parser": "7.9.0",
+		"@typescript-eslint/eslint-plugin": "7.10.0",
+		"@typescript-eslint/parser": "7.10.0",
 		"eslint": "9.3.0",
 		"eslint-config-prettier": "9.1.0",
 		"eslint-plugin-svelte": "2.39.0",
@@ -30,7 +30,7 @@
 		"svelte-eslint-parser": "0.36.0",
 		"svelte-preprocess": "5.1.4",
 		"typescript": "5.4.5",
-		"typescript-eslint": "7.9.0",
+		"typescript-eslint": "7.10.0",
 		"vitest": "1.6.0"
 	},
 	"dependencies": {
