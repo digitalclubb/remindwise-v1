@@ -21,7 +21,7 @@
 		"@supabase/ssr": "0.3.0",
 		"@supabase/supabase-js": "2.43.2",
 		"@sveltejs/adapter-vercel": "5.3.0",
-		"@sveltejs/kit": "2.5.9",
+		"@sveltejs/kit": "2.5.10",
 		"@sveltejs/vite-plugin-svelte": "3.1.0",
 		"@vercel/analytics": "1.2.2",
 		"components": "workspace:*",
