@@ -14,7 +14,7 @@
 		"types": "turbo run types"
 	},
 	"devDependencies": {
-		"@playwright/test": "1.44.0",
+		"@playwright/test": "1.44.1",
 		"@testing-library/jest-dom": "6.4.5",
 		"globals": "15.3.0",
 		"turbo": "1.13.3"
@@ -23,10 +23,10 @@
 	"packageManager": "pnpm@9.1.2",
 	"pnpm": {
 		"overrides": {
-			"playwright-core": "1.44.0"
+			"playwright-core": "1.44.1"
 		}
 	},
 	"dependencies": {
-		"@supabase/supabase-js": "2.43.2"
+		"@supabase/supabase-js": "2.43.4"
 	}
 }
