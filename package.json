@@ -17,10 +17,10 @@
 		"@playwright/test": "1.44.1",
 		"@testing-library/jest-dom": "6.4.5",
 		"globals": "15.3.0",
-		"turbo": "1.13.3"
+		"turbo": "1.13.4"
 	},
 	"prepare": "svelte-kit sync",
-	"packageManager": "pnpm@9.1.4",
+	"packageManager": "pnpm@9.2.0",
 	"pnpm": {
 		"overrides": {
 			"playwright-core": "1.44.1"
