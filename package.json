@@ -1,4 +1,5 @@
 {
+	"name": "remindwise-monorepo",
 	"private": true,
 	"scripts": {
 		"build": "turbo run build",
@@ -17,7 +18,7 @@
 		"@playwright/test": "1.44.1",
 		"@testing-library/jest-dom": "6.4.5",
 		"globals": "15.4.0",
-		"turbo": "1.13.4"
+		"turbo": "2.0.3"
 	},
 	"prepare": "svelte-kit sync",
 	"packageManager": "pnpm@9.2.0",
