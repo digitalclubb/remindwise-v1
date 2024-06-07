@@ -108,6 +108,11 @@
 			Total spend this year <span>(Jan '23 - Jan '24)</span>
 		</h2>
 
+		<Button
+			style="tertiary"
+			onClick={() => {
+				alert('Add a categorys');
+			}}>Add a categorys</Button>
 		<div class="charts">
 			<div class="donut">
 				<Donut />
@@ -253,7 +258,7 @@
 			<tbody>
 				{#if reminders?.length === 0}
 					<tr>
-						<td class="cell-no-data"
+						<td class="cell-no-data" colspan="5"
 							><p>Add some categories and reminders to get started</p></td>
 					</tr>
 				{:else}

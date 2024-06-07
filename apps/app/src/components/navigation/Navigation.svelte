@@ -133,8 +133,8 @@
 				class="logo"
 				width="170"
 				height="27" /></a>
-		<button on:click={showNav}
-			><svg class="menu">
+		<button on:click={showNav} aria-label="Menu button"
+			><svg aria-hidden="true" class="menu">
 				<use xlink:href="#icon-menu"></use>
 			</svg></button>
 	</div>
@@ -409,6 +409,7 @@
 		font-size: 1.4rem;
 		gap: 1rem;
 		margin: 0;
+		word-wrap: anywhere;
 	}
 
 	.content .add {
