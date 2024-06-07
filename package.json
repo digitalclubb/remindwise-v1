@@ -2,7 +2,7 @@
 	"name": "remindwise-monorepo",
 	"private": true,
 	"scripts": {
-		"build": "turbo run build",
+		"build": "turbo run build --framework-inference=false",
 		"preview": "turbo run preview",
 		"dev": "turbo run dev --parallel",
 		"lint": "turbo run lint",
