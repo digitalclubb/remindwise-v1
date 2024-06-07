@@ -16,7 +16,7 @@
 	"devDependencies": {
 		"@playwright/test": "1.44.1",
 		"@testing-library/jest-dom": "6.4.5",
-		"globals": "15.3.0",
+		"globals": "15.4.0",
 		"turbo": "1.13.4"
 	},
 	"prepare": "svelte-kit sync",
