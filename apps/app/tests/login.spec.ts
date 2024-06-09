@@ -19,16 +19,3 @@ test.describe('Login page', () => {
 		expect(results.violations).toEqual([]);
 	});
 });
-
-/*
-I can login
-I can see my reminders
-I can edit a reminder
-I can delete a reminder
-I can add a reminder
-I can see my categories
-I can edit a category
-I can delete a category
-I can add a category
-I can update my settings
-*/

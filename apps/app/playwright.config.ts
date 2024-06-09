@@ -17,14 +17,14 @@ export default {
 
 			dependencies: ['setup'],
 		},
-		// {
-		// 	name: 'Mobile Safari',
-		// 	use: {
-		// 		...devices['iPhone 12'],
-		// 		storageState: 'playwright/.auth/user.json',
-		// 	},
-		// 	dependencies: ['setup'],
-		// },
+		{
+			name: 'Mobile Safari',
+			use: {
+				...devices['iPhone 12'],
+				storageState: 'playwright/.auth/user.json',
+			},
+			dependencies: ['setup'],
+		},
 	],
 	use: {
 		...config.use,

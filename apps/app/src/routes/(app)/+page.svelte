@@ -108,11 +108,6 @@
 			Total spend this year <span>(Jan '23 - Jan '24)</span>
 		</h2>
 
-		<Button
-			style="tertiary"
-			onClick={() => {
-				alert('Add a categorys');
-			}}>Add a categorys</Button>
 		<div class="charts">
 			<div class="donut">
 				<Donut />
