@@ -106,11 +106,9 @@
 					name="icon"
 					value={icon}
 					id="{icon}-icon"
-					aria-checked={icon === $form.icon}
 					bind:group={$form.icon}
 					{...$constraints.icon} />
-				<label for="{icon}-icon"
-					><span class="visually-hidden">{icon} icon</span>
+				<label for="{icon}-icon">
 					<svg aria-hidden="true"><use xlink:href="#{icon}" /></svg>
 				</label>
 			{/each}
@@ -174,19 +172,6 @@
 	.icons svg {
 		width: 2.6rem;
 		height: 2.6rem;
-	}
-
-	.visually-hidden {
-		position: absolute;
-		margin: -1px;
-		border: 0;
-		width: 1px;
-		height: 1px;
-		clip: rect(0 0 0 0);
-		clip-path: inset(50%);
-		overflow: hidden;
-		white-space: nowrap;
-		word-wrap: normal;
 	}
 
 	input[type='radio'] {
