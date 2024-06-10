@@ -1,11 +1,16 @@
-import { devices } from '@playwright/test';
-import config from '../../playwright.config';
+import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-export default {
-	...config,
+export default defineConfig({
+	testDir: './tests',
+	fullyParallel: true,
+	forbidOnly: !!process.env.CI,
+	retries: process.env.CI ? 2 : 0,
+	workers: process.env.CI ? 1 : undefined,
+	timeout: 60000,
+	reporter: [['html', { open: 'never' }]],
 	projects: [
 		{ name: 'setup', testMatch: /.*\.setup\.ts/ },
 		{
@@ -27,11 +32,11 @@ export default {
 		},
 	],
 	use: {
-		...config.use,
+		trace: 'on-first-retry',
 		baseURL: 'http://localhost:4174',
 	},
 	webServer: {
-		...config.webServer,
-		url: 'http://localhost:4174',
+		command: 'pnpm preview',
+		reuseExistingServer: !process.env.CI,
 	},
-};
+});
