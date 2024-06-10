@@ -1,13 +1,8 @@
-import { defineConfig, devices } from '@playwright/test';
+import config from '../../playwright.config';
+import { devices } from '@playwright/test';
 
-export default defineConfig({
-	testDir: './tests',
-	fullyParallel: true,
-	forbidOnly: !!process.env.CI,
-	retries: process.env.CI ? 2 : 0,
-	workers: process.env.CI ? 1 : undefined,
-	timeout: 60000,
-	reporter: [['html', { open: 'never' }]],
+export default {
+	...config,
 	projects: [
 		{ name: 'setup', testMatch: /.*\.setup\.ts/ },
 		{
@@ -29,12 +24,11 @@ export default defineConfig({
 		},
 	],
 	use: {
-		trace: 'on-first-retry',
+		...config.use,
 		baseURL: 'http://localhost:4174',
 	},
 	webServer: {
-		command: 'pnpm preview',
+		...config.webServer,
 		url: 'http://localhost:4174',
-		reuseExistingServer: !process.env.CI,
 	},
-});
+};
