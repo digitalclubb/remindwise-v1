@@ -9,7 +9,8 @@ export default defineConfig({
 	timeout: 60000,
 	reporter: [['html', { open: 'never' }]],
 	use: {
-		trace: 'on-first-retry',
+		screenshot: 'only-on-failure',
+		trace: 'retain-on-failure',
 	},
 	projects: [
 		{
