@@ -409,7 +409,7 @@
 		font-size: 1.4rem;
 		gap: 1rem;
 		margin: 0;
-		word-wrap: anywhere;
+		word-break: break-all;
 	}
 
 	.content .add {
