@@ -220,7 +220,7 @@
 											onClickOptions(index);
 										}}
 										aria-label={'Options for ' + category.category.name}
-										><svg>
+										><svg aria-hidden="true">
 											<use xlink:href="#icon-edit"></use>
 										</svg></button>
 									<ul class="options" class:active={clicked === index}>
@@ -237,7 +237,7 @@
 													showAddModal = true;
 													clicked = -1;
 												}}
-												>Edit <svg aria-hidden={true}>
+												>Edit <svg aria-hidden="true">
 													<use xlink:href="#icon-edit-category"></use>
 												</svg></button>
 										</li>
@@ -253,7 +253,7 @@
 													showDeleteModal = true;
 													clicked = -1;
 												}}
-												>Delete <svg aria-hidden={true}>
+												>Delete <svg aria-hidden="true">
 													<use xlink:href="#icon-delete"></use>
 												</svg></button>
 										</li>
