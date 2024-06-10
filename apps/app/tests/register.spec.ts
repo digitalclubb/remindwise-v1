@@ -5,6 +5,7 @@ import { Register } from './pom/register';
 
 let register: Register;
 
+test.use({ storageState: { cookies: [], origins: [] } });
 test.describe('Register page', () => {
 	test.beforeEach(async ({ page }) => {
 		register = new Register(page);

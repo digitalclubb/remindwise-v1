@@ -14,7 +14,7 @@
 		await deleteReminder.mutate({ id: $page.params.slug });
 
 		// Delete any files in storage
-		if ($page.data.files.length) {
+		if ($page.data.files?.length) {
 			const toDelete = $page.data.files.map(
 				(file: { name: string; url: string }) => {
 					return `${$page.data.session?.user.id}/${$page.params.slug}/${file.name}`;

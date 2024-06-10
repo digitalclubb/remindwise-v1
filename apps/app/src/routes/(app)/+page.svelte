@@ -253,7 +253,7 @@
 			<tbody>
 				{#if reminders?.length === 0}
 					<tr>
-						<td class="cell-no-data"
+						<td class="cell-no-data" colspan="5"
 							><p>Add some categories and reminders to get started</p></td>
 					</tr>
 				{:else}

@@ -7,9 +7,10 @@ export default defineConfig({
 	retries: process.env.CI ? 2 : 0,
 	workers: process.env.CI ? 1 : undefined,
 	timeout: 60000,
-	reporter: 'html',
+	reporter: [['html', { open: 'never' }]],
 	use: {
-		trace: 'on-first-retry',
+		screenshot: 'only-on-failure',
+		trace: 'retain-on-failure',
 	},
 	projects: [
 		{

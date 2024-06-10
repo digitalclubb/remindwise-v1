@@ -1,6 +1,28 @@
 import config from '../../playwright.config';
+import { devices } from '@playwright/test';
+
 export default {
 	...config,
+	projects: [
+		{ name: 'setup', testMatch: /.*\.setup\.ts/ },
+		{
+			name: 'chromium',
+			use: {
+				...devices['Desktop Chrome'],
+				storageState: 'playwright/.auth/user.json',
+			},
+
+			dependencies: ['setup'],
+		},
+		{
+			name: 'Mobile Safari',
+			use: {
+				...devices['iPhone 12'],
+				storageState: 'playwright/.auth/user.json',
+			},
+			dependencies: ['setup'],
+		},
+	],
 	use: {
 		...config.use,
 		baseURL: 'http://localhost:4174',

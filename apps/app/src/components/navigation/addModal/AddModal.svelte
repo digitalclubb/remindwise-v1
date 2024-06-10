@@ -108,7 +108,9 @@
 					id="{icon}-icon"
 					bind:group={$form.icon}
 					{...$constraints.icon} />
-				<label for="{icon}-icon"><svg><use xlink:href="#{icon}" /></svg></label>
+				<label for="{icon}-icon">
+					<svg><use xlink:href="#{icon}" /></svg>
+				</label>
 			{/each}
 		</div>
 		{#if $errors.icon}

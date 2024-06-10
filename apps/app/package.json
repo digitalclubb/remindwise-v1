@@ -14,7 +14,6 @@
 		"format": "prettier --check --ignore-path=../../.prettierignore .",
 		"format:write": "prettier --write --ignore-path=../../.prettierignore .",
 		"graphql:codegen": "pnpm sync && graphql-codegen --require dotenv/config",
-		"test:a11y": "playwright test --grep @accessibility",
 		"test:functional": "playwright test --grep @functional"
 	},
 	"dependencies": {
@@ -44,14 +43,16 @@
 		"@graphql-codegen/typed-document-node": "5.0.7",
 		"@graphql-codegen/typescript": "4.0.7",
 		"@graphql-codegen/typescript-operations": "4.2.1",
-		"@graphql-typed-document-node/core": "^3.2.0",
+		"@graphql-typed-document-node/core": "3.2.0",
 		"@playwright/test": "1.44.1",
 		"@testing-library/svelte": "4.2.3",
 		"@types/d3-format": "3.0.4",
 		"@types/d3-scale": "4.0.8",
 		"@types/d3-shape": "3.1.6",
+		"@types/node": "20.14.2",
 		"@typescript-eslint/eslint-plugin": "7.12.0",
 		"@typescript-eslint/parser": "7.12.0",
+		"dotenv": "16.4.5",
 		"eslint": "9.4.0",
 		"eslint-config-prettier": "9.1.0",
 		"eslint-plugin-svelte": "2.39.3",
@@ -61,7 +62,8 @@
 		"svelte-check": "3.8.0",
 		"svelte-eslint-parser": "0.37.0",
 		"typescript": "5.4.5",
-		"typescript-eslint": "7.12.0"
+		"typescript-eslint": "7.12.0",
+		"vitest": "1.6.0"
 	},
 	"type": "module",
 	"packageManager": "pnpm@9.2.0"

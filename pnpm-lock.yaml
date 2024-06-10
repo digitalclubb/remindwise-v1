@@ -38,13 +38,13 @@ importers:
         version: 2.43.4
       '@sveltejs/adapter-vercel':
         specifier: 5.3.1
-        version: 5.3.1(@sveltejs/kit@2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))
+        version: 5.3.1(@sveltejs/kit@2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))
       '@sveltejs/kit':
         specifier: 2.5.10
-        version: 2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3))
+        version: 2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2))
       '@sveltejs/vite-plugin-svelte':
         specifier: 3.1.1
-        version: 3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3))
+        version: 3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2))
       '@vercel/analytics':
         specifier: 1.3.1
         version: 1.3.1
@@ -65,7 +65,7 @@ importers:
         version: 1.2.47
       houdini-svelte:
         specifier: 1.2.47
-        version: 1.2.47(@types/node@20.3.3)
+        version: 1.2.47(@types/node@20.14.2)
       layercake:
         specifier: 8.3.0
         version: 8.3.0(svelte@4.2.18)(typescript@5.4.5)
@@ -77,10 +77,10 @@ importers:
         version: 5.1.4(@babel/core@7.24.4)(postcss-load-config@3.1.4(postcss@8.4.38))(postcss@8.4.38)(svelte@4.2.18)(typescript@5.4.5)
       sveltekit-superforms:
         specifier: 2.14.0
-        version: 2.14.0(@sveltejs/kit@2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))(@types/json-schema@7.0.15)(esbuild-runner@2.2.2(esbuild@0.20.2))(esbuild@0.20.2)(svelte@4.2.18)
+        version: 2.14.0(@sveltejs/kit@2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))(@types/json-schema@7.0.15)(esbuild-runner@2.2.2(esbuild@0.20.2))(esbuild@0.20.2)(svelte@4.2.18)
       vite:
         specifier: 5.2.13
-        version: 5.2.13(@types/node@20.3.3)
+        version: 5.2.13(@types/node@20.14.2)
       vite-plugin-graphql-loader:
         specifier: 3.0.1
         version: 3.0.1
@@ -93,7 +93,7 @@ importers:
         version: 4.9.1(playwright-core@1.44.1)
       '@graphql-codegen/cli':
         specifier: 5.0.2
-        version: 5.0.2(@types/node@20.3.3)(graphql@16.8.1)(typescript@5.4.5)
+        version: 5.0.2(@types/node@20.14.2)(graphql@16.8.1)(typescript@5.4.5)
       '@graphql-codegen/typed-document-node':
         specifier: 5.0.7
         version: 5.0.7(graphql@16.8.1)
@@ -104,7 +104,7 @@ importers:
         specifier: 4.2.1
         version: 4.2.1(graphql@16.8.1)
       '@graphql-typed-document-node/core':
-        specifier: ^3.2.0
+        specifier: 3.2.0
         version: 3.2.0(graphql@16.8.1)
       '@playwright/test':
         specifier: 1.44.1
@@ -121,12 +121,18 @@ importers:
       '@types/d3-shape':
         specifier: 3.1.6
         version: 3.1.6
+      '@types/node':
+        specifier: 20.14.2
+        version: 20.14.2
       '@typescript-eslint/eslint-plugin':
         specifier: 7.12.0
         version: 7.12.0(@typescript-eslint/parser@7.12.0(eslint@9.4.0)(typescript@5.4.5))(eslint@9.4.0)(typescript@5.4.5)
       '@typescript-eslint/parser':
         specifier: 7.12.0
         version: 7.12.0(eslint@9.4.0)(typescript@5.4.5)
+      dotenv:
+        specifier: 16.4.5
+        version: 16.4.5
       eslint:
         specifier: 9.4.0
         version: 9.4.0
@@ -157,6 +163,9 @@ importers:
       typescript-eslint:
         specifier: 7.12.0
         version: 7.12.0(eslint@9.4.0)(typescript@5.4.5)
+      vitest:
+        specifier: 1.6.0
+        version: 1.6.0(@types/node@20.14.2)(jsdom@24.1.0)
 
   apps/marketing:
     dependencies:
@@ -178,13 +187,13 @@ importers:
         version: 1.44.1
       '@sveltejs/adapter-vercel':
         specifier: 5.3.1
-        version: 5.3.1(@sveltejs/kit@2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))
+        version: 5.3.1(@sveltejs/kit@2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))
       '@sveltejs/kit':
         specifier: 2.5.10
-        version: 2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3))
+        version: 2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2))
       '@sveltejs/vite-plugin-svelte':
         specifier: 3.1.1
-        version: 3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3))
+        version: 3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2))
       '@typescript-eslint/eslint-plugin':
         specifier: 7.12.0
         version: 7.12.0(@typescript-eslint/parser@7.12.0(eslint@9.4.0)(typescript@5.4.5))(eslint@9.4.0)(typescript@5.4.5)
@@ -229,23 +238,23 @@ importers:
         version: 7.12.0(eslint@9.4.0)(typescript@5.4.5)
       vite:
         specifier: 5.2.13
-        version: 5.2.13(@types/node@20.3.3)
+        version: 5.2.13(@types/node@20.14.2)
 
   components:
     dependencies:
       sveltekit-superforms:
         specifier: 2.14.0
-        version: 2.14.0(@sveltejs/kit@2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))(@types/json-schema@7.0.15)(esbuild-runner@2.2.2(esbuild@0.20.2))(esbuild@0.20.2)(svelte@4.2.18)
+        version: 2.14.0(@sveltejs/kit@2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))(@types/json-schema@7.0.15)(esbuild-runner@2.2.2(esbuild@0.20.2))(esbuild@0.20.2)(svelte@4.2.18)
     devDependencies:
       '@sveltejs/adapter-vercel':
         specifier: 5.3.1
-        version: 5.3.1(@sveltejs/kit@2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))
+        version: 5.3.1(@sveltejs/kit@2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))
       '@sveltejs/kit':
         specifier: 2.5.10
-        version: 2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3))
+        version: 2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2))
       '@sveltejs/vite-plugin-svelte':
         specifier: 3.1.1
-        version: 3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3))
+        version: 3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2))
       '@testing-library/svelte':
         specifier: 4.2.3
         version: 4.2.3(svelte@4.2.18)
@@ -290,7 +299,7 @@ importers:
         version: 7.12.0(eslint@9.4.0)(typescript@5.4.5)
       vitest:
         specifier: 1.6.0
-        version: 1.6.0(@types/node@20.3.3)(jsdom@24.1.0)
+        version: 1.6.0(@types/node@20.14.2)(jsdom@24.1.0)
 
 packages:
 
@@ -1536,8 +1545,8 @@ packages:
   '@types/micromatch@4.0.7':
     resolution: {integrity: sha512-C/FMQ8HJAZhTsDpl4wDKZdMeeW5USjgzOczUwTGbRc1ZopPgOhIEnxY2ZgUrsuyy4DwK1JVOJZKFakv3TbCKiA==}
 
-  '@types/node@20.3.3':
-    resolution: {integrity: sha512-wheIYdr4NYML61AjC8MKj/2jrR/kDQri/CIpVoZwldwhnIrD/j9jIU5bJ8yBKuB2VhpFV7Ab6G2XkBjv9r9Zzw==}
+  '@types/node@20.14.2':
+    resolution: {integrity: sha512-xyu6WAMVwv6AKFLB+e/7ySZVr/0zLCzOa7rSpq6jNwpqOrUbcACDWC+53d4n2QHOnDou0fbIsg8wZu/sxrnI4Q==}
 
   '@types/phoenix@1.6.0':
     resolution: {integrity: sha512-qwfpsHmFuhAS/dVd4uBIraMxRd56vwBUYQGZ6GpXnFuM2XMRFJbIyruFKKlW2daQliuYZwe0qfn/UjFCDKic5g==}
@@ -3988,6 +3997,9 @@ packages:
     resolution: {integrity: sha512-eXL4nmJT7oCpkZsHZUOJo8hcX3GbsiDOa0Qu9F646fi8dT3XuSVopVqAcEiVzSKKH7UoDti23wNX3qGFxcW5Qg==}
     engines: {node: '>=0.10.0'}
 
+  undici-types@5.26.5:
+    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+
   undici@5.28.4:
     resolution: {integrity: sha512-72RFADWFqKmUb2hmmvNODKL3p9hcB6Gt2DOQMis1SEBaV6a4MH8soBvzg+95CYhCKPFedut2JY9bMfrDl9D23g==}
     engines: {node: '>=14.0'}
@@ -4932,7 +4944,7 @@ snapshots:
       graphql: 16.8.1
       tslib: 2.6.2
 
-  '@graphql-codegen/cli@5.0.2(@types/node@20.3.3)(graphql@16.8.1)(typescript@5.4.5)':
+  '@graphql-codegen/cli@5.0.2(@types/node@20.14.2)(graphql@16.8.1)(typescript@5.4.5)':
     dependencies:
       '@babel/generator': 7.24.4
       '@babel/template': 7.24.0
@@ -4943,12 +4955,12 @@ snapshots:
       '@graphql-tools/apollo-engine-loader': 8.0.1(graphql@16.8.1)
       '@graphql-tools/code-file-loader': 8.1.1(graphql@16.8.1)
       '@graphql-tools/git-loader': 8.0.5(graphql@16.8.1)
-      '@graphql-tools/github-loader': 8.0.1(@types/node@20.3.3)(graphql@16.8.1)
+      '@graphql-tools/github-loader': 8.0.1(@types/node@20.14.2)(graphql@16.8.1)
       '@graphql-tools/graphql-file-loader': 8.0.1(graphql@16.8.1)
       '@graphql-tools/json-file-loader': 8.0.1(graphql@16.8.1)
       '@graphql-tools/load': 8.0.2(graphql@16.8.1)
-      '@graphql-tools/prisma-loader': 8.0.4(@types/node@20.3.3)(graphql@16.8.1)
-      '@graphql-tools/url-loader': 8.0.2(@types/node@20.3.3)(graphql@16.8.1)
+      '@graphql-tools/prisma-loader': 8.0.4(@types/node@20.14.2)(graphql@16.8.1)
+      '@graphql-tools/url-loader': 8.0.2(@types/node@20.14.2)(graphql@16.8.1)
       '@graphql-tools/utils': 10.2.0(graphql@16.8.1)
       '@whatwg-node/fetch': 0.8.8
       chalk: 4.1.2
@@ -4956,7 +4968,7 @@ snapshots:
       debounce: 1.2.1
       detect-indent: 6.1.0
       graphql: 16.8.1
-      graphql-config: 5.0.3(@types/node@20.3.3)(graphql@16.8.1)(typescript@5.4.5)
+      graphql-config: 5.0.3(@types/node@20.14.2)(graphql@16.8.1)(typescript@5.4.5)
       inquirer: 8.2.6
       is-glob: 4.0.3
       jiti: 1.21.0
@@ -5175,14 +5187,14 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@graphql-tools/executor-http@1.0.9(@types/node@20.3.3)(graphql@16.8.1)':
+  '@graphql-tools/executor-http@1.0.9(@types/node@20.14.2)(graphql@16.8.1)':
     dependencies:
       '@graphql-tools/utils': 10.2.0(graphql@16.8.1)
       '@repeaterjs/repeater': 3.0.5
       '@whatwg-node/fetch': 0.9.17
       extract-files: 11.0.0
       graphql: 16.8.1
-      meros: 1.3.0(@types/node@20.3.3)
+      meros: 1.3.0(@types/node@20.14.2)
       tslib: 2.6.2
       value-or-promise: 1.0.12
     transitivePeerDependencies:
@@ -5230,10 +5242,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@graphql-tools/github-loader@8.0.1(@types/node@20.3.3)(graphql@16.8.1)':
+  '@graphql-tools/github-loader@8.0.1(@types/node@20.14.2)(graphql@16.8.1)':
     dependencies:
       '@ardatan/sync-fetch': 0.0.1
-      '@graphql-tools/executor-http': 1.0.9(@types/node@20.3.3)(graphql@16.8.1)
+      '@graphql-tools/executor-http': 1.0.9(@types/node@20.14.2)(graphql@16.8.1)
       '@graphql-tools/graphql-tag-pluck': 8.3.0(graphql@16.8.1)
       '@graphql-tools/utils': 10.2.0(graphql@16.8.1)
       '@whatwg-node/fetch': 0.9.17
@@ -5313,9 +5325,9 @@ snapshots:
       graphql: 16.8.1
       tslib: 2.6.2
 
-  '@graphql-tools/prisma-loader@8.0.4(@types/node@20.3.3)(graphql@16.8.1)':
+  '@graphql-tools/prisma-loader@8.0.4(@types/node@20.14.2)(graphql@16.8.1)':
     dependencies:
-      '@graphql-tools/url-loader': 8.0.2(@types/node@20.3.3)(graphql@16.8.1)
+      '@graphql-tools/url-loader': 8.0.2(@types/node@20.14.2)(graphql@16.8.1)
       '@graphql-tools/utils': 10.2.0(graphql@16.8.1)
       '@types/js-yaml': 4.0.9
       '@whatwg-node/fetch': 0.9.17
@@ -5373,12 +5385,12 @@ snapshots:
       tslib: 2.6.2
       value-or-promise: 1.0.12
 
-  '@graphql-tools/url-loader@8.0.2(@types/node@20.3.3)(graphql@16.8.1)':
+  '@graphql-tools/url-loader@8.0.2(@types/node@20.14.2)(graphql@16.8.1)':
     dependencies:
       '@ardatan/sync-fetch': 0.0.1
       '@graphql-tools/delegate': 10.0.7(graphql@16.8.1)
       '@graphql-tools/executor-graphql-ws': 1.1.2(graphql@16.8.1)
-      '@graphql-tools/executor-http': 1.0.9(@types/node@20.3.3)(graphql@16.8.1)
+      '@graphql-tools/executor-http': 1.0.9(@types/node@20.14.2)(graphql@16.8.1)
       '@graphql-tools/executor-legacy-ws': 1.0.6(graphql@16.8.1)
       '@graphql-tools/utils': 10.2.0(graphql@16.8.1)
       '@graphql-tools/wrap': 10.0.5(graphql@16.8.1)
@@ -5656,18 +5668,18 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@sveltejs/adapter-vercel@5.3.1(@sveltejs/kit@2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))':
+  '@sveltejs/adapter-vercel@5.3.1(@sveltejs/kit@2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))':
     dependencies:
-      '@sveltejs/kit': 2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3))
+      '@sveltejs/kit': 2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2))
       '@vercel/nft': 0.27.1
       esbuild: 0.20.2
     transitivePeerDependencies:
       - encoding
       - supports-color
 
-  '@sveltejs/kit@1.30.4(svelte@3.59.2)(vite@4.5.3(@types/node@20.3.3))':
+  '@sveltejs/kit@1.30.4(svelte@3.59.2)(vite@4.5.3(@types/node@20.14.2))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 2.5.3(svelte@3.59.2)(vite@4.5.3(@types/node@20.3.3))
+      '@sveltejs/vite-plugin-svelte': 2.5.3(svelte@3.59.2)(vite@4.5.3(@types/node@20.14.2))
       '@types/cookie': 0.5.4
       cookie: 0.5.0
       devalue: 4.3.3
@@ -5681,13 +5693,13 @@ snapshots:
       svelte: 3.59.2
       tiny-glob: 0.2.9
       undici: 5.28.4
-      vite: 4.5.3(@types/node@20.3.3)
+      vite: 4.5.3(@types/node@20.14.2)
     transitivePeerDependencies:
       - supports-color
 
-  '@sveltejs/kit@2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3))':
+  '@sveltejs/kit@2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3))
+      '@sveltejs/vite-plugin-svelte': 3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2))
       '@types/cookie': 0.6.0
       cookie: 0.6.0
       devalue: 5.0.0
@@ -5701,51 +5713,51 @@ snapshots:
       sirv: 2.0.4
       svelte: 4.2.18
       tiny-glob: 0.2.9
-      vite: 5.2.13(@types/node@20.3.3)
+      vite: 5.2.13(@types/node@20.14.2)
 
-  '@sveltejs/vite-plugin-svelte-inspector@1.0.4(@sveltejs/vite-plugin-svelte@2.5.3(svelte@3.59.2)(vite@4.5.3(@types/node@20.3.3)))(svelte@3.59.2)(vite@4.5.3(@types/node@20.3.3))':
+  '@sveltejs/vite-plugin-svelte-inspector@1.0.4(@sveltejs/vite-plugin-svelte@2.5.3(svelte@3.59.2)(vite@4.5.3(@types/node@20.14.2)))(svelte@3.59.2)(vite@4.5.3(@types/node@20.14.2))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 2.5.3(svelte@3.59.2)(vite@4.5.3(@types/node@20.3.3))
+      '@sveltejs/vite-plugin-svelte': 2.5.3(svelte@3.59.2)(vite@4.5.3(@types/node@20.14.2))
       debug: 4.3.4
       svelte: 3.59.2
-      vite: 4.5.3(@types/node@20.3.3)
+      vite: 4.5.3(@types/node@20.14.2)
     transitivePeerDependencies:
       - supports-color
 
-  '@sveltejs/vite-plugin-svelte-inspector@2.1.0(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3))':
+  '@sveltejs/vite-plugin-svelte-inspector@2.1.0(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3))
+      '@sveltejs/vite-plugin-svelte': 3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2))
       debug: 4.3.4
       svelte: 4.2.18
-      vite: 5.2.13(@types/node@20.3.3)
+      vite: 5.2.13(@types/node@20.14.2)
     transitivePeerDependencies:
       - supports-color
 
-  '@sveltejs/vite-plugin-svelte@2.5.3(svelte@3.59.2)(vite@4.5.3(@types/node@20.3.3))':
+  '@sveltejs/vite-plugin-svelte@2.5.3(svelte@3.59.2)(vite@4.5.3(@types/node@20.14.2))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte-inspector': 1.0.4(@sveltejs/vite-plugin-svelte@2.5.3(svelte@3.59.2)(vite@4.5.3(@types/node@20.3.3)))(svelte@3.59.2)(vite@4.5.3(@types/node@20.3.3))
+      '@sveltejs/vite-plugin-svelte-inspector': 1.0.4(@sveltejs/vite-plugin-svelte@2.5.3(svelte@3.59.2)(vite@4.5.3(@types/node@20.14.2)))(svelte@3.59.2)(vite@4.5.3(@types/node@20.14.2))
       debug: 4.3.4
       deepmerge: 4.3.1
       kleur: 4.1.5
       magic-string: 0.30.10
       svelte: 3.59.2
       svelte-hmr: 0.15.3(svelte@3.59.2)
-      vite: 4.5.3(@types/node@20.3.3)
-      vitefu: 0.2.5(vite@4.5.3(@types/node@20.3.3))
+      vite: 4.5.3(@types/node@20.14.2)
+      vitefu: 0.2.5(vite@4.5.3(@types/node@20.14.2))
     transitivePeerDependencies:
       - supports-color
 
-  '@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3))':
+  '@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte-inspector': 2.1.0(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3))
+      '@sveltejs/vite-plugin-svelte-inspector': 2.1.0(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2))
       debug: 4.3.4
       deepmerge: 4.3.1
       kleur: 4.1.5
       magic-string: 0.30.10
       svelte: 4.2.18
       svelte-hmr: 0.16.0(svelte@4.2.18)
-      vite: 5.2.13(@types/node@20.3.3)
-      vitefu: 0.2.5(vite@5.2.13(@types/node@20.3.3))
+      vite: 5.2.13(@types/node@20.14.2)
+      vitefu: 0.2.5(vite@5.2.13(@types/node@20.14.2))
     transitivePeerDependencies:
       - supports-color
 
@@ -5771,7 +5783,7 @@ snapshots:
       lodash: 4.17.21
       redent: 3.0.0
     optionalDependencies:
-      vitest: 1.6.0(@types/node@20.3.3)(jsdom@24.1.0)
+      vitest: 1.6.0(@types/node@20.14.2)(jsdom@24.1.0)
 
   '@testing-library/svelte@4.2.3(svelte@4.2.18)':
     dependencies:
@@ -5804,7 +5816,7 @@ snapshots:
 
   '@types/fs-extra@9.0.13':
     dependencies:
-      '@types/node': 20.3.3
+      '@types/node': 20.14.2
 
   '@types/js-yaml@4.0.9': {}
 
@@ -5815,7 +5827,9 @@ snapshots:
     dependencies:
       '@types/braces': 3.0.4
 
-  '@types/node@20.3.3': {}
+  '@types/node@20.14.2':
+    dependencies:
+      undici-types: 5.26.5
 
   '@types/phoenix@1.6.0': {}
 
@@ -5826,7 +5840,7 @@ snapshots:
 
   '@types/ws@8.5.10':
     dependencies:
-      '@types/node': 20.3.3
+      '@types/node': 20.14.2
 
   '@typescript-eslint/eslint-plugin@7.12.0(@typescript-eslint/parser@7.12.0(eslint@9.4.0)(typescript@5.4.5))(eslint@9.4.0)(typescript@5.4.5)':
     dependencies:
@@ -7033,13 +7047,13 @@ snapshots:
 
   graphemer@1.4.0: {}
 
-  graphql-config@5.0.3(@types/node@20.3.3)(graphql@16.8.1)(typescript@5.4.5):
+  graphql-config@5.0.3(@types/node@20.14.2)(graphql@16.8.1)(typescript@5.4.5):
     dependencies:
       '@graphql-tools/graphql-file-loader': 8.0.1(graphql@16.8.1)
       '@graphql-tools/json-file-loader': 8.0.1(graphql@16.8.1)
       '@graphql-tools/load': 8.0.2(graphql@16.8.1)
       '@graphql-tools/merge': 9.0.3(graphql@16.8.1)
-      '@graphql-tools/url-loader': 8.0.2(@types/node@20.3.3)(graphql@16.8.1)
+      '@graphql-tools/url-loader': 8.0.2(@types/node@20.14.2)(graphql@16.8.1)
       '@graphql-tools/utils': 10.2.0(graphql@16.8.1)
       cosmiconfig: 8.3.6(typescript@5.4.5)
       graphql: 16.8.1
@@ -7119,10 +7133,10 @@ snapshots:
       capital-case: 1.0.4
       tslib: 2.6.2
 
-  houdini-svelte@1.2.47(@types/node@20.3.3):
+  houdini-svelte@1.2.47(@types/node@20.14.2):
     dependencies:
       '@kitql/helpers': 0.8.9
-      '@sveltejs/kit': 1.30.4(svelte@3.59.2)(vite@4.5.3(@types/node@20.3.3))
+      '@sveltejs/kit': 1.30.4(svelte@3.59.2)(vite@4.5.3(@types/node@20.14.2))
       ast-types: 0.16.1
       estree-walker: 3.0.3
       graphql: 15.8.0
@@ -7130,7 +7144,7 @@ snapshots:
       recast: 0.23.6
       rollup: 3.29.4
       svelte: 3.59.2
-      vite: 4.5.3(@types/node@20.3.3)
+      vite: 4.5.3(@types/node@20.14.2)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -7609,9 +7623,9 @@ snapshots:
 
   merge2@1.4.1: {}
 
-  meros@1.3.0(@types/node@20.3.3):
+  meros@1.3.0(@types/node@20.14.2):
     optionalDependencies:
-      '@types/node': 20.3.3
+      '@types/node': 20.14.2
 
   micromatch@4.0.5:
     dependencies:
@@ -8338,9 +8352,9 @@ snapshots:
       magic-string: 0.30.10
       periscopic: 3.1.0
 
-  sveltekit-superforms@2.14.0(@sveltejs/kit@2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))(@types/json-schema@7.0.15)(esbuild-runner@2.2.2(esbuild@0.20.2))(esbuild@0.20.2)(svelte@4.2.18):
+  sveltekit-superforms@2.14.0(@sveltejs/kit@2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))(@types/json-schema@7.0.15)(esbuild-runner@2.2.2(esbuild@0.20.2))(esbuild@0.20.2)(svelte@4.2.18):
     dependencies:
-      '@sveltejs/kit': 2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.3.3))
+      '@sveltejs/kit': 2.5.10(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2)))(svelte@4.2.18)(vite@5.2.13(@types/node@20.14.2))
       devalue: 5.0.0
       just-clone: 6.2.0
       memoize-weak: 1.0.2
@@ -8505,6 +8519,8 @@ snapshots:
 
   unc-path-regex@0.1.2: {}
 
+  undici-types@5.26.5: {}
+
   undici@5.28.4:
     dependencies:
       '@fastify/busboy': 2.1.1
@@ -8560,13 +8576,13 @@ snapshots:
 
   value-or-promise@1.0.12: {}
 
-  vite-node@1.6.0(@types/node@20.3.3):
+  vite-node@1.6.0(@types/node@20.14.2):
     dependencies:
       cac: 6.7.14
       debug: 4.3.4
       pathe: 1.1.1
       picocolors: 1.0.0
-      vite: 5.2.13(@types/node@20.3.3)
+      vite: 5.2.13(@types/node@20.14.2)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -8587,33 +8603,33 @@ snapshots:
       '@kitql/helpers': 0.8.9
       micromatch: 4.0.5
 
-  vite@4.5.3(@types/node@20.3.3):
+  vite@4.5.3(@types/node@20.14.2):
     dependencies:
       esbuild: 0.18.20
       postcss: 8.4.38
       rollup: 3.29.4
     optionalDependencies:
-      '@types/node': 20.3.3
+      '@types/node': 20.14.2
       fsevents: 2.3.3
 
-  vite@5.2.13(@types/node@20.3.3):
+  vite@5.2.13(@types/node@20.14.2):
     dependencies:
       esbuild: 0.20.2
       postcss: 8.4.38
       rollup: 4.13.0
     optionalDependencies:
-      '@types/node': 20.3.3
+      '@types/node': 20.14.2
       fsevents: 2.3.3
 
-  vitefu@0.2.5(vite@4.5.3(@types/node@20.3.3)):
+  vitefu@0.2.5(vite@4.5.3(@types/node@20.14.2)):
     optionalDependencies:
-      vite: 4.5.3(@types/node@20.3.3)
+      vite: 4.5.3(@types/node@20.14.2)
 
-  vitefu@0.2.5(vite@5.2.13(@types/node@20.3.3)):
+  vitefu@0.2.5(vite@5.2.13(@types/node@20.14.2)):
     optionalDependencies:
-      vite: 5.2.13(@types/node@20.3.3)
+      vite: 5.2.13(@types/node@20.14.2)
 
-  vitest@1.6.0(@types/node@20.3.3)(jsdom@24.1.0):
+  vitest@1.6.0(@types/node@20.14.2)(jsdom@24.1.0):
     dependencies:
       '@vitest/expect': 1.6.0
       '@vitest/runner': 1.6.0
@@ -8625,18 +8641,18 @@ snapshots:
       debug: 4.3.4
       execa: 8.0.1
       local-pkg: 0.5.0
-      magic-string: 0.30.9
+      magic-string: 0.30.10
       pathe: 1.1.1
       picocolors: 1.0.0
       std-env: 3.6.0
       strip-literal: 2.0.0
       tinybench: 2.5.1
       tinypool: 0.8.3
-      vite: 5.2.13(@types/node@20.3.3)
-      vite-node: 1.6.0(@types/node@20.3.3)
+      vite: 5.2.13(@types/node@20.14.2)
+      vite-node: 1.6.0(@types/node@20.14.2)
       why-is-node-running: 2.2.2
     optionalDependencies:
-      '@types/node': 20.3.3
+      '@types/node': 20.14.2
       jsdom: 24.1.0
     transitivePeerDependencies:
       - less
