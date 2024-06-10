@@ -10,9 +10,7 @@ setup('authenticate', async ({ page }) => {
 	await page.getByLabel('Password').fill(PLAYWRIGHT_PASSWORD as string);
 	await page.getByRole('button', { name: 'Login' }).click();
 
-	await expect(
-		page.getByRole('heading', { level: 1, name: 'Dashboard' })
-	).toBeVisible();
+	await page.getByRole('heading', { level: 1, name: 'Dashboard' }).waitFor();
 
 	await page.context().storageState({ path: authFile });
 });
