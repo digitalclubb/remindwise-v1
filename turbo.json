@@ -4,7 +4,7 @@
 		"build": {
 			"dependsOn": ["^build"],
 			"outputs": [".svelte-kit/**", ".vercel/**"],
-			"env": ["PUBLIC_SUPABASE_URL", "PUBLIC_SUPABASE_KEY"]
+			"env": ["PUBLIC_SUPABASE_URL", "PUBLIC_SUPABASE_KEY", "VITE_PUBLIC_CLOUDINARY_CLOUD_NAME"]
 		},
 		"preview": {
 			"dependsOn": ["^build"]
@@ -19,8 +19,16 @@
 		"test:watch": {
 			"cache": false
 		},
-		"test:a11y": {},
-		"test:functional": {},
+		"test:a11y": {
+			"dependsOn": ["build"],
+			"outputs": [],
+			"env": ["PUBLIC_SUPABASE_URL", "PUBLIC_SUPABASE_KEY", "PLAYWRIGHT_USERNAME", "PLAYWRIGHT_PASSWORD", "VITE_PUBLIC_CLOUDINARY_CLOUD_NAME"]
+		},
+		"test:functional": {
+			"dependsOn": ["build"],
+			"outputs": [],
+			"env": ["PUBLIC_SUPABASE_URL", "PUBLIC_SUPABASE_KEY", "PLAYWRIGHT_USERNAME", "PLAYWRIGHT_PASSWORD", "VITE_PUBLIC_CLOUDINARY_CLOUD_NAME"]
+		},
 		"dev": {
 			"cache": false
 		}

@@ -1,5 +1,7 @@
 import type { Locator, Page } from '@playwright/test';
 
+const { PLAYWRIGHT_USERNAME } = process.env;
+
 export class Dashboard {
 	readonly page: Page;
 	readonly pageTitle: Locator;
@@ -15,7 +17,7 @@ export class Dashboard {
 		this.pageTitle = page.getByRole('heading', { level: 1 });
 		this.username = page.getByRole('heading', {
 			level: 3,
-			name: 'adrianaferrugento+qa@gmail.com',
+			name: PLAYWRIGHT_USERNAME,
 		});
 		this.firstCategory = page.getByRole('link', { name: 'First' });
 		this.secondCategory = page.getByRole('link', { name: 'Second' });
