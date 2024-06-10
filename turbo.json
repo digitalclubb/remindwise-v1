@@ -19,8 +19,14 @@
 		"test:watch": {
 			"cache": false
 		},
-		"test:a11y": {},
-		"test:functional": {},
+		"test:a11y": {
+			"dependsOn": ["build"],
+			"outputs": []
+		},
+		"test:functional": {
+			"dependsOn": ["build"],
+			"outputs": []
+		},
 		"dev": {
 			"cache": false
 		}

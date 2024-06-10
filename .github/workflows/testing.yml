@@ -49,8 +49,6 @@ jobs:
         uses: ./.github/actions/install-dependencies
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
-      - name: Build applications
-        run: pnpm build
       - name: Accessbility tests
         run: pnpm test:a11y
       - name: Functional tests
