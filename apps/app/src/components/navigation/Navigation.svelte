@@ -4,7 +4,7 @@
 	import AddModal from './addModal/AddModal.svelte';
 	import DeleteModal from './deleteModal/DeleteModal.svelte';
 
-	import Button from 'components/button/Button.svelte';
+	import { Button } from 'components';
 
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';

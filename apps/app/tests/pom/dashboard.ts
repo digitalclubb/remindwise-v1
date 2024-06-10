@@ -30,7 +30,7 @@ export class Dashboard {
 		});
 		this.firstCategory = page.getByRole('link', { name: 'First' });
 		this.secondCategory = page.getByRole('link', {
-			name: this.name + ' (0)',
+			name: `${this.name} (0)`,
 			exact: true,
 		});
 		this.menuButton = page.getByRole('button', { name: 'Menu button' });
@@ -40,17 +40,17 @@ export class Dashboard {
 			name: 'Add a new category',
 		});
 		this.secondCategoryEdit = page.getByRole('link', {
-			name: this.name + ' edit (0)',
+			name: `${this.name} edit (0)`,
 			exact: true,
 		});
 		this.secondOptionsButton = page.getByRole('button', {
-			name: 'Options for ' + this.name,
+			name: `Options for ${this.name}`,
 		});
 		this.secondEditButton = page.getByRole('button', {
-			name: 'Edit ' + this.name,
+			name: `Edit ${this.name}`,
 		});
 		this.secondDeleteButton = page.getByRole('button', {
-			name: 'Delete ' + this.name,
+			name: `Delete ${this.name}`,
 		});
 		this.editModalTitle = page.getByRole('heading', {
 			level: 2,

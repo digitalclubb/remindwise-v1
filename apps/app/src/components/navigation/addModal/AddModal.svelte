@@ -5,7 +5,7 @@
 	import { refresh } from '../../../stores';
 
 	import Input from 'components/input/Input.svelte';
-	import Button from 'components/button/Button.svelte';
+	import { Button } from 'components';
 
 	import Modal from '../../modal/Modal.svelte';
 	import { icons } from '../../icons/categories';
