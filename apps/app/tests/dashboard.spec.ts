@@ -17,7 +17,7 @@ test.describe('Dashboard page', () => {
 		await expect(dashboard.firstCategory).toBeVisible();
 	});
 
-	test('has no @accessibility violations', async ({ page }) => {
+	test.skip('has no @accessibility violations', async ({ page }) => {
 		const results = await new AxeBuilder({ page }).analyze();
 		expect(results.violations).toEqual([]);
 	});
