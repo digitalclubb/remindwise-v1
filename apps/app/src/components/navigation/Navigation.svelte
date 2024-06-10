@@ -4,7 +4,7 @@
 	import AddModal from './addModal/AddModal.svelte';
 	import DeleteModal from './deleteModal/DeleteModal.svelte';
 
-	import { Button } from 'components';
+	import Button from 'components/button/Button.svelte';
 
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
@@ -262,6 +262,12 @@
 									currentCategory = undefined;
 									showAddModal = true;
 								}}>Add a category</Button>
+
+							<button
+								on:click={() => {
+									currentCategory = undefined;
+									showAddModal = true;
+								}}>Hello</button>
 						</li>
 					</ul>
 					<ul class="settings">

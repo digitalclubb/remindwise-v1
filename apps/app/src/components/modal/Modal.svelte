@@ -4,7 +4,8 @@
 	export let showModal: boolean;
 	export let size: 'small' | undefined = undefined;
 	let dialog: HTMLDialogElement;
-
+	$: console.log('DIALOG', dialog);
+	$: console.log('showModal', showModal);
 	$: if (dialog && showModal) dialog.showModal();
 	$: if (dialog && showModal === false) dialog.close();
 </script>

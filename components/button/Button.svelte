@@ -6,7 +6,7 @@
 	}
 
 	export let style: string | undefined = undefined;
-	export let onClick: (() => void) | undefined = undefined;
+	export let onClick = () => alert('Button clicked');
 </script>
 
 <button

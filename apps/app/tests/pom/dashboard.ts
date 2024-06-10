@@ -30,6 +30,8 @@ export class Dashboard {
 	}
 
 	async goto() {
-		await this.page.goto('/');
+		await this.page.goto('/', {
+			waitUntil: 'domcontentloaded',
+		});
 	}
 }

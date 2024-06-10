@@ -1,18 +1,25 @@
 import { devices } from '@playwright/test';
 import config from '../../playwright.config';
 import dotenv from 'dotenv';
+import path from 'path';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 dotenv.config();
 
 export default {
 	...config,
 	projects: [
-		{ name: 'setup', testMatch: /.*\.setup\.ts/ },
+		{
+			name: 'setup',
+			testMatch: require.resolve('./tests/auth.setup.ts'),
+			testDir: path.dirname(require.resolve('./tests/auth.setup.ts')),
+		},
 		{
 			name: 'chromium',
 			use: {
 				...devices['Desktop Chrome'],
-				storageState: 'playwright/.auth/user.json',
+				storageState: './playwright/.auth/user.json',
 			},
 
 			dependencies: ['setup'],
@@ -21,7 +28,7 @@ export default {
 			name: 'Mobile Safari',
 			use: {
 				...devices['iPhone 12'],
-				storageState: 'playwright/.auth/user.json',
+				storageState: './playwright/.auth/user.json',
 			},
 			dependencies: ['setup'],
 		},
