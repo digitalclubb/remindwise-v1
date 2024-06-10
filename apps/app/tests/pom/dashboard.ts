@@ -29,8 +29,10 @@ export class Dashboard {
 			name: PLAYWRIGHT_USERNAME,
 		});
 		this.firstCategory = page.getByRole('link', { name: 'First' });
-		this.secondCategory = page.getByRole('link', { name: this.name + ' (0)', 
-			exact: true, });
+		this.secondCategory = page.getByRole('link', {
+			name: this.name + ' (0)',
+			exact: true,
+		});
 		this.menuButton = page.getByRole('button', { name: 'Menu button' });
 		this.addCategory = page.getByRole('button', { name: 'Add a category' });
 		this.addModalTitle = page.getByRole('heading', {
