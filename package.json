@@ -17,6 +17,7 @@
 	"devDependencies": {
 		"@playwright/test": "1.44.1",
 		"@testing-library/jest-dom": "6.4.5",
+		"eslint-plugin-playwright": "1.6.2",
 		"globals": "15.4.0",
 		"turbo": "2.0.3"
 	},

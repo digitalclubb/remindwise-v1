@@ -109,6 +109,7 @@
 					bind:group={$form.icon}
 					{...$constraints.icon} />
 				<label for="{icon}-icon">
+					<span class="visually-hidden">{icon} icon</span>
 					<svg><use xlink:href="#{icon}" /></svg>
 				</label>
 			{/each}
@@ -183,5 +184,18 @@
 		border-radius: 0.5rem;
 		border: 1px solid var(--greyed-out);
 		fill: var(--orange);
+	}
+
+	.visually-hidden {
+		position: absolute;
+		margin: -1px;
+		border: 0;
+		width: 1px;
+		height: 1px;
+		clip: rect(0 0 0 0);
+		clip-path: inset(50%);
+		overflow: hidden;
+		white-space: nowrap;
+		word-wrap: normal;
 	}
 </style>

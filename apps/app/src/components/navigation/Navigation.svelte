@@ -14,6 +14,11 @@
 	import Link from 'components/link/Link.svelte';
 
 	import type { Categories } from '@graphql/types';
+	import { onMount } from 'svelte';
+
+	let mounted: boolean = false;
+	onMount(() => (mounted = true));
+
 	export let categoriesStore: getCategoriesStore;
 	export let settingsStore: getSettingsStore;
 	$: categories = $categoriesStore.data?.categories?.list;
@@ -133,7 +138,7 @@
 				class="logo"
 				width="170"
 				height="27" /></a>
-		<button on:click={showNav} aria-label="Menu button"
+		<button disabled={!mounted} on:click={showNav} aria-label="Menu button"
 			><svg aria-hidden="true" class="menu">
 				<use xlink:href="#icon-menu"></use>
 			</svg></button>
@@ -209,10 +214,12 @@
 									<button
 										class="icon-button"
 										class:active={clicked === index}
+										disabled={!mounted}
 										on:click={(e) => {
 											e.stopPropagation();
 											onClickOptions(index);
 										}}
+										aria-label={'Options for ' + category.category.name}
 										><svg>
 											<use xlink:href="#icon-edit"></use>
 										</svg></button>
@@ -220,6 +227,7 @@
 										<li>
 											<button
 												class="edit"
+												aria-label={'Edit ' + category.category.name}
 												on:click={() => {
 													currentCategory = {
 														id: category.category.id,
@@ -229,12 +237,13 @@
 													showAddModal = true;
 													clicked = -1;
 												}}
-												>Edit <svg>
+												>Edit <svg aria-hidden={true}>
 													<use xlink:href="#icon-edit-category"></use>
 												</svg></button>
 										</li>
 										<li>
 											<button
+												aria-label={'Delete ' + category.category.name}
 												on:click={() => {
 													currentCategory = {
 														id: category.category.id,
@@ -244,7 +253,7 @@
 													showDeleteModal = true;
 													clicked = -1;
 												}}
-												>Delete <svg>
+												>Delete <svg aria-hidden={true}>
 													<use xlink:href="#icon-delete"></use>
 												</svg></button>
 										</li>
@@ -262,12 +271,6 @@
 									currentCategory = undefined;
 									showAddModal = true;
 								}}>Add a category</Button>
-
-							<button
-								on:click={() => {
-									currentCategory = undefined;
-									showAddModal = true;
-								}}>Hello</button>
 						</li>
 					</ul>
 					<ul class="settings">

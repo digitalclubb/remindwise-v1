@@ -4,6 +4,7 @@ import globals from 'globals';
 import eslintJs from '@eslint/js';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import eslintPluginSvelte from 'eslint-plugin-svelte';
+import playwright from 'eslint-plugin-playwright'
 
 export default [
 	eslintJs.configs.recommended,
@@ -21,6 +22,14 @@ export default [
 			'**/.vercel',
 			'**/$houdini',
 		],
+	},
+	{
+		...playwright.configs['flat/recommended'],
+		files: ['tests/**'],
+		rules: {
+			...playwright.configs['flat/recommended'].rules,
+			'playwright/no-conditional-in-test': 'off',
+		},
 	},
 	{
 		files: ['**/*.svelte'],

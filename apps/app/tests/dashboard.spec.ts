@@ -2,14 +2,12 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 import { Dashboard } from './pom/dashboard';
-const { PLAYWRIGHT_USERNAME, PLAYWRIGHT_PASSWORD } = process.env;
 
 let dashboard: Dashboard;
 
-// test.use({ storageState: { cookies: [], origins: [] } });
 test.describe('Dashboard page', () => {
-	test.beforeEach(async ({ page }) => {
-		dashboard = new Dashboard(page);
+	test.beforeEach(async ({ page, isMobile }) => {
+		dashboard = new Dashboard(page, isMobile);
 		await dashboard.goto();
 		await page.getByRole('heading', { level: 1, name: 'Dashboard' }).waitFor();
 	});
@@ -20,44 +18,55 @@ test.describe('Dashboard page', () => {
 		await expect(dashboard.firstCategory).toBeVisible();
 	});
 
-	test.only('@functional I can add, edit and delete a category', async ({
-		page,
+	test('@functional I can add, edit and delete a category', async ({
 		isMobile,
 	}) => {
-		// await page.goto('/login', { waitUntil: 'domcontentloaded' });
+		if (isMobile) {
+			await dashboard.menuButton.click();
+		}
 
-		// await page.getByText('Login to your account').waitFor();
+		/** Add */
+		await dashboard.addCategory.click();
 
-		// await page.getByLabel('Email').fill(PLAYWRIGHT_USERNAME as string);
-		// await page.getByLabel('Password').fill(PLAYWRIGHT_PASSWORD as string);
-		// await page.getByRole('button', { name: 'Login' }).click();
+		await dashboard.addModalTitle.waitFor();
 
-		// await page.getByRole('heading', { level: 1, name: 'Dashboard' }).waitFor();
+		await dashboard.addCategoryForm();
+
+		await expect(dashboard.addModalTitle).toBeHidden();
+		await expect(dashboard.secondCategory).toBeVisible();
+
+		/** Edit */
+		await Promise.all([
+			dashboard.secondCategory.hover(),
+			dashboard.secondOptionsButton.click(),
+		]);
+
+		await dashboard.secondEditButton.click();
+
+		await dashboard.editModalTitle.waitFor();
+
+		await dashboard.editCategoryForm();
+		await expect(dashboard.addModalTitle).toBeHidden();
+		await expect(dashboard.secondCategoryEdit).toBeVisible();
 
 		if (isMobile) {
 			await dashboard.menuButton.click();
 		}
 
-		await page.getByRole('button', { name: 'Add a category' }).click();
+		/** Delete */
+		await Promise.all([
+			dashboard.secondCategoryEdit.hover(),
+			dashboard.secondOptionsButton.click(),
+		]);
 
-		await page
-			.getByRole('heading', {
-				level: 2,
-				name: 'Add a new category',
-			})
-			.waitFor();
+		await dashboard.secondDeleteButton.click();
 
-		await page.pause();
-		await page.getByRole('textbox', { name: 'Category name' }).fill('Second');
-		console.log(page.getByRole('radio', { name: 'break icon' }));
-		console.log(page.getByRole('radio', { name: 'break icon' }).check);
-		await page.getByRole('radio', { name: /break/ }).focus();
-		await page.getByRole('radio', { name: /break/ }).click({ force: true });
+		await dashboard.deleteModalTitle.waitFor();
 
-		await page.getByRole('button', { name: 'Add category' }).click();
+		await dashboard.deleteModalButton.click();
 
-		await expect(dashboard.addModalTitle).not.toBeVisible();
-		await expect(dashboard.secondCategory).toBeVisible();
+		await expect(dashboard.deleteModalTitle).toBeHidden();
+		await expect(dashboard.secondCategoryEdit).toBeHidden();
 	});
 
 	test('has no @accessibility violations', async ({ page }) => {
