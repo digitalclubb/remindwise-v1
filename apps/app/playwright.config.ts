@@ -37,6 +37,7 @@ export default defineConfig({
 	},
 	webServer: {
 		command: 'pnpm preview',
+		url: 'http://localhost:4174',
 		reuseExistingServer: !process.env.CI,
 	},
 });
