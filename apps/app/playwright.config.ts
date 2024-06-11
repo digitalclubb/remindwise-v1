@@ -1,5 +1,8 @@
-import config from '../../playwright.config';
 import { devices } from '@playwright/test';
+import config from '../../playwright.config';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export default {
 	...config,
@@ -9,7 +12,7 @@ export default {
 			name: 'chromium',
 			use: {
 				...devices['Desktop Chrome'],
-				storageState: 'playwright/.auth/user.json',
+				storageState: './playwright/.auth/user.json',
 			},
 
 			dependencies: ['setup'],
@@ -18,7 +21,7 @@ export default {
 			name: 'Mobile Safari',
 			use: {
 				...devices['iPhone 12'],
-				storageState: 'playwright/.auth/user.json',
+				storageState: './playwright/.auth/user.json',
 			},
 			dependencies: ['setup'],
 		},

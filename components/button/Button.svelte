@@ -1,5 +1,10 @@
 <script lang="ts">
 	import type { HTMLButtonAttributes } from 'svelte/elements';
+	import { onMount } from 'svelte';
+
+	let mounted: boolean = false;
+	onMount(() => (mounted = true));
+
 	interface $$Props extends HTMLButtonAttributes {
 		style?: 'secondary' | 'tertiary' | 'delete';
 		onClick?: () => void;
@@ -11,6 +16,7 @@
 
 <button
 	{...$$restProps}
+	disabled={!mounted}
 	class="button"
 	class:secondary={style === 'secondary'}
 	class:tertiary={style === 'tertiary'}

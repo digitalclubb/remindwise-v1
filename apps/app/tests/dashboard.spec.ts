@@ -6,15 +6,67 @@ import { Dashboard } from './pom/dashboard';
 let dashboard: Dashboard;
 
 test.describe('Dashboard page', () => {
-	test.beforeEach(async ({ page }) => {
-		dashboard = new Dashboard(page);
+	test.beforeEach(async ({ page, isMobile }) => {
+		dashboard = new Dashboard(page, isMobile);
 		await dashboard.goto();
+		await page.getByRole('heading', { level: 1, name: 'Dashboard' }).waitFor();
 	});
 
 	test('@functional page loads correctly', async () => {
 		await expect(dashboard.pageTitle).toHaveText('Dashboard');
 		await expect(dashboard.username).toBeVisible();
 		await expect(dashboard.firstCategory).toBeVisible();
+	});
+
+	test('@functional I can add, edit and delete a category', async ({
+		isMobile,
+	}) => {
+		if (isMobile) {
+			await dashboard.menuButton.click();
+		}
+
+		/** Add */
+		await dashboard.addCategory.click();
+
+		await dashboard.addModalTitle.waitFor();
+
+		await dashboard.addCategoryForm();
+
+		await expect(dashboard.addModalTitle).toBeHidden();
+		await expect(dashboard.secondCategory).toBeVisible();
+
+		/** Edit */
+		await Promise.all([
+			dashboard.secondCategory.hover(),
+			dashboard.secondOptionsButton.click(),
+		]);
+
+		await dashboard.secondEditButton.click();
+
+		await dashboard.editModalTitle.waitFor();
+
+		await dashboard.editCategoryForm();
+		await expect(dashboard.addModalTitle).toBeHidden();
+		await expect(dashboard.secondCategoryEdit).toBeVisible();
+
+		if (isMobile) {
+			await dashboard.menuButton.click();
+		}
+
+		/** Delete */
+		await Promise.all([
+			dashboard.secondCategoryEdit.hover(),
+			dashboard.secondOptionsButton.click(),
+		]);
+
+		await dashboard.secondDeleteButton.click();
+
+		await dashboard.deleteModalTitle.waitFor();
+
+		await dashboard.deleteModalButton.click();
+
+		await expect(dashboard.deleteModalTitle).toBeHidden();
+		await expect(dashboard.secondCategoryEdit).toBeHidden();
 	});
 
 	test('has no @accessibility violations', async ({ page }) => {

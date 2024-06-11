@@ -54,7 +54,7 @@ jobs:
       - name: Functional tests
         run: pnpm test:functional
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: failure()
         with:
           name: playwright-results
           path: '**/test-results'
