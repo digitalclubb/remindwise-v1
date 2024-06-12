@@ -14,5 +14,5 @@ runs:
         key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
     - name: Install playwright binaries
       if: steps.playwright-cache.outputs.cache-hit != 'true'
-      run: pnpm dlx @playwright/test@${{ env.PLAYWRIGHT_VERSION }} install
+      run: pnpm dlx @playwright/test@${{ env.PLAYWRIGHT_VERSION }} install --with-deps
       shell: bash
