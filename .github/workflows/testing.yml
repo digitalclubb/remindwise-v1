@@ -40,18 +40,33 @@ jobs:
         uses: ./.github/actions/install-dependencies
       - name: Unit tests
         run: pnpm test
-  playwright:
-    name: Browser tests
+  accessibility:
+    name: Accessibility tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
         uses: ./.github/actions/install-dependencies
-      - name: Install Playwright Browsers
-        run: pnpm exec playwright install --with-deps
-      - name: Accessbility tests
+      - name: Install Playwright
+        uses: ./.github/actions/install-playwright
+      - name: Run tests
         run: pnpm test:a11y
-      - name: Functional tests
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-results
+          path: '**/test-results'
+          retention-days: 10
+  functional:
+    name: Functional tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        uses: ./.github/actions/install-dependencies
+      - name: Install Playwright
+        uses: ./.github/actions/install-playwright
+      - name: Run tests
         run: pnpm test:functional
       - uses: actions/upload-artifact@v4
         if: failure()
