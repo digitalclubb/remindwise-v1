@@ -23,11 +23,6 @@
 	},
 	"prepare": "svelte-kit sync",
 	"packageManager": "pnpm@9.3.0",
-	"pnpm": {
-		"overrides": {
-			"playwright-core": "1.44.1"
-		}
-	},
 	"dependencies": {
 		"@supabase/supabase-js": "2.43.4"
 	}
