@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { getCldImageUrl } from 'svelte-cloudinary';
 	import { Link } from 'components';
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '@sveltejs/kit';
@@ -16,37 +15,6 @@
 			await update();
 		};
 	};
-
-	// Images
-	const heroSmall = getCldImageUrl({
-		src: 'hero_llo9q9.png',
-		width: 480,
-		height: 273,
-	});
-
-	const hero = getCldImageUrl({
-		src: 'hero_llo9q9.png',
-		width: 805,
-		height: 458,
-	});
-
-	const reminders = getCldImageUrl({
-		src: 'reminders_su5hwt.png',
-		width: 495,
-		height: 361,
-	});
-
-	const laptop = getCldImageUrl({
-		src: 'laptop_khigic.png',
-		width: 596,
-		height: 422,
-	});
-
-	const spending = getCldImageUrl({
-		src: 'spending_dwhgza.png',
-		width: 458,
-		height: 392,
-	});
 </script>
 
 <svelte:head>
@@ -81,10 +49,8 @@
 			</div>
 
 			<img
-				src={hero}
-				alt="Large hand holding phone with Remindwise app open. Other hands in the background waving paper statements and bills."
-				srcset="{heroSmall} 480w, {hero} 805w"
-				sizes="(min-width: 768px) 805px, 100vw" />
+				src="images/hero.png"
+				alt="Large hand holding phone with Remindwise app open. Other hands in the background waving paper statements and bills." />
 		</div>
 	</section>
 
@@ -102,7 +68,7 @@
 			</div>
 
 			<img
-				src={reminders}
+				src="images/reminders.png"
 				alt="A persons hand using Remindwise app. Adding a reminder." />
 		</section>
 
@@ -120,7 +86,7 @@
 			</div>
 
 			<img
-				src={laptop}
+				src="images/laptop.png"
 				alt="A person using a laptop, looking at the Remindwise app" />
 		</section>
 
@@ -138,7 +104,7 @@
 			</div>
 
 			<img
-				src={spending}
+				src="images/spending.png"
 				alt="A persons hand using Remindwise app. Viewing their total monthly spend." />
 		</section>
 
