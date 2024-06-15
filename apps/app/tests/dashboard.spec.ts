@@ -12,65 +12,81 @@ test.describe('Dashboard page', () => {
 		await page.getByRole('heading', { level: 1, name: 'Dashboard' }).waitFor();
 	});
 
-	test('@functional page loads correctly', async () => {
-		await expect(dashboard.pageTitle).toHaveText('Dashboard');
-		await expect(dashboard.username).toBeVisible();
-		await expect(dashboard.firstCategory).toBeVisible();
-	});
-
-	test('@functional I can add, edit and delete a category', async ({
-		isMobile,
-	}) => {
-		if (isMobile) {
-			await dashboard.menuButton.click();
+	test(
+		'page loads correctly',
+		{
+			tag: '@functional',
+		},
+		async () => {
+			await expect(dashboard.pageTitle).toHaveText('Dashboard');
+			await expect(dashboard.username).toBeVisible();
+			await expect(dashboard.firstCategory).toBeVisible();
 		}
+	);
 
-		/** Add */
-		await dashboard.addCategory.click();
+	test(
+		'I can add, edit and delete a category',
+		{
+			tag: '@functional',
+		},
+		async ({ isMobile }) => {
+			if (isMobile) {
+				await dashboard.menuButton.click();
+			}
 
-		await dashboard.addModalTitle.waitFor();
+			/** Add */
+			await dashboard.addCategory.click();
 
-		await dashboard.addCategoryForm();
+			await dashboard.addModalTitle.waitFor();
 
-		await expect(dashboard.addModalTitle).toBeHidden();
-		await expect(dashboard.secondCategory).toBeVisible();
+			await dashboard.addCategoryForm();
 
-		/** Edit */
-		await Promise.all([
-			dashboard.secondCategory.hover(),
-			dashboard.secondOptionsButton.click(),
-		]);
+			await expect(dashboard.addModalTitle).toBeHidden();
+			await expect(dashboard.secondCategory).toBeVisible();
 
-		await dashboard.secondEditButton.click();
+			/** Edit */
+			await Promise.all([
+				dashboard.secondCategory.hover(),
+				dashboard.secondOptionsButton.click(),
+			]);
 
-		await dashboard.editModalTitle.waitFor();
+			await dashboard.secondEditButton.click();
 
-		await dashboard.editCategoryForm();
-		await expect(dashboard.addModalTitle).toBeHidden();
-		await expect(dashboard.secondCategoryEdit).toBeVisible();
+			await dashboard.editModalTitle.waitFor();
 
-		if (isMobile) {
-			await dashboard.menuButton.click();
+			await dashboard.editCategoryForm();
+			await expect(dashboard.addModalTitle).toBeHidden();
+			await expect(dashboard.secondCategoryEdit).toBeVisible();
+
+			if (isMobile) {
+				await dashboard.menuButton.click();
+			}
+
+			/** Delete */
+			await Promise.all([
+				dashboard.secondCategoryEdit.hover(),
+				dashboard.secondOptionsButton.click(),
+			]);
+
+			await dashboard.secondDeleteButton.click();
+
+			await dashboard.deleteModalTitle.waitFor();
+
+			await dashboard.deleteModalButton.click();
+
+			await expect(dashboard.deleteModalTitle).toBeHidden();
+			await expect(dashboard.secondCategoryEdit).toBeHidden();
 		}
+	);
 
-		/** Delete */
-		await Promise.all([
-			dashboard.secondCategoryEdit.hover(),
-			dashboard.secondOptionsButton.click(),
-		]);
-
-		await dashboard.secondDeleteButton.click();
-
-		await dashboard.deleteModalTitle.waitFor();
-
-		await dashboard.deleteModalButton.click();
-
-		await expect(dashboard.deleteModalTitle).toBeHidden();
-		await expect(dashboard.secondCategoryEdit).toBeHidden();
-	});
-
-	test('has no @accessibility violations', async ({ page }) => {
-		const results = await new AxeBuilder({ page }).analyze();
-		expect(results.violations).toEqual([]);
-	});
+	test(
+		'has no accessibility violations',
+		{
+			tag: '@accessibility',
+		},
+		async ({ page }) => {
+			const results = await new AxeBuilder({ page }).analyze();
+			expect(results.violations).toEqual([]);
+		}
+	);
 });
