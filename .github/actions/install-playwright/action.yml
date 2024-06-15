@@ -3,7 +3,7 @@ description: 'Installs Playwright and its binaries'
 runs:
   using: 'composite'
   steps:
-    - name: playwright version
+    - name: Playwright version
       run: echo "PLAYWRIGHT_VERSION=$(jq -r '.devDependencies."@playwright/test"' < ./package.json)" >> $GITHUB_ENV
       shell: bash
     - name: playwright cache
@@ -12,7 +12,7 @@ runs:
       with:
         path: ~/.cache/ms-playwright
         key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
-    - name: Install playwright binaries
+    - name: Install Playwright binaries
       if: steps.playwright-cache.outputs.cache-hit != 'true'
-      run: pnpm dlx playwright@${{ env.PLAYWRIGHT_VERSION }} install --with-deps
+      run: pnpm dlx @playwright/test@${{ env.PLAYWRIGHT_VERSION }} install
       shell: bash
