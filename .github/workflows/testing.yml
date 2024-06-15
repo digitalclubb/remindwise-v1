@@ -49,10 +49,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install dependencies
         uses: ./.github/actions/install-dependencies
+      - name: Install Playwright      
+        uses: ./.github/actions/install-playwright
       - name: Run tests
-        run: PLAYWRIGHT_BROWSERS_PATH=$HOME/pw-browsers pnpm test:a11y
-        env:
-          HOME: /root
+        run: pnpm test:a11y
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
