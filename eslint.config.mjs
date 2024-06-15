@@ -17,7 +17,6 @@ export default [
 			'.vscode/',
 			'**/node_modules/',
 			'**/.svelte-kit/',
-			'**/.turbo/',
 			'**/graphql/types.ts',
 			'**/.vercel',
 			'**/$houdini',
