@@ -2,24 +2,23 @@
 	"name": "remindwise-monorepo",
 	"private": true,
 	"scripts": {
-		"build": "turbo run build",
-		"preview": "turbo run preview",
-		"dev": "turbo run dev --parallel",
-		"lint": "turbo run lint",
-		"format": "turbo run format",
-		"format:write": "turbo run format:write",
-		"test": "turbo run test",
-		"test:watch": "turbo run test:watch",
-		"test:a11y": "turbo run test:a11y",
-		"test:functional": "turbo run test:functional",
-		"types": "turbo run types"
+		"build": "pnpm -r build",
+		"preview": "pnpm -r preview",
+		"dev": "pnpm -r --parallel dev",
+		"lint": "pnpm -r lint",
+		"format": "pnpm -r format",
+		"format:write": "pnpm -r format:write",
+		"test": "pnpm -r test",
+		"test:watch": "pnpm -r test:watch",
+		"test:a11y": "pnpm -r test:a11y",
+		"test:functional": "pnpm -r test:functional",
+		"types": "pnpm -r types"
 	},
 	"devDependencies": {
 		"@playwright/test": "1.44.1",
 		"@testing-library/jest-dom": "6.4.6",
 		"eslint-plugin-playwright": "1.6.2",
-		"globals": "15.4.0",
-		"turbo": "2.0.4"
+		"globals": "15.4.0"
 	},
 	"prepare": "svelte-kit sync",
 	"packageManager": "pnpm@9.3.0",
