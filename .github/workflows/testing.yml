@@ -18,7 +18,7 @@ env:
 jobs:
   quality-static:
     name: Static code analysis
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
@@ -33,7 +33,7 @@ jobs:
         run: pnpm format
   unit-tests:
     name: Unit tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
@@ -42,7 +42,7 @@ jobs:
         run: pnpm test
   accessibility:
     name: Accessibility tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
@@ -59,7 +59,7 @@ jobs:
           retention-days: 10
   functional:
     name: Functional tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
@@ -76,7 +76,7 @@ jobs:
           retention-days: 10
   lighthouse:
     name: Lighthouse
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
