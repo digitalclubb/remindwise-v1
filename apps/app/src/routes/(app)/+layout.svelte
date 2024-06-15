@@ -5,13 +5,14 @@
 
 	import { goto, invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
 	export let data;
 	$: ({ supabase, session, getCategories, getSettings } = data);
 
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange((_, newSession) => {
-			if (!newSession) {
+			if (!newSession && $page.url.pathname !== '/settings/update-password') {
 				/**
 				 * Queue this as a task so the navigation won't prevent the
 				 * triggering function from completing
