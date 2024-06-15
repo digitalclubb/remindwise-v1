@@ -12,11 +12,15 @@ test.describe('Register page', () => {
 		await register.goto();
 	});
 
-	test('@functional has correct title', async () => {
+	test('has correct title', {
+		tag: '@functional',
+	  }, async () => {
 		await expect(register.pageTitle).toHaveText('Sign up');
 	});
 
-	test('has no @accessibility violations', async ({ page }) => {
+	test('has no accessibility violations', {
+		tag: '@accessibility',
+	  }, async ({ page }) => {
 		const results = await new AxeBuilder({ page }).analyze();
 		expect(results.violations).toEqual([]);
 	});

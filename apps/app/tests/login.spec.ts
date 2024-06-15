@@ -10,11 +10,15 @@ test.describe('Login page', () => {
 		await login.goto();
 	});
 
-	test('@functional has correct title', async () => {
+	test('has correct title', {
+		tag: '@functional',
+	  }, async () => {
 		await expect(login.pageTitle).toHaveText('Login to your account');
 	});
 
-	test('has no @accessibility violations', async ({ page }) => {
+	test('has no accessibility violations', {
+		tag: '@accessibility',
+	  }, async ({ page }) => {
 		const results = await new AxeBuilder({ page }).analyze();
 		expect(results.violations).toEqual([]);
 	});

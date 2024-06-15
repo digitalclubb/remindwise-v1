@@ -10,12 +10,24 @@ test.describe('Homepage', () => {
 		await homepage.goto();
 	});
 
-	test('@functional has correct title', async () => {
-		await expect(homepage.emailInput).toBeVisible();
-	});
+	test(
+		'has correct title',
+		{
+			tag: '@functional',
+		},
+		async () => {
+			await expect(homepage.emailInput).toBeVisible();
+		}
+	);
 
-	test('has no @accessibility violations', async ({ page }) => {
-		const results = await new AxeBuilder({ page }).analyze();
-		expect(results.violations).toEqual([]);
-	});
+	test(
+		'has no accessbility violations',
+		{
+			tag: '@accessbility',
+		},
+		async ({ page }) => {
+			const results = await new AxeBuilder({ page }).analyze();
+			expect(results.violations).toEqual([]);
+		}
+	);
 });

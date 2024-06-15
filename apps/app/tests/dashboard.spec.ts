@@ -12,13 +12,17 @@ test.describe('Dashboard page', () => {
 		await page.getByRole('heading', { level: 1, name: 'Dashboard' }).waitFor();
 	});
 
-	test('@functional page loads correctly', async () => {
+	test('page loads correctly', {
+		tag: '@functional',
+	  }, async () => {
 		await expect(dashboard.pageTitle).toHaveText('Dashboard');
 		await expect(dashboard.username).toBeVisible();
 		await expect(dashboard.firstCategory).toBeVisible();
 	});
 
-	test('@functional I can add, edit and delete a category', async ({
+	test('I can add, edit and delete a category', {
+		tag: '@functional',
+	  }, async ({
 		isMobile,
 	}) => {
 		if (isMobile) {
@@ -69,7 +73,9 @@ test.describe('Dashboard page', () => {
 		await expect(dashboard.secondCategoryEdit).toBeHidden();
 	});
 
-	test('has no @accessibility violations', async ({ page }) => {
+	test('has no accessibility violations', {
+		tag: '@accessbility',
+	  }, async ({ page }) => {
 		const results = await new AxeBuilder({ page }).analyze();
 		expect(results.violations).toEqual([]);
 	});
