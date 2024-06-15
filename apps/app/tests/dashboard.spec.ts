@@ -74,7 +74,7 @@ test.describe('Dashboard page', () => {
 	});
 
 	test('has no accessibility violations', {
-		tag: '@accessbility',
+		tag: '@accessibility',
 	  }, async ({ page }) => {
 		const results = await new AxeBuilder({ page }).analyze();
 		expect(results.violations).toEqual([]);

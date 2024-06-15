@@ -21,9 +21,9 @@ test.describe('Homepage', () => {
 	);
 
 	test(
-		'has no accessbility violations',
+		'has no accessibility violations',
 		{
-			tag: '@accessbility',
+			tag: '@accessibility',
 		},
 		async ({ page }) => {
 			const results = await new AxeBuilder({ page }).analyze();
