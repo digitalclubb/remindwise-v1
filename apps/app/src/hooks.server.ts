@@ -78,6 +78,8 @@ const authGuard: Handle = async ({ event, resolve }) => {
 		!event.locals.session &&
 		event.url.pathname !== '/login' &&
 		event.url.pathname !== '/forgot-password' &&
+		event.url.pathname !== '/auth/callback' &&
+		event.url.pathname !== '/settings/update-password' &&
 		event.url.pathname !== '/register'
 	) {
 		return redirect(303, '/login');
