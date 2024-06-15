@@ -80,6 +80,51 @@ test.describe('Dashboard page', () => {
 	);
 
 	test(
+		'I can navigate to the first category page',
+		{
+			tag: '@functional',
+		},
+		async ({ isMobile, page }) => {
+			if (isMobile) {
+				await dashboard.menuButton.click();
+			}
+
+			await dashboard.firstCategory.click();
+			await expect(dashboard.pageTitle).toHaveText('First');
+		}
+	);
+
+	test(
+		'I can navigate to add a reminder page',
+		{
+			tag: '@functional',
+		},
+		async ({ isMobile, page }) => {
+			if (isMobile) {
+				await dashboard.menuButton.click();
+			}
+
+			await dashboard.addReminder.click();
+			await expect(dashboard.pageTitle).toHaveText('Add a reminder');
+		}
+	);
+
+	test(
+		'I can navigate to settings page',
+		{
+			tag: '@functional',
+		},
+		async ({ isMobile, page }) => {
+			if (isMobile) {
+				await dashboard.menuButton.click();
+			}
+
+			await dashboard.settings.click();
+			await expect(dashboard.pageTitle).toHaveText('Settings');
+		}
+	);
+
+	test(
 		'has no accessibility violations',
 		{
 			tag: '@accessibility',

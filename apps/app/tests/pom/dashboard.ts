@@ -10,6 +10,7 @@ export class Dashboard {
 	readonly firstCategory: Locator;
 	readonly secondCategory: Locator;
 	readonly menuButton: Locator;
+	readonly addReminder: Locator;
 	readonly addCategory: Locator;
 	readonly addModalTitle: Locator;
 	readonly secondCategoryEdit: Locator;
@@ -19,6 +20,7 @@ export class Dashboard {
 	readonly editModalTitle: Locator;
 	readonly deleteModalTitle: Locator;
 	readonly deleteModalButton: Locator;
+	readonly settings: Locator;
 
 	constructor(page: Page, isMobile: boolean) {
 		this.name = isMobile ? 'Second Mobile' : 'Second';
@@ -34,6 +36,7 @@ export class Dashboard {
 			exact: true,
 		});
 		this.menuButton = page.getByRole('button', { name: 'Menu button' });
+		this.addReminder = page.getByRole('link', { name: 'Add a new reminder' });
 		this.addCategory = page.getByRole('button', { name: 'Add a category' });
 		this.addModalTitle = page.getByRole('heading', {
 			level: 2,
@@ -61,6 +64,7 @@ export class Dashboard {
 			name: `Are you sure you want to delete the ${this.name} Edit category?`,
 		});
 		this.deleteModalButton = page.getByRole('button', { name: 'Yes delete' });
+		this.settings = page.getByRole('link', { name: 'Settings' });
 	}
 
 	async goto() {
