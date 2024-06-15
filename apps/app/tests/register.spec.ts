@@ -12,16 +12,24 @@ test.describe('Register page', () => {
 		await register.goto();
 	});
 
-	test('has correct title', {
-		tag: '@functional',
-	  }, async () => {
-		await expect(register.pageTitle).toHaveText('Sign up');
-	});
+	test(
+		'has correct title',
+		{
+			tag: '@functional',
+		},
+		async () => {
+			await expect(register.pageTitle).toHaveText('Sign up');
+		}
+	);
 
-	test('has no accessibility violations', {
-		tag: '@accessibility',
-	  }, async ({ page }) => {
-		const results = await new AxeBuilder({ page }).analyze();
-		expect(results.violations).toEqual([]);
-	});
+	test(
+		'has no accessibility violations',
+		{
+			tag: '@accessibility',
+		},
+		async ({ page }) => {
+			const results = await new AxeBuilder({ page }).analyze();
+			expect(results.violations).toEqual([]);
+		}
+	);
 });
