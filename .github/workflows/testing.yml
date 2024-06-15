@@ -18,7 +18,7 @@ env:
 jobs:
   quality-static:
     name: Static code analysis
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
@@ -33,7 +33,7 @@ jobs:
         run: pnpm format
   unit-tests:
     name: Unit tests
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
@@ -42,13 +42,13 @@ jobs:
         run: pnpm test
   accessibility:
     name: Accessibility tests
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.44.1-jammy
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
         uses: ./.github/actions/install-dependencies
-      - name: Install Playwright
-        uses: ./.github/actions/install-playwright
       - name: Run tests
         run: pnpm test:a11y
       - uses: actions/upload-artifact@v4
@@ -59,13 +59,13 @@ jobs:
           retention-days: 10
   functional:
     name: Functional tests
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.44.1-jammy
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
         uses: ./.github/actions/install-dependencies
-      - name: Install Playwright
-        uses: ./.github/actions/install-playwright
       - name: Run tests
         run: pnpm test:functional
       - uses: actions/upload-artifact@v4
@@ -76,7 +76,7 @@ jobs:
           retention-days: 10
   lighthouse:
     name: Lighthouse
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
