@@ -14,7 +14,7 @@
 		"test:functional": "playwright test --grep @functional"
 	},
 	"dependencies": {
-		"@vercel/analytics": "1.3.1",
+		"@aptabase/web": "0.4.2",
 		"components": "workspace:*"
 	},
 	"devDependencies": {
