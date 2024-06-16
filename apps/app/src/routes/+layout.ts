@@ -1,4 +1,7 @@
 import { dev } from '$app/environment';
-import { inject } from '@vercel/analytics';
+import { init, trackEvent } from '@aptabase/web';
 
-inject({ mode: dev ? 'development' : 'production' });
+if (!dev) {
+	init('A-EU-1548251116', { appVersion: '1' });
+	trackEvent('app_load');
+}
