@@ -19,6 +19,7 @@ export const actions: Actions = {
 			return fail(400, { form });
 		}
 
+		console.log('url', url.origin);
 		const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
 			redirectTo: `${url.origin}/auth/callback?goto=/update-password`,
 		});
