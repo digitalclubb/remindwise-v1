@@ -1,4 +1,4 @@
 import { dev } from '$app/environment';
-import { inject } from '@vercel/analytics';
+import { init } from '@aptabase/web';
 
-inject({ mode: dev ? 'development' : 'production' });
+if (!dev) init('A-EU-8881808042');
