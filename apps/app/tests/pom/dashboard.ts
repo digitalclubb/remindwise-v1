@@ -6,6 +6,9 @@ export class Dashboard {
 	readonly page: Page;
 	readonly name: string;
 	readonly pageTitle: Locator;
+	readonly tableRow1: Locator;
+	readonly tableRow2: Locator;
+	readonly tableRow3: Locator;
 	readonly username: Locator;
 	readonly firstCategory: Locator;
 	readonly secondCategory: Locator;
@@ -26,6 +29,15 @@ export class Dashboard {
 		this.name = isMobile ? 'Second Mobile' : 'Second';
 		this.page = page;
 		this.pageTitle = page.getByRole('heading', { level: 1 });
+		this.tableRow1 = page.getByRole('row', {
+			name: 'Name Single record reminder',
+		});
+		this.tableRow2 = page.getByRole('row', {
+			name: 'Name Monthly recurring reminder',
+		});
+		this.tableRow3 = page.getByRole('row', {
+			name: 'Name Annual recurring reminder',
+		});
 		this.username = page.getByRole('heading', {
 			level: 3,
 			name: PLAYWRIGHT_USERNAME,

@@ -21,6 +21,9 @@ test.describe('Dashboard page', () => {
 			await expect(dashboard.pageTitle).toHaveText('Dashboard');
 			await expect(dashboard.username).toBeVisible();
 			await expect(dashboard.firstCategory).toBeVisible();
+			await expect(dashboard.tableRow1).toBeVisible();
+			await expect(dashboard.tableRow2).toBeVisible();
+			await expect(dashboard.tableRow3).toBeVisible();
 		}
 	);
 
@@ -80,11 +83,25 @@ test.describe('Dashboard page', () => {
 	);
 
 	test(
+		'I can navigate to a reminder page',
+		{
+			tag: '@functional',
+		},
+		async () => {
+			await dashboard.tableRow1.getByRole('link').click();
+
+			await expect(dashboard.pageTitle).toHaveText(
+				'Single record reminder First'
+			);
+		}
+	);
+
+	test(
 		'I can navigate to the first category page',
 		{
 			tag: '@functional',
 		},
-		async ({ isMobile, page }) => {
+		async ({ isMobile }) => {
 			if (isMobile) {
 				await dashboard.menuButton.click();
 			}
@@ -99,11 +116,7 @@ test.describe('Dashboard page', () => {
 		{
 			tag: '@functional',
 		},
-		async ({ isMobile, page }) => {
-			if (isMobile) {
-				await dashboard.menuButton.click();
-			}
-
+		async () => {
 			await dashboard.addReminder.click();
 			await expect(dashboard.pageTitle).toHaveText('Add a reminder');
 		}
@@ -114,7 +127,7 @@ test.describe('Dashboard page', () => {
 		{
 			tag: '@functional',
 		},
-		async ({ isMobile, page }) => {
+		async ({ isMobile }) => {
 			if (isMobile) {
 				await dashboard.menuButton.click();
 			}
