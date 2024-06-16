@@ -96,7 +96,7 @@
 				<div class="costs cost-upcoming">
 					<h4>Upcoming costs</h4>
 					<div class="cost-switcher">
-						<select>
+						<select aria-label="Filter upcoming costs">
 							<option value="1">1 months</option>
 							<option value="3">3 months</option>
 							<option value="6">6 months</option>
@@ -119,7 +119,10 @@
 					<span>({upcoming.length})</span>
 				{/if}
 			</h2>
-			<select bind:value={upcomingFilter} on:change={onUpcomingChange}>
+			<select
+				aria-label="Filter upcoming renewals"
+				bind:value={upcomingFilter}
+				on:change={onUpcomingChange}>
 				<option value="1">1 months</option>
 				<option value="3">3 months</option>
 				<option value="6">6 months</option>
@@ -196,6 +199,7 @@
 				{/if}
 			</h2>
 			<select
+				aria-label="Filter active reminders"
 				bind:value={numberOfRemindersFilter}
 				on:change={onRemindersNumberChange}>
 				<option value="5">show 5</option>
