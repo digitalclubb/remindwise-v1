@@ -3,7 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { refresh } from '../../../stores';
 
-	import { Button } from 'components';
+	import Button from '../../button/Button.svelte';
 	import Modal from '../../modal/Modal.svelte';
 
 	import type { Categories } from '@graphql/types';

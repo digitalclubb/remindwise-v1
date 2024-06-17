@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Button, Input } from 'components';
+	import Button from '../../../../components/button/Button.svelte';
+	import Input from '../../../../components/input/Input.svelte';
 	import Header from '../../../../components/header/Header.svelte';
 	import { updatePasswordSchema } from '../schema';
 	import { superForm } from 'sveltekit-superforms/client';

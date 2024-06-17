@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from 'components';
+	import Button from '../../components/button/Button.svelte';
 	import Header from '../../components/header/Header.svelte';
 	import type { PageData } from './$houdini';
 	import Bar from '../../components/charts/bar-stacked/Index.svelte';

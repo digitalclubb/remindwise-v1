@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Link } from 'components';
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '@sveltejs/kit';
 
@@ -45,7 +44,7 @@
 					searches for last year's policy document, no more searching your inbox
 					for your insurance provider. Remindwise is here to help.
 				</p>
-				<Link href="#waitlist" type="button">Register interest</Link>
+				<a href="#waitlist" class="button"> Register interest </a>
 			</div>
 
 			<img
@@ -64,7 +63,7 @@
 					organise them into categories all in one place, making life simpler
 					and more exciting.
 				</p>
-				<Link href="#waitlist" type="button">Register interest</Link>
+				<a href="#waitlist" class="button"> Register interest </a>
 			</div>
 
 			<img
@@ -82,7 +81,7 @@
 					vital information you've attached to your reminder. Keeping things
 					simple and convenient for you.
 				</p>
-				<Link href="#waitlist" type="button">Register interest</Link>
+				<a href="#waitlist" class="button"> Register interest </a>
 			</div>
 
 			<img
@@ -100,7 +99,7 @@
 					Whether you prefer an overview of your entire year or a closer look at
 					a specific time frame, it's all about your convenience.
 				</p>
-				<Link href="#waitlist" type="button">Register interest</Link>
+				<a href="#waitlist" class="button"> Register interest </a>
 			</div>
 
 			<img
@@ -255,6 +254,30 @@
 		flex-wrap: wrap;
 		flex-direction: column;
 		align-items: center;
+	}
+
+	.button {
+		display: flex;
+		align-items: center;
+		text-decoration: none;
+		background-color: var(--orange);
+		border-radius: 2rem;
+		border: solid 1px var(--orange);
+		display: inline-block;
+		padding: 0.8rem 1.4rem;
+		font-size: 1.4rem;
+		line-height: 1.6rem;
+		color: var(--white);
+		font-weight: 400;
+		text-align: center;
+		text-decoration: none;
+	}
+
+	.button:hover {
+		background-color: var(--orange-dark);
+		border-color: var(--orange-dark);
+		color: var(--white);
+		cursor: pointer;
 	}
 
 	@media screen and (min-width: 768px) {

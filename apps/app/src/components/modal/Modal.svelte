@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from 'components';
+	import Button from '../button/Button.svelte';
 
 	export let showModal: boolean;
 	export let size: 'small' | undefined = undefined;

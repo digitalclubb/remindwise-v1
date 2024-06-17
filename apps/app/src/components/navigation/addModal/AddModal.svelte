@@ -4,8 +4,8 @@
 	import { defaults, superForm } from 'sveltekit-superforms/client';
 	import { refresh } from '../../../stores';
 
-	import Input from 'components/input/Input.svelte';
-	import { Button } from 'components';
+	import Input from '../../input/Input.svelte';
+	import Button from '../../button/Button.svelte';
 
 	import Modal from '../../modal/Modal.svelte';
 	import { icons } from '../../icons/categories';

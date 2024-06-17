@@ -4,14 +4,14 @@
 	import AddModal from './addModal/AddModal.svelte';
 	import DeleteModal from './deleteModal/DeleteModal.svelte';
 
-	import { Button } from 'components';
+	import Button from '../button/Button.svelte';
 
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { refresh } from '../../stores';
 
 	import { getSettingsStore, getCategoriesStore } from '$houdini';
-	import Link from 'components/link/Link.svelte';
+	import Link from '../link/Link.svelte';
 
 	import type { Categories } from '@graphql/types';
 	import { onMount } from 'svelte';

@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { Button, Input, Link } from 'components';
+	import Button from '../../../components/button/Button.svelte';
+	import Input from '../../../components/input/Input.svelte';
+	import Link from '../../../components/link/Link.svelte';
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { registerSchema } from './schema';

@@ -5,7 +5,8 @@
 	import type { LayoutData } from './$houdini';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { reminderSchema } from './schema';
-	import { Input, Radio } from 'components';
+	import Radio from '../../../components/radio/Radio.svelte';
+	import Input from '../../../components/input/Input.svelte';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import FileUpload from '../../../components/fileupload/FileUpload.svelte';
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from 'components';
+	import Button from '../../../../components/button/Button.svelte';
 </script>
 
 <svelte:head>

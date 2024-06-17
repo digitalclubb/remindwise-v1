@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { Button } from 'components';
+	import Button from '../../../../components/button/Button.svelte';
 	import Donut from '../../../../components/charts/donut/Index.svelte';
 	import Line from '../../../../components/charts/line/Index.svelte';
 	import Header from '../../../../components/header/Header.svelte';
