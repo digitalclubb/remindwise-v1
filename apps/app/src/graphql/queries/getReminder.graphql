@@ -13,6 +13,7 @@ query getReminder($slug: BigInt) @load {
 				category {
 					id
 					name
+					iconId
 				}
 			}
 		}
