@@ -5,7 +5,7 @@ export const getURL = () => {
 			url = process?.env?.VERCEL_PROJECT_PRODUCTION_URL ?? '';
 			break;
 		case 'preview':
-			url = process?.env?.VERCEL_URL ?? '';
+			url = process?.env?.VERCEL_BRANCH_URL ?? '';
 			break;
 		default:
 			url = 'http://localhost:3000/';
