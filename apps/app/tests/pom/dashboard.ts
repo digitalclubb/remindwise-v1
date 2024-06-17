@@ -42,7 +42,10 @@ export class Dashboard {
 			level: 3,
 			name: PLAYWRIGHT_USERNAME,
 		});
-		this.firstCategory = page.getByRole('link', { name: 'First' });
+		this.firstCategory = page.getByRole('link', {
+			name: 'First (3)',
+			exact: true,
+		});
 		this.secondCategory = page.getByRole('link', {
 			name: `${this.name} (0)`,
 			exact: true,
