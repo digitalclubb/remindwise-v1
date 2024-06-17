@@ -4,6 +4,7 @@
 	"scripts": {
 		"dev": "vite dev --port 3001",
 		"build": "vite build",
+		"prepare": "svelte-kit sync",
 		"preview": "vite preview --port 4173",
 		"types": "svelte-check --tsconfig ./tsconfig.json",
 		"types:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
@@ -14,8 +15,7 @@
 		"test:functional": "playwright test --grep @functional"
 	},
 	"dependencies": {
-		"@aptabase/web": "0.4.2",
-		"components": "workspace:*"
+		"@aptabase/web": "0.4.2"
 	},
 	"devDependencies": {
 		"@axe-core/playwright": "4.9.1",
