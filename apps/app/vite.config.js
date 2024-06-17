@@ -5,6 +5,13 @@ import houdini from 'houdini/vite';
 /** @type {import('vite').UserConfig} */
 const config = {
 	plugins: [houdini(), sveltekit(), vitePluginGraphqlLoader()],
+	test: {
+		globals: true,
+		include: ['**/*.{test,spec}.ts'],
+		exclude: ['**/node_modules/**', '**/tests/**'],
+		environment: 'jsdom',
+		setupFiles: './vitest.setup.ts',
+	},
 };
 
 export default config;

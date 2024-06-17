@@ -14,8 +14,7 @@
 		"test:functional": "playwright test --grep @functional"
 	},
 	"dependencies": {
-		"@aptabase/web": "0.4.2",
-		"components": "workspace:*"
+		"@aptabase/web": "0.4.2"
 	},
 	"devDependencies": {
 		"@axe-core/playwright": "4.9.1",
