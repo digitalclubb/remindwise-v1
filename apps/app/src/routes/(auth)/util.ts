@@ -1,4 +1,5 @@
 export const getURL = () => {
+	console.log('process.env.VERCEL_URL', process?.env?.VERCEL_URL);
 	console.log('process.env.VITE_VERCEL_URL', process?.env?.VITE_VERCEL_URL);
 	console.log(
 		'process.env.VITE_VERCEL_PROJECT_PRODUCTION_URL',
