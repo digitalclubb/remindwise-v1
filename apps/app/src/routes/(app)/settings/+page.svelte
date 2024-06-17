@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { Button, Radio } from 'components';
+	import Button from '../../../components/button/Button.svelte';
+	import Radio from '../../../components/radio/Radio.svelte';
 	import Header from '../../../components/header/Header.svelte';
-	import Input from 'components/input/Input.svelte';
+	import Input from '../../../components/input/Input.svelte';
 	import { settingsSchema } from './schema';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { zodClient } from 'sveltekit-superforms/adapters';

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { Button } from 'components';
+	import Button from '../../../../../components/button/Button.svelte';
 	import { navigating, page } from '$app/stores';
 	import { deleteReminderStore } from '$houdini';
 

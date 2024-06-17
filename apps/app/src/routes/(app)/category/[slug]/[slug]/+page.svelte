@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Link from 'components/link/Link.svelte';
+	import Link from '../../../../../components/link/Link.svelte';
 	import Header from '../../../../../components/header/Header.svelte';
 	import type { PageData } from './$houdini';
 	import { page } from '$app/stores';
