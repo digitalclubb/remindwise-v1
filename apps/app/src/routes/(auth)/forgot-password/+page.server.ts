@@ -3,15 +3,16 @@ import type { PageServerLoad } from './$types';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { forgotPasswordSchema } from './schema';
 import { zod } from 'sveltekit-superforms/adapters';
+import { getURL } from '../util';
 
-export const load: PageServerLoad = async ({ url }) => {
+export const load: PageServerLoad = async () => {
 	const form = await superValidate(zod(forgotPasswordSchema));
 
-	return { url: url.origin, form };
+	return { form };
 };
 
 export const actions: Actions = {
-	default: async ({ request, url, locals: { supabase } }) => {
+	default: async ({ request, locals: { supabase } }) => {
 		const form = await superValidate(request, zod(forgotPasswordSchema));
 		const { valid, data } = form;
 
@@ -20,7 +21,7 @@ export const actions: Actions = {
 		}
 
 		const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
-			redirectTo: `${url.origin}/auth/callback?goto=/update-password`,
+			redirectTo: `${getURL()}auth/callback?goto=/update-password`,
 		});
 
 		if (error) {

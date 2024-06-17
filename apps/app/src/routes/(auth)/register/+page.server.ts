@@ -3,15 +3,16 @@ import type { PageServerLoad } from './$types';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { registerSchema } from './schema';
 import { zod } from 'sveltekit-superforms/adapters';
+import { getURL } from '../util';
 
-export const load: PageServerLoad = async ({ url }) => {
+export const load: PageServerLoad = async () => {
 	const form = await superValidate(zod(registerSchema));
 
-	return { url: url.origin, form };
+	return { form };
 };
 
 export const actions: Actions = {
-	default: async ({ request, url, locals: { supabase } }) => {
+	default: async ({ request, locals: { supabase } }) => {
 		const form = await superValidate(request, zod(registerSchema));
 		const { valid, data } = form;
 
@@ -19,7 +20,7 @@ export const actions: Actions = {
 			return fail(400, { form });
 		}
 
-		const options = { emailRedirectTo: `${url.origin}/auth/callback` };
+		const options = { emailRedirectTo: `${getURL()}auth/callback` };
 		const { error } = await supabase.auth.signUp({
 			email: data.email,
 			password: data.password,
