@@ -16,7 +16,7 @@
 		</h1>
 	{/if}
 	{#if back}
-		<h1 class="heading-5"><a class="back" href={back.href}>{back.text}</a></h1>
+		<h2 class="heading-5"><a class="back" href={back.href}>{back.text}</a></h2>
 	{/if}
 	<a href="/notifications" class="notification">
 		<svg>

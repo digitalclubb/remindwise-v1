@@ -47,7 +47,11 @@
 	{:else if reminder}
 		<div class="header">
 			<h1>
-				{reminder.name} <span>{reminder.category?.name}</span>
+				{reminder.name}
+				<span
+					><svg fill="var(--orange)"
+						><use xlink:href="#{reminder.category?.iconId}" /></svg
+					>{reminder.category?.name}</span>
 			</h1>
 			<Link href={`/reminder/edit/${$page.params.slug}`}
 				>Edit reminder <svg class="edit">
@@ -125,6 +129,13 @@
 		justify-content: space-between;
 		align-items: first baseline;
 		grid-area: header;
+	}
+
+	.header svg {
+		height: 1.8rem;
+		width: 1.8rem;
+		vertical-align: sub;
+		margin-right: 0.8rem;
 	}
 
 	h1 {

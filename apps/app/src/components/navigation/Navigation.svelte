@@ -413,12 +413,16 @@
 
 	.profile h3 {
 		align-items: center;
-		color: var(--orange);
+		color: var(--cream);
 		display: flex;
 		font-size: 1.4rem;
 		gap: 1rem;
 		margin: 0;
 		word-break: break-all;
+	}
+
+	.profile h3 svg {
+		color: var(--orange);
 	}
 
 	.content .add {

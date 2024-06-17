@@ -6,10 +6,14 @@ export class Dashboard {
 	readonly page: Page;
 	readonly name: string;
 	readonly pageTitle: Locator;
+	readonly tableRow1: Locator;
+	readonly tableRow2: Locator;
+	readonly tableRow3: Locator;
 	readonly username: Locator;
 	readonly firstCategory: Locator;
 	readonly secondCategory: Locator;
 	readonly menuButton: Locator;
+	readonly addReminder: Locator;
 	readonly addCategory: Locator;
 	readonly addModalTitle: Locator;
 	readonly secondCategoryEdit: Locator;
@@ -19,21 +23,35 @@ export class Dashboard {
 	readonly editModalTitle: Locator;
 	readonly deleteModalTitle: Locator;
 	readonly deleteModalButton: Locator;
+	readonly settings: Locator;
 
 	constructor(page: Page, isMobile: boolean) {
 		this.name = isMobile ? 'Second Mobile' : 'Second';
 		this.page = page;
 		this.pageTitle = page.getByRole('heading', { level: 1 });
+		this.tableRow1 = page.getByRole('row', {
+			name: 'Name Single record reminder',
+		});
+		this.tableRow2 = page.getByRole('row', {
+			name: 'Name Monthly recurring reminder',
+		});
+		this.tableRow3 = page.getByRole('row', {
+			name: 'Name Annual recurring reminder',
+		});
 		this.username = page.getByRole('heading', {
 			level: 3,
 			name: PLAYWRIGHT_USERNAME,
 		});
-		this.firstCategory = page.getByRole('link', { name: 'First' });
+		this.firstCategory = page.getByRole('link', {
+			name: 'First (3)',
+			exact: true,
+		});
 		this.secondCategory = page.getByRole('link', {
 			name: `${this.name} (0)`,
 			exact: true,
 		});
 		this.menuButton = page.getByRole('button', { name: 'Menu button' });
+		this.addReminder = page.getByRole('link', { name: 'Add a new reminder' });
 		this.addCategory = page.getByRole('button', { name: 'Add a category' });
 		this.addModalTitle = page.getByRole('heading', {
 			level: 2,
@@ -61,6 +79,7 @@ export class Dashboard {
 			name: `Are you sure you want to delete the ${this.name} Edit category?`,
 		});
 		this.deleteModalButton = page.getByRole('button', { name: 'Yes delete' });
+		this.settings = page.getByRole('link', { name: 'Settings' });
 	}
 
 	async goto() {

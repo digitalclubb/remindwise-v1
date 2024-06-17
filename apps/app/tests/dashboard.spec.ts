@@ -21,6 +21,9 @@ test.describe('Dashboard page', () => {
 			await expect(dashboard.pageTitle).toHaveText('Dashboard');
 			await expect(dashboard.username).toBeVisible();
 			await expect(dashboard.firstCategory).toBeVisible();
+			await expect(dashboard.tableRow1).toBeVisible();
+			await expect(dashboard.tableRow2).toBeVisible();
+			await expect(dashboard.tableRow3).toBeVisible();
 		}
 	);
 
@@ -76,6 +79,61 @@ test.describe('Dashboard page', () => {
 
 			await expect(dashboard.deleteModalTitle).toBeHidden();
 			await expect(dashboard.secondCategoryEdit).toBeHidden();
+		}
+	);
+
+	test(
+		'I can navigate to a reminder page',
+		{
+			tag: '@functional',
+		},
+		async () => {
+			await dashboard.tableRow1.getByRole('link').click();
+
+			await expect(dashboard.pageTitle).toHaveText(
+				'Single record reminder First'
+			);
+		}
+	);
+
+	test(
+		'I can navigate to the first category page',
+		{
+			tag: '@functional',
+		},
+		async ({ isMobile }) => {
+			if (isMobile) {
+				await dashboard.menuButton.click();
+			}
+
+			await dashboard.firstCategory.click();
+			await expect(dashboard.pageTitle).toHaveText('First');
+		}
+	);
+
+	test(
+		'I can navigate to add a reminder page',
+		{
+			tag: '@functional',
+		},
+		async () => {
+			await dashboard.addReminder.click();
+			await expect(dashboard.pageTitle).toHaveText('Add a reminder');
+		}
+	);
+
+	test(
+		'I can navigate to settings page',
+		{
+			tag: '@functional',
+		},
+		async ({ isMobile }) => {
+			if (isMobile) {
+				await dashboard.menuButton.click();
+			}
+
+			await dashboard.settings.click();
+			await expect(dashboard.pageTitle).toHaveText('Settings');
 		}
 	);
 
