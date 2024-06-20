@@ -13,7 +13,7 @@ export const getCategories = graphql.query<GetCategoriesQuery>(
 								category: {
 									id: 1,
 									name: 'Example 1',
-									iconId: 'icon-dashboard',
+									iconId: 'icon-help',
 									reminders: {
 										totalCount: 0,
 										list: [],
@@ -24,7 +24,7 @@ export const getCategories = graphql.query<GetCategoriesQuery>(
 								category: {
 									id: 2,
 									name: 'Example 2',
-									iconId: 'icon-dashboard',
+									iconId: 'icon-help',
 									reminders: {
 										totalCount: 1,
 										list: [],
@@ -35,7 +35,7 @@ export const getCategories = graphql.query<GetCategoriesQuery>(
 								category: {
 									id: 3,
 									name: 'Example 3',
-									iconId: 'icon-dashboard',
+									iconId: 'icon-help',
 									reminders: {
 										totalCount: 10,
 										list: [],
