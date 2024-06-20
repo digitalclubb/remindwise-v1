@@ -10,5 +10,5 @@ if (!dev && browser) {
 // Clientside mocking
 if (dev && browser) {
 	const { worker } = await import('$mocks/browser');
-	worker.start();
+	worker.start({ onUnhandledRequest: 'bypass' });
 }
