@@ -1,6 +1,6 @@
 import { graphql, HttpResponse } from 'msw';
 
-export const getSettings = graphql.query('getSettings', ({ query }) => {
+export const getSettings = graphql.query('getSettings', () => {
 	return HttpResponse.json(
 		{
 			data: {
