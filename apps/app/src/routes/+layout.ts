@@ -7,7 +7,8 @@ if (!dev && browser) {
 	trackEvent('app_load');
 }
 
-// Inject MSW for mocking
+// Clientside mocking
 if (dev && browser) {
-	import('$mocks').then((res) => res.inject());
+	const { worker } = await import('$mocks/browser');
+	worker.start();
 }

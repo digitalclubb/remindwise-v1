@@ -1,6 +1,5 @@
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY } from '$env/static/public';
 import { setSession } from '$houdini';
-import { server } from '$mocks/server';
 import { createServerClient } from '@supabase/ssr';
 import { redirect, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
@@ -99,7 +98,6 @@ const authGuard: Handle = async ({ event, resolve }) => {
 };
 
 const houdiniSession: Handle = async ({ event, resolve }) => {
-	server.listen();
 	const { session } = await event.locals.safeGetSession();
 	if (session) setSession(event, session);
 	return resolve(event);
