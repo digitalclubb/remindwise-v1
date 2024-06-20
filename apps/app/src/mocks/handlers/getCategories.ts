@@ -12,19 +12,33 @@ export const getCategories = graphql.query<GetCategoriesQuery>(
 							{
 								category: {
 									id: 1,
-									name: 'Example',
-									iconId: 'dashboard',
+									name: 'Example 1',
+									iconId: 'icon-dashboard',
+									reminders: {
+										totalCount: 0,
+										list: [],
+									},
+								},
+							},
+							{
+								category: {
+									id: 2,
+									name: 'Example 2',
+									iconId: 'icon-dashboard',
 									reminders: {
 										totalCount: 1,
-										list: [
-											{
-												reminder: {
-													name: 'Test reminder',
-													cost: 100,
-													type: 'ONGOING' as Type,
-												},
-											},
-										],
+										list: [],
+									},
+								},
+							},
+							{
+								category: {
+									id: 3,
+									name: 'Example 3',
+									iconId: 'icon-dashboard',
+									reminders: {
+										totalCount: 10,
+										list: [],
 									},
 								},
 							},
