@@ -137,7 +137,7 @@ importers:
         specifier: 2.40.0
         version: 2.40.0(eslint@9.5.0)(svelte@4.2.18)(ts-node@10.9.2(@types/node@20.14.5)(typescript@5.4.5))
       msw:
-        specifier: ^2.3.1
+        specifier: 2.3.1
         version: 2.3.1(typescript@5.4.5)
       prettier:
         specifier: 3.3.2
