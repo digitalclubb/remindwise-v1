@@ -1,30 +1,34 @@
 import { graphql, HttpResponse } from 'msw';
+import type { GetSettingsQuery, Interval, Currency } from '@graphql/types';
 
-export const getSettings = graphql.query('getSettings', () => {
-	return HttpResponse.json(
-		{
-			data: {
-				settings: {
-					list: [
-						{
-							setting: {
-								id: '1',
-								first_name: 'Example',
-								last_name: 'User',
-								email: 'user@example.com',
-								notice_period: '1 month',
-								interval: 'monthly',
-								currency: 'GBP',
+export const getSettings = graphql.query<GetSettingsQuery>(
+	'getSettings',
+	() => {
+		return HttpResponse.json(
+			{
+				data: {
+					settings: {
+						list: [
+							{
+								setting: {
+									id: '1',
+									first_name: 'Example',
+									last_name: 'User',
+									email: 'user@example.com',
+									notice_period: 1,
+									interval: 'monthly' as Interval,
+									currency: 'GBP' as Currency,
+								},
 							},
-						},
-					],
+						],
+					},
 				},
 			},
-		},
-		{
-			headers: {
-				'Access-Control-Allow-Origin': '*',
-			},
-		}
-	);
-});
+			{
+				headers: {
+					'Access-Control-Allow-Origin': '*',
+				},
+			}
+		);
+	}
+);
