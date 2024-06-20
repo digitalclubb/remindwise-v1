@@ -1,12 +1,32 @@
 import { graphql, HttpResponse } from 'msw';
-import type { GetReminderQuery } from '@graphql/types';
+import type { GetReminderQuery, Type } from '@graphql/types';
 
 export const getReminder = graphql.query<GetReminderQuery>(
 	'getReminder',
 	() => {
 		return HttpResponse.json(
 			{
-				data: {},
+				data: {
+					reminders: {
+						list: [
+							{
+								reminder: {
+									name: 'Example reminder',
+									type: 'ONGOING' as Type,
+									company: 'Example company',
+									cost: 10,
+									date: '2024-10-10',
+									autoRenewal: false,
+									notes: 'Example notes',
+									category: {
+										id: 1,
+										name: 'Example 1',
+									},
+								},
+							},
+						],
+					},
+				},
 			},
 			{
 				headers: {
