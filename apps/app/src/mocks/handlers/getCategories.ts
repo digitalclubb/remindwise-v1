@@ -1,5 +1,5 @@
 import { graphql, HttpResponse } from 'msw';
-import type { GetCategoriesQuery, Type } from '@graphql/types';
+import type { GetCategoriesQuery } from '@graphql/types';
 
 export const getCategories = graphql.query<GetCategoriesQuery>(
 	'getCategories',
