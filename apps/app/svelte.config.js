@@ -14,6 +14,7 @@ const config = {
 		alias: {
 			'@graphql': 'src/graphql',
 			$houdini: path.resolve('.', '$houdini'),
+			$mocks: path.resolve("src/mocks"),
 		},
 	},
 };
