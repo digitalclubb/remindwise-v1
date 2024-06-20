@@ -37,6 +37,7 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 									name: 'Example reminder 1',
 									company: 'Example company',
 									cost: 10,
+									total: 10,
 									category: {
 										iconId: 'icon-watch',
 										name: 'Example',
@@ -49,6 +50,7 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 									name: 'Example reminder 2',
 									company: 'Example company',
 									cost: 10,
+									total: 10,
 									category: {
 										iconId: 'icon-watch',
 										name: 'Example',
@@ -61,6 +63,7 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 									name: 'Example reminder 3',
 									company: 'Example company',
 									cost: 10,
+									total: 10,
 									category: {
 										iconId: 'icon-watch',
 										name: 'Example',
