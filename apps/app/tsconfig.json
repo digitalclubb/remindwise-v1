@@ -10,7 +10,8 @@
 		"sourceMap": true,
 		"strict": true,
 		"ignoreDeprecations": "5.0",
-		"rootDirs": [".", "./.svelte-kit/types", "./$houdini/types"]
+		"rootDirs": [".", "./.svelte-kit/types", "./$houdini/types"],
+		"allowImportingTsExtensions": true
 	},
 	"include": [
 		"./src/graphql.d.ts",
