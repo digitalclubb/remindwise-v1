@@ -22,7 +22,7 @@ test.describe('Category page', () => {
 	test(
 		'has no accessibility violations and is visually correct',
 		{
-			tag: ['@accessibility', '@visual']
+			tag: ['@accessibility', '@visual'],
 		},
 		async ({ page }) => {
 			const results = await new AxeBuilder({ page }).analyze();
