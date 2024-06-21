@@ -4,7 +4,7 @@ import { Settings } from './pom/settings';
 
 let settings: Settings;
 test.use({ storageState: { cookies: [], origins: [] } });
-test.describe('Notifications page', () => {
+test.describe('Settings page', () => {
 	test.beforeEach(async ({ page }) => {
 		settings = new Settings(page);
 		await settings.goto();
