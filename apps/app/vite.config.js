@@ -1,6 +1,7 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { vitePluginGraphqlLoader } from 'vite-plugin-graphql-loader';
 import houdini from 'houdini/vite';
+import path from 'path';
 
 /** @type {import('vite').UserConfig} */
 const config = {
@@ -9,9 +10,12 @@ const config = {
 	},
 	plugins: [houdini(), sveltekit(), vitePluginGraphqlLoader()],
 	resolve: {
-		alias: {
-			'msw/browser': './node_modules/msw/lib/browser/index.mjs',
-		},
+		alias: [
+			{
+			  find: /msw\/browser/,
+			  replacement: path.resolve('./node_modules/msw/browser'),
+			},
+		  ],
 	},
 	test: {
 		globals: true,
