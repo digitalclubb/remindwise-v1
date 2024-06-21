@@ -11,18 +11,19 @@ export const getReminder = graphql.query<GetReminderQuery>(
 						list: [
 							{
 								reminder: {
-									id: '1',
+									id: 1,
 									name: 'Example reminder',
 									type: 'ONGOING' as Type,
 									company: 'Example company',
 									cost: 10,
-									date: '2024-10-10',
+									date: new Date('2024-10-10'),
 									frequency: 'MONTHLY' as Frequency,
 									autoRenewal: false,
 									notes: 'Example notes',
 									category: {
 										id: 1,
 										name: 'Example 1',
+										iconId: 'icon-help',
 									},
 								},
 							},

@@ -13,15 +13,15 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
-  BigFloat: { input: any; output: any; }
-  BigInt: { input: any; output: any; }
+  BigFloat: { input: number; output: number; }
+  BigInt: { input: number; output: number; }
   Cursor: { input: any; output: any; }
-  Date: { input: any; output: any; }
+  Date: { input: Date; output: Date; }
   Datetime: { input: any; output: any; }
   JSON: { input: any; output: any; }
   Opaque: { input: any; output: any; }
   Time: { input: any; output: any; }
-  UUID: { input: any; output: any; }
+  UUID: { input: string; output: string; }
 };
 
 /** Boolean expression comparing fields on type "BigFloat" */
@@ -1075,7 +1075,7 @@ export type AddCategoryMutationVariables = Exact<{
 }>;
 
 
-export type AddCategoryMutation = { __typename?: 'Mutation', insertIntocategoriesCollection?: { __typename?: 'categoriesInsertResponse', affectedCount: number, records: Array<{ __typename?: 'categories', id: any, name: string, isLocked?: boolean | null, iconId?: string | null, userid?: any | null }> } | null };
+export type AddCategoryMutation = { __typename?: 'Mutation', insertIntocategoriesCollection?: { __typename?: 'categoriesInsertResponse', affectedCount: number, records: Array<{ __typename?: 'categories', id: number, name: string, isLocked?: boolean | null, iconId?: string | null, userid?: string | null }> } | null };
 
 export type AddReminderMutationVariables = Exact<{
   userId: Scalars['UUID']['input'];
@@ -1091,7 +1091,7 @@ export type AddReminderMutationVariables = Exact<{
 }>;
 
 
-export type AddReminderMutation = { __typename?: 'Mutation', insertIntoremindersCollection?: { __typename?: 'remindersInsertResponse', affectedCount: number, records: Array<{ __typename?: 'reminders', id: any }> } | null };
+export type AddReminderMutation = { __typename?: 'Mutation', insertIntoremindersCollection?: { __typename?: 'remindersInsertResponse', affectedCount: number, records: Array<{ __typename?: 'reminders', id: number }> } | null };
 
 export type DeleteCategoryMutationVariables = Exact<{
   id?: InputMaybe<Scalars['BigInt']['input']>;
@@ -1143,12 +1143,12 @@ export type UpdateSettingsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateSettingsMutation = { __typename?: 'Mutation', updatesettingsCollection: { __typename?: 'settingsUpdateResponse', affectedCount: number, records: Array<{ __typename?: 'settings', id: any }> } };
+export type UpdateSettingsMutation = { __typename?: 'Mutation', updatesettingsCollection: { __typename?: 'settingsUpdateResponse', affectedCount: number, records: Array<{ __typename?: 'settings', id: string }> } };
 
 export type GetCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetCategoriesQuery = { __typename?: 'Query', categories?: { __typename?: 'categoriesConnection', list: Array<{ __typename?: 'categoriesEdge', category: { __typename?: 'categories', id: any, name: string, iconId?: string | null, reminders?: { __typename?: 'remindersConnection', totalCount: number, list: Array<{ __typename?: 'remindersEdge', reminder: { __typename?: 'reminders', name: string, cost: number, type: Type } }> } | null } }> } | null };
+export type GetCategoriesQuery = { __typename?: 'Query', categories?: { __typename?: 'categoriesConnection', list: Array<{ __typename?: 'categoriesEdge', category: { __typename?: 'categories', id: number, name: string, iconId?: string | null, reminders?: { __typename?: 'remindersConnection', totalCount: number, list: Array<{ __typename?: 'remindersEdge', reminder: { __typename?: 'reminders', name: string, cost: number, type: Type } }> } | null } }> } | null };
 
 export type GetHistoricalQueryVariables = Exact<{
   yearStart?: InputMaybe<Scalars['Date']['input']>;
@@ -1156,14 +1156,14 @@ export type GetHistoricalQueryVariables = Exact<{
 }>;
 
 
-export type GetHistoricalQuery = { __typename?: 'Query', historical?: { __typename?: 'historicalConnection', list: Array<{ __typename?: 'historicalEdge', historical: { __typename?: 'historical', categoryid: any, monthTotals: Array<number | null> } }> } | null };
+export type GetHistoricalQuery = { __typename?: 'Query', historical?: { __typename?: 'historicalConnection', list: Array<{ __typename?: 'historicalEdge', historical: { __typename?: 'historical', categoryid: number, monthTotals: Array<number | null> } }> } | null };
 
 export type GetReminderQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['BigInt']['input']>;
 }>;
 
 
-export type GetReminderQuery = { __typename?: 'Query', reminders?: { __typename?: 'remindersConnection', list: Array<{ __typename?: 'remindersEdge', reminder: { __typename?: 'reminders', id: any, name: string, type: Type, company: string, cost: number, date: any, frequency?: Frequency | null, autoRenewal: boolean, notes?: string | null, category?: { __typename?: 'categories', id: any, name: string, iconId?: string | null } | null } }> } | null };
+export type GetReminderQuery = { __typename?: 'Query', reminders?: { __typename?: 'remindersConnection', list: Array<{ __typename?: 'remindersEdge', reminder: { __typename?: 'reminders', id: number, name: string, type: Type, company: string, cost: number, date: Date, frequency?: Frequency | null, autoRenewal: boolean, notes?: string | null, category?: { __typename?: 'categories', id: number, name: string, iconId?: string | null } | null } }> } | null };
 
 export type GetRemindersQueryVariables = Exact<{
   categoryId?: InputMaybe<Scalars['BigInt']['input']>;
@@ -1176,12 +1176,12 @@ export type GetRemindersQueryVariables = Exact<{
 }>;
 
 
-export type GetRemindersQuery = { __typename?: 'Query', upcoming?: { __typename?: 'remindersConnection', list: Array<{ __typename?: 'remindersEdge', reminder: { __typename?: 'reminders', id: any, name: string, company: string, cost: number, date: any, autoRenewal: boolean, category?: { __typename?: 'categories', id: any, iconId?: string | null, name: string } | null } }> } | null, reminders?: { __typename?: 'remindersConnection', pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean }, list: Array<{ __typename?: 'remindersEdge', reminder: { __typename?: 'reminders', id: any, name: string, company: string, cost: number, total: number, category?: { __typename?: 'categories', id: any, iconId?: string | null, name: string } | null } }> } | null };
+export type GetRemindersQuery = { __typename?: 'Query', upcoming?: { __typename?: 'remindersConnection', list: Array<{ __typename?: 'remindersEdge', reminder: { __typename?: 'reminders', id: number, name: string, company: string, cost: number, date: Date, autoRenewal: boolean, category?: { __typename?: 'categories', id: number, iconId?: string | null, name: string } | null } }> } | null, reminders?: { __typename?: 'remindersConnection', pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean }, list: Array<{ __typename?: 'remindersEdge', reminder: { __typename?: 'reminders', id: number, name: string, company: string, cost: number, total: number, category?: { __typename?: 'categories', id: number, iconId?: string | null, name: string } | null } }> } | null };
 
 export type GetSettingsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetSettingsQuery = { __typename?: 'Query', settings?: { __typename?: 'settingsConnection', list: Array<{ __typename?: 'settingsEdge', setting: { __typename?: 'settings', id: any, first_name?: string | null, last_name?: string | null, email?: string | null, notice_period?: number | null, interval?: Interval | null, currency?: Currency | null } }> } | null };
+export type GetSettingsQuery = { __typename?: 'Query', settings?: { __typename?: 'settingsConnection', list: Array<{ __typename?: 'settingsEdge', setting: { __typename?: 'settings', id: string, first_name?: string | null, last_name?: string | null, email?: string | null, notice_period?: number | null, interval?: Interval | null, currency?: Currency | null } }> } | null };
 
 
 export const AddCategoryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"addCategory"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"category"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"isLocked"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Boolean"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"iconId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"userId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UUID"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"insertIntocategoriesCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"objects"},"value":{"kind":"ListValue","values":[{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"category"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"isLocked"},"value":{"kind":"Variable","name":{"kind":"Name","value":"isLocked"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"iconId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"iconId"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"userid"},"value":{"kind":"Variable","name":{"kind":"Name","value":"userId"}}}]}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affectedCount"}},{"kind":"Field","name":{"kind":"Name","value":"records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"isLocked"}},{"kind":"Field","name":{"kind":"Name","value":"iconId"}},{"kind":"Field","name":{"kind":"Name","value":"userid"}}]}}]}}]}}]} as unknown as DocumentNode<AddCategoryMutation, AddCategoryMutationVariables>;
