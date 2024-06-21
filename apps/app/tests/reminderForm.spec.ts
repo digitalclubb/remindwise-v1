@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { Settings } from './pom/settings';
+import { ReminderForm } from './pom/reminderForm';
 
-let settings: Settings;
-test.describe('Settings page', () => {
+let reminderForm: ReminderForm;
+test.describe('Reminder form page', () => {
 	test.beforeEach(async ({ page }) => {
-		settings = new Settings(page);
-		await settings.goto();
+		reminderForm = new ReminderForm(page);
+		await reminderForm.goto();
 	});
 
 	test(
@@ -15,7 +15,7 @@ test.describe('Settings page', () => {
 			tag: '@functional',
 		},
 		async () => {
-			await expect(settings.pageTitle).toHaveText('Settings');
+			await expect(reminderForm.pageTitle).toHaveText('Settings');
 		}
 	);
 
