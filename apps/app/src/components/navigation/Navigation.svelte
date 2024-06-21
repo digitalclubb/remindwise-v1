@@ -522,7 +522,6 @@
 		margin-top: 1rem;
 		justify-content: flex-start;
 		padding: 1rem 0 1rem 4rem;
-		color: var(--orange);
 	}
 
 	.icon-button {
