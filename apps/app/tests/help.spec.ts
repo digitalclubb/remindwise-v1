@@ -20,14 +20,22 @@ test.describe('Help page', () => {
 	);
 
 	test(
-		'has no accessibility violations and is visually correct',
+		'has no accessibility violations',
 		{
-			tag: ['@accessibility', '@visual'],
+			tag: '@accessibility',
 		},
 		async ({ page }) => {
 			const results = await new AxeBuilder({ page }).analyze();
 			expect(results.violations).toEqual([]);
+		}
+	);
 
+	test(
+		'has visual test',
+		{
+			tag: '@visual',
+		},
+		async ({ page }) => {
 			await expect(page).toHaveScreenshot({
 				fullPage: true,
 			});
