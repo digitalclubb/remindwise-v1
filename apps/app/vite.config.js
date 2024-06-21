@@ -1,10 +1,22 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { vitePluginGraphqlLoader } from 'vite-plugin-graphql-loader';
 import houdini from 'houdini/vite';
+import path from 'path';
 
 /** @type {import('vite').UserConfig} */
 const config = {
+	build: {
+		target: 'esnext',
+	},
 	plugins: [houdini(), sveltekit(), vitePluginGraphqlLoader()],
+	resolve: {
+		alias: [
+			{
+				find: /msw\/browser/,
+				replacement: path.resolve('./node_modules/msw/browser'),
+			},
+		],
+	},
 	test: {
 		globals: true,
 		include: ['**/*.{test,spec}.ts'],

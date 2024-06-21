@@ -169,7 +169,7 @@
 	}
 
 	.highlight {
-		color: var(--orange);
+		color: var(--orange-dark);
 	}
 
 	.remember {

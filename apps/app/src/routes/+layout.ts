@@ -1,4 +1,5 @@
 import { browser, dev } from '$app/environment';
+import { PUBLIC_ENABLE_MOCKING } from '$env/static/public';
 import { init, trackEvent } from '@aptabase/web';
 
 // Inject Analytics for tracking
@@ -7,10 +8,7 @@ if (!dev && browser) {
 	trackEvent('app_load');
 }
 
-// Clientside mocking
-if (import.meta.env.MODE !== 'production') {
-	if (dev && browser) {
-		const { worker } = await import('$mocks/browser');
-		worker.start({ onUnhandledRequest: 'bypass' });
-	}
+if (PUBLIC_ENABLE_MOCKING === 'true' && browser) {
+	const { worker } = await import('$mocks/browser');
+	worker.start({ onUnhandledRequest: 'bypass' });
 }
