@@ -57,7 +57,7 @@
 
 	.tertiary {
 		background: transparent;
-		color: var(--white);
+		color: var(--orange);
 		border: none;
 		padding: 0;
 	}
