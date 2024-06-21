@@ -11,7 +11,7 @@
 
 	const onDelete = async () => {
 		const deleteReminder = new deleteReminderStore();
-		await deleteReminder.mutate({ id: $page.params.slug });
+		await deleteReminder.mutate({ id: parseInt($page.params.slug) });
 
 		// Delete any files in storage
 		if ($page.data.files?.length) {

@@ -7,13 +7,14 @@ export const load: PageLoad = async (event) => {
 	const upcoming = new Date();
 	upcoming.setMonth(upcoming.getMonth() + 2);
 
-	const prom = new Promise((resolve) => {
+	const prom = new Promise<number>((resolve, reject) => {
 		getCategories.subscribe((res) => {
 			const cat = res.data?.categories?.list.find(
 				(cat) => cat.category.name === event.params.slug
 			);
-			resolve(cat?.category.id);
+			if (cat?.category.id) resolve(cat?.category.id);
 		});
+		reject();
 	});
 
 	const category = await prom;
