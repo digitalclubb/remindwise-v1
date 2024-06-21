@@ -12,10 +12,10 @@ const config = {
 	resolve: {
 		alias: [
 			{
-			  find: /msw\/browser/,
-			  replacement: path.resolve('./node_modules/msw/browser'),
+				find: /msw\/browser/,
+				replacement: path.resolve('./node_modules/msw/browser'),
 			},
-		  ],
+		],
 	},
 	test: {
 		globals: true,
