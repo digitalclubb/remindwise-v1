@@ -2,6 +2,7 @@ query getReminder($slug: BigInt) @load {
 	reminders: remindersCollection(filter: { id: { eq: $slug } }) {
 		list: edges {
 			reminder: node {
+				id
 				name
 				type
 				company
