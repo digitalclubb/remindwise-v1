@@ -16,7 +16,9 @@
 		"graphql:codegen": "pnpm sync && graphql-codegen --require dotenv/config",
 		"test": "vitest run",
 		"test:a11y": "playwright test --grep @accessibility",
-		"test:functional": "playwright test --grep @functional"
+		"test:functional": "playwright test --grep @functional",
+		"test:visual": "playwright test --grep @visual",
+		"test:visual:update": "playwright test --grep @visual --update-snapshots"
 	},
 	"dependencies": {
 		"@aptabase/web": "0.4.2",
