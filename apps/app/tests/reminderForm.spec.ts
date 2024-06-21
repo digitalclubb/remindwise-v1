@@ -15,7 +15,7 @@ test.describe('Reminder form page', () => {
 			tag: '@functional',
 		},
 		async () => {
-			await expect(reminderForm.pageTitle).toHaveText('Settings');
+			await expect(reminderForm.pageTitle).toHaveText('Edit reminder ');
 		}
 	);
 

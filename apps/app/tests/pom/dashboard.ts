@@ -26,24 +26,24 @@ export class Dashboard {
 	readonly settings: Locator;
 
 	constructor(page: Page, isMobile: boolean) {
-		this.name = isMobile ? 'Second Mobile' : 'Second';
+		this.name = isMobile ? 'Example 4 Mobile' : 'Example 4';
 		this.page = page;
 		this.pageTitle = page.getByRole('heading', { level: 1 });
 		this.tableRow1 = page.getByRole('row', {
-			name: 'Name Single record reminder',
+			name: 'Example reminder 1',
 		});
 		this.tableRow2 = page.getByRole('row', {
-			name: 'Name Monthly recurring reminder',
+			name: 'Example reminder 2',
 		});
 		this.tableRow3 = page.getByRole('row', {
-			name: 'Name Annual recurring reminder',
+			name: 'Example reminder 3',
 		});
 		this.username = page.getByRole('heading', {
 			level: 3,
-			name: PLAYWRIGHT_USERNAME,
+			name: 'Example User',
 		});
 		this.firstCategory = page.getByRole('link', {
-			name: 'First (3)',
+			name: 'Example 1 (0)',
 			exact: true,
 		});
 		this.secondCategory = page.getByRole('link', {

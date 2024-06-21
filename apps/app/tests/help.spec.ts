@@ -15,7 +15,7 @@ test.describe('Help page', () => {
 			tag: '@functional',
 		},
 		async () => {
-			await expect(help.pageTitle).toHaveText('Example 1');
+			await expect(help.pageTitle).toHaveText('Help');
 		}
 	);
 
