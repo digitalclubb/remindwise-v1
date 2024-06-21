@@ -28,6 +28,7 @@ test.describe('Dashboard page', () => {
 	);
 
 	// This test is failing because we haven't mocked the mutations
+	// eslint-disable-next-line playwright/no-skipped-test
 	test.skip(
 		'I can add, edit and delete a category',
 		{

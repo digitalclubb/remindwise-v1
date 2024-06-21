@@ -214,6 +214,7 @@
 								<a
 									href="/category/{reminder.reminder.category?.name}/{reminder
 										.reminder.id}"
+									aria-label={`View ${reminder.reminder.name}`}
 									class="table-link">
 									<svg>
 										<use xlink:href="#icon-view"></use>

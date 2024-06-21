@@ -1,7 +1,5 @@
 import type { Locator, Page } from '@playwright/test';
 
-const { PLAYWRIGHT_USERNAME } = process.env;
-
 export class Dashboard {
 	readonly page: Page;
 	readonly name: string;
