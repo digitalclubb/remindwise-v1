@@ -5,7 +5,7 @@ import houdini from 'houdini/vite';
 /** @type {import('vite').UserConfig} */
 const config = {
 	build: {
-		target: 'esnext'
+		target: 'esnext',
 	},
 	plugins: [houdini(), sveltekit(), vitePluginGraphqlLoader()],
 	resolve: {
@@ -19,7 +19,7 @@ const config = {
 		exclude: ['**/node_modules/**', '**/tests/**'],
 		environment: 'jsdom',
 		setupFiles: './vitest.setup.ts',
-	}
+	},
 };
 
 export default config;
