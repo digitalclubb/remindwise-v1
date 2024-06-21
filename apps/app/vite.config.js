@@ -11,12 +11,7 @@ const config = {
 		exclude: ['**/node_modules/**', '**/tests/**'],
 		environment: 'jsdom',
 		setupFiles: './vitest.setup.ts',
-	},
-	resolve: {
-		alias: {
-			'msw/browser': './node_modules/msw/lib/browser/index.mjs',
-		},
-	},
+	}
 };
 
 export default config;
