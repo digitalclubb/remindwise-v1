@@ -12,3 +12,9 @@ generates:
       - typed-document-node
     config:
       useTypeImports: true
+config:
+  scalars:
+    BigInt: number
+    BigFloat: number
+    UUID: string
+    Date: Date

@@ -37,7 +37,7 @@ export const actions: Actions = {
 		await updateReminder.mutate(
 			{
 				id: parseInt(event.params.slug || ''),
-				categoryId: newId || parseInt(data.categoryId),
+				categoryId: newId || data.categoryId,
 				name: data.name,
 				type: data.type,
 				company: data.company,

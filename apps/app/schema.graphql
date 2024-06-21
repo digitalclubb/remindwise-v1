@@ -196,6 +196,19 @@ type Mutation {
     filter: historicalFilter
   ): historicalDeleteResponse!
 
+  """
+  Deletes zero or more records from the `reminder_history_test` collection
+  """
+  deleteFromreminder_history_testCollection(
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: reminder_history_testFilter
+  ): reminder_history_testDeleteResponse!
+
   """Deletes zero or more records from the `reminders` collection"""
   deleteFromremindersCollection(
     """
@@ -223,6 +236,9 @@ type Mutation {
 
   """Adds one or more `historical` records to the collection"""
   insertIntohistoricalCollection(objects: [historicalInsertInput!]!): historicalInsertResponse
+
+  """Adds one or more `reminder_history_test` records to the collection"""
+  insertIntoreminder_history_testCollection(objects: [reminder_history_testInsertInput!]!): reminder_history_testInsertResponse
 
   """Adds one or more `reminders` records to the collection"""
   insertIntoremindersCollection(objects: [remindersInsertInput!]!): remindersInsertResponse
@@ -261,6 +277,22 @@ type Mutation {
     """
     set: historicalUpdateInput!
   ): historicalUpdateResponse!
+
+  """Updates zero or more records in the `reminder_history_test` collection"""
+  updatereminder_history_testCollection(
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: reminder_history_testFilter
+
+    """
+    Fields that are set will be updated for all records matching the `filter`
+    """
+    set: reminder_history_testUpdateInput!
+  ): reminder_history_testUpdateResponse!
 
   """Updates zero or more records in the `reminders` collection"""
   updateremindersCollection(
@@ -392,6 +424,32 @@ type Query {
     """The record's `ID`"""
     nodeId: ID!
   ): Node
+
+  """A pagable collection of type `reminder_history_test`"""
+  reminder_history_testCollection(
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: reminder_history_testFilter
+
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
+
+    """Sort order to apply to the collection"""
+    orderBy: [reminder_history_testOrderBy!]
+  ): reminder_history_testConnection
 
   """A pagable collection of type `reminders`"""
   remindersCollection(
@@ -745,6 +803,144 @@ type historicalUpdateResponse {
   records: [historical!]!
 }
 
+type reminder_history_test implements Node {
+  autoRenewal: Boolean!
+  categoryId: BigInt
+  company: String!
+  cost: Float!
+  created_at: Datetime
+  date: Date!
+  frequency: Frequency
+  id: BigInt!
+  name: String!
+
+  """Globally Unique Record Identifier"""
+  nodeId: ID!
+  notes: String
+  reminder_id: BigInt!
+  total: Float!
+  type: Type!
+  updated_at: Datetime
+  userid: UUID
+}
+
+type reminder_history_testConnection {
+  edges: [reminder_history_testEdge!]!
+  pageInfo: PageInfo!
+}
+
+type reminder_history_testDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [reminder_history_test!]!
+}
+
+type reminder_history_testEdge {
+  cursor: String!
+  node: reminder_history_test!
+}
+
+input reminder_history_testFilter {
+  """
+  Returns true only if all its inner filters are true, otherwise returns false
+  """
+  and: [reminder_history_testFilter!]
+  autoRenewal: BooleanFilter
+  categoryId: BigIntFilter
+  company: StringFilter
+  cost: FloatFilter
+  created_at: DatetimeFilter
+  date: DateFilter
+  frequency: FrequencyFilter
+  id: BigIntFilter
+  name: StringFilter
+  nodeId: IDFilter
+
+  """Negates a filter"""
+  not: reminder_history_testFilter
+  notes: StringFilter
+
+  """
+  Returns true if at least one of its inner filters is true, otherwise returns false
+  """
+  or: [reminder_history_testFilter!]
+  reminder_id: BigIntFilter
+  total: FloatFilter
+  type: TypeFilter
+  updated_at: DatetimeFilter
+  userid: UUIDFilter
+}
+
+input reminder_history_testInsertInput {
+  autoRenewal: Boolean
+  categoryId: BigInt
+  company: String
+  cost: Float
+  created_at: Datetime
+  date: Date
+  frequency: Frequency
+  name: String
+  notes: String
+  reminder_id: BigInt
+  total: Float
+  type: Type
+  updated_at: Datetime
+  userid: UUID
+}
+
+type reminder_history_testInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [reminder_history_test!]!
+}
+
+input reminder_history_testOrderBy {
+  autoRenewal: OrderByDirection
+  categoryId: OrderByDirection
+  company: OrderByDirection
+  cost: OrderByDirection
+  created_at: OrderByDirection
+  date: OrderByDirection
+  frequency: OrderByDirection
+  id: OrderByDirection
+  name: OrderByDirection
+  notes: OrderByDirection
+  reminder_id: OrderByDirection
+  total: OrderByDirection
+  type: OrderByDirection
+  updated_at: OrderByDirection
+  userid: OrderByDirection
+}
+
+input reminder_history_testUpdateInput {
+  autoRenewal: Boolean
+  categoryId: BigInt
+  company: String
+  cost: Float
+  created_at: Datetime
+  date: Date
+  frequency: Frequency
+  name: String
+  notes: String
+  reminder_id: BigInt
+  total: Float
+  type: Type
+  updated_at: Datetime
+  userid: UUID
+}
+
+type reminder_history_testUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [reminder_history_test!]!
+}
+
 type reminders implements Node {
   autoRenewal: Boolean!
   category: categories
@@ -763,6 +959,7 @@ type reminders implements Node {
   settings: settings
   total: Float!
   type: Type!
+  updated_at: Datetime
   userid: UUID
 }
 
@@ -813,6 +1010,7 @@ input remindersFilter {
   or: [remindersFilter!]
   total: FloatFilter
   type: TypeFilter
+  updated_at: DatetimeFilter
   userid: UUIDFilter
 }
 
@@ -828,6 +1026,7 @@ input remindersInsertInput {
   notes: String
   total: Float
   type: Type
+  updated_at: Datetime
   userid: UUID
 }
 
@@ -852,6 +1051,7 @@ input remindersOrderBy {
   notes: OrderByDirection
   total: OrderByDirection
   type: OrderByDirection
+  updated_at: OrderByDirection
   userid: OrderByDirection
 }
 
@@ -867,6 +1067,7 @@ input remindersUpdateInput {
   notes: String
   total: Float
   type: Type
+  updated_at: Datetime
   userid: UUID
 }
 
