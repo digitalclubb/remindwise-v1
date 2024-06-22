@@ -79,6 +79,25 @@ jobs:
           name: playwright-results-functional
           path: '**/test-results'
           retention-days: 10
+  visual:
+    name: Visual tests
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.44.1-jammy
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        uses: ./.github/actions/install-dependencies
+      - name: Run build
+        run: pnpm build
+      - name: Run tests
+        run: pnpm test:visual
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-results-visual
+          path: '**/test-results'
+          retention-days: 10
   lighthouse:
     name: Lighthouse
     runs-on: ubuntu-latest

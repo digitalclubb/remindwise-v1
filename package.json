@@ -12,6 +12,7 @@
 		"test:watch": "pnpm -r test:watch",
 		"test:a11y": "pnpm -r test:a11y",
 		"test:functional": "pnpm -r test:functional",
+		"test:visual": "pnpm -r test:visual",
 		"types": "pnpm -r types"
 	},
 	"devDependencies": {

@@ -30,4 +30,16 @@ test.describe('Login page', () => {
 			expect(results.violations).toEqual([]);
 		}
 	);
+
+	test(
+		'has visual test',
+		{
+			tag: '@visual',
+		},
+		async ({ page }) => {
+			await expect(page).toHaveScreenshot({
+				fullPage: true,
+			});
+		}
+	);
 });
