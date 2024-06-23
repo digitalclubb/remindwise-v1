@@ -4,14 +4,12 @@ import type { UpdateReminderMutation } from '@graphql/types';
 export const updateReminder = graphql.mutation<UpdateReminderMutation>(
 	'updateReminder',
 	() => {
-		return HttpResponse.json(
-			{
-				data: {
-					updateremindersCollection: {
-						affectedCount: 1		
-					},
+		return HttpResponse.json({
+			data: {
+				updateremindersCollection: {
+					affectedCount: 1,
 				},
-			}
-		);
+			},
+		});
 	}
 );

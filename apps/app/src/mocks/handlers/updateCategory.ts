@@ -4,14 +4,12 @@ import type { UpdateCategoryMutation } from '@graphql/types';
 export const updateCategory = graphql.mutation<UpdateCategoryMutation>(
 	'updateCategory',
 	() => {
-		return HttpResponse.json(
-			{
-				data: {
-					updatecategoriesCollection: {
-						affectedCount: 1		
-					},
+		return HttpResponse.json({
+			data: {
+				updatecategoriesCollection: {
+					affectedCount: 1,
 				},
-			}
-		);
+			},
+		});
 	}
 );

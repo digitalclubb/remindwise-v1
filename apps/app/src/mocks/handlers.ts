@@ -14,15 +14,15 @@ import { addReminder } from './handlers/addReminder';
 import { addCategory } from './handlers/addCategory';
 
 export const handlers = [
-    getCategories, 
-    getReminder, 
-    getReminders, 
-    getSettings, 
-    updateSettings, 
-    updateReminder,
-    updateCategory,
-    deleteReminder,
-    deleteCategory,
-    addReminder,
-    addCategory
+	getCategories,
+	getReminder,
+	getReminders,
+	getSettings,
+	updateSettings,
+	updateReminder,
+	updateCategory,
+	deleteReminder,
+	deleteCategory,
+	addReminder,
+	addCategory,
 ];

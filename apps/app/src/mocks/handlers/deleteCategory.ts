@@ -4,14 +4,12 @@ import type { DeleteCategoryMutation } from '@graphql/types';
 export const deleteCategory = graphql.mutation<DeleteCategoryMutation>(
 	'deleteCategory',
 	() => {
-		return HttpResponse.json(
-			{
-				data: {
-					deleteFromcategoriesCollection: {
-						affectedCount: 1		
-					},
+		return HttpResponse.json({
+			data: {
+				deleteFromcategoriesCollection: {
+					affectedCount: 1,
 				},
-			}
-		);
+			},
+		});
 	}
 );
