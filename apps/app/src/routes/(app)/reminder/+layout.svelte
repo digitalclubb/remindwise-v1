@@ -9,14 +9,16 @@
 	import Input from '../../../components/input/Input.svelte';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import FileUpload from '../../../components/fileupload/FileUpload.svelte';
+	import DataList from '../../../components/datalist/DataList.svelte';
 
 	export let data: LayoutData;
 
-	const { form, errors, constraints, enhance } = superForm(data.form, {
+	const superform = superForm(data.form, {
 		validators: zodClient(reminderSchema),
 	});
 
-	let showCategories: boolean;
+	const { form, errors, constraints, enhance } = superform;
+
 	$: ({ getCategories, getSettings } = data);
 
 	$: currency = $getSettings.data?.settings?.list[0].setting.currency || '';
@@ -25,18 +27,8 @@
 	$: categories = $getCategories.data?.categories?.list.filter((category) =>
 		category.category.name
 			.toLowerCase()
-			.startsWith($form.category.toLowerCase())
+			.startsWith($form.category?.toLowerCase())
 	);
-
-	const showCategoryList = () => {
-		document.addEventListener('click', () => (showCategories = false));
-		showCategories = true;
-	};
-
-	const hideCategoryList = () => {
-		document.removeEventListener('click', () => (showCategories = false));
-		showCategories = false;
-	};
 </script>
 
 <Header title={$page.data.title} />
@@ -49,27 +41,8 @@
 		enctype="multipart/form-data"
 		use:enhance>
 		<div class="category">
-			<Input
-				label="Category"
-				type="text"
-				name="category"
-				id="category"
-				icon="icon-add"
-				fullWidth
-				placeholder="Type to select or create a new category"
-				onInput={(e) => {
-					$form.category = e.currentTarget?.value;
-					if ($form.category.length > 1) {
-						showCategoryList();
-					} else {
-						hideCategoryList();
-					}
-				}}
-				autocomplete="off"
-				aria-haspopup="listbox"
-				aria-invalid={$errors.category ? 'true' : undefined}
-				bind:value={$form.category}
-				{...$constraints.category} />
+			<DataList {superform} field="category" {categories} />
+
 			<input
 				type="hidden"
 				value={categories?.[0]?.category.id || ''}
@@ -77,37 +50,6 @@
 
 			{#if $errors.category}
 				<p class="error">{$errors.category}</p>
-			{/if}
-			{#if categories}
-				<ul
-					class="categories-list"
-					class:show={showCategories}
-					aria-labelledby="category">
-					{#each categories as category}
-						<li>
-							<button
-								type="button"
-								on:click={() => {
-									$form.category = category.category.name;
-									hideCategoryList();
-								}}
-								><svg fill="var(--cream-dark)"
-									><use xlink:href="#{category.category.iconId}" /></svg
-								>{category.category.name}</button>
-						</li>
-					{/each}
-
-					{#if categories.length === 0}
-						<li>
-							<button
-								class="category-select"
-								type="button"
-								on:click={hideCategoryList}>
-								Category not found. It will be created when you add the
-								reminder.</button>
-						</li>
-					{/if}
-				</ul>
 			{/if}
 		</div>
 
@@ -283,46 +225,6 @@
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
-	}
-
-	.categories-list {
-		border-radius: 6px;
-		border: 1px solid var(--greyed-out);
-		background: var(--cream-light);
-		display: none;
-	}
-
-	.show {
-		display: block;
-	}
-
-	.categories-list li {
-		padding: 0.5rem 1rem;
-	}
-
-	.categories-list li:hover {
-		background: var(--cream);
-		cursor: pointer;
-	}
-
-	.categories-list li:hover svg {
-		fill: var(--remindwise-grey);
-	}
-
-	.categories-list button {
-		width: 100%;
-		background: none;
-		border: none;
-		text-align: left;
-		cursor: pointer;
-		margin-left: 0;
-	}
-
-	.categories-list svg {
-		width: 1.8rem;
-		height: 1.8rem;
-		margin-right: 1rem;
-		vertical-align: middle;
 	}
 
 	label {
