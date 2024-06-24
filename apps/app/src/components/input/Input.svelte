@@ -4,7 +4,7 @@
 		label?: string;
 		inline?: boolean;
 		fullWidth?: boolean;
-		value?: string | number;
+		value?: HTMLInputAttributes['value'];
 		icon?: string;
 		onInput?: FormEventHandler<HTMLInputElement>;
 	}
@@ -12,7 +12,7 @@
 	export let label: string | undefined = undefined;
 	export let inline: boolean = false;
 	export let fullWidth: boolean = false;
-	export let value: string | number | null = null;
+	export let value: HTMLInputAttributes['value'] = '';
 	export let icon: string | null = null;
 	export let onInput: FormEventHandler<HTMLInputElement> | undefined =
 		undefined;
