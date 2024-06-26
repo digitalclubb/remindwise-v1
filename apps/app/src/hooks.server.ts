@@ -15,17 +15,19 @@ const supabase: Handle = async ({ event, resolve }) => {
 		PUBLIC_SUPABASE_KEY,
 		{
 			cookies: {
-				get: (key) => event.cookies.get(key),
-				/**
-				 * SvelteKit's cookies API requires `path` to be explicitly set in
-				 * the cookie options. Setting `path` to `/` replicates previous/
-				 * standard behavior.
-				 */
-				set: (key, value, options) => {
-					event.cookies.set(key, value, { ...options, path: '/' });
+				getAll() {
+					return event.cookies.getAll();
 				},
-				remove: (key, options) => {
-					event.cookies.delete(key, { ...options, path: '/' });
+				setAll(cookiesToSet) {
+					/**
+					 * Note: You have to add the `path` variable to the
+					 * set and remove method due to sveltekit's cookie API
+					 * requiring this to be set, setting the path to an empty string
+					 * will replicate previous/standard behavior (https://kit.svelte.dev/docs/types#public-types-cookies)
+					 */
+					cookiesToSet.forEach(({ name, value, options }) =>
+						event.cookies.set(name, value, { ...options, path: '/' })
+					);
 				},
 			},
 		}

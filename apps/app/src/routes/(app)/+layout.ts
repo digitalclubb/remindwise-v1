@@ -6,7 +6,6 @@ import {
 	createBrowserClient,
 	createServerClient,
 	isBrowser,
-	parse,
 } from '@supabase/ssr';
 
 export const load = (async (event) => {
@@ -21,12 +20,6 @@ export const load = (async (event) => {
 				global: {
 					fetch: event.fetch,
 				},
-				cookies: {
-					get(key) {
-						const cookie = parse(document.cookie);
-						return cookie[key];
-					},
-				},
 			})
 		: createServerClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY, {
 				global: {
@@ -38,7 +31,6 @@ export const load = (async (event) => {
 					},
 				},
 			});
-
 	/**
 	 * It's fine to use `getSession` here, because on the client, `getSession` is
 	 * safe, and on the server, it reads `session` from the `LayoutData`, which
