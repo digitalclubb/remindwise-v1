@@ -1,6 +1,7 @@
 {
 	"name": "remindwise-monorepo",
 	"private": true,
+	"type": "module",
 	"scripts": {
 		"build": "pnpm -r build",
 		"preview": "pnpm -r preview",
