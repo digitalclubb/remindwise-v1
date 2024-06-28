@@ -25,6 +25,6 @@
 	"prepare": "svelte-kit sync",
 	"packageManager": "pnpm@9.4.0",
 	"dependencies": {
-		"@supabase/supabase-js": "2.44.0"
+		"@supabase/supabase-js": "2.44.1"
 	}
 }
