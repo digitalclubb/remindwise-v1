@@ -2,7 +2,7 @@ import { graphql, HttpResponse } from 'msw';
 import type { UpdateSettingsMutation } from '@graphql/types';
 
 export const updateSettings = graphql.mutation<UpdateSettingsMutation>(
-	'updateSettings',
+	'UpdateSettings',
 	() => {
 		return HttpResponse.json({
 			data: {

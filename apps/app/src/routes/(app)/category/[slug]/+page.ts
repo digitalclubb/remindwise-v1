@@ -1,14 +1,14 @@
 import type { PageLoad } from './$types';
-import { load_getReminders } from '$houdini';
+import { load_GetReminders } from '$houdini';
 
 export const load: PageLoad = async (event) => {
-	const { getCategories } = await event.parent();
+	const { GetCategories } = await event.parent();
 	const today = new Date();
 	const upcoming = new Date();
 	upcoming.setMonth(upcoming.getMonth() + 2);
 
 	const prom = new Promise<number>((resolve, reject) => {
-		getCategories.subscribe((res) => {
+		GetCategories.subscribe((res) => {
 			const cat = res.data?.categories?.list.find(
 				(cat) => cat.category.name === event.params.slug
 			);
@@ -21,7 +21,7 @@ export const load: PageLoad = async (event) => {
 
 	// TODO when category is undefined problem, this happens right after updating the name of the category
 	return {
-		...(await load_getReminders({
+		...(await load_GetReminders({
 			event,
 			variables: {
 				categoryId: category,

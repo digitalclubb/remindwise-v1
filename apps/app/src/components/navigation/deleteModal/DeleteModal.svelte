@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { deleteCategoryStore } from '$houdini';
+	import { DeleteCategoryStore } from '$houdini';
 	import { goto } from '$app/navigation';
 	import { refresh } from '../../../stores';
 
@@ -15,7 +15,7 @@
 	export let selected: string;
 
 	const onDeleteCategory = async () => {
-		const deleteCategory = new deleteCategoryStore();
+		const deleteCategory = new DeleteCategoryStore();
 
 		await deleteCategory.mutate({ id: currentCategory?.id });
 

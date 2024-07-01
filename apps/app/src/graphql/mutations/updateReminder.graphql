@@ -1,4 +1,4 @@
-mutation updateReminder(
+mutation UpdateReminder(
 	$id: BigInt
 	$categoryId: BigInt!
 	$name: String!

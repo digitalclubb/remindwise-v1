@@ -5,10 +5,10 @@
 	import { page } from '$app/stores';
 
 	export let data: PageData;
-	$: ({ getSettings } = data);
+	$: ({ GetSettings } = data);
 
 	$: reminder = data?.data?.reminders?.list[0].reminder;
-	$: currency = $getSettings.data?.settings?.list[0].setting.currency || '';
+	$: currency = $GetSettings.data?.settings?.list[0].setting.currency || '';
 
 	$: cost = reminder
 		? new Intl.NumberFormat('en-GB', {

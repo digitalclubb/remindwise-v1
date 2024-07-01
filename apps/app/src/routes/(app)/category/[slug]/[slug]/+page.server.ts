@@ -1,8 +1,8 @@
-import { getReminderStore } from '$houdini';
+import { GetReminderStore } from '$houdini';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async (event) => {
-	const getReminder = new getReminderStore();
+	const getReminder = new GetReminderStore();
 	const { data } = await getReminder.fetch({
 		event,
 		variables: { slug: parseInt(event.params.slug) },

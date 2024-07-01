@@ -1,4 +1,4 @@
-import { load_getSettings, load_getCategories } from '$houdini';
+import { load_GetSettings, load_GetCategories } from '$houdini';
 
 import { PUBLIC_SUPABASE_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
 import type { LayoutLoad } from './$types';
@@ -48,10 +48,10 @@ export const load = (async (event) => {
 		supabase,
 		session,
 		user,
-		...(await load_getCategories({
+		...(await load_GetCategories({
 			event,
 		})),
-		...(await load_getSettings({
+		...(await load_GetSettings({
 			event,
 		})),
 	};

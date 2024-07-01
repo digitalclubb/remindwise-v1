@@ -2,7 +2,7 @@ import { graphql, HttpResponse } from 'msw';
 import type { AddCategoryMutation } from '@graphql/types';
 
 export const addCategory = graphql.mutation<AddCategoryMutation>(
-	'addCategory',
+	'AddCategory',
 	() => {
 		return HttpResponse.json({
 			data: {

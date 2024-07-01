@@ -1,4 +1,4 @@
-mutation deleteReminder($id: BigInt) {
+mutation DeleteReminder($id: BigInt) {
 	deleteFromremindersCollection(filter: { id: { eq: $id } }) {
 		affectedCount
 	}

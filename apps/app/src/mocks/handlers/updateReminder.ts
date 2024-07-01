@@ -2,7 +2,7 @@ import { graphql, HttpResponse } from 'msw';
 import type { UpdateReminderMutation } from '@graphql/types';
 
 export const updateReminder = graphql.mutation<UpdateReminderMutation>(
-	'updateReminder',
+	'UpdateReminder',
 	() => {
 		return HttpResponse.json({
 			data: {

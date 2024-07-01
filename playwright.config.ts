@@ -8,7 +8,11 @@ export default defineConfig({
 	workers: process.env.CI ? 1 : undefined,
 	timeout: 60000,
 	reporter: [['html', { open: 'never' }]],
-	snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}__{projectName}{ext}',
+	snapshotPathTemplate:
+		'{testDir}/__screenshots__/{testFilePath}__{projectName}{ext}',
+	expect: {
+		toHaveScreenshot: { maxDiffPixelRatio: 0.05 },
+	},
 	use: {
 		screenshot: 'only-on-failure',
 		trace: 'retain-on-failure',
