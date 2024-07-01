@@ -1,4 +1,4 @@
-query getReminders(
+query GetReminders(
 	$categoryId: BigInt
 	$today: Date
 	$upcoming: Date

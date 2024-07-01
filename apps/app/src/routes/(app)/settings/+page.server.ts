@@ -1,4 +1,4 @@
-import { getSettingsStore, updateSettingsStore } from '$houdini';
+import { GetSettingsStore, UpdateSettingsStore } from '$houdini';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { superValidate } from 'sveltekit-superforms/server';
@@ -7,7 +7,7 @@ import type { Currency, Interval } from '@graphql/types';
 import { zod } from 'sveltekit-superforms/adapters';
 
 export const load: PageServerLoad = async (event) => {
-	const getSettings = new getSettingsStore();
+	const getSettings = new GetSettingsStore();
 	const { data } = await getSettings.fetch({
 		event,
 	});
@@ -41,7 +41,7 @@ export const actions: Actions = {
 			return fail(400, { form });
 		}
 
-		const updateSettings = new updateSettingsStore();
+		const updateSettings = new UpdateSettingsStore();
 		await updateSettings.mutate(
 			{
 				firstName: data.firstName,

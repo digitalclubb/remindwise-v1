@@ -2,7 +2,7 @@ import { graphql, HttpResponse } from 'msw';
 import type { GetReminderQuery, Type, Frequency } from '@graphql/types';
 
 export const getReminder = graphql.query<GetReminderQuery>(
-	'getReminder',
+	'GetReminder',
 	() => {
 		return HttpResponse.json(
 			{

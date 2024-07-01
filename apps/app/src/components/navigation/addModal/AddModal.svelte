@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { addCategoryStore, updateCategoryStore } from '$houdini';
+	import { AddCategoryStore, UpdateCategoryStore } from '$houdini';
 	import { page } from '$app/stores';
 	import { defaults, superForm } from 'sveltekit-superforms/client';
 	import { refresh } from '../../../stores';
@@ -29,7 +29,7 @@
 	);
 
 	const onAddCategory = async () => {
-		const addCategory = new addCategoryStore();
+		const addCategory = new AddCategoryStore();
 		const { valid, errors: validatedErrors, data } = await validateForm();
 
 		if (!valid) {
@@ -49,7 +49,7 @@
 	};
 
 	const onEditCategory = async () => {
-		const updateCategory = new updateCategoryStore();
+		const updateCategory = new UpdateCategoryStore();
 		const { valid, errors: validatedErrors, data } = await validateForm();
 
 		if (!valid) {

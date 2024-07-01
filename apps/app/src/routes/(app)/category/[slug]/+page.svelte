@@ -8,13 +8,13 @@
 
 	export let data;
 
-	$: ({ getReminders, getSettings } = data);
+	$: ({ GetReminders, GetSettings } = data);
 
-	$: upcoming = $getReminders.data?.upcoming?.list || [];
-	$: reminders = $getReminders.data?.reminders?.list || [];
-	$: pageInfo = $getReminders.data?.reminders?.pageInfo;
+	$: upcoming = $GetReminders.data?.upcoming?.list || [];
+	$: reminders = $GetReminders.data?.reminders?.list || [];
+	$: pageInfo = $GetReminders.data?.reminders?.pageInfo;
 
-	$: currency = $getSettings.data?.settings?.list[0].setting.currency || '';
+	$: currency = $GetSettings.data?.settings?.list[0].setting.currency || '';
 	$: currencySymbol = getCurrency(currency);
 
 	$: upcomingFilter = '1';
@@ -25,7 +25,7 @@
 		const upcomingDate = new Date();
 		upcomingDate.setMonth(upcomingDate.getMonth() + parseInt(upcomingFilter));
 
-		await getReminders.fetch({
+		await GetReminders.fetch({
 			variables: {
 				today: todayDate,
 				upcoming: upcomingDate,
@@ -34,7 +34,7 @@
 	};
 
 	const onRemindersNumberChange = async () => {
-		await getReminders.fetch({
+		await GetReminders.fetch({
 			variables: {
 				first: parseInt(numberOfRemindersFilter),
 				last: null,
@@ -46,7 +46,7 @@
 
 	const onPrevious = async () => {
 		pageInfo?.hasPreviousPage &&
-			(await getReminders.fetch({
+			(await GetReminders.fetch({
 				variables: {
 					last: parseInt(numberOfRemindersFilter),
 					before: pageInfo.startCursor,
@@ -58,7 +58,7 @@
 
 	const onNext = async () => {
 		pageInfo?.hasNextPage &&
-			(await getReminders.fetch({
+			(await GetReminders.fetch({
 				variables: {
 					first: parseInt(numberOfRemindersFilter),
 					after: pageInfo.endCursor,

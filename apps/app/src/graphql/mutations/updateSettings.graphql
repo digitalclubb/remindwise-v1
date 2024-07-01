@@ -1,4 +1,4 @@
-mutation updateSettings(
+mutation UpdateSettings(
 	$id: UUID
 	$firstName: String
 	$lastName: String

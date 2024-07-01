@@ -2,7 +2,7 @@ import { graphql, HttpResponse } from 'msw';
 import type { GetSettingsQuery, Interval, Currency } from '@graphql/types';
 
 export const getSettings = graphql.query<GetSettingsQuery>(
-	'getSettings',
+	'GetSettings',
 	() => {
 		return HttpResponse.json(
 			{

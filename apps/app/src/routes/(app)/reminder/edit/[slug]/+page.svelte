@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import Button from '../../../../../components/button/Button.svelte';
 	import { navigating, page } from '$app/stores';
-	import { deleteReminderStore } from '$houdini';
+	import { DeleteReminderStore } from '$houdini';
 
 	import Modal from '../../../../../components/modal/Modal.svelte';
 
@@ -10,7 +10,7 @@
 	let previousPage = $navigating?.from?.url.pathname;
 
 	const onDelete = async () => {
-		const deleteReminder = new deleteReminderStore();
+		const deleteReminder = new DeleteReminderStore();
 		await deleteReminder.mutate({ id: parseInt($page.params.slug) });
 
 		// Delete any files in storage

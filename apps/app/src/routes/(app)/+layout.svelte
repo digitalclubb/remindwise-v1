@@ -8,7 +8,7 @@
 	import { page } from '$app/stores';
 
 	export let data;
-	$: ({ supabase, session, getCategories, getSettings } = data);
+	$: ({ supabase, session, GetCategories, GetSettings } = data);
 
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange((_, newSession) => {
@@ -31,7 +31,7 @@
 </script>
 
 <main>
-	<Navigation categoriesStore={getCategories} settingsStore={getSettings} />
+	<Navigation categoriesStore={GetCategories} settingsStore={GetSettings} />
 	<div class="content">
 		<slot />
 	</div>
