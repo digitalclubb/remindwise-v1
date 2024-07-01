@@ -11,6 +11,5 @@ export class Reminder {
 
 	async goto() {
 		await this.page.goto('/category/Example 1/2');
-		await this.page.waitForFunction(() => document.fonts.ready);
 	}
 }

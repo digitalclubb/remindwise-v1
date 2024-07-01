@@ -11,6 +11,5 @@ export class Category {
 
 	async goto() {
 		await this.page.goto('/category/Example 1');
-		await this.page.waitForFunction(() => document.fonts.ready);
 	}
 }

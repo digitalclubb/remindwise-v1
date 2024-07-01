@@ -11,6 +11,5 @@ export class Help {
 
 	async goto() {
 		await this.page.goto('/help');
-		await this.page.waitForFunction(() => document.fonts.ready);
 	}
 }

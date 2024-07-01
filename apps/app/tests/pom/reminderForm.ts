@@ -11,6 +11,5 @@ export class ReminderForm {
 
 	async goto() {
 		await this.page.goto('/reminder/edit/1');
-		await this.page.waitForFunction(() => document.fonts.ready);
 	}
 }

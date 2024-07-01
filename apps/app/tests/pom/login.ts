@@ -11,6 +11,5 @@ export class Login {
 
 	async goto() {
 		await this.page.goto('/login');
-		await this.page.waitForFunction(() => document.fonts.ready);
 	}
 }

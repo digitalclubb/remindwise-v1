@@ -11,6 +11,5 @@ export class Notifications {
 
 	async goto() {
 		await this.page.goto('/notifications');
-		await this.page.waitForFunction(() => document.fonts.ready);
 	}
 }
