@@ -84,6 +84,7 @@ export class Dashboard {
 		await this.page.goto('/', {
 			waitUntil: 'domcontentloaded',
 		});
+		await this.page.waitForFunction(() => document.fonts.ready);
 	}
 
 	async addCategoryForm() {

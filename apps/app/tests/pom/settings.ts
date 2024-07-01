@@ -11,5 +11,6 @@ export class Settings {
 
 	async goto() {
 		await this.page.goto('/settings');
+		await this.page.waitForFunction(() => document.fonts.ready);
 	}
 }

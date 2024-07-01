@@ -11,5 +11,6 @@ export class Register {
 
 	async goto() {
 		await this.page.goto('/register');
+		await this.page.waitForFunction(() => document.fonts.ready);
 	}
 }
