@@ -158,6 +158,7 @@ test.describe('Dashboard page', () => {
 		async ({ page }) => {
 			await expect(page).toHaveScreenshot({
 				fullPage: true,
+				animations: 'disabled',
 			});
 		}
 	);
