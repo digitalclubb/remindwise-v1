@@ -180,8 +180,8 @@
 					{/if}</label>
 
 				<fieldset class="date" id="date">
-					<Input type="number" min="1" max="31" placeholder="DD" />
-					<Input type="number" min="1" max="12" placeholder="MM" />
+					<Input type="number" min="1" max="31" placeholder="DD" fullWidth />
+					<Input type="number" min="1" max="12" placeholder="MM" fullWidth />
 				</fieldset>
 				<!-- <input
 					type="date"
@@ -281,7 +281,6 @@
 	.date {
 		border: none;
 		display: flex;
-		max-width: 80%;
 		padding: 0;
 		margin: 0;
 		gap: 1rem;
