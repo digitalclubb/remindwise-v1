@@ -1,7 +1,7 @@
 import type { LayoutServerLoad } from './$types';
 import { superValidate } from 'sveltekit-superforms/server';
 import { reminderSchema } from './schema';
-import { getReminderStore } from '$houdini';
+import { GetReminderStore } from '$houdini';
 import { Frequency, Type } from '@graphql/types';
 import { zod } from 'sveltekit-superforms/adapters';
 
@@ -42,7 +42,7 @@ export const load: LayoutServerLoad = async (event) => {
 
 	// If we're on the edit page, then we want to fetch the data and prepropulate our form
 	if (event.params.slug) {
-		const getReminder = new getReminderStore();
+		const getReminder = new GetReminderStore();
 		const { data } = await getReminder.fetch({
 			event,
 			variables: { slug: parseInt(event.params.slug) },

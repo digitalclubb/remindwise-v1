@@ -1,4 +1,4 @@
-query getHistorical($yearStart: Date, $yearEnd: Date) {
+query GetHistorical($yearStart: Date, $yearEnd: Date) {
 	historical: historicalCollection(
 		filter: { date: { gte: $yearStart, lte: $yearEnd } }
 	) {

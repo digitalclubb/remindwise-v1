@@ -19,12 +19,12 @@
 
 	const { form, errors, constraints, enhance } = superform;
 
-	$: ({ getCategories, getSettings } = data);
+	$: ({ GetCategories, GetSettings } = data);
 
-	$: currency = $getSettings.data?.settings?.list[0].setting.currency || '';
+	$: currency = $GetSettings.data?.settings?.list[0].setting.currency || '';
 	$: currencySymbol = getCurrency(currency);
 
-	$: categories = $getCategories.data?.categories?.list.filter((category) =>
+	$: categories = $GetCategories.data?.categories?.list.filter((category) =>
 		category.category.name
 			.toLowerCase()
 			.startsWith($form.category?.toLowerCase())

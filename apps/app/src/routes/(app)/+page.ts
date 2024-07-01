@@ -1,5 +1,5 @@
 import type { PageLoad } from './$types';
-import { load_getHistorical, load_getReminders } from '$houdini';
+import { load_GetHistorical, load_GetReminders } from '$houdini';
 
 export const load: PageLoad = async (event) => {
 	const today = new Date();
@@ -10,11 +10,11 @@ export const load: PageLoad = async (event) => {
 	const yearEnd = new Date(`12/31/${today.getFullYear()}`);
 
 	return {
-		...(await load_getReminders({
+		...(await load_GetReminders({
 			event,
 			variables: { today, upcoming, first: 5, after: null },
 		})),
-		...(await load_getHistorical({
+		...(await load_GetHistorical({
 			event,
 			variables: { yearStart, yearEnd },
 		})),

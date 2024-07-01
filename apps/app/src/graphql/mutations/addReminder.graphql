@@ -1,4 +1,4 @@
-mutation addReminder(
+mutation AddReminder(
 	$userId: UUID!
 	$categoryId: BigInt!
 	$name: String!

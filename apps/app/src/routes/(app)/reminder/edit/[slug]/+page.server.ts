@@ -1,4 +1,4 @@
-import { addCategoryStore, updateReminderStore } from '$houdini';
+import { AddCategoryStore, UpdateReminderStore } from '$houdini';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { reminderSchema } from '../../schema.js';
@@ -16,11 +16,11 @@ export const actions: Actions = {
 		}
 		const deleted = formData.get('deleted') as string;
 
-		const updateReminder = new updateReminderStore();
+		const updateReminder = new UpdateReminderStore();
 
 		let newId: number | undefined;
 		if (!data.categoryId) {
-			const addCategory = new addCategoryStore();
+			const addCategory = new AddCategoryStore();
 
 			const result = await addCategory.mutate(
 				{

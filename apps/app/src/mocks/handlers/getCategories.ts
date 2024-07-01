@@ -2,7 +2,7 @@ import { graphql, HttpResponse } from 'msw';
 import type { GetCategoriesQuery } from '@graphql/types';
 
 export const getCategories = graphql.query<GetCategoriesQuery>(
-	'getCategories',
+	'GetCategories',
 	() => {
 		return HttpResponse.json(
 			{

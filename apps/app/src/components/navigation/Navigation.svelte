@@ -10,7 +10,7 @@
 	import { goto } from '$app/navigation';
 	import { refresh } from '../../stores';
 
-	import { getSettingsStore, getCategoriesStore } from '$houdini';
+	import { GetSettingsStore, GetCategoriesStore } from '$houdini';
 	import Link from '../link/Link.svelte';
 
 	import type { Categories } from '@graphql/types';
@@ -19,8 +19,8 @@
 	let mounted: boolean = false;
 	onMount(() => (mounted = true));
 
-	export let categoriesStore: getCategoriesStore;
-	export let settingsStore: getSettingsStore;
+	export let categoriesStore: GetCategoriesStore;
+	export let settingsStore: GetSettingsStore;
 	$: categories = $categoriesStore.data?.categories?.list;
 	$: settings = $settingsStore.data?.settings?.list[0].setting;
 
