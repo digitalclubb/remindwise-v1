@@ -45,7 +45,7 @@ jobs:
     name: Accessibility tests
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.45.1-jammy
+      image: mcr.microsoft.com/playwright:v1.45.2-jammy
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
@@ -64,7 +64,7 @@ jobs:
     name: Functional tests
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.45.1-jammy
+      image: mcr.microsoft.com/playwright:v1.45.2-jammy
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
@@ -83,7 +83,7 @@ jobs:
     name: Visual tests
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.45.1-jammy
+      image: mcr.microsoft.com/playwright:v1.45.2-jammy
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
