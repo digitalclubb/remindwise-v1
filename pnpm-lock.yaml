@@ -70,8 +70,8 @@ importers:
         specifier: 6.0.2
         version: 6.0.2(@babel/core@7.24.4)(postcss-load-config@3.1.4(postcss@8.4.39)(ts-node@10.9.2(@types/node@20.14.11)(typescript@5.5.3)))(postcss@8.4.39)(svelte@4.2.18)(typescript@5.5.3)
       sveltekit-superforms:
-        specifier: 2.16.0
-        version: 2.16.0(@sveltejs/kit@2.5.18(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.3.4(@types/node@20.14.11)))(svelte@4.2.18)(vite@5.3.4(@types/node@20.14.11)))(svelte@4.2.18)
+        specifier: 2.16.1
+        version: 2.16.1(@sveltejs/kit@2.5.18(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.3.4(@types/node@20.14.11)))(svelte@4.2.18)(vite@5.3.4(@types/node@20.14.11)))(svelte@4.2.18)
       vite:
         specifier: 5.3.4
         version: 5.3.4(@types/node@20.14.11)
@@ -143,8 +143,8 @@ importers:
         specifier: 3.3.3
         version: 3.3.3
       prettier-plugin-svelte:
-        specifier: 3.2.5
-        version: 3.2.5(prettier@3.3.3)(svelte@4.2.18)
+        specifier: 3.2.6
+        version: 3.2.6(prettier@3.3.3)(svelte@4.2.18)
       svelte-check:
         specifier: 3.8.4
         version: 3.8.4(@babel/core@7.24.4)(postcss-load-config@3.1.4(postcss@8.4.39)(ts-node@10.9.2(@types/node@20.14.11)(typescript@5.5.3)))(postcss@8.4.39)(svelte@4.2.18)
@@ -201,8 +201,8 @@ importers:
         specifier: 3.3.3
         version: 3.3.3
       prettier-plugin-svelte:
-        specifier: 3.2.5
-        version: 3.2.5(prettier@3.3.3)(svelte@4.2.18)
+        specifier: 3.2.6
+        version: 3.2.6(prettier@3.3.3)(svelte@4.2.18)
       svelte:
         specifier: 4.2.18
         version: 4.2.18
@@ -251,11 +251,11 @@ packages:
     resolution: {integrity: sha512-xhlTqH0m31mnsG0tIP4ETgfSB6gXDaYYsUWTrlUV93fFQPI9dd8hE0Ot6MHLCtqgB32hwJAC3YZMWlXZw7AleA==}
     engines: {node: '>=14'}
 
-  '@arktype/schema@0.1.13':
-    resolution: {integrity: sha512-qZjtCAKrnhsixDWsEGJtosWfi4bLpAg4OnnICVYTer/6v5hwlhsdYpYobTSJUc5eiBoI5Ai/kcNfYaQISshY2g==}
+  '@ark/schema@0.2.0':
+    resolution: {integrity: sha512-IkNWCSHdjaoemMXpps4uFHEAQzwJPbTAS8K2vcQpk90sa+eNBuPSVyB/81/Qyl1VYW0iX3ceGC5NL/OznQv1jg==}
 
-  '@arktype/util@0.0.48':
-    resolution: {integrity: sha512-U5FO5EUAJ4LoYtLSyAMmTf6CEVgslObfSQuua2zoK5Tv2FB3aESVQ3rdLfhuz+coRhlzlynbkmimyoQWwQT+aQ==}
+  '@ark/util@0.1.0':
+    resolution: {integrity: sha512-qCLYICQoCy3kEKDVwirQp8qvxhY7NJd8BhhoHaj1l3wCFAk9NUbcDsxAkPStZEMdPI/d7NcbGJe8SWZuRG2twQ==}
 
   '@axe-core/playwright@4.9.1':
     resolution: {integrity: sha512-8m4WZbZq7/aq7ZY5IG8GqV+ZdvtGn/iJdom+wBg+iv/3BAOBIfNQtIu697a41438DzEEyptXWmC3Xl5Kx/o9/g==}
@@ -1730,8 +1730,8 @@ packages:
   aria-query@5.3.0:
     resolution: {integrity: sha512-b0P0sZPKtyu8HkeRAfCq0IfURZK+SuwMjY1UXGBU27wpAiTwQAIlq56IbIO+ytk/JjS1fMR14ee5WBBfKi5J6A==}
 
-  arktype@2.0.0-dev.21:
-    resolution: {integrity: sha512-dgHCjb3FK4BGvG2LuXqgdWXstbFmiYowSy0jiKnyk4KVcMT5DyIJ9d1nbQM3ztiAL3hIPmPdkmpfxUqR+BoOBQ==}
+  arktype@2.0.0-beta.0:
+    resolution: {integrity: sha512-fE3ssMiXjr/bLqFPzlDhRlXngdyHQreu7p7i8+dtcY1CA+f8WrVUcue6JxywhnqEJXPG4HOcIwQcC+q4VfeUMQ==}
 
   array-buffer-byte-length@1.0.0:
     resolution: {integrity: sha512-LPuwb2P+NrQw3XhxGc36+XSvuBPopovXYTR9Ew++Du9Yb/bx5AzBfrIsBoj0EZUifjQU+sHL21sseZ3jerWO/A==}
@@ -3397,8 +3397,8 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
-  prettier-plugin-svelte@3.2.5:
-    resolution: {integrity: sha512-vP/M/Goc8z4iVIvrwXwbrYVjJgA0Hf8PO1G4LBh/ocSt6vUP6sLvyu9F3ABEGr+dbKyxZjEKLkeFsWy/yYl0HQ==}
+  prettier-plugin-svelte@3.2.6:
+    resolution: {integrity: sha512-Y1XWLw7vXUQQZmgv1JAEiLcErqUniAF2wO7QJsw8BVMvpLET2dI5WpEIEJx1r11iHVdSMzQxivyfrH9On9t2IQ==}
     peerDependencies:
       prettier: ^3.0.0
       svelte: ^3.2.0 || ^4.0.0-next.0 || ^5.0.0-next.0
@@ -3820,8 +3820,8 @@ packages:
     resolution: {integrity: sha512-d0FdzYIiAePqRJEb90WlJDkjUEx42xhivxN8muUBmfZnP+tzUgz12DJ2hRJi8sIHCME7jeK1PTMgKPSfTd8JrA==}
     engines: {node: '>=16'}
 
-  sveltekit-superforms@2.16.0:
-    resolution: {integrity: sha512-t5aZyMCXyahgvn7VAJ7l9S+wAv9YyMAZHYQ6gcGVZ6ecr4/DMMD2r3ajGCj1h1dWaMQ3w5zVw+SqHSAkbHsWVQ==}
+  sveltekit-superforms@2.16.1:
+    resolution: {integrity: sha512-RNBdN43xge/ADmc3s7+pfdnRGuZ9gZiqpX6VKAQCnCI+ICc5rrPv5idYbx4iuY1Ia0lRMAq1hP0x2oHaPjB+Kg==}
     peerDependencies:
       '@sveltejs/kit': 1.x || 2.x
       svelte: 3.x || 4.x || >=5.0.0-next.51
@@ -4352,12 +4352,12 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@arktype/schema@0.1.13':
+  '@ark/schema@0.2.0':
     dependencies:
-      '@arktype/util': 0.0.48
+      '@ark/util': 0.1.0
     optional: true
 
-  '@arktype/util@0.0.48':
+  '@ark/util@0.1.0':
     optional: true
 
   '@axe-core/playwright@4.9.1(playwright-core@1.45.2)':
@@ -6159,10 +6159,10 @@ snapshots:
     dependencies:
       dequal: 2.0.3
 
-  arktype@2.0.0-dev.21:
+  arktype@2.0.0-beta.0:
     dependencies:
-      '@arktype/schema': 0.1.13
-      '@arktype/util': 0.0.48
+      '@ark/schema': 0.2.0
+      '@ark/util': 0.1.0
     optional: true
 
   array-buffer-byte-length@1.0.0:
@@ -8016,7 +8016,7 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-svelte@3.2.5(prettier@3.3.3)(svelte@4.2.18):
+  prettier-plugin-svelte@3.2.6(prettier@3.3.3)(svelte@4.2.18):
     dependencies:
       prettier: 3.3.3
       svelte: 4.2.18
@@ -8405,7 +8405,7 @@ snapshots:
       magic-string: 0.30.10
       periscopic: 3.1.0
 
-  sveltekit-superforms@2.16.0(@sveltejs/kit@2.5.18(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.3.4(@types/node@20.14.11)))(svelte@4.2.18)(vite@5.3.4(@types/node@20.14.11)))(svelte@4.2.18):
+  sveltekit-superforms@2.16.1(@sveltejs/kit@2.5.18(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.3.4(@types/node@20.14.11)))(svelte@4.2.18)(vite@5.3.4(@types/node@20.14.11)))(svelte@4.2.18):
     dependencies:
       '@sveltejs/kit': 2.5.18(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.3.4(@types/node@20.14.11)))(svelte@4.2.18)(vite@5.3.4(@types/node@20.14.11))
       devalue: 5.0.0
@@ -8419,7 +8419,7 @@ snapshots:
       '@sinclair/typebox': 0.32.34
       '@sodaru/yup-to-json-schema': 2.0.1
       '@vinejs/vine': 1.8.0
-      arktype: 2.0.0-dev.21
+      arktype: 2.0.0-beta.0
       joi: 17.13.3
       json-schema-to-ts: 3.1.0
       superstruct: 2.0.2
