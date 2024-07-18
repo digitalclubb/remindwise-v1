@@ -76,8 +76,8 @@ importers:
         specifier: 5.3.4
         version: 5.3.4(@types/node@20.14.11)
       vite-plugin-graphql-loader:
-        specifier: 3.0.1
-        version: 3.0.1
+        specifier: 4.0.2
+        version: 4.0.2
       zod:
         specifier: 3.23.8
         version: 3.23.8
@@ -4049,8 +4049,8 @@ packages:
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
 
-  vite-plugin-graphql-loader@3.0.1:
-    resolution: {integrity: sha512-srY4oik0ObdRsOcUXhfqukx3tqWRj5lDrQN6LU4NdHrujcRcwxp60qEW2Lcc+pprcRJm66YVEFVmJ4/UiXkYvw==}
+  vite-plugin-graphql-loader@4.0.2:
+    resolution: {integrity: sha512-IPnummTXXWY3lNO3eEVuZmJG57Pb99jKeoo8jORJduNrz3Jix6pGeX4pA+fctpScZvVpdMS3+n7VROJ1MEFq8Q==}
 
   vite-plugin-watch-and-run@1.7.0:
     resolution: {integrity: sha512-f6TUUxDvOeFPMJ1/NDK8N1y/65w8h4jPZGsuOOYVnaK4lkutN95rTNAunsr0fcgTVo1BRUMxDTY7iFlsGuiCig==}
@@ -8645,10 +8645,11 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-graphql-loader@3.0.1:
+  vite-plugin-graphql-loader@4.0.2:
     dependencies:
       graphql: 16.8.1
       graphql-tag: 2.12.6(graphql@16.8.1)
+      magic-string: 0.30.10
 
   vite-plugin-watch-and-run@1.7.0:
     dependencies:
