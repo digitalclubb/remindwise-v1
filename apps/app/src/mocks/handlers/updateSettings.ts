@@ -6,7 +6,7 @@ export const updateSettings = graphql.mutation<UpdateSettingsMutation>(
 	() => {
 		return HttpResponse.json({
 			data: {
-				updatesettingsCollection: {
+				updateSettingsCollection: {
 					affectedCount: 1,
 					records: [
 						{

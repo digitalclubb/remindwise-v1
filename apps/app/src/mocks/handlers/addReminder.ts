@@ -6,7 +6,7 @@ export const addReminder = graphql.mutation<AddReminderMutation>(
 	() => {
 		return HttpResponse.json({
 			data: {
-				insertIntoremindersCollection: {
+				insertIntoReminderCollection: {
 					affectedCount: 1,
 					records: [
 						{

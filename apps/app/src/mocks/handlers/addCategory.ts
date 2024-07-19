@@ -6,13 +6,13 @@ export const addCategory = graphql.mutation<AddCategoryMutation>(
 	() => {
 		return HttpResponse.json({
 			data: {
-				insertIntocategoriesCollection: {
+				insertIntoCategoryCollection: {
 					affectedCount: 1,
 					records: [
 						{
 							id: 1,
 							name: 'Example add',
-							iconId: 'help',
+							icon_id: 'help',
 						},
 					],
 				},

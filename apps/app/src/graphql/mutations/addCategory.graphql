@@ -1,21 +1,13 @@
-mutation AddCategory(
-	$category: String!
-	$isLocked: Boolean!
-	$iconId: String!
-	$userId: UUID
-) {
-	insertIntocategoriesCollection(
-		objects: [
-			{ name: $category, isLocked: $isLocked, iconId: $iconId, userid: $userId }
-		]
+mutation AddCategory($category: String!, $iconId: String!, $userId: UUID) {
+	insertIntoCategoryCollection(
+		objects: [{ name: $category, icon_id: $iconId, user_id: $userId }]
 	) {
 		affectedCount
 		records {
 			id
 			name
-			isLocked
-			iconId
-			userid
+			icon_id
+			user_id
 		}
 	}
 }

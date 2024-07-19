@@ -12,12 +12,12 @@
 
 	import { addCategorySchema } from './schema';
 
-	import type { Categories } from '@graphql/types';
+	import type { Category } from '@graphql/types';
 	import { zod } from 'sveltekit-superforms/adapters';
 
 	export let showAddModal = false;
 	export let currentCategory:
-		| Pick<Categories, 'id' | 'iconId' | 'name'>
+		| Pick<Category, 'id' | 'icon_id' | 'name'>
 		| undefined;
 
 	const { form, errors, constraints, validateForm } = superForm(
@@ -39,7 +39,6 @@
 
 		await addCategory.mutate({
 			category: data.category,
-			isLocked: false,
 			iconId: data.icon,
 			userId: $page.data.session?.user.id,
 		});

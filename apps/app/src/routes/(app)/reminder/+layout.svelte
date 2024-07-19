@@ -133,6 +133,27 @@
 			{#if $form.type === 'ONGOING'}
 				<div class="options-wrapper">
 					<Radio
+						legend="Will it auto-renew?"
+						name="autoRenew"
+						options={[
+							{ id: 'yes', label: 'Yes', value: true },
+							{ id: 'no', label: 'No', value: false },
+						]}
+						bind:group={$form.autoRenew}
+						constraints={$constraints.autoRenew}
+						aria-invalid={$errors.autoRenew ? 'true' : undefined} />
+
+					{#if $errors.autoRenew}
+						<p class="error">{$errors.autoRenew}</p>
+					{/if}
+				</div>
+			{/if}
+		</div>
+
+		<div class="columns">
+			{#if $form.type === 'ONGOING'}
+				<div class="options-wrapper">
+					<Radio
 						required
 						legend="When is it charged?"
 						name="frequency"
@@ -149,9 +170,7 @@
 					{/if}
 				</div>
 			{/if}
-		</div>
 
-		<div class="columns">
 			<div>
 				<label for="date"
 					>{#if $form.type === 'SINGLE'}
@@ -159,37 +178,36 @@
 					{:else}
 						When is it due for renewal?
 					{/if}</label>
-				<input
-					type="date"
-					name="date"
-					id="date"
-					aria-invalid={$errors.date ? 'true' : undefined}
-					bind:value={$form.date}
-					{...$constraints.date} />
 
-				{#if $errors.date}
-					<p class="error">{$errors.date}</p>
+				<fieldset class="date" id="date">
+					<Input
+						type="number"
+						min="1"
+						max="31"
+						placeholder="DD"
+						fullWidth
+						id="day"
+						aria-invalid={$errors.day ? 'true' : undefined}
+						bind:value={$form.day}
+						{...$constraints.day} />
+					<Input
+						type="number"
+						min="1"
+						max="12"
+						placeholder="MM"
+						fullWidth
+						id="month"
+						aria-invalid={$errors.month ? 'true' : undefined}
+						bind:value={$form.month}
+						{...$constraints.month} />
+				</fieldset>
+				{#if $errors.day}
+					<p class="error">{$errors.day}</p>
+				{/if}
+				{#if $errors.month}
+					<p class="error">{$errors.month}</p>
 				{/if}
 			</div>
-
-			{#if $form.type === 'ONGOING'}
-				<div class="options-wrapper">
-					<Radio
-						legend="Will it auto-renew?"
-						name="autoRenew"
-						options={[
-							{ id: 'yes', label: 'Yes', value: true },
-							{ id: 'no', label: 'No', value: false },
-						]}
-						bind:group={$form.autoRenew}
-						constraints={$constraints.autoRenew}
-						aria-invalid={$errors.autoRenew ? 'true' : undefined} />
-
-					{#if $errors.autoRenew}
-						<p class="error">{$errors.autoRenew}</p>
-					{/if}
-				</div>
-			{/if}
 		</div>
 
 		<div>
@@ -271,6 +289,14 @@
 
 	.types {
 		color: var(--grey-light);
+	}
+
+	.date {
+		border: none;
+		display: flex;
+		padding: 0;
+		margin: 0;
+		gap: 1rem;
 	}
 
 	@media screen and (min-width: 500px) {

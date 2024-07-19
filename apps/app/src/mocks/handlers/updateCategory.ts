@@ -6,7 +6,7 @@ export const updateCategory = graphql.mutation<UpdateCategoryMutation>(
 	() => {
 		return HttpResponse.json({
 			data: {
-				updatecategoriesCollection: {
+				updateCategoryCollection: {
 					affectedCount: 1,
 				},
 			},

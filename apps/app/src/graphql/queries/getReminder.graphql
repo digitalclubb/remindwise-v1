@@ -1,5 +1,5 @@
 query GetReminder($slug: BigInt) @load {
-	reminders: remindersCollection(filter: { id: { eq: $slug } }) {
+	reminders: reminderCollection(filter: { id: { eq: $slug } }) {
 		list: edges {
 			reminder: node {
 				id
@@ -7,14 +7,15 @@ query GetReminder($slug: BigInt) @load {
 				type
 				company
 				cost
-				date
+				day
+				month
 				frequency
-				autoRenewal
+				auto_renewal
 				notes
 				category {
 					id
 					name
-					iconId
+					icon_id
 				}
 			}
 		}

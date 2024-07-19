@@ -6,11 +6,11 @@
 	import Button from '../../button/Button.svelte';
 	import Modal from '../../modal/Modal.svelte';
 
-	import type { Categories } from '@graphql/types';
+	import type { Category } from '@graphql/types';
 
 	export let showDeleteModal = false;
 	export let currentCategory:
-		| Pick<Categories, 'id' | 'iconId' | 'name'>
+		| Pick<Category, 'id' | 'icon_id' | 'name'>
 		| undefined;
 	export let selected: string;
 

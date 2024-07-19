@@ -18,12 +18,6 @@
 			}).format(reminder.cost || 0)
 		: '';
 
-	$: date = reminder
-		? new Intl.DateTimeFormat('en-GB').format(
-				Date.parse(reminder?.date?.toString() || '') || new Date()
-			)
-		: '';
-
 	$: back = reminder
 		? {
 				text: `Back to ${reminder.category?.name}`,
@@ -50,7 +44,7 @@
 				{reminder.name}
 				<span
 					><svg fill="var(--orange)"
-						><use xlink:href="#{reminder.category?.iconId}" /></svg
+						><use xlink:href="#{reminder.category?.icon_id}" /></svg
 					>{reminder.category?.name}</span>
 			</h1>
 			<Link href={`/reminder/edit/${$page.params.slug}`}
@@ -69,12 +63,12 @@
 				{:else}
 					due for renewal on
 				{/if}
-				<span class="highlight">{date}</span>
+				<span class="highlight">{reminder.day} of {reminder.month}</span>
 				{#if reminder.type === 'ONGOING'}
 					<br />will be charged
 					<span class="highlight">{reminder.frequency?.toLowerCase()}</span>
 				{/if}
-				{#if reminder.autoRenewal}
+				{#if reminder.auto_renewal}
 					<br />and will be renewed
 					<span class="highlight">automatically</span>
 				{/if}

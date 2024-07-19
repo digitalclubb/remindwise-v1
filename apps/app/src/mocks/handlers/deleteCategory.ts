@@ -6,7 +6,7 @@ export const deleteCategory = graphql.mutation<DeleteCategoryMutation>(
 	() => {
 		return HttpResponse.json({
 			data: {
-				deleteFromcategoriesCollection: {
+				deleteFromCategoryCollection: {
 					affectedCount: 1,
 				},
 			},

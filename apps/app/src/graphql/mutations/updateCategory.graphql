@@ -1,7 +1,7 @@
 mutation UpdateCategory($id: BigInt, $name: String, $iconId: String) {
-	updatecategoriesCollection(
+	updateCategoryCollection(
 		filter: { id: { eq: $id } }
-		set: { name: $name, iconId: $iconId }
+		set: { name: $name, icon_id: $iconId }
 	) {
 		affectedCount
 	}
