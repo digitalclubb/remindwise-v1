@@ -5,23 +5,25 @@ mutation AddReminder(
 	$type: Type!
 	$company: String
 	$cost: Float
-	$date: Date
+	$day: Int
+	$month: Int
 	$frequency: Frequency
 	$autoRenewal: Boolean
 	$notes: String
 ) {
-	insertIntoremindersCollection(
+	insertIntoReminderCollection(
 		objects: [
 			{
-				userid: $userId
-				categoryId: $categoryId
+				user_id: $userId
+				category_id: $categoryId
 				name: $name
 				type: $type
 				company: $company
 				cost: $cost
-				date: $date
+				day: $day
+				month: $month
 				frequency: $frequency
-				autoRenewal: $autoRenewal
+				auto_renewal: $autoRenewal
 				notes: $notes
 			}
 		]

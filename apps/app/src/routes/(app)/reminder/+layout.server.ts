@@ -62,8 +62,9 @@ export const load: LayoutServerLoad = async (event) => {
 						company: reminder.company,
 						cost: reminder.cost,
 						frequency: reminder.frequency as Frequency,
-						date: String(reminder.date),
-						autoRenew: reminder.autoRenewal,
+				day: reminder.day || undefined,
+				month: reminder.month || undefined,
+						autoRenew: reminder.auto_renewal,
 						notes: reminder.notes || '',
 					},
 				})

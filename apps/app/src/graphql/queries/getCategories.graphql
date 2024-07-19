@@ -1,11 +1,11 @@
 query GetCategories @load {
-	categories: categoriesCollection {
+	categories: categoryCollection {
 		list: edges {
 			category: node {
 				id
 				name
-				iconId
-				reminders: remindersCollection {
+				icon_id
+				reminders: reminderCollection {
 					totalCount
 					list: edges {
 						reminder: node {

@@ -1,5 +1,5 @@
 mutation DeleteReminder($id: BigInt) {
-	deleteFromremindersCollection(filter: { id: { eq: $id } }) {
+	deleteFromReminderCollection(filter: { id: { eq: $id } }) {
 		affectedCount
 	}
 }

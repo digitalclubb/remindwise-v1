@@ -6,7 +6,7 @@ export const deleteReminder = graphql.mutation<DeleteReminderMutation>(
 	() => {
 		return HttpResponse.json({
 			data: {
-				deleteFromremindersCollection: {
+				deleteFromReminderCollection: {
 					affectedCount: 1,
 				},
 			},

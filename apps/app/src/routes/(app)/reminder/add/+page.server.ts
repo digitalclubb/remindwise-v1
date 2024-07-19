@@ -24,13 +24,12 @@ export const actions: Actions = {
 			const result = await addCategory.mutate(
 				{
 					category: data.category,
-					isLocked: false,
 					iconId: 'flag',
 					userId: data.userId,
 				},
 				{ event }
 			);
-			newId = result.data?.insertIntocategoriesCollection?.records[0].id;
+			newId = result.data?.insertIntoCategoryCollection?.records[0].id;
 		}
 
 		// Add the new reminder
@@ -43,7 +42,8 @@ export const actions: Actions = {
 				type: data.type,
 				company: data.company,
 				cost: data.cost,
-				date: data.date ? new Date(data.date) : new Date(),
+				day: data.day,
+				month: data.month,
 				frequency: data.frequency,
 				autoRenewal: data.autoRenew,
 				notes: data.notes ?? null,
@@ -52,7 +52,7 @@ export const actions: Actions = {
 		);
 
 		const reminderId =
-			reminder.data?.insertIntoremindersCollection?.records[0].id;
+			reminder.data?.insertIntoReminderCollection?.records[0].id;
 
 		// Add documents to storage
 		// Store by userId/reminderId/filename.ext

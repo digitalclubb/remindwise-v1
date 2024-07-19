@@ -13,7 +13,7 @@
 	import { GetSettingsStore, GetCategoriesStore } from '$houdini';
 	import Link from '../link/Link.svelte';
 
-	import type { Categories } from '@graphql/types';
+	import type { Category } from '@graphql/types';
 	import { onMount } from 'svelte';
 
 	let mounted: boolean = false;
@@ -33,7 +33,7 @@
 
 	let showAddModal = false;
 	let showDeleteModal = false;
-	let currentCategory: Pick<Categories, 'id' | 'iconId' | 'name'> | undefined;
+	let currentCategory: Pick<Category, 'id' | 'icon_id' | 'name'> | undefined;
 
 	let showNavigation = false;
 	let navFullHeight = false;
@@ -202,7 +202,7 @@
 									on:click={hideNav}>
 									<a href="/category/{category.category.name}"
 										><svg fill="var(--cream)"
-											><use xlink:href="#{category.category.iconId}" /></svg>
+											><use xlink:href="#{category.category.icon_id}" /></svg>
 										<span
 											>{category.category.name}
 											{#if category.category.reminders}
@@ -232,7 +232,7 @@
 													currentCategory = {
 														id: category.category.id,
 														name: category.category.name,
-														iconId: category.category.iconId,
+														icon_id: category.category.icon_id,
 													};
 													showAddModal = true;
 													clicked = -1;
@@ -248,7 +248,7 @@
 													currentCategory = {
 														id: category.category.id,
 														name: category.category.name,
-														iconId: category.category.iconId,
+														icon_id: category.category.icon_id,
 													};
 													showDeleteModal = true;
 													clicked = -1;

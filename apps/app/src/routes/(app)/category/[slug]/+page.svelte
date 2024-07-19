@@ -25,12 +25,7 @@
 		const upcomingDate = new Date();
 		upcomingDate.setMonth(upcomingDate.getMonth() + parseInt(upcomingFilter));
 
-		await GetReminders.fetch({
-			variables: {
-				today: todayDate,
-				upcoming: upcomingDate,
-			},
-		});
+		await GetReminders.fetch();
 	};
 
 	const onRemindersNumberChange = async () => {
@@ -71,7 +66,7 @@
 
 <Header
 	title={$page.params.slug}
-	icon={reminders[0]?.reminder.category?.iconId} />
+	icon={reminders[0]?.reminder.category?.icon_id} />
 
 <div class="body">
 	<section>
@@ -157,7 +152,7 @@
 								{reminder.reminder.name}
 								<svg class="table-icon" fill="var(--cream-dark)"
 									><use
-										xlink:href="#{reminder.reminder.category?.iconId}" /></svg
+										xlink:href="#{reminder.reminder.category?.icon_id}" /></svg
 								></td>
 							<td data-heading="Company">{reminder.reminder.company}</td>
 							<td data-heading="Cost"
@@ -166,11 +161,12 @@
 									currency: currency || undefined,
 									currencyDisplay: 'narrowSymbol',
 								}).format(reminder.reminder.cost || 0)}</td>
-							<td data-heading="Due date">{reminder.reminder.date}</td>
+							<td data-heading="Due date"
+								>{reminder.reminder.day} of {reminder.reminder.month}</td>
 							<td data-heading="Auto renewal"
-								>{reminder.reminder.autoRenewal?.valueOf() === undefined
+								>{reminder.reminder.auto_renewal?.valueOf() === undefined
 									? '-'
-									: reminder.reminder.autoRenewal?.valueOf()
+									: reminder.reminder.auto_renewal?.valueOf()
 										? 'Yes'
 										: 'No'}</td>
 							<td data-heading="View" class="view">
@@ -231,7 +227,7 @@
 								{reminder.reminder.name}
 								<svg class="table-icon" fill="var(--cream-dark)"
 									><use
-										xlink:href="#{reminder.reminder.category?.iconId}" /></svg
+										xlink:href="#{reminder.reminder.category?.icon_id}" /></svg
 								></td>
 							<td data-heading="Company">{reminder.reminder.company}</td>
 							<td data-heading="Re-occuring cost"

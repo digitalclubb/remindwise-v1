@@ -3,10 +3,6 @@ import { load_GetReminders } from '$houdini';
 
 export const load: PageLoad = async (event) => {
 	const { GetCategories } = await event.parent();
-	const today = new Date();
-	const upcoming = new Date();
-	upcoming.setMonth(upcoming.getMonth() + 2);
-
 	const prom = new Promise<number>((resolve, reject) => {
 		GetCategories.subscribe((res) => {
 			const cat = res.data?.categories?.list.find(
@@ -25,8 +21,6 @@ export const load: PageLoad = async (event) => {
 			event,
 			variables: {
 				categoryId: category,
-				today,
-				upcoming,
 				first: 5,
 				after: null,
 			},

@@ -7,7 +7,7 @@ mutation UpdateSettings(
 	$interval: Interval
 	$currency: Currency
 ) {
-	updatesettingsCollection(
+	updateSettingsCollection(
 		filter: { id: { eq: $id } }
 		set: {
 			first_name: $firstName

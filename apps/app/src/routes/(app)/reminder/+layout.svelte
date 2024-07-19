@@ -180,19 +180,32 @@
 					{/if}</label>
 
 				<fieldset class="date" id="date">
-					<Input type="number" min="1" max="31" placeholder="DD" fullWidth />
-					<Input type="number" min="1" max="12" placeholder="MM" fullWidth />
+					<Input
+						type="number"
+						min="1"
+						max="31"
+						placeholder="DD"
+						fullWidth
+						id="day"
+						aria-invalid={$errors.day ? 'true' : undefined}
+						bind:value={$form.day}
+						{...$constraints.day} />
+					<Input
+						type="number"
+						min="1"
+						max="12"
+						placeholder="MM"
+						fullWidth
+						id="month"
+						aria-invalid={$errors.month ? 'true' : undefined}
+						bind:value={$form.month}
+						{...$constraints.month} />
 				</fieldset>
-				<!-- <input
-					type="date"
-					name="date"
-					id="date"
-					aria-invalid={$errors.date ? 'true' : undefined}
-					bind:value={$form.date}
-					{...$constraints.date} /> -->
-
-				{#if $errors.date}
-					<p class="error">{$errors.date}</p>
+				{#if $errors.day}
+					<p class="error">{$errors.day}</p>
+				{/if}
+				{#if $errors.month}
+					<p class="error">{$errors.month}</p>
 				{/if}
 			</div>
 		</div>

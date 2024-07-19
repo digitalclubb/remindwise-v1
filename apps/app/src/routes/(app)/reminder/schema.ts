@@ -13,7 +13,8 @@ export const reminderSchema = z
 		company: z.string().min(1, 'Company is required'),
 		cost: z.number().min(1, 'Cost is required'),
 		frequency: z.nativeEnum(Frequency).optional(),
-		date: z.string().optional(),
+		day: z.number().optional(),
+		month: z.number().optional(),
 		autoRenew: z.boolean().optional(),
 		notes: z.string().optional(),
 	})

@@ -1,16 +1,13 @@
 query GetReminders(
 	$categoryId: BigInt
-	$today: Date
-	$upcoming: Date
 	$first: Int
 	$last: Int
 	$after: Cursor
 	$before: Cursor
 ) {
-	upcoming: remindersCollection(
+	upcoming: reminderCollection(
 		filter: {
-			date: { gte: $today, lte: $upcoming }
-			categoryId: { eq: $categoryId }
+			category_id: { eq: $categoryId }
 		}
 	) {
 		list: edges {
@@ -19,22 +16,23 @@ query GetReminders(
 				name
 				company
 				cost
-				date
-				autoRenewal
+				day
+				month
+				auto_renewal
 				category {
 					id
-					iconId
+					icon_id
 					name
 				}
 			}
 		}
 	}
-	reminders: remindersCollection(
+	reminders: reminderCollection(
 		first: $first
 		last: $last
 		after: $after
 		before: $before
-		filter: { categoryId: { eq: $categoryId } }
+		filter: { category_id: { eq: $categoryId } }
 	) {
 		pageInfo {
 			startCursor
@@ -48,10 +46,9 @@ query GetReminders(
 				name
 				company
 				cost
-				total
 				category {
 					id
-					iconId
+					icon_id
 					name
 				}
 			}

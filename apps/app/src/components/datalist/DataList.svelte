@@ -15,7 +15,7 @@
 	interface $$Props extends HTMLInputAttributes {
 		superform: SuperForm<T>;
 		field: FormPathLeaves<T>;
-		categories?: { category: { name: string; iconId: string | null } }[];
+		categories?: { category: { name: string; icon_id: string | null } }[];
 		onInput?: FormEventHandler<HTMLInputElement>;
 	}
 	export let superform: SuperForm<T>;
@@ -23,7 +23,7 @@
 	export let onInput: FormEventHandler<HTMLInputElement> | undefined =
 		undefined;
 	export let categories:
-		| { category: { name: string; iconId: string | null } }[]
+		| { category: { name: string; icon_id: string | null } }[]
 		| undefined = [];
 
 	const { value, errors, constraints } = formFieldProxy(superform, field);
@@ -83,7 +83,7 @@
 						hideCategoryList();
 					}}
 					><svg fill="var(--cream-dark)"
-						><use xlink:href="#{category.category.iconId}" /></svg
+						><use xlink:href="#{category.category.icon_id}" /></svg
 					>{category.category.name}</button>
 			</li>
 		{/each}
