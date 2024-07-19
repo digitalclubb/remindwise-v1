@@ -21,10 +21,6 @@
 	$: numberOfRemindersFilter = '5';
 
 	const onUpcomingChange = async () => {
-		const todayDate = new Date();
-		const upcomingDate = new Date();
-		upcomingDate.setMonth(upcomingDate.getMonth() + parseInt(upcomingFilter));
-
 		await GetReminders.fetch();
 	};
 

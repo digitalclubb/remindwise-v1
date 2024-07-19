@@ -1,5 +1,5 @@
 import { graphql, HttpResponse } from 'msw';
-import type { GetReminderQuery, } from '@graphql/types';
+import type { GetReminderQuery } from '@graphql/types';
 import { Type, Frequency } from '@graphql/types';
 
 export const getReminder = graphql.query<GetReminderQuery>(

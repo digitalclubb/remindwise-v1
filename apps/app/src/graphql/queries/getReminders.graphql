@@ -5,11 +5,7 @@ query GetReminders(
 	$after: Cursor
 	$before: Cursor
 ) {
-	upcoming: reminderCollection(
-		filter: {
-			category_id: { eq: $categoryId }
-		}
-	) {
+	upcoming: reminderCollection(filter: { category_id: { eq: $categoryId } }) {
 		list: edges {
 			reminder: node {
 				id

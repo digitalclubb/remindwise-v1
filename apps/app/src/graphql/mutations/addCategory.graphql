@@ -1,12 +1,6 @@
-mutation AddCategory(
-	$category: String!
-	$iconId: String!
-	$userId: UUID
-) {
+mutation AddCategory($category: String!, $iconId: String!, $userId: UUID) {
 	insertIntoCategoryCollection(
-		objects: [
-			{ name: $category, icon_id: $iconId, user_id: $userId }
-		]
+		objects: [{ name: $category, icon_id: $iconId, user_id: $userId }]
 	) {
 		affectedCount
 		records {
