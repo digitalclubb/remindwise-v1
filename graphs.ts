@@ -20,6 +20,8 @@ export enum Frequency {
     reminderId: number;
     startedAt: Date;
     categoryId: number;
+    day?: number;
+    month?: number;
     frequency: Frequency; // cant be changed
     cost: number;
     operationType: OperationType;
@@ -56,12 +58,63 @@ export enum Frequency {
     ]);
   };
   
+  const updateBucket = (
+    reminder: ReminderHistoryRecord,
+    year: number,
+    dateBuckets: Map<string, number>,
+    previousEvent?: ReminderHistoryRecord
+  ) => {
+    let cost = reminder.cost;
+    if (
+      reminder.operationType === OperationType.ReminderUpdated &&
+      previousEvent
+    ) {
+      cost = reminder.cost - previousEvent.cost;
+    }
+    // Is the year we're requesting the graphs for in a following year to when it was started?
+    const isItFutureYear = year > reminder.startedAt.getFullYear();
+  
+    // Is it ongoing and monthly
+    if (
+      reminder.type === Type.Ongoing &&
+      reminder.frequency === Frequency.Monthly
+    ) {
+      // If we're requesting the graph data in the same year the reminder was started, then use it's month
+      // If it's a future year, set the data from the first month of the year
+      const initialMonth = isItFutureYear ? 1 : reminder.startedAt.getMonth() + 1;
+  
+      for (let i = initialMonth; i < 13; i++) {
+        dateBuckets.set(
+          i.toString(),
+          (dateBuckets.get(i.toString()) ?? 0) + cost
+        );
+      }
+      // Is it ongoing and yearly
+    } else if (
+      reminder.type === Type.Ongoing &&
+      reminder.frequency === Frequency.Yearly
+    ) {
+      const month = reminder.startedAt.getMonth() + 1;
+      dateBuckets.set(
+        month.toString(),
+        (dateBuckets.get(month.toString()) ?? 0) + cost
+      );
+      // Is it single record and in the year it was started
+    } else if (reminder.type === Type.Single && !isItFutureYear) {
+      const month = reminder.startedAt.getMonth() + 1;
+      dateBuckets.set(
+        month.toString(),
+        (dateBuckets.get(month.toString()) ?? 0) + cost
+      );
+    }
+  };
+  
   export const calculateGraphData = (
     year: number,
     sortedReminders: ReminderHistoryRecord[]
   ) => {
     // const startDate = new Date("2025-01-01");
-    const endDate = new Date("2024-12-01");
+    // const endDate = new Date("2024-12-01");
     const dateBuckets = getDateBuckets();
     const bucketedReminders = new Map<number, ReminderHistoryRecord[]>();
   
@@ -75,74 +128,40 @@ export enum Frequency {
       bucketedReminders.set(reminder.reminderId, [reminder]);
     }
   
-    console.log("bucketedReminders", bucketedReminders);
-  
     for (const bucketedReminder of bucketedReminders) {
       const reminders = bucketedReminder[1];
   
       // reminder hasn't been updated at all, only created and nothing else happened
       if (reminders.length === 1) {
         const reminder = reminders[0];
-        const cost = reminder.cost;
-        // Is the year we're requesting the graphs for in a following year to when it was started?
-        const isItFutureYear = year > reminder.startedAt.getFullYear();
-  
-        // Is it ongoing and monthly
-        if (
-          reminder.type === Type.Ongoing &&
-          reminder.frequency === Frequency.Monthly
-        ) {
-          // If we're requesting the graph data in the same year the reminder was started, then use it's month
-          // If it's a future year, set the data from the first month of the year
-          const initialMonth = isItFutureYear
-            ? 1
-            : reminder.startedAt.getMonth() + 1;
-  
-          for (let i = initialMonth; i < 13; i++) {
-            dateBuckets.set(
-              i.toString(),
-              (dateBuckets.get(i.toString()) ?? 0) + cost
-            );
-          }
-          // Is it ongoing and yearly
-        } else if (
-          reminder.type === Type.Ongoing &&
-          reminder.frequency === Frequency.Yearly
-        ) {
-          const month = reminder.startedAt.getMonth() + 1;
-          dateBuckets.set(
-            month.toString(),
-            (dateBuckets.get(month.toString()) ?? 0) + cost
-          );
-          // Is it single record and in the year it was started
-        } else if (reminder.type === Type.Single && !isItFutureYear) {
-          const month = reminder.startedAt.getMonth() + 1;
-          dateBuckets.set(
-            month.toString(),
-            (dateBuckets.get(month.toString()) ?? 0) + cost
-          );
-        }
+        updateBucket(reminder, year, dateBuckets);
       } else {
         for (let i = 0; i < reminders.length; i++) {
-          const reminder = reminders[0];
+          //   const reminder = reminders[0];
           if (
             reminders.some(
               (r) => r.operationType === OperationType.ReminderDeleted
             )
           )
             break;
-          const start = reminder.startedAt;
+          updateBucket(
+            reminders[i],
+            year,
+            dateBuckets,
+            i > 0 ? reminders[i - 1] : undefined
+          );
+          //   const start = reminder.startedAt;
           // the window we want to calculate for will be until the created date of the next reminder update,
           // or in the case that there's no subsequent reminder history record we calculate up until the current date instead
-          const end = reminders[i + 1]?.startedAt ?? endDate;
+          //   const end = reminders[i + 1]?.startedAt ?? endDate;
   
-          console.log("end");
-          console.log(end);
-          console.log(endDate.getTime() - start.getTime());
+          //   console.log("end");
+          //   console.log(end);
+          //   console.log(endDate.getTime() - start.getTime());
         }
       }
     }
-    console.log(dateBuckets);
+  
     return dateBuckets;
   };
   

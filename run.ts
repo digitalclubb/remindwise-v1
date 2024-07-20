@@ -58,6 +58,7 @@ calculateGraphData(2024, [
     categoryId: 9,
     frequency: Frequency.Yearly,
     cost: 100,
+    month: 7,
     operationType: OperationType.ReminderCreated,
     autoRenewal: true,
     type: Type.Ongoing,
