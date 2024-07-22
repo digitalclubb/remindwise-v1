@@ -147,6 +147,7 @@ describe("graphs", () => {
           categoryId: 9,
           frequency: Frequency.Yearly,
           cost: 100,
+          month: 7,
           operationType: OperationType.ReminderCreated,
           autoRenewal: false,
           type: Type.Single,
@@ -180,6 +181,7 @@ describe("graphs", () => {
           categoryId: 9,
           frequency: Frequency.Yearly,
           cost: 100,
+          month: 7,
           operationType: OperationType.ReminderCreated,
           autoRenewal: false,
           type: Type.Single,
@@ -205,52 +207,51 @@ describe("graphs", () => {
   });
 
   describe("reminders that have multiple events in history", () => {
-    it("data for 2024 of a monthly reminder that started in Feb and got deleted", () => {
-      const result = calculateGraphData(2024, [
-        {
-          id: 12345,
-          userId: 12345,
-          reminderId: 3,
-          startedAt: new Date("2024-02-15T15:00:00.000Z"),
-          categoryId: 9,
-          frequency: Frequency.Monthly,
-          cost: 100,
-          operationType: OperationType.ReminderCreated,
-          autoRenewal: true,
-          type: Type.Ongoing,
-        },
-        {
-          id: 12345,
-          userId: 12345,
-          reminderId: 3,
-          startedAt: new Date("2024-02-15T15:00:00.000Z"),
-          categoryId: 9,
-          frequency: Frequency.Monthly,
-          cost: 100,
-          operationType: OperationType.ReminderDeleted,
-          autoRenewal: true,
-          type: Type.Ongoing,
-        },
-      ]);
-      expect(result).toEqual(
-        new Map([
-          ["1", 0],
-          ["2", 0],
-          ["3", 0],
-          ["4", 0],
-          ["5", 0],
-          ["6", 0],
-          ["7", 0],
-          ["8", 0],
-          ["9", 0],
-          ["10", 0],
-          ["11", 0],
-          ["12", 0],
-        ]),
-      );
-    });
-
     describe("cost updated", () => {
+      it("data for 2024 of a monthly reminder that started in Feb and got deleted", () => {
+        const result = calculateGraphData(2024, [
+          {
+            id: 12345,
+            userId: 12345,
+            reminderId: 3,
+            startedAt: new Date("2024-02-15T15:00:00.000Z"),
+            categoryId: 9,
+            frequency: Frequency.Monthly,
+            cost: 100,
+            operationType: OperationType.ReminderCreated,
+            autoRenewal: true,
+            type: Type.Ongoing,
+          },
+          {
+            id: 12345,
+            userId: 12345,
+            reminderId: 3,
+            startedAt: new Date("2024-04-15T15:00:00.000Z"),
+            categoryId: 9,
+            frequency: Frequency.Monthly,
+            cost: 100,
+            operationType: OperationType.ReminderDeleted,
+            autoRenewal: true,
+            type: Type.Ongoing,
+          },
+        ]);
+        expect(result).toEqual(
+          new Map([
+            ["1", 0],
+            ["2", 0],
+            ["3", 0],
+            ["4", 0],
+            ["5", 0],
+            ["6", 0],
+            ["7", 0],
+            ["8", 0],
+            ["9", 0],
+            ["10", 0],
+            ["11", 0],
+            ["12", 0],
+          ]),
+        );
+      });
       it("data for 2024 of a monthly reminder that started in Feb and cost updated in April, June and September", () => {
         const result = calculateGraphData(2024, [
           {
@@ -389,7 +390,88 @@ describe("graphs", () => {
         );
       });
 
-      it.skip("data for 2024 of a yearly reminder that happened in July", () => {
+      it("data for 2025 of a monthly reminder that started in Feb 2024 and cost updated in April, June and September in 2024 and March of 2025", () => {
+        const result = calculateGraphData(2025, [
+          {
+            id: 12345,
+            userId: 12345,
+            reminderId: 3,
+            startedAt: new Date("2024-02-15T15:00:00.000Z"),
+            categoryId: 9,
+            frequency: Frequency.Monthly,
+            cost: 100,
+            operationType: OperationType.ReminderCreated,
+            autoRenewal: true,
+            type: Type.Ongoing,
+          },
+          {
+            id: 12345,
+            userId: 12345,
+            reminderId: 3,
+            startedAt: new Date("2024-04-15T15:00:00.000Z"),
+            categoryId: 9,
+            frequency: Frequency.Monthly,
+            cost: 200,
+            operationType: OperationType.ReminderUpdated,
+            autoRenewal: true,
+            type: Type.Ongoing,
+          },
+          {
+            id: 12345,
+            userId: 12345,
+            reminderId: 3,
+            startedAt: new Date("2024-06-15T15:00:00.000Z"),
+            categoryId: 9,
+            frequency: Frequency.Monthly,
+            cost: 0,
+            operationType: OperationType.ReminderUpdated,
+            autoRenewal: true,
+            type: Type.Ongoing,
+          },
+          {
+            id: 12345,
+            userId: 12345,
+            reminderId: 3,
+            startedAt: new Date("2024-09-15T15:00:00.000Z"),
+            categoryId: 9,
+            frequency: Frequency.Monthly,
+            cost: 100,
+            operationType: OperationType.ReminderUpdated,
+            autoRenewal: true,
+            type: Type.Ongoing,
+          },
+          {
+            id: 12345,
+            userId: 12345,
+            reminderId: 3,
+            startedAt: new Date("2025-03-15T15:00:00.000Z"),
+            categoryId: 9,
+            frequency: Frequency.Monthly,
+            cost: 150,
+            operationType: OperationType.ReminderUpdated,
+            autoRenewal: true,
+            type: Type.Ongoing,
+          },
+        ]);
+        expect(result).toEqual(
+          new Map([
+            ["1", 100],
+            ["2", 100],
+            ["3", 150],
+            ["4", 150],
+            ["5", 150],
+            ["6", 150],
+            ["7", 150],
+            ["8", 150],
+            ["9", 150],
+            ["10", 150],
+            ["11", 150],
+            ["12", 150],
+          ]),
+        );
+      });
+
+      it("data for 2024 of a yearly reminder that happened in July and was updated in july", () => {
         const result = calculateGraphData(2024, [
           {
             id: 12345,
@@ -401,7 +483,54 @@ describe("graphs", () => {
             cost: 100,
             month: 7,
             operationType: OperationType.ReminderCreated,
-            autoRenewal: false,
+            autoRenewal: true,
+            type: Type.Ongoing,
+          },
+          {
+            id: 12345,
+            userId: 12345,
+            reminderId: 5,
+            startedAt: new Date("2024-07-02T15:00:00.000Z"),
+            categoryId: 9,
+            frequency: Frequency.Yearly,
+            cost: 200,
+            month: 7,
+            operationType: OperationType.ReminderUpdated,
+            autoRenewal: true,
+            type: Type.Ongoing,
+          },
+        ]);
+        expect(result).toEqual(
+          new Map([
+            ["1", 0],
+            ["2", 0],
+            ["3", 0],
+            ["4", 0],
+            ["5", 0],
+            ["6", 0],
+            ["7", 200],
+            ["8", 0],
+            ["9", 0],
+            ["10", 0],
+            ["11", 0],
+            ["12", 0],
+          ]),
+        );
+      });
+
+      it("data for 2024 of a yearly reminder that happened in July and was updated in september", () => {
+        const result = calculateGraphData(2024, [
+          {
+            id: 12345,
+            userId: 12345,
+            reminderId: 5,
+            startedAt: new Date("2024-07-02T15:00:00.000Z"),
+            categoryId: 9,
+            frequency: Frequency.Yearly,
+            cost: 100,
+            month: 7,
+            operationType: OperationType.ReminderCreated,
+            autoRenewal: true,
             type: Type.Ongoing,
           },
           {
@@ -414,7 +543,54 @@ describe("graphs", () => {
             cost: 200,
             month: 7,
             operationType: OperationType.ReminderUpdated,
-            autoRenewal: false,
+            autoRenewal: true,
+            type: Type.Ongoing,
+          },
+        ]);
+        expect(result).toEqual(
+          new Map([
+            ["1", 0],
+            ["2", 0],
+            ["3", 0],
+            ["4", 0],
+            ["5", 0],
+            ["6", 0],
+            ["7", 200],
+            ["8", 0],
+            ["9", 0],
+            ["10", 0],
+            ["11", 0],
+            ["12", 0],
+          ]),
+        );
+      });
+
+      it("data for 2024 of a yearly reminder that happened in July and was updated in september 2025", () => {
+        const result = calculateGraphData(2024, [
+          {
+            id: 12345,
+            userId: 12345,
+            reminderId: 5,
+            startedAt: new Date("2024-07-02T15:00:00.000Z"),
+            categoryId: 9,
+            frequency: Frequency.Yearly,
+            cost: 100,
+            month: 7,
+            operationType: OperationType.ReminderCreated,
+            autoRenewal: true,
+            type: Type.Ongoing,
+          },
+          {
+            id: 12345,
+            userId: 12345,
+            reminderId: 5,
+            startedAt: new Date("2025-09-02T15:00:00.000Z"),
+            categoryId: 9,
+            frequency: Frequency.Yearly,
+            cost: 200,
+            month: 7,
+            operationType: OperationType.ReminderUpdated,
+            autoRenewal: true,
             type: Type.Ongoing,
           },
         ]);
@@ -436,7 +612,7 @@ describe("graphs", () => {
         );
       });
 
-      it.skip("data for 2025 of a yearly reminder that happened in July and got updated in September", () => {
+      it("data for 2025 of a yearly reminder that happened in July 2024 and got updated in September 2024", () => {
         const result = calculateGraphData(2025, [
           {
             id: 12345,
@@ -448,7 +624,7 @@ describe("graphs", () => {
             cost: 100,
             month: 7,
             operationType: OperationType.ReminderCreated,
-            autoRenewal: false,
+            autoRenewal: true,
             type: Type.Ongoing,
           },
           {
@@ -461,7 +637,7 @@ describe("graphs", () => {
             cost: 200,
             month: 7,
             operationType: OperationType.ReminderUpdated,
-            autoRenewal: false,
+            autoRenewal: true,
             type: Type.Ongoing,
           },
         ]);
@@ -474,6 +650,147 @@ describe("graphs", () => {
             ["5", 0],
             ["6", 0],
             ["7", 200],
+            ["8", 0],
+            ["9", 0],
+            ["10", 0],
+            ["11", 0],
+            ["12", 0],
+          ]),
+        );
+      });
+
+      it("data for 2025 of a yearly reminder that happened in July 2024 and got updated in June of 2025", () => {
+        const result = calculateGraphData(2025, [
+          {
+            id: 12345,
+            userId: 12345,
+            reminderId: 5,
+            startedAt: new Date("2024-07-02T15:00:00.000Z"),
+            categoryId: 9,
+            frequency: Frequency.Yearly,
+            cost: 100,
+            month: 7,
+            operationType: OperationType.ReminderCreated,
+            autoRenewal: true,
+            type: Type.Ongoing,
+          },
+          {
+            id: 12345,
+            userId: 12345,
+            reminderId: 5,
+            startedAt: new Date("2025-06-02T15:00:00.000Z"),
+            categoryId: 9,
+            frequency: Frequency.Yearly,
+            cost: 200,
+            month: 7,
+            operationType: OperationType.ReminderUpdated,
+            autoRenewal: true,
+            type: Type.Ongoing,
+          },
+        ]);
+        expect(result).toEqual(
+          new Map([
+            ["1", 0],
+            ["2", 0],
+            ["3", 0],
+            ["4", 0],
+            ["5", 0],
+            ["6", 0],
+            ["7", 200],
+            ["8", 0],
+            ["9", 0],
+            ["10", 0],
+            ["11", 0],
+            ["12", 0],
+          ]),
+        );
+      });
+
+      it("data for 2024 of a single reminder that happened in July and was updated in September", () => {
+        const result = calculateGraphData(2024, [
+          {
+            id: 12345,
+            userId: 12345,
+            reminderId: 5,
+            startedAt: new Date("2024-07-02T15:00:00.000Z"),
+            categoryId: 9,
+            frequency: Frequency.Yearly,
+            cost: 100,
+            month: 7,
+            operationType: OperationType.ReminderCreated,
+            autoRenewal: false,
+            type: Type.Single,
+          },
+          {
+            id: 12345,
+            userId: 12345,
+            reminderId: 5,
+            startedAt: new Date("2024-09-02T15:00:00.000Z"),
+            categoryId: 9,
+            frequency: Frequency.Yearly,
+            cost: 200,
+            month: 7,
+            operationType: OperationType.ReminderUpdated,
+            autoRenewal: false,
+            type: Type.Single,
+          },
+        ]);
+        expect(result).toEqual(
+          new Map([
+            ["1", 0],
+            ["2", 0],
+            ["3", 0],
+            ["4", 0],
+            ["5", 0],
+            ["6", 0],
+            ["7", 200],
+            ["8", 0],
+            ["9", 0],
+            ["10", 0],
+            ["11", 0],
+            ["12", 0],
+          ]),
+        );
+      });
+
+      it("data for 2025 of a single reminder that happened in July of 2024 and was updated in September", () => {
+        const result = calculateGraphData(2025, [
+          {
+            id: 12345,
+            userId: 12345,
+            reminderId: 5,
+            startedAt: new Date("2024-07-02T15:00:00.000Z"),
+            categoryId: 9,
+            frequency: Frequency.Yearly,
+            cost: 100,
+            month: 7,
+            operationType: OperationType.ReminderCreated,
+            autoRenewal: false,
+            type: Type.Single,
+          },
+          {
+            id: 12345,
+            userId: 12345,
+            reminderId: 5,
+            startedAt: new Date("2024-09-02T15:00:00.000Z"),
+            categoryId: 9,
+            frequency: Frequency.Yearly,
+            cost: 200,
+            month: 7,
+            operationType: OperationType.ReminderUpdated,
+            autoRenewal: false,
+            type: Type.Single,
+          },
+        ]);
+        expect(result).toEqual(
+          new Map([
+            ["1", 0],
+            ["2", 0],
+            ["3", 0],
+            ["4", 0],
+            ["5", 0],
+            ["6", 0],
+            ["7", 0],
             ["8", 0],
             ["9", 0],
             ["10", 0],

@@ -15,17 +15,17 @@ export enum Frequency {
   }
   
   export type ReminderHistoryRecord = {
-    id: number;
-    userId: number;
-    reminderId: number;
-    startedAt: Date;
-    categoryId: number;
-    day?: number;
-    month?: number;
+    id: number; // cant be changed
+    userId: number; // cant be changed
+    reminderId: number; // cant be changed
+    startedAt: Date; // cant be changed
     frequency: Frequency; // cant be changed
-    cost: number;
-    operationType: OperationType;
     type: Type; // cant be changed
+    day?: number; // cant be changed
+    month?: number; // cant be changed
+    operationType: OperationType;
+    categoryId: number;
+    cost: number;
     autoRenewal: boolean;
   };
   
@@ -57,20 +57,31 @@ export enum Frequency {
       ["12", 0],
     ]);
   };
+
+//   type Output = {
+//     totalMonthCosts: Map<string, number>;
+//     perCategoryCosts: Map<string, Map<string, number>>
+//   }
+
+//   {
+//     12: Map,
+//     3: Map
+//   }
+
+// A monthly reminder and I want to pause. That sets auto renewal to false. We don't keep track of values anymore. It's like deleted but keeping the data.
   
-  const updateBucket = (
+  type AggregateData = {
+    monthCosts: Map<string, number>;
+    categoryId?: number;
+    autoRenewal?: boolean; //TODO what are we doing with this
+  };
+  
+  const reduceReminderHistory = (
     reminder: ReminderHistoryRecord,
     year: number,
-    dateBuckets: Map<string, number>,
-    previousEvent?: ReminderHistoryRecord
+    aggregateData?: AggregateData
   ) => {
-    let cost = reminder.cost;
-    if (
-      reminder.operationType === OperationType.ReminderUpdated &&
-      previousEvent
-    ) {
-      cost = reminder.cost - previousEvent.cost;
-    }
+    const cost = reminder.cost;
     // Is the year we're requesting the graphs for in a following year to when it was started?
     const isItFutureYear = year > reminder.startedAt.getFullYear();
   
@@ -84,28 +95,21 @@ export enum Frequency {
       const initialMonth = isItFutureYear ? 1 : reminder.startedAt.getMonth() + 1;
   
       for (let i = initialMonth; i < 13; i++) {
-        dateBuckets.set(
-          i.toString(),
-          (dateBuckets.get(i.toString()) ?? 0) + cost
-        );
+        aggregateData?.monthCosts.set(i.toString(), cost);
       }
       // Is it ongoing and yearly
     } else if (
       reminder.type === Type.Ongoing &&
       reminder.frequency === Frequency.Yearly
     ) {
-      const month = reminder.startedAt.getMonth() + 1;
-      dateBuckets.set(
-        month.toString(),
-        (dateBuckets.get(month.toString()) ?? 0) + cost
-      );
+      const month = reminder.month?.toString() ?? 1;
+      if (reminder.startedAt.getFullYear() <= year) {
+        aggregateData?.monthCosts.set(month.toString(), cost);
+      }
       // Is it single record and in the year it was started
     } else if (reminder.type === Type.Single && !isItFutureYear) {
-      const month = reminder.startedAt.getMonth() + 1;
-      dateBuckets.set(
-        month.toString(),
-        (dateBuckets.get(month.toString()) ?? 0) + cost
-      );
+      const month = reminder.month?.toString() ?? 1;
+      aggregateData?.monthCosts.set(month.toString(), cost);
     }
   };
   
@@ -113,8 +117,6 @@ export enum Frequency {
     year: number,
     sortedReminders: ReminderHistoryRecord[]
   ) => {
-    // const startDate = new Date("2025-01-01");
-    // const endDate = new Date("2024-12-01");
     const dateBuckets = getDateBuckets();
     const bucketedReminders = new Map<number, ReminderHistoryRecord[]>();
   
@@ -128,37 +130,24 @@ export enum Frequency {
       bucketedReminders.set(reminder.reminderId, [reminder]);
     }
   
-    for (const bucketedReminder of bucketedReminders) {
-      const reminders = bucketedReminder[1];
-  
+    for (const [,reminders] of bucketedReminders) {
+      const aggregateData: AggregateData = {
+        monthCosts: getDateBuckets(),
+        categoryId: reminders[0].categoryId,
+        autoRenewal: reminders[0].autoRenewal,
+      };
       // reminder hasn't been updated at all, only created and nothing else happened
-      if (reminders.length === 1) {
-        const reminder = reminders[0];
-        updateBucket(reminder, year, dateBuckets);
-      } else {
-        for (let i = 0; i < reminders.length; i++) {
-          //   const reminder = reminders[0];
-          if (
-            reminders.some(
-              (r) => r.operationType === OperationType.ReminderDeleted
-            )
-          )
-            break;
-          updateBucket(
-            reminders[i],
-            year,
-            dateBuckets,
-            i > 0 ? reminders[i - 1] : undefined
-          );
-          //   const start = reminder.startedAt;
-          // the window we want to calculate for will be until the created date of the next reminder update,
-          // or in the case that there's no subsequent reminder history record we calculate up until the current date instead
-          //   const end = reminders[i + 1]?.startedAt ?? endDate;
+      for (let i = 0; i < reminders.length; i++) {
+        if (
+          reminders.some((r) => r.operationType === OperationType.ReminderDeleted)
+        )
+          break;
   
-          //   console.log("end");
-          //   console.log(end);
-          //   console.log(endDate.getTime() - start.getTime());
-        }
+        reduceReminderHistory(reminders[i], year, aggregateData);
+      }
+  
+      for (const [key, value] of aggregateData.monthCosts) {
+        dateBuckets.set(key, (dateBuckets.get(key) ?? 0) + value);
       }
     }
   
@@ -192,4 +181,9 @@ export enum Frequency {
   // on creating a reminder we use day and month they inserted to set the start date.
   // hide month field when it's a montlhy ongoing reminder
   // prevent month and day fields from being edited
+  
+  // TODO
+  // Drop all the tables
+  // Create reminder history table and setup triggers
+  // Update reminder table with startedAt field and calculate this on the UI
   
