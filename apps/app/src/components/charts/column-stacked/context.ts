@@ -1,24 +1,20 @@
-/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+type Func = (params?: any) => any;
 export type LayerCakeContext = {
 	data: any;
 	xGet: any;
 	yGet: any;
 	zGet: any;
-	xRange: SvelteStore<
-		[min: number, max: number] & Function & string[] & number[]
-	>;
+	xRange: SvelteStore<[min: number, max: number] & Func & string[] & number[]>;
 	xScale: SvelteStore<
 		{
-			bandwidth: Function;
-			domain: Function;
-			ticks: Function;
-			range: Function;
-		} & Function
+			bandwidth: Func;
+			domain: Func;
+			ticks: Func;
+			range: Func;
+		} & Func
 	>;
-	yScale: SvelteStore<
-		{ bandwidth: Function; domain: Function; ticks: Function } & Function
-	>;
+	yScale: SvelteStore<{ bandwidth: Func; domain: Func; ticks: Func } & Func>;
 	padding: SvelteStore<
 		{
 			top: number;

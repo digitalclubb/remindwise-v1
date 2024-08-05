@@ -86,11 +86,14 @@
 	const dragStop = () => {
 		isDragging = false;
 		const sheetHeight = parseInt(navContent?.style.height || '');
-		sheetHeight < 25
-			? hideNav()
-			: sheetHeight > 75
-				? updateNavHeight(100)
-				: updateNavHeight(90);
+
+		if (sheetHeight < 25) {
+			hideNav();
+		} else if (sheetHeight > 75) {
+			updateNavHeight(100);
+		} else {
+			updateNavHeight(90);
+		}
 	};
 
 	// document only exists in the browser

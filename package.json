@@ -17,15 +17,15 @@
 		"types": "pnpm -r types"
 	},
 	"devDependencies": {
-		"@playwright/test": "1.45.2",
-		"@testing-library/jest-dom": "6.4.6",
+		"@playwright/test": "1.45.3",
+		"@testing-library/jest-dom": "6.4.8",
 		"eslint-plugin-playwright": "1.6.2",
-		"globals": "15.8.0",
+		"globals": "15.9.0",
 		"vitest": "2.0.3"
 	},
 	"prepare": "svelte-kit sync",
-	"packageManager": "pnpm@9.5.0",
+	"packageManager": "pnpm@9.6.0",
 	"dependencies": {
-		"@supabase/supabase-js": "2.44.4"
+		"@supabase/supabase-js": "2.45.0"
 	}
 }
