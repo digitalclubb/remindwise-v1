@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-type Func = (params: any[]) => any;
+type Func = (params?: any) => any;
 export type LayerCakeContext = {
 	data: any;
 	xGet: any;
