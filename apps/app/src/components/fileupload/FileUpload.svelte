@@ -32,7 +32,9 @@
 		const index = uploads.findIndex((upload) => upload.name === fileName);
 		uploads.splice(index, 1);
 		uploads = [...uploads];
-		fileName && (filesDeleted = [...filesDeleted, fileName]);
+		if (fileName) {
+			filesDeleted = [...filesDeleted, fileName];
+		}
 	};
 </script>
 

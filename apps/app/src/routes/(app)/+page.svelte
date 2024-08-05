@@ -63,27 +63,29 @@
 	};
 
 	const onPrevious = async () => {
-		pageInfo?.hasPreviousPage &&
-			(await GetReminders.fetch({
+		if (pageInfo?.hasPreviousPage) {
+			await GetReminders.fetch({
 				variables: {
 					last: parseInt(numberOfRemindersFilter),
 					before: pageInfo.startCursor,
 					first: null,
 					after: null,
 				},
-			}));
+			});
+		}
 	};
 
 	const onNext = async () => {
-		pageInfo?.hasNextPage &&
-			(await GetReminders.fetch({
+		if (pageInfo?.hasNextPage) {
+			await GetReminders.fetch({
 				variables: {
 					first: parseInt(numberOfRemindersFilter),
 					after: pageInfo.endCursor,
 					before: null,
 					last: null,
 				},
-			}));
+			});
+		}
 	};
 </script>
 
