@@ -34,6 +34,23 @@ export const actions: Actions = {
 
 		// Add the new reminder
 		const addReminder = new AddReminderStore();
+
+		const startedAtDate = new Date();
+		const currentDate = new Date();
+
+		if (data.day) {
+			startedAtDate.setDate(data.day);
+		}
+		if (data.month) {
+			startedAtDate.setMonth(data.month - 1);
+		}
+
+		if (startedAtDate.getTime() < currentDate.getTime() && !data.month) {
+			startedAtDate.setMonth(startedAtDate.getMonth() + 1);
+		} else if (startedAtDate.getTime() < currentDate.getTime() && data.month) {
+			startedAtDate.setFullYear(startedAtDate.getFullYear() + 1);
+		}
+
 		const reminder = await addReminder.mutate(
 			{
 				userId: data.userId,
@@ -42,8 +59,8 @@ export const actions: Actions = {
 				type: data.type,
 				company: data.company,
 				cost: data.cost,
-				day: data.day,
-				month: data.month,
+				day: startedAtDate.getDate(),
+				month: startedAtDate.getMonth() + 1,
 				frequency: data.frequency,
 				autoRenewal: data.autoRenew,
 				notes: data.notes ?? null,

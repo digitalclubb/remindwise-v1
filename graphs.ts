@@ -221,6 +221,7 @@ export const calculateGraphData = (
 // on creating a reminder we use day and month they inserted to set the start date.
 // hide month field when it's a montlhy ongoing reminder
 // prevent month and day fields from being edited
+// alway fill in the month and day field
 
 // TODO
 // Drop all the tables

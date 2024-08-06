@@ -4,5 +4,6 @@ export const load: PageLoad = async () => {
 	return {
 		action: '?/editReminder',
 		title: 'Edit reminder',
+		editing: true,
 	};
 };

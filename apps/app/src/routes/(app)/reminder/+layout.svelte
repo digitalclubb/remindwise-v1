@@ -87,24 +87,24 @@
 			{/if}
 		</div>
 
-		<div>
-			<Input
-				label="Company"
-				type="text"
-				name="company"
-				id="company"
-				fullWidth
-				placeholder="Enter the name of the company"
-				aria-invalid={$errors.company ? 'true' : undefined}
-				bind:value={$form.company}
-				{...$constraints.company} />
-
-			{#if $errors.company}
-				<p class="error">{$errors.company}</p>
-			{/if}
-		</div>
-
 		<div class="columns">
+			<div>
+				<Input
+					label="Company"
+					type="text"
+					name="company"
+					id="company"
+					fullWidth
+					placeholder="Enter the name of the company"
+					aria-invalid={$errors.company ? 'true' : undefined}
+					bind:value={$form.company}
+					{...$constraints.company} />
+
+				{#if $errors.company}
+					<p class="error">{$errors.company}</p>
+				{/if}
+			</div>
+
 			<div>
 				<label for="cost">
 					{#if $form.type === 'SINGLE'}
@@ -129,7 +129,7 @@
 					<p class="error">{$errors.cost}</p>
 				{/if}
 			</div>
-
+			<!-- 
 			{#if $form.type === 'ONGOING'}
 				<div class="options-wrapper">
 					<Radio
@@ -147,7 +147,7 @@
 						<p class="error">{$errors.autoRenew}</p>
 					{/if}
 				</div>
-			{/if}
+			{/if} -->
 		</div>
 
 		<div class="columns">
@@ -179,27 +179,30 @@
 						When is it due for renewal?
 					{/if}</label>
 
-				<fieldset class="date" id="date">
-					<Input
+				<fieldset class="date" id="date" disabled={$page.data.editing}>
+					<!-- TODO Tidy this nasty stuff up -->
+					<input
 						type="number"
 						min="1"
 						max="31"
 						placeholder="DD"
-						fullWidth
+						name="day"
 						id="day"
 						aria-invalid={$errors.day ? 'true' : undefined}
 						bind:value={$form.day}
 						{...$constraints.day} />
-					<Input
-						type="number"
-						min="1"
-						max="12"
-						placeholder="MM"
-						fullWidth
-						id="month"
-						aria-invalid={$errors.month ? 'true' : undefined}
-						bind:value={$form.month}
-						{...$constraints.month} />
+					{#if $form.frequency === 'ANNUAL'}
+						<input
+							type="number"
+							min="1"
+							max="12"
+							placeholder="MM"
+							name="month"
+							id="month"
+							aria-invalid={$errors.month ? 'true' : undefined}
+							bind:value={$form.month}
+							{...$constraints.month} />
+					{/if}
 				</fieldset>
 				{#if $errors.day}
 					<p class="error">{$errors.day}</p>
@@ -263,6 +266,10 @@
 		width: 100%;
 	}
 
+	fieldset[disabled] {
+		opacity: 0.5;
+	}
+
 	.options-wrapper {
 		flex: 1;
 	}
@@ -311,7 +318,7 @@
 		}
 
 		input {
-			width: 28.5rem;
+			width: 20rem;
 		}
 
 		.currency input {

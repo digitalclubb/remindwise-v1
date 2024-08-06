@@ -19,10 +19,11 @@ export const reminderSchema = z
 		notes: z.string().optional(),
 	})
 	.superRefine((data, ctx) => {
-		if (data.type === 'ONGOING' && !data.frequency)
+		if (data.type === 'ONGOING' && !data.frequency) {
 			ctx.addIssue({
 				path: ['frequency'],
 				code: 'custom',
 				message: 'Select the frequency of your reminder',
 			});
+		}
 	});
