@@ -17,7 +17,7 @@
 		"types": "pnpm -r types"
 	},
 	"devDependencies": {
-		"@playwright/test": "1.45.3",
+		"@playwright/test": "1.46.0",
 		"@testing-library/jest-dom": "6.4.8",
 		"eslint-plugin-playwright": "1.6.2",
 		"globals": "15.9.0"
