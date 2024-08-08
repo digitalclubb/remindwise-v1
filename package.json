@@ -23,8 +23,8 @@
 		"globals": "15.9.0"
 	},
 	"prepare": "svelte-kit sync",
-	"packageManager": "pnpm@9.6.0",
+	"packageManager": "pnpm@9.7.0",
 	"dependencies": {
-		"@supabase/supabase-js": "2.45.0"
+		"@supabase/supabase-js": "2.45.1"
 	}
 }
