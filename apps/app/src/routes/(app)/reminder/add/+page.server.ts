@@ -64,6 +64,7 @@ export const actions: Actions = {
 				frequency: data.frequency,
 				autoRenewal: data.autoRenew,
 				notes: data.notes ?? null,
+				startedAt: startedAtDate,
 			},
 			{ event }
 		);
