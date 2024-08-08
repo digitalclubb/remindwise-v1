@@ -222,6 +222,130 @@ export type FrequencyFilter = {
   neq?: InputMaybe<Frequency>;
 };
 
+export type History = Node & {
+  __typename?: 'History';
+  auto_renewal: Scalars['Boolean']['output'];
+  category_id?: Maybe<Scalars['BigInt']['output']>;
+  cost: Scalars['Float']['output'];
+  created_at?: Maybe<Scalars['Datetime']['output']>;
+  day?: Maybe<Scalars['Int']['output']>;
+  frequency?: Maybe<Frequency>;
+  id: Scalars['BigInt']['output'];
+  month?: Maybe<Scalars['Int']['output']>;
+  /** Globally Unique Record Identifier */
+  nodeId: Scalars['ID']['output'];
+  operation_type?: Maybe<OperationType>;
+  reminder_id: Scalars['BigInt']['output'];
+  started_at?: Maybe<Scalars['Date']['output']>;
+  type: Type;
+  user_id?: Maybe<Scalars['UUID']['output']>;
+};
+
+export type HistoryConnection = {
+  __typename?: 'HistoryConnection';
+  edges: Array<HistoryEdge>;
+  pageInfo: PageInfo;
+};
+
+export type HistoryDeleteResponse = {
+  __typename?: 'HistoryDeleteResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<History>;
+};
+
+export type HistoryEdge = {
+  __typename?: 'HistoryEdge';
+  cursor: Scalars['String']['output'];
+  node: History;
+};
+
+export type HistoryFilter = {
+  /** Returns true only if all its inner filters are true, otherwise returns false */
+  and?: InputMaybe<Array<HistoryFilter>>;
+  auto_renewal?: InputMaybe<BooleanFilter>;
+  category_id?: InputMaybe<BigIntFilter>;
+  cost?: InputMaybe<FloatFilter>;
+  created_at?: InputMaybe<DatetimeFilter>;
+  day?: InputMaybe<IntFilter>;
+  frequency?: InputMaybe<FrequencyFilter>;
+  id?: InputMaybe<BigIntFilter>;
+  month?: InputMaybe<IntFilter>;
+  nodeId?: InputMaybe<IdFilter>;
+  /** Negates a filter */
+  not?: InputMaybe<HistoryFilter>;
+  operation_type?: InputMaybe<OperationTypeFilter>;
+  /** Returns true if at least one of its inner filters is true, otherwise returns false */
+  or?: InputMaybe<Array<HistoryFilter>>;
+  reminder_id?: InputMaybe<BigIntFilter>;
+  started_at?: InputMaybe<DateFilter>;
+  type?: InputMaybe<TypeFilter>;
+  user_id?: InputMaybe<UuidFilter>;
+};
+
+export type HistoryInsertInput = {
+  auto_renewal?: InputMaybe<Scalars['Boolean']['input']>;
+  category_id?: InputMaybe<Scalars['BigInt']['input']>;
+  cost?: InputMaybe<Scalars['Float']['input']>;
+  created_at?: InputMaybe<Scalars['Datetime']['input']>;
+  day?: InputMaybe<Scalars['Int']['input']>;
+  frequency?: InputMaybe<Frequency>;
+  month?: InputMaybe<Scalars['Int']['input']>;
+  operation_type?: InputMaybe<OperationType>;
+  reminder_id?: InputMaybe<Scalars['BigInt']['input']>;
+  started_at?: InputMaybe<Scalars['Date']['input']>;
+  type?: InputMaybe<Type>;
+  user_id?: InputMaybe<Scalars['UUID']['input']>;
+};
+
+export type HistoryInsertResponse = {
+  __typename?: 'HistoryInsertResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<History>;
+};
+
+export type HistoryOrderBy = {
+  auto_renewal?: InputMaybe<OrderByDirection>;
+  category_id?: InputMaybe<OrderByDirection>;
+  cost?: InputMaybe<OrderByDirection>;
+  created_at?: InputMaybe<OrderByDirection>;
+  day?: InputMaybe<OrderByDirection>;
+  frequency?: InputMaybe<OrderByDirection>;
+  id?: InputMaybe<OrderByDirection>;
+  month?: InputMaybe<OrderByDirection>;
+  operation_type?: InputMaybe<OrderByDirection>;
+  reminder_id?: InputMaybe<OrderByDirection>;
+  started_at?: InputMaybe<OrderByDirection>;
+  type?: InputMaybe<OrderByDirection>;
+  user_id?: InputMaybe<OrderByDirection>;
+};
+
+export type HistoryUpdateInput = {
+  auto_renewal?: InputMaybe<Scalars['Boolean']['input']>;
+  category_id?: InputMaybe<Scalars['BigInt']['input']>;
+  cost?: InputMaybe<Scalars['Float']['input']>;
+  created_at?: InputMaybe<Scalars['Datetime']['input']>;
+  day?: InputMaybe<Scalars['Int']['input']>;
+  frequency?: InputMaybe<Frequency>;
+  month?: InputMaybe<Scalars['Int']['input']>;
+  operation_type?: InputMaybe<OperationType>;
+  reminder_id?: InputMaybe<Scalars['BigInt']['input']>;
+  started_at?: InputMaybe<Scalars['Date']['input']>;
+  type?: InputMaybe<Type>;
+  user_id?: InputMaybe<Scalars['UUID']['input']>;
+};
+
+export type HistoryUpdateResponse = {
+  __typename?: 'HistoryUpdateResponse';
+  /** Count of the records impacted by the mutation */
+  affectedCount: Scalars['Int']['output'];
+  /** Array of records impacted by the mutation */
+  records: Array<History>;
+};
+
 /** Boolean expression comparing fields on type "ID" */
 export type IdFilter = {
   eq?: InputMaybe<Scalars['ID']['input']>;
@@ -258,28 +382,28 @@ export type Mutation = {
   __typename?: 'Mutation';
   /** Deletes zero or more records from the `Category` collection */
   deleteFromCategoryCollection: CategoryDeleteResponse;
+  /** Deletes zero or more records from the `History` collection */
+  deleteFromHistoryCollection: HistoryDeleteResponse;
   /** Deletes zero or more records from the `Reminder` collection */
   deleteFromReminderCollection: ReminderDeleteResponse;
   /** Deletes zero or more records from the `Settings` collection */
   deleteFromSettingsCollection: SettingsDeleteResponse;
-  /** Deletes zero or more records from the `reminder_history_test` collection */
-  deleteFromreminder_history_testCollection: Reminder_History_TestDeleteResponse;
   /** Adds one or more `Category` records to the collection */
   insertIntoCategoryCollection?: Maybe<CategoryInsertResponse>;
+  /** Adds one or more `History` records to the collection */
+  insertIntoHistoryCollection?: Maybe<HistoryInsertResponse>;
   /** Adds one or more `Reminder` records to the collection */
   insertIntoReminderCollection?: Maybe<ReminderInsertResponse>;
   /** Adds one or more `Settings` records to the collection */
   insertIntoSettingsCollection?: Maybe<SettingsInsertResponse>;
-  /** Adds one or more `reminder_history_test` records to the collection */
-  insertIntoreminder_history_testCollection?: Maybe<Reminder_History_TestInsertResponse>;
   /** Updates zero or more records in the `Category` collection */
   updateCategoryCollection: CategoryUpdateResponse;
+  /** Updates zero or more records in the `History` collection */
+  updateHistoryCollection: HistoryUpdateResponse;
   /** Updates zero or more records in the `Reminder` collection */
   updateReminderCollection: ReminderUpdateResponse;
   /** Updates zero or more records in the `Settings` collection */
   updateSettingsCollection: SettingsUpdateResponse;
-  /** Updates zero or more records in the `reminder_history_test` collection */
-  updatereminder_history_testCollection: Reminder_History_TestUpdateResponse;
 };
 
 
@@ -287,6 +411,13 @@ export type Mutation = {
 export type MutationDeleteFromCategoryCollectionArgs = {
   atMost?: Scalars['Int']['input'];
   filter?: InputMaybe<CategoryFilter>;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationDeleteFromHistoryCollectionArgs = {
+  atMost?: Scalars['Int']['input'];
+  filter?: InputMaybe<HistoryFilter>;
 };
 
 
@@ -305,15 +436,14 @@ export type MutationDeleteFromSettingsCollectionArgs = {
 
 
 /** The root type for creating and mutating data */
-export type MutationDeleteFromreminder_History_TestCollectionArgs = {
-  atMost?: Scalars['Int']['input'];
-  filter?: InputMaybe<Reminder_History_TestFilter>;
+export type MutationInsertIntoCategoryCollectionArgs = {
+  objects: Array<CategoryInsertInput>;
 };
 
 
 /** The root type for creating and mutating data */
-export type MutationInsertIntoCategoryCollectionArgs = {
-  objects: Array<CategoryInsertInput>;
+export type MutationInsertIntoHistoryCollectionArgs = {
+  objects: Array<HistoryInsertInput>;
 };
 
 
@@ -330,16 +460,18 @@ export type MutationInsertIntoSettingsCollectionArgs = {
 
 
 /** The root type for creating and mutating data */
-export type MutationInsertIntoreminder_History_TestCollectionArgs = {
-  objects: Array<Reminder_History_TestInsertInput>;
-};
-
-
-/** The root type for creating and mutating data */
 export type MutationUpdateCategoryCollectionArgs = {
   atMost?: Scalars['Int']['input'];
   filter?: InputMaybe<CategoryFilter>;
   set: CategoryUpdateInput;
+};
+
+
+/** The root type for creating and mutating data */
+export type MutationUpdateHistoryCollectionArgs = {
+  atMost?: Scalars['Int']['input'];
+  filter?: InputMaybe<HistoryFilter>;
+  set: HistoryUpdateInput;
 };
 
 
@@ -358,14 +490,6 @@ export type MutationUpdateSettingsCollectionArgs = {
   set: SettingsUpdateInput;
 };
 
-
-/** The root type for creating and mutating data */
-export type MutationUpdatereminder_History_TestCollectionArgs = {
-  atMost?: Scalars['Int']['input'];
-  filter?: InputMaybe<Reminder_History_TestFilter>;
-  set: Reminder_History_TestUpdateInput;
-};
-
 export type Node = {
   /** Retrieves a record by `ID` */
   nodeId: Scalars['ID']['output'];
@@ -375,6 +499,20 @@ export type Node = {
 export type OpaqueFilter = {
   eq?: InputMaybe<Scalars['Opaque']['input']>;
   is?: InputMaybe<FilterIs>;
+};
+
+export enum OperationType {
+  ReminderCreated = 'ReminderCreated',
+  ReminderDeleted = 'ReminderDeleted',
+  ReminderUpdated = 'ReminderUpdated'
+}
+
+/** Boolean expression comparing fields on type "OperationType" */
+export type OperationTypeFilter = {
+  eq?: InputMaybe<OperationType>;
+  in?: InputMaybe<Array<OperationType>>;
+  is?: InputMaybe<FilterIs>;
+  neq?: InputMaybe<OperationType>;
 };
 
 /** Defines a per-field sorting order */
@@ -402,12 +540,12 @@ export type Query = {
   __typename?: 'Query';
   /** A pagable collection of type `Category` */
   categoryCollection?: Maybe<CategoryConnection>;
+  /** A pagable collection of type `History` */
+  historyCollection?: Maybe<HistoryConnection>;
   /** Retrieve a record by its `ID` */
   node?: Maybe<Node>;
   /** A pagable collection of type `Reminder` */
   reminderCollection?: Maybe<ReminderConnection>;
-  /** A pagable collection of type `reminder_history_test` */
-  reminder_history_testCollection?: Maybe<Reminder_History_TestConnection>;
   /** A pagable collection of type `Settings` */
   settingsCollection?: Maybe<SettingsConnection>;
 };
@@ -426,6 +564,18 @@ export type QueryCategoryCollectionArgs = {
 
 
 /** The root type for querying data */
+export type QueryHistoryCollectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  filter?: InputMaybe<HistoryFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<HistoryOrderBy>>;
+};
+
+
+/** The root type for querying data */
 export type QueryNodeArgs = {
   nodeId: Scalars['ID']['input'];
 };
@@ -440,18 +590,6 @@ export type QueryReminderCollectionArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<ReminderOrderBy>>;
-};
-
-
-/** The root type for querying data */
-export type QueryReminder_History_TestCollectionArgs = {
-  after?: InputMaybe<Scalars['Cursor']['input']>;
-  before?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<Reminder_History_TestFilter>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<Reminder_History_TestOrderBy>>;
 };
 
 
@@ -483,6 +621,7 @@ export type Reminder = Node & {
   nodeId: Scalars['ID']['output'];
   notes?: Maybe<Scalars['String']['output']>;
   settings?: Maybe<Settings>;
+  started_at?: Maybe<Scalars['Date']['output']>;
   type: Type;
   user_id?: Maybe<Scalars['UUID']['output']>;
 };
@@ -528,6 +667,7 @@ export type ReminderFilter = {
   notes?: InputMaybe<StringFilter>;
   /** Returns true if at least one of its inner filters is true, otherwise returns false */
   or?: InputMaybe<Array<ReminderFilter>>;
+  started_at?: InputMaybe<DateFilter>;
   type?: InputMaybe<TypeFilter>;
   user_id?: InputMaybe<UuidFilter>;
 };
@@ -543,6 +683,7 @@ export type ReminderInsertInput = {
   month?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   notes?: InputMaybe<Scalars['String']['input']>;
+  started_at?: InputMaybe<Scalars['Date']['input']>;
   type?: InputMaybe<Type>;
   user_id?: InputMaybe<Scalars['UUID']['input']>;
 };
@@ -567,6 +708,7 @@ export type ReminderOrderBy = {
   month?: InputMaybe<OrderByDirection>;
   name?: InputMaybe<OrderByDirection>;
   notes?: InputMaybe<OrderByDirection>;
+  started_at?: InputMaybe<OrderByDirection>;
   type?: InputMaybe<OrderByDirection>;
   user_id?: InputMaybe<OrderByDirection>;
 };
@@ -582,6 +724,7 @@ export type ReminderUpdateInput = {
   month?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   notes?: InputMaybe<Scalars['String']['input']>;
+  started_at?: InputMaybe<Scalars['Date']['input']>;
   type?: InputMaybe<Type>;
   user_id?: InputMaybe<Scalars['UUID']['input']>;
 };
@@ -769,140 +912,6 @@ export type UuidFilter = {
   neq?: InputMaybe<Scalars['UUID']['input']>;
 };
 
-export type Reminder_History_Test = Node & {
-  __typename?: 'reminder_history_test';
-  autoRenewal: Scalars['Boolean']['output'];
-  categoryId?: Maybe<Scalars['BigInt']['output']>;
-  company: Scalars['String']['output'];
-  cost: Scalars['Float']['output'];
-  created_at?: Maybe<Scalars['Datetime']['output']>;
-  date: Scalars['Date']['output'];
-  frequency?: Maybe<Frequency>;
-  id: Scalars['BigInt']['output'];
-  name: Scalars['String']['output'];
-  /** Globally Unique Record Identifier */
-  nodeId: Scalars['ID']['output'];
-  notes?: Maybe<Scalars['String']['output']>;
-  reminder_id: Scalars['BigInt']['output'];
-  total: Scalars['Float']['output'];
-  type: Type;
-  updated_at?: Maybe<Scalars['Datetime']['output']>;
-  userid?: Maybe<Scalars['UUID']['output']>;
-};
-
-export type Reminder_History_TestConnection = {
-  __typename?: 'reminder_history_testConnection';
-  edges: Array<Reminder_History_TestEdge>;
-  pageInfo: PageInfo;
-};
-
-export type Reminder_History_TestDeleteResponse = {
-  __typename?: 'reminder_history_testDeleteResponse';
-  /** Count of the records impacted by the mutation */
-  affectedCount: Scalars['Int']['output'];
-  /** Array of records impacted by the mutation */
-  records: Array<Reminder_History_Test>;
-};
-
-export type Reminder_History_TestEdge = {
-  __typename?: 'reminder_history_testEdge';
-  cursor: Scalars['String']['output'];
-  node: Reminder_History_Test;
-};
-
-export type Reminder_History_TestFilter = {
-  /** Returns true only if all its inner filters are true, otherwise returns false */
-  and?: InputMaybe<Array<Reminder_History_TestFilter>>;
-  autoRenewal?: InputMaybe<BooleanFilter>;
-  categoryId?: InputMaybe<BigIntFilter>;
-  company?: InputMaybe<StringFilter>;
-  cost?: InputMaybe<FloatFilter>;
-  created_at?: InputMaybe<DatetimeFilter>;
-  date?: InputMaybe<DateFilter>;
-  frequency?: InputMaybe<FrequencyFilter>;
-  id?: InputMaybe<BigIntFilter>;
-  name?: InputMaybe<StringFilter>;
-  nodeId?: InputMaybe<IdFilter>;
-  /** Negates a filter */
-  not?: InputMaybe<Reminder_History_TestFilter>;
-  notes?: InputMaybe<StringFilter>;
-  /** Returns true if at least one of its inner filters is true, otherwise returns false */
-  or?: InputMaybe<Array<Reminder_History_TestFilter>>;
-  reminder_id?: InputMaybe<BigIntFilter>;
-  total?: InputMaybe<FloatFilter>;
-  type?: InputMaybe<TypeFilter>;
-  updated_at?: InputMaybe<DatetimeFilter>;
-  userid?: InputMaybe<UuidFilter>;
-};
-
-export type Reminder_History_TestInsertInput = {
-  autoRenewal?: InputMaybe<Scalars['Boolean']['input']>;
-  categoryId?: InputMaybe<Scalars['BigInt']['input']>;
-  company?: InputMaybe<Scalars['String']['input']>;
-  cost?: InputMaybe<Scalars['Float']['input']>;
-  created_at?: InputMaybe<Scalars['Datetime']['input']>;
-  date?: InputMaybe<Scalars['Date']['input']>;
-  frequency?: InputMaybe<Frequency>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  notes?: InputMaybe<Scalars['String']['input']>;
-  reminder_id?: InputMaybe<Scalars['BigInt']['input']>;
-  total?: InputMaybe<Scalars['Float']['input']>;
-  type?: InputMaybe<Type>;
-  updated_at?: InputMaybe<Scalars['Datetime']['input']>;
-  userid?: InputMaybe<Scalars['UUID']['input']>;
-};
-
-export type Reminder_History_TestInsertResponse = {
-  __typename?: 'reminder_history_testInsertResponse';
-  /** Count of the records impacted by the mutation */
-  affectedCount: Scalars['Int']['output'];
-  /** Array of records impacted by the mutation */
-  records: Array<Reminder_History_Test>;
-};
-
-export type Reminder_History_TestOrderBy = {
-  autoRenewal?: InputMaybe<OrderByDirection>;
-  categoryId?: InputMaybe<OrderByDirection>;
-  company?: InputMaybe<OrderByDirection>;
-  cost?: InputMaybe<OrderByDirection>;
-  created_at?: InputMaybe<OrderByDirection>;
-  date?: InputMaybe<OrderByDirection>;
-  frequency?: InputMaybe<OrderByDirection>;
-  id?: InputMaybe<OrderByDirection>;
-  name?: InputMaybe<OrderByDirection>;
-  notes?: InputMaybe<OrderByDirection>;
-  reminder_id?: InputMaybe<OrderByDirection>;
-  total?: InputMaybe<OrderByDirection>;
-  type?: InputMaybe<OrderByDirection>;
-  updated_at?: InputMaybe<OrderByDirection>;
-  userid?: InputMaybe<OrderByDirection>;
-};
-
-export type Reminder_History_TestUpdateInput = {
-  autoRenewal?: InputMaybe<Scalars['Boolean']['input']>;
-  categoryId?: InputMaybe<Scalars['BigInt']['input']>;
-  company?: InputMaybe<Scalars['String']['input']>;
-  cost?: InputMaybe<Scalars['Float']['input']>;
-  created_at?: InputMaybe<Scalars['Datetime']['input']>;
-  date?: InputMaybe<Scalars['Date']['input']>;
-  frequency?: InputMaybe<Frequency>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  notes?: InputMaybe<Scalars['String']['input']>;
-  reminder_id?: InputMaybe<Scalars['BigInt']['input']>;
-  total?: InputMaybe<Scalars['Float']['input']>;
-  type?: InputMaybe<Type>;
-  updated_at?: InputMaybe<Scalars['Datetime']['input']>;
-  userid?: InputMaybe<Scalars['UUID']['input']>;
-};
-
-export type Reminder_History_TestUpdateResponse = {
-  __typename?: 'reminder_history_testUpdateResponse';
-  /** Count of the records impacted by the mutation */
-  affectedCount: Scalars['Int']['output'];
-  /** Array of records impacted by the mutation */
-  records: Array<Reminder_History_Test>;
-};
-
 export type AddCategoryMutationVariables = Exact<{
   category: Scalars['String']['input'];
   iconId: Scalars['String']['input'];
@@ -996,8 +1005,6 @@ export type GetReminderQuery = { __typename?: 'Query', reminders?: { __typename?
 
 export type GetRemindersQueryVariables = Exact<{
   categoryId?: InputMaybe<Scalars['BigInt']['input']>;
-  today?: InputMaybe<Scalars['Date']['input']>;
-  upcoming?: InputMaybe<Scalars['Date']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   after?: InputMaybe<Scalars['Cursor']['input']>;
@@ -1022,5 +1029,5 @@ export const UpdateReminderDocument = {"kind":"Document","definitions":[{"kind":
 export const UpdateSettingsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UpdateSettings"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"UUID"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"firstName"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"lastName"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"noticePeriod"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"interval"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Interval"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"currency"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Currency"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"updateSettingsCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}]}}]}},{"kind":"Argument","name":{"kind":"Name","value":"set"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"first_name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"firstName"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"last_name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"lastName"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"notice_period"},"value":{"kind":"Variable","name":{"kind":"Name","value":"noticePeriod"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"interval"},"value":{"kind":"Variable","name":{"kind":"Name","value":"interval"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"currency"},"value":{"kind":"Variable","name":{"kind":"Name","value":"currency"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"affectedCount"}},{"kind":"Field","name":{"kind":"Name","value":"records"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<UpdateSettingsMutation, UpdateSettingsMutationVariables>;
 export const GetCategoriesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetCategories"},"directives":[{"kind":"Directive","name":{"kind":"Name","value":"load"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"categories"},"name":{"kind":"Name","value":"categoryCollection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"list"},"name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"category"},"name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"icon_id"}},{"kind":"Field","alias":{"kind":"Name","value":"reminders"},"name":{"kind":"Name","value":"reminderCollection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","alias":{"kind":"Name","value":"list"},"name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"reminder"},"name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"cost"}},{"kind":"Field","name":{"kind":"Name","value":"type"}}]}}]}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetCategoriesQuery, GetCategoriesQueryVariables>;
 export const GetReminderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetReminder"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"slug"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"BigInt"}}}],"directives":[{"kind":"Directive","name":{"kind":"Name","value":"load"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"reminders"},"name":{"kind":"Name","value":"reminderCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"slug"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"list"},"name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"reminder"},"name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"company"}},{"kind":"Field","name":{"kind":"Name","value":"cost"}},{"kind":"Field","name":{"kind":"Name","value":"day"}},{"kind":"Field","name":{"kind":"Name","value":"month"}},{"kind":"Field","name":{"kind":"Name","value":"frequency"}},{"kind":"Field","name":{"kind":"Name","value":"auto_renewal"}},{"kind":"Field","name":{"kind":"Name","value":"notes"}},{"kind":"Field","name":{"kind":"Name","value":"category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"icon_id"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetReminderQuery, GetReminderQueryVariables>;
-export const GetRemindersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetReminders"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"categoryId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"BigInt"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"today"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Date"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"upcoming"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Date"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"last"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Cursor"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Cursor"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"upcoming"},"name":{"kind":"Name","value":"reminderCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"category_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"categoryId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"list"},"name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"reminder"},"name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"company"}},{"kind":"Field","name":{"kind":"Name","value":"cost"}},{"kind":"Field","name":{"kind":"Name","value":"day"}},{"kind":"Field","name":{"kind":"Name","value":"month"}},{"kind":"Field","name":{"kind":"Name","value":"auto_renewal"}},{"kind":"Field","name":{"kind":"Name","value":"category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"icon_id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"reminders"},"name":{"kind":"Name","value":"reminderCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"last"},"value":{"kind":"Variable","name":{"kind":"Name","value":"last"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"category_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"categoryId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"list"},"name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"reminder"},"name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"company"}},{"kind":"Field","name":{"kind":"Name","value":"cost"}},{"kind":"Field","name":{"kind":"Name","value":"category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"icon_id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetRemindersQuery, GetRemindersQueryVariables>;
+export const GetRemindersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetReminders"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"categoryId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"BigInt"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"last"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Cursor"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Cursor"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"upcoming"},"name":{"kind":"Name","value":"reminderCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"category_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"categoryId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"list"},"name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"reminder"},"name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"company"}},{"kind":"Field","name":{"kind":"Name","value":"cost"}},{"kind":"Field","name":{"kind":"Name","value":"day"}},{"kind":"Field","name":{"kind":"Name","value":"month"}},{"kind":"Field","name":{"kind":"Name","value":"auto_renewal"}},{"kind":"Field","name":{"kind":"Name","value":"category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"icon_id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"reminders"},"name":{"kind":"Name","value":"reminderCollection"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"last"},"value":{"kind":"Variable","name":{"kind":"Name","value":"last"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"filter"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"category_id"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"eq"},"value":{"kind":"Variable","name":{"kind":"Name","value":"categoryId"}}}]}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}},{"kind":"Field","alias":{"kind":"Name","value":"list"},"name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"reminder"},"name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"company"}},{"kind":"Field","name":{"kind":"Name","value":"cost"}},{"kind":"Field","name":{"kind":"Name","value":"category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"icon_id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetRemindersQuery, GetRemindersQueryVariables>;
 export const GetSettingsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetSettings"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"settings"},"name":{"kind":"Name","value":"settingsCollection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"list"},"name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"setting"},"name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"first_name"}},{"kind":"Field","name":{"kind":"Name","value":"last_name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"notice_period"}},{"kind":"Field","name":{"kind":"Name","value":"interval"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetSettingsQuery, GetSettingsQueryVariables>;

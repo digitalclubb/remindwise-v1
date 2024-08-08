@@ -1,44 +1,20 @@
-export enum Frequency {
-	Monthly = 1,
-	Yearly = 2,
-}
-
-export enum Type {
-	Ongoing = 1,
-	Single = 2,
-}
-
-export enum OperationType {
-	ReminderCreated = 1,
-	ReminderUpdated = 2,
-	ReminderDeleted = 3,
-}
+import { Frequency, Type, OperationType } from '@graphql/types';
 
 export type ReminderHistoryRecord = {
 	id: number; // cant be changed
+	cost: number;
+	autoRenewal: boolean;
 	userId: number; // cant be changed
+	categoryId: number;
+	type: Type; // cant be changed
+	frequency: Frequency; // cant be changed
 	reminderId: number; // cant be changed
 	startedAt: Date; // cant be changed
-	frequency: Frequency; // cant be changed
-	type: Type; // cant be changed
+	createdAt: Date; // cant be changed
 	day?: number; // cant be changed
 	month?: number; // cant be changed
 	operationType: OperationType;
-	categoryId: number;
-	cost: number;
-	autoRenewal: boolean;
 };
-
-export type ReminderHistory = {
-	startDate: Date;
-	endDate: Date;
-	categoryId: number;
-};
-
-export enum TimeInterval {
-	Monthly = 1,
-	Yearly = 2,
-}
 
 const getDateBuckets = (): Map<string, number> => {
 	return new Map([
@@ -78,9 +54,13 @@ const reduceReminderHistory = (
 	const cost = reminder.cost;
 	aggregateData.categoryId = reminder.categoryId;
 	aggregateData.autoRenewal = reminder.autoRenewal;
+	const date =
+		reminder.operationType === OperationType.ReminderUpdated
+			? reminder.createdAt
+			: reminder.startedAt;
 
 	// Is the year we're requesting the graphs for in a following year to when it was started?
-	const isItFutureYear = year > reminder.startedAt.getFullYear();
+	const isItFutureYear = year > date.getFullYear();
 
 	// Is it ongoing and monthly
 	if (
@@ -89,11 +69,9 @@ const reduceReminderHistory = (
 	) {
 		// If we're requesting the graph data in the same year the reminder was started, then use it's month
 		// If it's a future year, set the data from the first month of the year
-		const initialMonth = isItFutureYear ? 1 : reminder.startedAt.getMonth() + 1;
+		const initialMonth = isItFutureYear ? 1 : date.getMonth() + 1;
 		// If auto renewal is off then we have an end month
-		const endMonth = reminder.autoRenewal
-			? 13
-			: reminder.startedAt.getMonth() + 1;
+		const endMonth = reminder.autoRenewal ? 13 : date.getMonth() + 1;
 
 		for (let i = initialMonth; i < 13; i++) {
 			// if current month is greater than end month or autoRenewal is off and it's a future year
@@ -108,18 +86,18 @@ const reduceReminderHistory = (
 		// Is it ongoing and yearly
 	} else if (
 		reminder.type === Type.Ongoing &&
-		reminder.frequency === Frequency.Yearly
+		reminder.frequency === Frequency.Annual
 	) {
 		const month = reminder.month ?? 1;
 		// Is it an auto renewing reminder and the year it happened is less or equal to the requested year
 		// set that month cost to the reminder current cost
-		if (reminder.startedAt.getFullYear() <= year && reminder.autoRenewal) {
+		if (date.getFullYear() <= year && reminder.autoRenewal) {
 			aggregateData?.monthCosts.set(month.toString(), cost);
 		} else if (
 			// Is it a future year and not auto renewing
 			(isItFutureYear && !reminder.autoRenewal) ||
 			// Or not auto renewing and the current month is before the reminder month
-			(!reminder.autoRenewal && reminder.startedAt.getMonth() + 1 <= month)
+			(!reminder.autoRenewal && date.getMonth() + 1 <= month)
 		) {
 			// set that month cost to 0
 			aggregateData?.monthCosts.set(month.toString(), 0);
@@ -227,3 +205,4 @@ export const calculateGraphData = (
 // Drop all the tables
 // Create reminder history table and setup triggers
 // Update reminder table with startedAt field and calculate this on the UI
+// Update trigger function, on delete need to handle old not new. Also on delete what is the started date, it kinda needs to be created date?
