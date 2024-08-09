@@ -1,4 +1,4 @@
-mutation UpdateCategory($id: BigInt, $name: String, $iconId: String) {
+mutation UpdateCategory($id: UUID, $name: String, $iconId: String) {
 	updateCategoryCollection(
 		filter: { id: { eq: $id } }
 		set: { name: $name, icon_id: $iconId }

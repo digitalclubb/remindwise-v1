@@ -3,7 +3,7 @@ import { load_GetReminders } from '$houdini';
 
 export const load: PageLoad = async (event) => {
 	const { GetCategories } = await event.parent();
-	const prom = new Promise<number>((resolve, reject) => {
+	const prom = new Promise<string>((resolve, reject) => {
 		GetCategories.subscribe((res) => {
 			const cat = res.data?.categories?.list.find(
 				(cat) => cat.category.name === event.params.slug

@@ -1,6 +1,6 @@
 mutation AddReminder(
 	$userId: UUID!
-	$categoryId: BigInt!
+	$categoryId: UUID!
 	$name: String!
 	$type: Type!
 	$company: String

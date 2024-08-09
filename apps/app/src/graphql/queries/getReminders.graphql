@@ -1,5 +1,5 @@
 query GetReminders(
-	$categoryId: BigInt
+	$categoryId: UUID
 	$first: Int
 	$last: Int
 	$after: Cursor

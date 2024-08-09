@@ -10,7 +10,7 @@ export const addReminder = graphql.mutation<AddReminderMutation>(
 					affectedCount: 1,
 					records: [
 						{
-							id: 1,
+							id: '1',
 						},
 					],
 				},

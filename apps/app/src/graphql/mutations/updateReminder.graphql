@@ -1,6 +1,6 @@
 mutation UpdateReminder(
-	$id: BigInt
-	$categoryId: BigInt!
+	$id: UUID
+	$categoryId: UUID!
 	$name: String!
 	$type: Type!
 	$company: String

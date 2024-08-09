@@ -15,7 +15,7 @@ export const actions: Actions = {
 			return fail(400, { form });
 		}
 
-		let newId: number | undefined;
+		let newId: string | undefined;
 
 		// Add new category if added
 		if (!data.categoryId) {

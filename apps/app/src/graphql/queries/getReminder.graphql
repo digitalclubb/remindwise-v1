@@ -1,4 +1,4 @@
-query GetReminder($slug: BigInt) @load {
+query GetReminder($slug: UUID) @load {
 	reminders: reminderCollection(filter: { id: { eq: $slug } }) {
 		list: edges {
 			reminder: node {

@@ -42,8 +42,32 @@ input BooleanFilter {
 
 type Category implements Node {
   created_at: Datetime
+  historyCollection(
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: HistoryFilter
+
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
+
+    """Sort order to apply to the collection"""
+    orderBy: [HistoryOrderBy!]
+  ): HistoryConnection
   icon_id: String
-  id: BigInt!
+  id: UUID!
   name: String!
 
   """Globally Unique Record Identifier"""
@@ -101,7 +125,7 @@ input CategoryFilter {
   and: [CategoryFilter!]
   created_at: DatetimeFilter
   icon_id: StringFilter
-  id: BigIntFilter
+  id: UUIDFilter
   name: StringFilter
   nodeId: IDFilter
 
@@ -118,6 +142,7 @@ input CategoryFilter {
 input CategoryInsertInput {
   created_at: Datetime
   icon_id: String
+  id: UUID
   name: String
   user_id: UUID
 }
@@ -141,6 +166,7 @@ input CategoryOrderBy {
 input CategoryUpdateInput {
   created_at: Datetime
   icon_id: String
+  id: UUID
   name: String
   user_id: UUID
 }
@@ -247,18 +273,21 @@ input FrequencyFilter {
 
 type History implements Node {
   auto_renewal: Boolean!
-  category_id: BigInt
+  category: Category
+  category_id: UUID
   cost: Float!
   created_at: Datetime
   day: Int
   frequency: Frequency
-  id: BigInt!
+  id: UUID!
   month: Int
 
   """Globally Unique Record Identifier"""
   nodeId: ID!
   operation_type: OperationType
-  reminder_id: BigInt!
+  reminder: Reminder
+  reminder_id: UUID
+  settings: Settings
   started_at: Date
   type: Type!
   user_id: UUID
@@ -288,12 +317,12 @@ input HistoryFilter {
   """
   and: [HistoryFilter!]
   auto_renewal: BooleanFilter
-  category_id: BigIntFilter
+  category_id: UUIDFilter
   cost: FloatFilter
   created_at: DatetimeFilter
   day: IntFilter
   frequency: FrequencyFilter
-  id: BigIntFilter
+  id: UUIDFilter
   month: IntFilter
   nodeId: IDFilter
 
@@ -305,7 +334,7 @@ input HistoryFilter {
   Returns true if at least one of its inner filters is true, otherwise returns false
   """
   or: [HistoryFilter!]
-  reminder_id: BigIntFilter
+  reminder_id: UUIDFilter
   started_at: DateFilter
   type: TypeFilter
   user_id: UUIDFilter
@@ -313,14 +342,15 @@ input HistoryFilter {
 
 input HistoryInsertInput {
   auto_renewal: Boolean
-  category_id: BigInt
+  category_id: UUID
   cost: Float
   created_at: Datetime
   day: Int
   frequency: Frequency
+  id: UUID
   month: Int
   operation_type: OperationType
-  reminder_id: BigInt
+  reminder_id: UUID
   started_at: Date
   type: Type
   user_id: UUID
@@ -352,14 +382,15 @@ input HistoryOrderBy {
 
 input HistoryUpdateInput {
   auto_renewal: Boolean
-  category_id: BigInt
+  category_id: UUID
   cost: Float
   created_at: Datetime
   day: Int
   frequency: Frequency
+  id: UUID
   month: Int
   operation_type: OperationType
-  reminder_id: BigInt
+  reminder_id: UUID
   started_at: Date
   type: Type
   user_id: UUID
@@ -706,13 +737,37 @@ type Query {
 type Reminder implements Node {
   auto_renewal: Boolean!
   category: Category
-  category_id: BigInt
+  category_id: UUID
   company: String!
   cost: Float!
   created_at: Datetime
   day: Int
   frequency: Frequency
-  id: BigInt!
+  historyCollection(
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: HistoryFilter
+
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
+
+    """Sort order to apply to the collection"""
+    orderBy: [HistoryOrderBy!]
+  ): HistoryConnection
+  id: UUID!
   month: Int
   name: String!
 
@@ -752,13 +807,13 @@ input ReminderFilter {
   """
   and: [ReminderFilter!]
   auto_renewal: BooleanFilter
-  category_id: BigIntFilter
+  category_id: UUIDFilter
   company: StringFilter
   cost: FloatFilter
   created_at: DatetimeFilter
   day: IntFilter
   frequency: FrequencyFilter
-  id: BigIntFilter
+  id: UUIDFilter
   month: IntFilter
   name: StringFilter
   nodeId: IDFilter
@@ -778,12 +833,13 @@ input ReminderFilter {
 
 input ReminderInsertInput {
   auto_renewal: Boolean
-  category_id: BigInt
+  category_id: UUID
   company: String
   cost: Float
   created_at: Datetime
   day: Int
   frequency: Frequency
+  id: UUID
   month: Int
   name: String
   notes: String
@@ -819,12 +875,13 @@ input ReminderOrderBy {
 
 input ReminderUpdateInput {
   auto_renewal: Boolean
-  category_id: BigInt
+  category_id: UUID
   company: String
   cost: Float
   created_at: Datetime
   day: Int
   frequency: Frequency
+  id: UUID
   month: Int
   name: String
   notes: String
@@ -869,6 +926,30 @@ type Settings implements Node {
   currency: Currency
   email: String
   first_name: String
+  historyCollection(
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: HistoryFilter
+
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
+
+    """Sort order to apply to the collection"""
+    orderBy: [HistoryOrderBy!]
+  ): HistoryConnection
   id: UUID!
   interval: Interval
   last_name: String

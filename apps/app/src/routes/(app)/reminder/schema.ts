@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 export const reminderSchema = z
 	.object({
-		categoryId: z.number(),
+		categoryId: z.string(),
 		userId: z.string(),
 		category: z.string().min(1, 'Category is required'),
 		name: z.string().min(1, 'Reminder name is required'),
