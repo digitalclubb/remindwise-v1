@@ -57,7 +57,6 @@ export type BooleanFilter = {
 export type Category = Node & {
   __typename?: 'Category';
   created_at?: Maybe<Scalars['Datetime']['output']>;
-  historyCollection?: Maybe<HistoryConnection>;
   icon_id?: Maybe<Scalars['String']['output']>;
   id: Scalars['UUID']['output'];
   name: Scalars['String']['output'];
@@ -66,17 +65,6 @@ export type Category = Node & {
   reminderCollection?: Maybe<ReminderConnection>;
   settings?: Maybe<Settings>;
   user_id?: Maybe<Scalars['UUID']['output']>;
-};
-
-
-export type CategoryHistoryCollectionArgs = {
-  after?: InputMaybe<Scalars['Cursor']['input']>;
-  before?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<HistoryFilter>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<HistoryOrderBy>>;
 };
 
 
@@ -239,7 +227,6 @@ export type FrequencyFilter = {
 export type History = Node & {
   __typename?: 'History';
   auto_renewal: Scalars['Boolean']['output'];
-  category?: Maybe<Category>;
   category_id?: Maybe<Scalars['UUID']['output']>;
   cost: Scalars['Float']['output'];
   created_at?: Maybe<Scalars['Datetime']['output']>;
@@ -250,7 +237,6 @@ export type History = Node & {
   /** Globally Unique Record Identifier */
   nodeId: Scalars['ID']['output'];
   operation_type?: Maybe<OperationType>;
-  reminder?: Maybe<Reminder>;
   reminder_id?: Maybe<Scalars['UUID']['output']>;
   settings?: Maybe<Settings>;
   started_at?: Maybe<Scalars['Date']['output']>;
@@ -633,7 +619,6 @@ export type Reminder = Node & {
   created_at?: Maybe<Scalars['Datetime']['output']>;
   day?: Maybe<Scalars['Int']['output']>;
   frequency?: Maybe<Frequency>;
-  historyCollection?: Maybe<HistoryConnection>;
   id: Scalars['UUID']['output'];
   month?: Maybe<Scalars['Int']['output']>;
   name: Scalars['String']['output'];
@@ -644,17 +629,6 @@ export type Reminder = Node & {
   started_at?: Maybe<Scalars['Date']['output']>;
   type: Type;
   user_id?: Maybe<Scalars['UUID']['output']>;
-};
-
-
-export type ReminderHistoryCollectionArgs = {
-  after?: InputMaybe<Scalars['Cursor']['input']>;
-  before?: InputMaybe<Scalars['Cursor']['input']>;
-  filter?: InputMaybe<HistoryFilter>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  orderBy?: InputMaybe<Array<HistoryOrderBy>>;
 };
 
 export type ReminderConnection = {

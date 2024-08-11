@@ -42,30 +42,6 @@ input BooleanFilter {
 
 type Category implements Node {
   created_at: Datetime
-  historyCollection(
-    """Query values in the collection after the provided cursor"""
-    after: Cursor
-
-    """Query values in the collection before the provided cursor"""
-    before: Cursor
-
-    """Filters to apply to the results set when querying from the collection"""
-    filter: HistoryFilter
-
-    """Query the first `n` records in the collection"""
-    first: Int
-
-    """Query the last `n` records in the collection"""
-    last: Int
-
-    """
-    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
-    """
-    offset: Int
-
-    """Sort order to apply to the collection"""
-    orderBy: [HistoryOrderBy!]
-  ): HistoryConnection
   icon_id: String
   id: UUID!
   name: String!
@@ -273,7 +249,6 @@ input FrequencyFilter {
 
 type History implements Node {
   auto_renewal: Boolean!
-  category: Category
   category_id: UUID
   cost: Float!
   created_at: Datetime
@@ -285,7 +260,6 @@ type History implements Node {
   """Globally Unique Record Identifier"""
   nodeId: ID!
   operation_type: OperationType
-  reminder: Reminder
   reminder_id: UUID
   settings: Settings
   started_at: Date
@@ -743,30 +717,6 @@ type Reminder implements Node {
   created_at: Datetime
   day: Int
   frequency: Frequency
-  historyCollection(
-    """Query values in the collection after the provided cursor"""
-    after: Cursor
-
-    """Query values in the collection before the provided cursor"""
-    before: Cursor
-
-    """Filters to apply to the results set when querying from the collection"""
-    filter: HistoryFilter
-
-    """Query the first `n` records in the collection"""
-    first: Int
-
-    """Query the last `n` records in the collection"""
-    last: Int
-
-    """
-    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
-    """
-    offset: Int
-
-    """Sort order to apply to the collection"""
-    orderBy: [HistoryOrderBy!]
-  ): HistoryConnection
   id: UUID!
   month: Int
   name: String!
