@@ -13,6 +13,7 @@ export const reminderSchema = z
 		company: z.string().min(1, 'Company is required'),
 		cost: z.number().min(1, 'Cost is required'),
 		frequency: z.nativeEnum(Frequency).optional(),
+		date: z.string().optional(),
 		day: z.number().optional(),
 		month: z.number().optional(),
 		autoRenew: z.boolean().optional(),
@@ -24,6 +25,29 @@ export const reminderSchema = z
 				path: ['frequency'],
 				code: 'custom',
 				message: 'Select the frequency of your reminder',
+			});
+		}
+
+		if (data.type === 'ONGOING' && data.frequency === 'ANNUAL') {
+			if (!data.day) {
+				ctx.addIssue({
+					path: ['day'],
+					code: 'custom',
+					message: 'Day is required',
+				});
+			}
+			if (!data.month) {
+				ctx.addIssue({
+					path: ['month'],
+					code: 'custom',
+					message: 'Month is required',
+				});
+			}
+		} else if (data.type === 'ONGOING' && !data.day) {
+			ctx.addIssue({
+				path: ['day'],
+				code: 'custom',
+				message: 'Day is required',
 			});
 		}
 	});

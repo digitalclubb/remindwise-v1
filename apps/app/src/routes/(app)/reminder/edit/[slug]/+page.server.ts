@@ -41,8 +41,6 @@ export const actions: Actions = {
 				type: data.type,
 				company: data.company,
 				cost: data.cost,
-				day: data.day,
-				month: data.month,
 				frequency: data.frequency,
 				autoRenewal: data.autoRenew,
 				notes: data.notes ?? null,

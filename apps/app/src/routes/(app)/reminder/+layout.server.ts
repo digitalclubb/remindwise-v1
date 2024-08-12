@@ -64,6 +64,7 @@ export const load: LayoutServerLoad = async (event) => {
 						frequency: reminder.frequency as Frequency,
 						day: reminder.day || undefined,
 						month: reminder.month || undefined,
+						date: reminder.started_at?.toString(),
 						autoRenew: reminder.auto_renewal,
 						notes: reminder.notes || '',
 					},

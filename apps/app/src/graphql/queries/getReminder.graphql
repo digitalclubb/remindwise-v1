@@ -12,6 +12,7 @@ query GetReminder($slug: UUID) @load {
 				frequency
 				auto_renewal
 				notes
+				started_at
 				category {
 					id
 					name

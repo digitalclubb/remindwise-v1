@@ -129,25 +129,6 @@
 					<p class="error">{$errors.cost}</p>
 				{/if}
 			</div>
-			<!-- 
-			{#if $form.type === 'ONGOING'}
-				<div class="options-wrapper">
-					<Radio
-						legend="Will it auto-renew?"
-						name="autoRenew"
-						options={[
-							{ id: 'yes', label: 'Yes', value: true },
-							{ id: 'no', label: 'No', value: false },
-						]}
-						bind:group={$form.autoRenew}
-						constraints={$constraints.autoRenew}
-						aria-invalid={$errors.autoRenew ? 'true' : undefined} />
-
-					{#if $errors.autoRenew}
-						<p class="error">{$errors.autoRenew}</p>
-					{/if}
-				</div>
-			{/if} -->
 		</div>
 
 		<div class="columns">
@@ -172,43 +153,62 @@
 			{/if}
 
 			<div>
-				<label for="date"
-					>{#if $form.type === 'SINGLE'}
-						What is the date?
-					{:else}
-						When is it due for renewal?
-					{/if}</label>
+				{#if $form.type === 'SINGLE'}
+					<label for="date">What is the date?<i aria-hidden="true">*</i></label>
 
-				<fieldset class="date" id="date" disabled={$page.data.editing}>
-					<!-- TODO Tidy this nasty stuff up -->
 					<input
-						type="number"
-						min="1"
-						max="31"
-						placeholder="DD"
-						name="day"
-						id="day"
-						aria-invalid={$errors.day ? 'true' : undefined}
-						bind:value={$form.day}
-						{...$constraints.day} />
-					{#if $form.frequency === 'ANNUAL'}
-						<input
-							type="number"
-							min="1"
-							max="12"
-							placeholder="MM"
-							name="month"
-							id="month"
-							aria-invalid={$errors.month ? 'true' : undefined}
-							bind:value={$form.month}
-							{...$constraints.month} />
+						disabled={$page.data.editing}
+						type="date"
+						name="date"
+						id="date"
+						aria-invalid={$errors.date ? 'true' : undefined}
+						bind:value={$form.date}
+						{...$constraints.date} />
+
+					{#if $errors.date}
+						<p class="error">{$errors.date}</p>
 					{/if}
-				</fieldset>
-				{#if $errors.day}
-					<p class="error">{$errors.day}</p>
-				{/if}
-				{#if $errors.month}
-					<p class="error">{$errors.month}</p>
+				{:else}
+					<label for="date"
+						>When is it due for renewal?<i aria-hidden="true">*</i></label>
+					<fieldset class="date" id="date">
+						<span>
+							<input
+								readonly={$page.data.editing}
+								required
+								type="number"
+								min="1"
+								max="31"
+								placeholder="DD"
+								name="day"
+								id="day"
+								aria-invalid={$errors.day ? 'true' : undefined}
+								bind:value={$form.day}
+								{...$constraints.day} />
+
+							{#if $errors.day}
+								<p class="error">{$errors.day}</p>
+							{/if}</span>
+						{#if $form.frequency === 'ANNUAL'}
+							<span>
+								<input
+									readonly={$page.data.editing}
+									required
+									type="number"
+									min="1"
+									max="12"
+									placeholder="MM"
+									name="month"
+									id="month"
+									aria-invalid={$errors.month ? 'true' : undefined}
+									bind:value={$form.month}
+									{...$constraints.month} />
+
+								{#if $errors.month}
+									<p class="error">{$errors.month}</p>
+								{/if}</span>
+						{/if}
+					</fieldset>
 				{/if}
 			</div>
 		</div>
@@ -266,7 +266,11 @@
 		width: 100%;
 	}
 
-	fieldset[disabled] {
+	input[aria-invalid] {
+		border: solid 1px var(--red);
+	}
+
+	input[readonly] {
 		opacity: 0.5;
 	}
 
