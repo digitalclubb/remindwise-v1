@@ -87,24 +87,24 @@
 			{/if}
 		</div>
 
-		<div>
-			<Input
-				label="Company"
-				type="text"
-				name="company"
-				id="company"
-				fullWidth
-				placeholder="Enter the name of the company"
-				aria-invalid={$errors.company ? 'true' : undefined}
-				bind:value={$form.company}
-				{...$constraints.company} />
-
-			{#if $errors.company}
-				<p class="error">{$errors.company}</p>
-			{/if}
-		</div>
-
 		<div class="columns">
+			<div>
+				<Input
+					label="Company"
+					type="text"
+					name="company"
+					id="company"
+					fullWidth
+					placeholder="Enter the name of the company"
+					aria-invalid={$errors.company ? 'true' : undefined}
+					bind:value={$form.company}
+					{...$constraints.company} />
+
+				{#if $errors.company}
+					<p class="error">{$errors.company}</p>
+				{/if}
+			</div>
+
 			<div>
 				<label for="cost">
 					{#if $form.type === 'SINGLE'}
@@ -129,25 +129,6 @@
 					<p class="error">{$errors.cost}</p>
 				{/if}
 			</div>
-
-			{#if $form.type === 'ONGOING'}
-				<div class="options-wrapper">
-					<Radio
-						legend="Will it auto-renew?"
-						name="autoRenew"
-						options={[
-							{ id: 'yes', label: 'Yes', value: true },
-							{ id: 'no', label: 'No', value: false },
-						]}
-						bind:group={$form.autoRenew}
-						constraints={$constraints.autoRenew}
-						aria-invalid={$errors.autoRenew ? 'true' : undefined} />
-
-					{#if $errors.autoRenew}
-						<p class="error">{$errors.autoRenew}</p>
-					{/if}
-				</div>
-			{/if}
 		</div>
 
 		<div class="columns">
@@ -172,40 +153,64 @@
 			{/if}
 
 			<div>
-				<label for="date"
-					>{#if $form.type === 'SINGLE'}
-						What is the date?
-					{:else}
-						When is it due for renewal?
-					{/if}</label>
+				{#if $form.type === 'SINGLE'}
+					<label for="date">What is the date?<i aria-hidden="true">*</i></label>
 
-				<fieldset class="date" id="date">
-					<Input
-						type="number"
-						min="1"
-						max="31"
-						placeholder="DD"
-						fullWidth
-						id="day"
-						aria-invalid={$errors.day ? 'true' : undefined}
-						bind:value={$form.day}
-						{...$constraints.day} />
-					<Input
-						type="number"
-						min="1"
-						max="12"
-						placeholder="MM"
-						fullWidth
-						id="month"
-						aria-invalid={$errors.month ? 'true' : undefined}
-						bind:value={$form.month}
-						{...$constraints.month} />
-				</fieldset>
-				{#if $errors.day}
-					<p class="error">{$errors.day}</p>
-				{/if}
-				{#if $errors.month}
-					<p class="error">{$errors.month}</p>
+					<input
+						disabled={$page.data.editing}
+						type="date"
+						name="date"
+						id="date"
+						aria-invalid={$errors.date ? 'true' : undefined}
+						bind:value={$form.date}
+						{...$constraints.date} />
+
+					{#if $errors.date}
+						<p class="error">{$errors.date}</p>
+					{/if}
+				{:else}
+					<label for="date"
+						>When is it due for renewal?<i aria-hidden="true">*</i></label>
+					<fieldset class="date" id="date">
+						<span>
+							<input
+								readonly={$page.data.editing}
+								aria-disabled={$page.data.editing}
+								required
+								type="number"
+								min="1"
+								max="31"
+								placeholder="DD"
+								name="day"
+								id="day"
+								aria-invalid={$errors.day ? 'true' : undefined}
+								bind:value={$form.day}
+								{...$constraints.day} />
+
+							{#if $errors.day}
+								<p class="error">{$errors.day}</p>
+							{/if}</span>
+						{#if $form.frequency === 'ANNUAL'}
+							<span>
+								<input
+									readonly={$page.data.editing}
+									aria-disabled={$page.data.editing}
+									required
+									type="number"
+									min="1"
+									max="12"
+									placeholder="MM"
+									name="month"
+									id="month"
+									aria-invalid={$errors.month ? 'true' : undefined}
+									bind:value={$form.month}
+									{...$constraints.month} />
+
+								{#if $errors.month}
+									<p class="error">{$errors.month}</p>
+								{/if}</span>
+						{/if}
+					</fieldset>
 				{/if}
 			</div>
 		</div>
@@ -263,6 +268,14 @@
 		width: 100%;
 	}
 
+	input[aria-invalid] {
+		border: solid 1px var(--red);
+	}
+
+	input[aria-disabled] {
+		opacity: 0.5;
+	}
+
 	.options-wrapper {
 		flex: 1;
 	}
@@ -311,7 +324,7 @@
 		}
 
 		input {
-			width: 28.5rem;
+			width: 20rem;
 		}
 
 		.currency input {

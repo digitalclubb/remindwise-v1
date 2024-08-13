@@ -43,7 +43,7 @@ input BooleanFilter {
 type Category implements Node {
   created_at: Datetime
   icon_id: String
-  id: BigInt!
+  id: UUID!
   name: String!
 
   """Globally Unique Record Identifier"""
@@ -101,7 +101,7 @@ input CategoryFilter {
   and: [CategoryFilter!]
   created_at: DatetimeFilter
   icon_id: StringFilter
-  id: BigIntFilter
+  id: UUIDFilter
   name: StringFilter
   nodeId: IDFilter
 
@@ -118,6 +118,7 @@ input CategoryFilter {
 input CategoryInsertInput {
   created_at: Datetime
   icon_id: String
+  id: UUID
   name: String
   user_id: UUID
 }
@@ -141,6 +142,7 @@ input CategoryOrderBy {
 input CategoryUpdateInput {
   created_at: Datetime
   icon_id: String
+  id: UUID
   name: String
   user_id: UUID
 }
@@ -245,6 +247,137 @@ input FrequencyFilter {
   neq: Frequency
 }
 
+type History implements Node {
+  auto_renewal: Boolean!
+  category_id: UUID
+  cost: Float!
+  created_at: Datetime
+  day: Int
+  frequency: Frequency
+  id: UUID!
+  month: Int
+
+  """Globally Unique Record Identifier"""
+  nodeId: ID!
+  operation_type: OperationType
+  reminder_id: UUID
+  settings: Settings
+  started_at: Date
+  type: Type!
+  user_id: UUID
+}
+
+type HistoryConnection {
+  edges: [HistoryEdge!]!
+  pageInfo: PageInfo!
+}
+
+type HistoryDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [History!]!
+}
+
+type HistoryEdge {
+  cursor: String!
+  node: History!
+}
+
+input HistoryFilter {
+  """
+  Returns true only if all its inner filters are true, otherwise returns false
+  """
+  and: [HistoryFilter!]
+  auto_renewal: BooleanFilter
+  category_id: UUIDFilter
+  cost: FloatFilter
+  created_at: DatetimeFilter
+  day: IntFilter
+  frequency: FrequencyFilter
+  id: UUIDFilter
+  month: IntFilter
+  nodeId: IDFilter
+
+  """Negates a filter"""
+  not: HistoryFilter
+  operation_type: OperationTypeFilter
+
+  """
+  Returns true if at least one of its inner filters is true, otherwise returns false
+  """
+  or: [HistoryFilter!]
+  reminder_id: UUIDFilter
+  started_at: DateFilter
+  type: TypeFilter
+  user_id: UUIDFilter
+}
+
+input HistoryInsertInput {
+  auto_renewal: Boolean
+  category_id: UUID
+  cost: Float
+  created_at: Datetime
+  day: Int
+  frequency: Frequency
+  id: UUID
+  month: Int
+  operation_type: OperationType
+  reminder_id: UUID
+  started_at: Date
+  type: Type
+  user_id: UUID
+}
+
+type HistoryInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [History!]!
+}
+
+input HistoryOrderBy {
+  auto_renewal: OrderByDirection
+  category_id: OrderByDirection
+  cost: OrderByDirection
+  created_at: OrderByDirection
+  day: OrderByDirection
+  frequency: OrderByDirection
+  id: OrderByDirection
+  month: OrderByDirection
+  operation_type: OrderByDirection
+  reminder_id: OrderByDirection
+  started_at: OrderByDirection
+  type: OrderByDirection
+  user_id: OrderByDirection
+}
+
+input HistoryUpdateInput {
+  auto_renewal: Boolean
+  category_id: UUID
+  cost: Float
+  created_at: Datetime
+  day: Int
+  frequency: Frequency
+  id: UUID
+  month: Int
+  operation_type: OperationType
+  reminder_id: UUID
+  started_at: Date
+  type: Type
+  user_id: UUID
+}
+
+type HistoryUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [History!]!
+}
+
 """
 Boolean expression comparing fields on type "ID"
 """
@@ -298,6 +431,17 @@ type Mutation {
     filter: CategoryFilter
   ): CategoryDeleteResponse!
 
+  """Deletes zero or more records from the `History` collection"""
+  deleteFromHistoryCollection(
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: HistoryFilter
+  ): HistoryDeleteResponse!
+
   """Deletes zero or more records from the `Reminder` collection"""
   deleteFromReminderCollection(
     """
@@ -320,30 +464,17 @@ type Mutation {
     filter: SettingsFilter
   ): SettingsDeleteResponse!
 
-  """
-  Deletes zero or more records from the `reminder_history_test` collection
-  """
-  deleteFromreminder_history_testCollection(
-    """
-    The maximum number of records in the collection permitted to be affected
-    """
-    atMost: Int! = 1
-
-    """Restricts the mutation's impact to records matching the criteria"""
-    filter: reminder_history_testFilter
-  ): reminder_history_testDeleteResponse!
-
   """Adds one or more `Category` records to the collection"""
   insertIntoCategoryCollection(objects: [CategoryInsertInput!]!): CategoryInsertResponse
+
+  """Adds one or more `History` records to the collection"""
+  insertIntoHistoryCollection(objects: [HistoryInsertInput!]!): HistoryInsertResponse
 
   """Adds one or more `Reminder` records to the collection"""
   insertIntoReminderCollection(objects: [ReminderInsertInput!]!): ReminderInsertResponse
 
   """Adds one or more `Settings` records to the collection"""
   insertIntoSettingsCollection(objects: [SettingsInsertInput!]!): SettingsInsertResponse
-
-  """Adds one or more `reminder_history_test` records to the collection"""
-  insertIntoreminder_history_testCollection(objects: [reminder_history_testInsertInput!]!): reminder_history_testInsertResponse
 
   """Updates zero or more records in the `Category` collection"""
   updateCategoryCollection(
@@ -360,6 +491,22 @@ type Mutation {
     """
     set: CategoryUpdateInput!
   ): CategoryUpdateResponse!
+
+  """Updates zero or more records in the `History` collection"""
+  updateHistoryCollection(
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: HistoryFilter
+
+    """
+    Fields that are set will be updated for all records matching the `filter`
+    """
+    set: HistoryUpdateInput!
+  ): HistoryUpdateResponse!
 
   """Updates zero or more records in the `Reminder` collection"""
   updateReminderCollection(
@@ -392,22 +539,6 @@ type Mutation {
     """
     set: SettingsUpdateInput!
   ): SettingsUpdateResponse!
-
-  """Updates zero or more records in the `reminder_history_test` collection"""
-  updatereminder_history_testCollection(
-    """
-    The maximum number of records in the collection permitted to be affected
-    """
-    atMost: Int! = 1
-
-    """Restricts the mutation's impact to records matching the criteria"""
-    filter: reminder_history_testFilter
-
-    """
-    Fields that are set will be updated for all records matching the `filter`
-    """
-    set: reminder_history_testUpdateInput!
-  ): reminder_history_testUpdateResponse!
 }
 
 interface Node {
@@ -424,6 +555,22 @@ Boolean expression comparing fields on type "Opaque"
 input OpaqueFilter {
   eq: Opaque
   is: FilterIs
+}
+
+enum OperationType {
+  ReminderCreated
+  ReminderDeleted
+  ReminderUpdated
+}
+
+"""
+Boolean expression comparing fields on type "OperationType"
+"""
+input OperationTypeFilter {
+  eq: OperationType
+  in: [OperationType!]
+  is: FilterIs
+  neq: OperationType
 }
 
 """Defines a per-field sorting order"""
@@ -476,6 +623,32 @@ type Query {
     orderBy: [CategoryOrderBy!]
   ): CategoryConnection
 
+  """A pagable collection of type `History`"""
+  historyCollection(
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: HistoryFilter
+
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
+
+    """Sort order to apply to the collection"""
+    orderBy: [HistoryOrderBy!]
+  ): HistoryConnection
+
   """Retrieve a record by its `ID`"""
   node(
     """The record's `ID`"""
@@ -508,32 +681,6 @@ type Query {
     orderBy: [ReminderOrderBy!]
   ): ReminderConnection
 
-  """A pagable collection of type `reminder_history_test`"""
-  reminder_history_testCollection(
-    """Query values in the collection after the provided cursor"""
-    after: Cursor
-
-    """Query values in the collection before the provided cursor"""
-    before: Cursor
-
-    """Filters to apply to the results set when querying from the collection"""
-    filter: reminder_history_testFilter
-
-    """Query the first `n` records in the collection"""
-    first: Int
-
-    """Query the last `n` records in the collection"""
-    last: Int
-
-    """
-    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
-    """
-    offset: Int
-
-    """Sort order to apply to the collection"""
-    orderBy: [reminder_history_testOrderBy!]
-  ): reminder_history_testConnection
-
   """A pagable collection of type `Settings`"""
   settingsCollection(
     """Query values in the collection after the provided cursor"""
@@ -564,13 +711,13 @@ type Query {
 type Reminder implements Node {
   auto_renewal: Boolean!
   category: Category
-  category_id: BigInt
+  category_id: UUID
   company: String!
   cost: Float!
   created_at: Datetime
   day: Int
   frequency: Frequency
-  id: BigInt!
+  id: UUID!
   month: Int
   name: String!
 
@@ -578,6 +725,7 @@ type Reminder implements Node {
   nodeId: ID!
   notes: String
   settings: Settings
+  started_at: Date
   type: Type!
   user_id: UUID
 }
@@ -609,13 +757,13 @@ input ReminderFilter {
   """
   and: [ReminderFilter!]
   auto_renewal: BooleanFilter
-  category_id: BigIntFilter
+  category_id: UUIDFilter
   company: StringFilter
   cost: FloatFilter
   created_at: DatetimeFilter
   day: IntFilter
   frequency: FrequencyFilter
-  id: BigIntFilter
+  id: UUIDFilter
   month: IntFilter
   name: StringFilter
   nodeId: IDFilter
@@ -628,21 +776,24 @@ input ReminderFilter {
   Returns true if at least one of its inner filters is true, otherwise returns false
   """
   or: [ReminderFilter!]
+  started_at: DateFilter
   type: TypeFilter
   user_id: UUIDFilter
 }
 
 input ReminderInsertInput {
   auto_renewal: Boolean
-  category_id: BigInt
+  category_id: UUID
   company: String
   cost: Float
   created_at: Datetime
   day: Int
   frequency: Frequency
+  id: UUID
   month: Int
   name: String
   notes: String
+  started_at: Date
   type: Type
   user_id: UUID
 }
@@ -667,21 +818,24 @@ input ReminderOrderBy {
   month: OrderByDirection
   name: OrderByDirection
   notes: OrderByDirection
+  started_at: OrderByDirection
   type: OrderByDirection
   user_id: OrderByDirection
 }
 
 input ReminderUpdateInput {
   auto_renewal: Boolean
-  category_id: BigInt
+  category_id: UUID
   company: String
   cost: Float
   created_at: Datetime
   day: Int
   frequency: Frequency
+  id: UUID
   month: Int
   name: String
   notes: String
+  started_at: Date
   type: Type
   user_id: UUID
 }
@@ -722,6 +876,30 @@ type Settings implements Node {
   currency: Currency
   email: String
   first_name: String
+  historyCollection(
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: HistoryFilter
+
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """
+    Skip n values from the after cursor. Alternative to cursor pagination. Backward pagination not supported.
+    """
+    offset: Int
+
+    """Sort order to apply to the collection"""
+    orderBy: [HistoryOrderBy!]
+  ): HistoryConnection
   id: UUID!
   interval: Interval
   last_name: String
@@ -909,142 +1087,4 @@ input UUIDFilter {
   in: [UUID!]
   is: FilterIs
   neq: UUID
-}
-
-type reminder_history_test implements Node {
-  autoRenewal: Boolean!
-  categoryId: BigInt
-  company: String!
-  cost: Float!
-  created_at: Datetime
-  date: Date!
-  frequency: Frequency
-  id: BigInt!
-  name: String!
-
-  """Globally Unique Record Identifier"""
-  nodeId: ID!
-  notes: String
-  reminder_id: BigInt!
-  total: Float!
-  type: Type!
-  updated_at: Datetime
-  userid: UUID
-}
-
-type reminder_history_testConnection {
-  edges: [reminder_history_testEdge!]!
-  pageInfo: PageInfo!
-}
-
-type reminder_history_testDeleteResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [reminder_history_test!]!
-}
-
-type reminder_history_testEdge {
-  cursor: String!
-  node: reminder_history_test!
-}
-
-input reminder_history_testFilter {
-  """
-  Returns true only if all its inner filters are true, otherwise returns false
-  """
-  and: [reminder_history_testFilter!]
-  autoRenewal: BooleanFilter
-  categoryId: BigIntFilter
-  company: StringFilter
-  cost: FloatFilter
-  created_at: DatetimeFilter
-  date: DateFilter
-  frequency: FrequencyFilter
-  id: BigIntFilter
-  name: StringFilter
-  nodeId: IDFilter
-
-  """Negates a filter"""
-  not: reminder_history_testFilter
-  notes: StringFilter
-
-  """
-  Returns true if at least one of its inner filters is true, otherwise returns false
-  """
-  or: [reminder_history_testFilter!]
-  reminder_id: BigIntFilter
-  total: FloatFilter
-  type: TypeFilter
-  updated_at: DatetimeFilter
-  userid: UUIDFilter
-}
-
-input reminder_history_testInsertInput {
-  autoRenewal: Boolean
-  categoryId: BigInt
-  company: String
-  cost: Float
-  created_at: Datetime
-  date: Date
-  frequency: Frequency
-  name: String
-  notes: String
-  reminder_id: BigInt
-  total: Float
-  type: Type
-  updated_at: Datetime
-  userid: UUID
-}
-
-type reminder_history_testInsertResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [reminder_history_test!]!
-}
-
-input reminder_history_testOrderBy {
-  autoRenewal: OrderByDirection
-  categoryId: OrderByDirection
-  company: OrderByDirection
-  cost: OrderByDirection
-  created_at: OrderByDirection
-  date: OrderByDirection
-  frequency: OrderByDirection
-  id: OrderByDirection
-  name: OrderByDirection
-  notes: OrderByDirection
-  reminder_id: OrderByDirection
-  total: OrderByDirection
-  type: OrderByDirection
-  updated_at: OrderByDirection
-  userid: OrderByDirection
-}
-
-input reminder_history_testUpdateInput {
-  autoRenewal: Boolean
-  categoryId: BigInt
-  company: String
-  cost: Float
-  created_at: Datetime
-  date: Date
-  frequency: Frequency
-  name: String
-  notes: String
-  reminder_id: BigInt
-  total: Float
-  type: Type
-  updated_at: Datetime
-  userid: UUID
-}
-
-type reminder_history_testUpdateResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [reminder_history_test!]!
 }

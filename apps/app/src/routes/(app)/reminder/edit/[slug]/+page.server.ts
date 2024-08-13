@@ -18,7 +18,7 @@ export const actions: Actions = {
 
 		const updateReminder = new UpdateReminderStore();
 
-		let newId: number | undefined;
+		let newId: string | undefined;
 		if (!data.categoryId) {
 			const addCategory = new AddCategoryStore();
 
@@ -35,14 +35,12 @@ export const actions: Actions = {
 
 		await updateReminder.mutate(
 			{
-				id: parseInt(event.params.slug || ''),
+				id: event.params.slug || '',
 				categoryId: newId || data.categoryId,
 				name: data.name,
 				type: data.type,
 				company: data.company,
 				cost: data.cost,
-				day: data.day,
-				month: data.month,
 				frequency: data.frequency,
 				autoRenewal: data.autoRenew,
 				notes: data.notes ?? null,

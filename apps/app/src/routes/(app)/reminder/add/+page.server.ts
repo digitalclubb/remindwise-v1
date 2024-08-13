@@ -15,7 +15,7 @@ export const actions: Actions = {
 			return fail(400, { form });
 		}
 
-		let newId: number | undefined;
+		let newId: string | undefined;
 
 		// Add new category if added
 		if (!data.categoryId) {
@@ -34,6 +34,30 @@ export const actions: Actions = {
 
 		// Add the new reminder
 		const addReminder = new AddReminderStore();
+
+		let startedAtDate = new Date();
+		const currentDate = new Date();
+
+		if (data.day) {
+			startedAtDate.setDate(data.day);
+			if (data.month) {
+				startedAtDate.setMonth(data.month - 1);
+			}
+
+			if (startedAtDate.getTime() < currentDate.getTime() && !data.month) {
+				startedAtDate.setMonth(startedAtDate.getMonth() + 1);
+			} else if (
+				startedAtDate.getTime() < currentDate.getTime() &&
+				data.month
+			) {
+				startedAtDate.setFullYear(startedAtDate.getFullYear() + 1);
+			}
+		} else if (data.date) {
+			startedAtDate = new Date(data.date);
+			data.month = startedAtDate.getMonth() + 1;
+			data.day = startedAtDate.getDate();
+		}
+
 		const reminder = await addReminder.mutate(
 			{
 				userId: data.userId,
@@ -42,11 +66,12 @@ export const actions: Actions = {
 				type: data.type,
 				company: data.company,
 				cost: data.cost,
-				day: data.day,
-				month: data.month,
+				day: startedAtDate.getDate(),
+				month: startedAtDate.getMonth() + 1,
 				frequency: data.frequency,
-				autoRenewal: data.autoRenew,
+				autoRenewal: data.type === 'ONGOING' ? true : false,
 				notes: data.notes ?? null,
+				startedAt: startedAtDate,
 			},
 			{ event }
 		);

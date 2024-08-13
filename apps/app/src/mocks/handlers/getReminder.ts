@@ -12,7 +12,7 @@ export const getReminder = graphql.query<GetReminderQuery>(
 						list: [
 							{
 								reminder: {
-									id: 1,
+									id: '1',
 									name: 'Example reminder',
 									type: Type.Ongoing,
 									company: 'Example company',
@@ -22,7 +22,7 @@ export const getReminder = graphql.query<GetReminderQuery>(
 									auto_renewal: false,
 									notes: 'Example notes',
 									category: {
-										id: 1,
+										id: '1',
 										name: 'Example 1',
 										icon_id: 'icon-help',
 									},

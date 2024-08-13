@@ -10,7 +10,7 @@ export const addCategory = graphql.mutation<AddCategoryMutation>(
 					affectedCount: 1,
 					records: [
 						{
-							id: 1,
+							id: '1',
 							name: 'Example add',
 							icon_id: 'help',
 						},

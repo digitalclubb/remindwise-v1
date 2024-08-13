@@ -11,7 +11,7 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 						list: [
 							{
 								reminder: {
-									id: 1,
+									id: '1',
 									name: 'Example upcoming reminder',
 									company: 'Example company',
 									cost: 10,
@@ -19,7 +19,7 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 									month: 10,
 									auto_renewal: false,
 									category: {
-										id: 1,
+										id: '1',
 										icon_id: 'icon-help',
 										name: 'Example 1',
 									},
@@ -35,12 +35,12 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 						list: [
 							{
 								reminder: {
-									id: 2,
+									id: '2',
 									name: 'Example reminder 1',
 									company: 'Example company',
 									cost: 10,
 									category: {
-										id: 1,
+										id: '1',
 										icon_id: 'icon-help',
 										name: 'Example 1',
 									},
@@ -48,12 +48,12 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 							},
 							{
 								reminder: {
-									id: 3,
+									id: '3',
 									name: 'Example reminder 2',
 									company: 'Example company',
 									cost: 10,
 									category: {
-										id: 1,
+										id: '1',
 										icon_id: 'icon-help',
 										name: 'Example 1',
 									},
@@ -61,12 +61,12 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 							},
 							{
 								reminder: {
-									id: 4,
+									id: '4',
 									name: 'Example reminder 3',
 									company: 'Example company',
 									cost: 10,
 									category: {
-										id: 1,
+										id: '1',
 										icon_id: 'icon-help',
 										name: 'Example 1',
 									},

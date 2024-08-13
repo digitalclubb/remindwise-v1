@@ -5,7 +5,7 @@ export const load: PageServerLoad = async (event) => {
 	const getReminder = new GetReminderStore();
 	const { data } = await getReminder.fetch({
 		event,
-		variables: { slug: parseInt(event.params.slug) },
+		variables: { slug: event.params.slug },
 	});
 
 	const parentData = await event.parent();

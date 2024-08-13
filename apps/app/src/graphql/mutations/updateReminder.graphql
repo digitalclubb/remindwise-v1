@@ -1,12 +1,10 @@
 mutation UpdateReminder(
-	$id: BigInt
-	$categoryId: BigInt!
+	$id: UUID
+	$categoryId: UUID!
 	$name: String!
 	$type: Type!
 	$company: String
 	$cost: Float
-	$day: Int
-	$month: Int
 	$frequency: Frequency
 	$autoRenewal: Boolean
 	$notes: String
@@ -19,8 +17,6 @@ mutation UpdateReminder(
 			type: $type
 			company: $company
 			cost: $cost
-			day: $day
-			month: $month
 			frequency: $frequency
 			auto_renewal: $autoRenewal
 			notes: $notes

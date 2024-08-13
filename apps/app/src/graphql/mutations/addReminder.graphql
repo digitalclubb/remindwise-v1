@@ -1,6 +1,6 @@
 mutation AddReminder(
 	$userId: UUID!
-	$categoryId: BigInt!
+	$categoryId: UUID!
 	$name: String!
 	$type: Type!
 	$company: String
@@ -10,6 +10,7 @@ mutation AddReminder(
 	$frequency: Frequency
 	$autoRenewal: Boolean
 	$notes: String
+	$startedAt: Date
 ) {
 	insertIntoReminderCollection(
 		objects: [
@@ -25,6 +26,7 @@ mutation AddReminder(
 				frequency: $frequency
 				auto_renewal: $autoRenewal
 				notes: $notes
+				started_at: $startedAt
 			}
 		]
 	) {

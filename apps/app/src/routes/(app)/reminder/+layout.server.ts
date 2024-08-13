@@ -45,7 +45,7 @@ export const load: LayoutServerLoad = async (event) => {
 		const getReminder = new GetReminderStore();
 		const { data } = await getReminder.fetch({
 			event,
-			variables: { slug: parseInt(event.params.slug) },
+			variables: { slug: event.params.slug },
 		});
 
 		const reminder = data?.reminders?.list[0].reminder;
@@ -55,7 +55,7 @@ export const load: LayoutServerLoad = async (event) => {
 				zod(reminderSchema, {
 					defaults: {
 						userId: userId || '',
-						categoryId: reminder.category?.id || 0,
+						categoryId: reminder.category?.id || '',
 						category: reminder.category?.name || '',
 						name: reminder.name,
 						type: reminder.type as Type, // Is there better way to do this?
@@ -64,6 +64,7 @@ export const load: LayoutServerLoad = async (event) => {
 						frequency: reminder.frequency as Frequency,
 						day: reminder.day || undefined,
 						month: reminder.month || undefined,
+						date: reminder.started_at?.toString(),
 						autoRenew: reminder.auto_renewal,
 						notes: reminder.notes || '',
 					},
