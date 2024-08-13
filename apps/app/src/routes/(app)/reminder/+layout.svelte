@@ -175,6 +175,7 @@
 						<span>
 							<input
 								readonly={$page.data.editing}
+								aria-disabled={$page.data.editing}
 								required
 								type="number"
 								min="1"
@@ -193,6 +194,7 @@
 							<span>
 								<input
 									readonly={$page.data.editing}
+									aria-disabled={$page.data.editing}
 									required
 									type="number"
 									min="1"
@@ -270,7 +272,7 @@
 		border: solid 1px var(--red);
 	}
 
-	input[readonly] {
+	input[aria-disabled] {
 		opacity: 0.5;
 	}
 
