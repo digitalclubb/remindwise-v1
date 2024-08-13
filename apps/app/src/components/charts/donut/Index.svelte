@@ -2,12 +2,9 @@
 	export let spentSoFar;
 	export let upcoming;
 
-	// 100% - 92
-	// x - 20
 	const total = spentSoFar + upcoming;
 	const percentageSpent = (spentSoFar * 100) / total;
 	const percentageUpcoming = (upcoming * 100) / total;
-	console.log(total, (spentSoFar * 100) / total, (upcoming * 100) / total);
 </script>
 
 <div class="container">
