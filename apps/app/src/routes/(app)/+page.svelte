@@ -64,6 +64,15 @@
 		iconsMap[category.category.name] = category.category.icon_id || '';
 	}
 
+	const lineGraphData: { month: string; total: number }[] = [];
+
+	$: graphData?.totalMonthCosts.forEach((value: number, key: string) => {
+		lineGraphData.push({
+			month: key,
+			total: value,
+		});
+	});
+
 	$: upcomingFilter = '1';
 	$: numberOfRemindersFilter = '5';
 
@@ -150,7 +159,7 @@
 				</div>
 			</div>
 			<div class="line">
-				<Line />
+				<Line data={lineGraphData} />
 			</div>
 		</div>
 

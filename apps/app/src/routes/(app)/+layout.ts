@@ -48,6 +48,7 @@ export const load = (async (event) => {
 		supabase,
 		session,
 		user,
+		graphData: event.data.graphData,
 		...(await load_GetCategories({
 			event,
 		})),

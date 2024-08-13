@@ -7,14 +7,7 @@
 
 	import { page } from '$app/stores';
 
-	const data: { month: string; total: number }[] = [];
-
-	$page.data.graphData.totalMonthCosts.forEach((value: number, key: string) => {
-		data.push({
-			month: key,
-			total: value,
-		});
-	});
+	export let data;
 
 	const xKey = 'month';
 	const yKey = 'total';

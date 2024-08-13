@@ -2,22 +2,6 @@ import { Frequency, Type, OperationType, type History } from '@graphql/types';
 
 export type ReminderHistoryRecord = History;
 
-// export type ReminderHistoryRecord = {
-// 	id: number; // cant be changed
-// 	cost: number;
-// 	autoRenewal: boolean;
-// 	userId: number; // cant be changed
-// 	categoryId: number;
-// 	type: Type; // cant be changed
-// 	frequency: Frequency; // cant be changed
-// 	reminderId: number; // cant be changed
-// 	startedAt: Date; // cant be changed
-// 	createdAt: Date; // cant be changed
-// 	day?: number; // cant be changed
-// 	month?: number; // cant be changed
-// 	operationType: OperationType;
-// };
-
 const getDateBuckets = (): Map<string, number> => {
 	return new Map([
 		['1', 0],
@@ -57,9 +41,9 @@ const reduceReminderHistory = (
 	aggregateData.categoryId = reminder.category_id;
 	aggregateData.autoRenewal = reminder.auto_renewal;
 	const date =
-		reminder.operation_type === OperationType.ReminderUpdated &&
-		reminder.created_at.getTime() > reminder.started_at.getTime()
-			? reminder.created_at
+		reminder.operation_type === OperationType.ReminderUpdated
+			? // &&reminder.created_at.getTime() > reminder.started_at.getTime()
+				reminder.created_at
 			: reminder.started_at;
 
 	// Is the year we're requesting the graphs for in a following year to when it was started?

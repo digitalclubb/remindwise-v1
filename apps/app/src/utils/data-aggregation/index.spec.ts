@@ -262,16 +262,19 @@ describe('graphs', () => {
 						},
 						{
 							created_at: new Date('2024-04-15T15:00:00.000Z'),
+							started_at: new Date('2024-02-15T15:00:00.000Z'),
 							cost: 200,
 							operation_type: OperationType.ReminderUpdated,
 						},
 						{
 							created_at: new Date('2024-06-15T15:00:00.000Z'),
+							started_at: new Date('2024-02-15T15:00:00.000Z'),
 							cost: 0,
 							operation_type: OperationType.ReminderUpdated,
 						},
 						{
 							created_at: new Date('2024-09-15T15:00:00.000Z'),
+							started_at: new Date('2024-02-15T15:00:00.000Z'),
 							cost: 100,
 							operation_type: OperationType.ReminderUpdated,
 						},
