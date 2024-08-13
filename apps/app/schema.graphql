@@ -249,22 +249,22 @@ input FrequencyFilter {
 
 type History implements Node {
   auto_renewal: Boolean!
-  category_id: UUID
+  category_id: UUID!
   cost: Float!
-  created_at: Datetime
-  day: Int
-  frequency: Frequency
+  created_at: Datetime!
+  day: Int!
+  frequency: Frequency!
   id: UUID!
-  month: Int
+  month: Int!
 
   """Globally Unique Record Identifier"""
   nodeId: ID!
-  operation_type: OperationType
-  reminder_id: UUID
-  settings: Settings
-  started_at: Date
+  operation_type: OperationType!
+  reminder_id: UUID!
+  settings: Settings!
+  started_at: Date!
   type: Type!
-  user_id: UUID
+  user_id: UUID!
 }
 
 type HistoryConnection {

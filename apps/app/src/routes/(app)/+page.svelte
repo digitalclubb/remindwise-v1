@@ -10,7 +10,7 @@
 	import { getCurrency } from '../../utils/currency';
 
 	export let data: LayoutData & PageData;
-	$: ({ GetReminders, GetCategories, GetSettings } = data);
+	$: ({ GetReminders, GetCategories, GetSettings, graphData } = data);
 
 	$: upcoming = $GetReminders.data?.upcoming?.list || [];
 	$: reminders = $GetReminders.data?.reminders?.list || [];
@@ -21,25 +21,45 @@
 
 	let barChartData: Record<string, number | string>[] = [];
 	let iconsMap: Record<string, string> = {};
+
+	const currentMonth = new Date().getMonth() + 1;
+	const currentYear = new Date().getFullYear();
+
+	let totalSpentSoFar = 0,
+		totalUpcoming = 0;
+
+	let filteredUpcomingCosts = 0;
+	$: graphData?.totalMonthCosts.forEach((value, key) => {
+		if (parseInt(key) > currentMonth) {
+			totalUpcoming += value;
+		} else {
+			totalSpentSoFar += value;
+		}
+
+		if (parseInt(key) === currentMonth + 1) {
+			filteredUpcomingCosts = value;
+		}
+	});
+
 	$: for (const category of $GetCategories.data?.categories?.list || []) {
-		let totalOngoing = 0;
-		let totalSingle = 0;
-		category.category.reminders?.list.forEach((reminder) => {
-			if (reminder.reminder.type === 'ONGOING') {
-				totalOngoing += reminder.reminder.cost;
+		const categoryResults = graphData?.perCategoryCosts.get(
+			category.category.id
+		);
+		let spentSoFar = 0;
+		let upcoming = 0;
+		categoryResults?.forEach((value, key) => {
+			if (parseInt(key) > currentMonth) {
+				upcoming += value;
 			} else {
-				totalSingle += reminder.reminder.cost;
+				spentSoFar += value;
 			}
 		});
 
-		barChartData = [
-			...barChartData,
-			{
-				category: category.category.name,
-				totalOngoing: totalOngoing,
-				totalSingle: totalSingle,
-			},
-		];
+		barChartData.push({
+			category: category.category.name,
+			spentSoFar,
+			upcoming,
+		});
 
 		iconsMap[category.category.name] = category.category.icon_id || '';
 	}
@@ -98,22 +118,23 @@
 <div class="body">
 	<section>
 		<h2 class="heading-3">
-			Total spend this year <span>(Jan '23 - Jan '24)</span>
+			Total spend this year <span
+				>(Jan {currentYear} - Jan {currentYear + 1})</span>
 		</h2>
 
 		<div class="charts">
 			<div class="donut">
-				<Donut />
+				<Donut spentSoFar={totalSpentSoFar} upcoming={totalUpcoming} />
 			</div>
 			<div class="costs-data">
 				<ul class="costs">
 					<li class="cost">
 						<h3 class="heading-5">Spent so far</h3>
-						<p>{currencySymbol}560</p>
+						<p>{currencySymbol}{totalSpentSoFar}</p>
 					</li>
 					<li class="cost cost-upcoming">
 						<h3 class="heading-5">Upcoming</h3>
-						<p>{currencySymbol}560</p>
+						<p>{currencySymbol}{totalUpcoming}</p>
 					</li>
 				</ul>
 				<div class="costs cost-upcoming">
@@ -124,7 +145,7 @@
 							<option value="3">3 months</option>
 							<option value="6">6 months</option>
 						</select>
-						<p>{currencySymbol}450</p>
+						<p>{currencySymbol}{filteredUpcomingCosts}</p>
 					</div>
 				</div>
 			</div>

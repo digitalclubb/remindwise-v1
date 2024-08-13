@@ -8,7 +8,7 @@ if (!dev && browser) {
 	trackEvent('app_load');
 }
 
-if (PUBLIC_ENABLE_MOCKING === 'true' && browser) {
-	const { worker } = await import('$mocks/browser');
-	worker.start({ onUnhandledRequest: 'bypass' });
-}
+// if (PUBLIC_ENABLE_MOCKING === 'true' && browser) {
+// 	const { worker } = await import('$mocks/browser');
+// 	worker.start({ onUnhandledRequest: 'bypass' });
+// }

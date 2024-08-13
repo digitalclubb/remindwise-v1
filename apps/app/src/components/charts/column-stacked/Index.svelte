@@ -14,6 +14,9 @@
 	const yKey = [0, 1];
 	const zKey = 'key';
 
+	$: console.log('data', data);
+	$: console.log('iconsMap', iconsMap);
+
 	let seriesNames: string[] = [];
 	const seriesColors = ['var(--remindwise-grey)', 'var(--orange)'];
 	let stackData = stack().keys(seriesNames);
