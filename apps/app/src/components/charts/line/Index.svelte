@@ -5,8 +5,6 @@
 	import AxisX from './AxisX.svelte';
 	import AxisY from './AxisY.svelte';
 
-	import { page } from '$app/stores';
-
 	export let data;
 
 	const xKey = 'month';
