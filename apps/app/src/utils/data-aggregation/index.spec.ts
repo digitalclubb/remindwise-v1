@@ -3,23 +3,23 @@ import { calculateGraphData, type ReminderHistoryRecord } from './';
 import { Frequency, Type, OperationType } from '@graphql/types';
 
 const generateReminderEvents = (
-	records: Partial<ReminderHistoryRecord>[] = []
-) => {
+	records: Partial<ReminderHistoryRecord>[]
+): Omit<ReminderHistoryRecord, 'settings' | 'nodeId'>[] => {
 	return records.map((props) => {
 		return {
-			id: 12345,
-			userId: 12345,
-			reminderId: props.reminderId ?? 3,
-			startedAt: props.startedAt ?? new Date(),
-			categoryId: props.categoryId ?? 4,
+			id: '12345',
+			user_id: '12345',
+			reminder_id: props.reminder_id ?? '3',
+			started_at: props.started_at ?? new Date(),
+			category_id: props.category_id ?? '4',
 			frequency: props.frequency ?? Frequency.Monthly,
 			cost: props.cost ?? 100,
-			operationType: props.operationType ?? OperationType.ReminderCreated,
-			autoRenewal: props.autoRenewal ?? true,
+			operation_type: props.operation_type ?? OperationType.ReminderCreated,
+			auto_renewal: props.auto_renewal ?? true,
 			type: props.type ?? Type.Ongoing,
-			day: props.day,
-			month: props.month,
-			createdAt: props.createdAt ?? new Date(),
+			day: props.day ?? 1,
+			month: props.month ?? 2,
+			created_at: props.created_at ?? new Date(),
 		};
 	});
 };
@@ -32,10 +32,10 @@ describe('graphs', () => {
 				generateReminderEvents([
 					{
 						type: Type.Ongoing,
-						createdAt: new Date('2024-01-17T15:00:00.000Z'),
-						startedAt: new Date('2024-02-15T15:00:00.000Z'),
+						created_at: new Date('2024-01-17T15:00:00.000Z'),
+						started_at: new Date('2024-02-15T15:00:00.000Z'),
 					},
-				])
+				]) as ReminderHistoryRecord[]
 			);
 			expect(result.totalMonthCosts).toEqual(
 				new Map([
@@ -77,9 +77,9 @@ describe('graphs', () => {
 				generateReminderEvents([
 					{
 						type: Type.Ongoing,
-						createdAt: new Date('2024-02-15T15:00:00.000Z'),
+						created_at: new Date('2024-02-15T15:00:00.000Z'),
 					},
-				])
+				]) as ReminderHistoryRecord[]
 			);
 			expect(result.totalMonthCosts).toEqual(
 				new Map([
@@ -105,11 +105,11 @@ describe('graphs', () => {
 				generateReminderEvents([
 					{
 						type: Type.Ongoing,
-						createdAt: new Date('2024-06-02T15:00:00.000Z'),
+						created_at: new Date('2024-06-02T15:00:00.000Z'),
 						frequency: Frequency.Annual,
 						month: 6,
 					},
-				])
+				]) as ReminderHistoryRecord[]
 			);
 			expect(result.totalMonthCosts).toEqual(
 				new Map([
@@ -135,11 +135,11 @@ describe('graphs', () => {
 				generateReminderEvents([
 					{
 						type: Type.Ongoing,
-						createdAt: new Date('2024-06-02T15:00:00.000Z'),
+						created_at: new Date('2024-06-02T15:00:00.000Z'),
 						frequency: Frequency.Annual,
 						month: 6,
 					},
-				])
+				]) as ReminderHistoryRecord[]
 			);
 			expect(result.totalMonthCosts).toEqual(
 				new Map([
@@ -165,10 +165,10 @@ describe('graphs', () => {
 				generateReminderEvents([
 					{
 						type: Type.Single,
-						createdAt: new Date('2024-07-02T15:00:00.000Z'),
+						created_at: new Date('2024-07-02T15:00:00.000Z'),
 						month: 7,
 					},
-				])
+				]) as ReminderHistoryRecord[]
 			);
 			expect(result.totalMonthCosts).toEqual(
 				new Map([
@@ -194,10 +194,10 @@ describe('graphs', () => {
 				generateReminderEvents([
 					{
 						type: Type.Single,
-						createdAt: new Date('2024-07-02T15:00:00.000Z'),
+						created_at: new Date('2024-07-02T15:00:00.000Z'),
 						month: 7,
 					},
-				])
+				]) as ReminderHistoryRecord[]
 			);
 			expect(result.totalMonthCosts).toEqual(
 				new Map([
@@ -225,14 +225,14 @@ describe('graphs', () => {
 					2024,
 					generateReminderEvents([
 						{
-							createdAt: new Date('2024-02-15T15:00:00.000Z'),
-							operationType: OperationType.ReminderCreated,
+							created_at: new Date('2024-02-15T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
 						},
 						{
-							createdAt: new Date('2024-04-15T15:00:00.000Z'),
-							operationType: OperationType.ReminderDeleted,
+							created_at: new Date('2024-04-15T15:00:00.000Z'),
+							operation_type: OperationType.ReminderDeleted,
 						},
-					])
+					]) as ReminderHistoryRecord[]
 				);
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
@@ -256,26 +256,29 @@ describe('graphs', () => {
 					2024,
 					generateReminderEvents([
 						{
-							createdAt: new Date('2024-01-17T15:00:00.000Z'),
-							startedAt: new Date('2024-02-15T15:00:00.000Z'),
-							operationType: OperationType.ReminderCreated,
+							created_at: new Date('2024-01-17T15:00:00.000Z'),
+							started_at: new Date('2024-02-15T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
 						},
 						{
-							createdAt: new Date('2024-04-15T15:00:00.000Z'),
+							created_at: new Date('2024-04-15T15:00:00.000Z'),
+							started_at: new Date('2024-02-15T15:00:00.000Z'),
 							cost: 200,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 						},
 						{
-							createdAt: new Date('2024-06-15T15:00:00.000Z'),
+							created_at: new Date('2024-06-15T15:00:00.000Z'),
+							started_at: new Date('2024-02-15T15:00:00.000Z'),
 							cost: 0,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 						},
 						{
-							createdAt: new Date('2024-09-15T15:00:00.000Z'),
+							created_at: new Date('2024-09-15T15:00:00.000Z'),
+							started_at: new Date('2024-02-15T15:00:00.000Z'),
 							cost: 100,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 						},
-					])
+					]) as ReminderHistoryRecord[]
 				);
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
@@ -300,25 +303,25 @@ describe('graphs', () => {
 					2025,
 					generateReminderEvents([
 						{
-							createdAt: new Date('2024-02-15T15:00:00.000Z'),
-							operationType: OperationType.ReminderCreated,
+							created_at: new Date('2024-02-15T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
 						},
 						{
-							createdAt: new Date('2024-04-15T15:00:00.000Z'),
+							created_at: new Date('2024-04-15T15:00:00.000Z'),
 							cost: 200,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 						},
 						{
-							createdAt: new Date('2024-06-15T15:00:00.000Z'),
+							created_at: new Date('2024-06-15T15:00:00.000Z'),
 							cost: 0,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 						},
 						{
-							createdAt: new Date('2024-09-15T15:00:00.000Z'),
+							created_at: new Date('2024-09-15T15:00:00.000Z'),
 							cost: 100,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 						},
-					])
+					]) as ReminderHistoryRecord[]
 				);
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
@@ -343,30 +346,30 @@ describe('graphs', () => {
 					2025,
 					generateReminderEvents([
 						{
-							createdAt: new Date('2024-02-15T15:00:00.000Z'),
-							operationType: OperationType.ReminderCreated,
+							created_at: new Date('2024-02-15T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
 						},
 						{
-							createdAt: new Date('2024-04-15T15:00:00.000Z'),
+							created_at: new Date('2024-04-15T15:00:00.000Z'),
 							cost: 200,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 						},
 						{
-							createdAt: new Date('2024-06-15T15:00:00.000Z'),
+							created_at: new Date('2024-06-15T15:00:00.000Z'),
 							cost: 0,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 						},
 						{
-							createdAt: new Date('2024-09-15T15:00:00.000Z'),
+							created_at: new Date('2024-09-15T15:00:00.000Z'),
 							cost: 100,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 						},
 						{
-							createdAt: new Date('2025-03-15T15:00:00.000Z'),
+							created_at: new Date('2025-03-15T15:00:00.000Z'),
 							cost: 150,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 						},
-					])
+					]) as ReminderHistoryRecord[]
 				);
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
@@ -391,19 +394,19 @@ describe('graphs', () => {
 					2024,
 					generateReminderEvents([
 						{
-							createdAt: new Date('2024-07-02T15:00:00.000Z'),
-							operationType: OperationType.ReminderCreated,
+							created_at: new Date('2024-07-02T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
 							frequency: Frequency.Annual,
 							month: 7,
 						},
 						{
-							createdAt: new Date('2024-07-02T15:00:00.000Z'),
-							operationType: OperationType.ReminderUpdated,
+							created_at: new Date('2024-07-02T15:00:00.000Z'),
+							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
 							cost: 200,
 							month: 7,
 						},
-					])
+					]) as ReminderHistoryRecord[]
 				);
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
@@ -428,19 +431,19 @@ describe('graphs', () => {
 					2024,
 					generateReminderEvents([
 						{
-							createdAt: new Date('2024-07-02T15:00:00.000Z'),
-							operationType: OperationType.ReminderCreated,
+							created_at: new Date('2024-07-02T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
 							frequency: Frequency.Annual,
 							month: 7,
 						},
 						{
-							createdAt: new Date('2024-09-02T15:00:00.000Z'),
-							operationType: OperationType.ReminderUpdated,
+							created_at: new Date('2024-09-02T15:00:00.000Z'),
+							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
 							month: 7,
 							cost: 200,
 						},
-					])
+					]) as ReminderHistoryRecord[]
 				);
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
@@ -465,19 +468,19 @@ describe('graphs', () => {
 					2024,
 					generateReminderEvents([
 						{
-							createdAt: new Date('2024-07-02T15:00:00.000Z'),
-							operationType: OperationType.ReminderCreated,
+							created_at: new Date('2024-07-02T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
 							frequency: Frequency.Annual,
 							month: 7,
 						},
 						{
-							createdAt: new Date('2025-09-02T15:00:00.000Z'),
-							operationType: OperationType.ReminderUpdated,
+							created_at: new Date('2025-09-02T15:00:00.000Z'),
+							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
 							month: 7,
 							cost: 200,
 						},
-					])
+					]) as ReminderHistoryRecord[]
 				);
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
@@ -502,19 +505,19 @@ describe('graphs', () => {
 					2025,
 					generateReminderEvents([
 						{
-							createdAt: new Date('2024-07-02T15:00:00.000Z'),
-							operationType: OperationType.ReminderCreated,
+							created_at: new Date('2024-07-02T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
 							frequency: Frequency.Annual,
 							month: 7,
 						},
 						{
-							createdAt: new Date('2024-09-02T15:00:00.000Z'),
-							operationType: OperationType.ReminderUpdated,
+							created_at: new Date('2024-09-02T15:00:00.000Z'),
+							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
 							month: 7,
 							cost: 200,
 						},
-					])
+					]) as ReminderHistoryRecord[]
 				);
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
@@ -539,19 +542,19 @@ describe('graphs', () => {
 					2025,
 					generateReminderEvents([
 						{
-							createdAt: new Date('2024-07-02T15:00:00.000Z'),
-							operationType: OperationType.ReminderCreated,
+							created_at: new Date('2024-07-02T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
 							frequency: Frequency.Annual,
 							month: 7,
 						},
 						{
-							createdAt: new Date('2025-09-02T15:00:00.000Z'),
-							operationType: OperationType.ReminderUpdated,
+							created_at: new Date('2025-09-02T15:00:00.000Z'),
+							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
 							month: 7,
 							cost: 200,
 						},
-					])
+					]) as ReminderHistoryRecord[]
 				);
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
@@ -576,19 +579,19 @@ describe('graphs', () => {
 					2024,
 					generateReminderEvents([
 						{
-							createdAt: new Date('2024-07-02T15:00:00.000Z'),
-							operationType: OperationType.ReminderCreated,
+							created_at: new Date('2024-07-02T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
 							type: Type.Single,
 							month: 7,
 						},
 						{
-							createdAt: new Date('2024-09-02T15:00:00.000Z'),
-							operationType: OperationType.ReminderUpdated,
+							created_at: new Date('2024-09-02T15:00:00.000Z'),
+							operation_type: OperationType.ReminderUpdated,
 							type: Type.Single,
 							month: 7,
 							cost: 200,
 						},
-					])
+					]) as ReminderHistoryRecord[]
 				);
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
@@ -613,19 +616,19 @@ describe('graphs', () => {
 					2025,
 					generateReminderEvents([
 						{
-							createdAt: new Date('2024-07-02T15:00:00.000Z'),
-							operationType: OperationType.ReminderCreated,
+							created_at: new Date('2024-07-02T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
 							type: Type.Single,
 							month: 7,
 						},
 						{
-							createdAt: new Date('2024-09-02T15:00:00.000Z'),
-							operationType: OperationType.ReminderUpdated,
+							created_at: new Date('2024-09-02T15:00:00.000Z'),
+							operation_type: OperationType.ReminderUpdated,
 							type: Type.Single,
 							month: 7,
 							cost: 200,
 						},
-					])
+					]) as ReminderHistoryRecord[]
 				);
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
@@ -651,21 +654,21 @@ describe('graphs', () => {
 					2024,
 					generateReminderEvents([
 						{
-							createdAt: new Date('2024-08-15T15:00:00.000Z'),
-							operationType: OperationType.ReminderCreated,
+							created_at: new Date('2024-08-15T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
 						},
 						{
-							createdAt: new Date('2024-10-15T15:00:00.000Z'),
+							created_at: new Date('2024-10-15T15:00:00.000Z'),
 							cost: 200,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 						},
 						{
-							createdAt: new Date('2024-10-15T15:00:00.000Z'),
+							created_at: new Date('2024-10-15T15:00:00.000Z'),
 							cost: 200,
-							categoryId: 5,
-							operationType: OperationType.ReminderUpdated,
+							category_id: '5',
+							operation_type: OperationType.ReminderUpdated,
 						},
-					])
+					]) as ReminderHistoryRecord[]
 				);
 
 				expect(result.perCategoryCosts.get('4')).toEqual(undefined);
@@ -693,21 +696,21 @@ describe('graphs', () => {
 					2025,
 					generateReminderEvents([
 						{
-							createdAt: new Date('2024-08-15T15:00:00.000Z'),
-							operationType: OperationType.ReminderCreated,
+							created_at: new Date('2024-08-15T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
 						},
 						{
-							createdAt: new Date('2024-10-15T15:00:00.000Z'),
+							created_at: new Date('2024-10-15T15:00:00.000Z'),
 							cost: 200,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 						},
 						{
-							createdAt: new Date('2024-10-15T15:00:00.000Z'),
+							created_at: new Date('2024-10-15T15:00:00.000Z'),
 							cost: 200,
-							categoryId: 5,
-							operationType: OperationType.ReminderUpdated,
+							category_id: '5',
+							operation_type: OperationType.ReminderUpdated,
 						},
-					])
+					]) as ReminderHistoryRecord[]
 				);
 
 				expect(result.perCategoryCosts.get('4')).toEqual(undefined);
@@ -736,21 +739,21 @@ describe('graphs', () => {
 					2024,
 					generateReminderEvents([
 						{
-							createdAt: new Date('2024-08-15T15:00:00.000Z'),
-							operationType: OperationType.ReminderCreated,
+							created_at: new Date('2024-08-15T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
 						},
 						{
-							createdAt: new Date('2024-10-15T15:00:00.000Z'),
+							created_at: new Date('2024-10-15T15:00:00.000Z'),
 							cost: 200,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 						},
 						{
-							createdAt: new Date('2024-11-15T15:00:00.000Z'),
+							created_at: new Date('2024-11-15T15:00:00.000Z'),
 							cost: 200,
-							operationType: OperationType.ReminderUpdated,
-							autoRenewal: false,
+							operation_type: OperationType.ReminderUpdated,
+							auto_renewal: false,
 						},
-					])
+					]) as ReminderHistoryRecord[]
 				);
 
 				expect(result.perCategoryCosts.get('4')).toEqual(
@@ -776,21 +779,21 @@ describe('graphs', () => {
 					2025,
 					generateReminderEvents([
 						{
-							createdAt: new Date('2024-08-15T15:00:00.000Z'),
-							operationType: OperationType.ReminderCreated,
+							created_at: new Date('2024-08-15T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
 						},
 						{
-							createdAt: new Date('2024-10-15T15:00:00.000Z'),
+							created_at: new Date('2024-10-15T15:00:00.000Z'),
 							cost: 200,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 						},
 						{
-							createdAt: new Date('2024-11-15T15:00:00.000Z'),
+							created_at: new Date('2024-11-15T15:00:00.000Z'),
 							cost: 200,
-							operationType: OperationType.ReminderUpdated,
-							autoRenewal: false,
+							operation_type: OperationType.ReminderUpdated,
+							auto_renewal: false,
 						},
-					])
+					]) as ReminderHistoryRecord[]
 				);
 
 				expect(result.perCategoryCosts.get('4')).toEqual(
@@ -816,21 +819,21 @@ describe('graphs', () => {
 					2025,
 					generateReminderEvents([
 						{
-							createdAt: new Date('2024-08-15T15:00:00.000Z'),
-							operationType: OperationType.ReminderCreated,
+							created_at: new Date('2024-08-15T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
 						},
 						{
-							createdAt: new Date('2024-10-15T15:00:00.000Z'),
+							created_at: new Date('2024-10-15T15:00:00.000Z'),
 							cost: 200,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 						},
 						{
-							createdAt: new Date('2025-02-15T15:00:00.000Z'),
+							created_at: new Date('2025-02-15T15:00:00.000Z'),
 							cost: 200,
-							operationType: OperationType.ReminderUpdated,
-							autoRenewal: false,
+							operation_type: OperationType.ReminderUpdated,
+							auto_renewal: false,
 						},
-					])
+					]) as ReminderHistoryRecord[]
 				);
 
 				expect(result.perCategoryCosts.get('4')).toEqual(
@@ -856,27 +859,27 @@ describe('graphs', () => {
 					2024,
 					generateReminderEvents([
 						{
-							createdAt: new Date('2024-08-15T15:00:00.000Z'),
-							operationType: OperationType.ReminderCreated,
+							created_at: new Date('2024-08-15T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
 							frequency: Frequency.Annual,
 							month: 8,
 						},
 						{
-							createdAt: new Date('2024-10-15T15:00:00.000Z'),
+							created_at: new Date('2024-10-15T15:00:00.000Z'),
 							cost: 200,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
 							month: 8,
 						},
 						{
-							createdAt: new Date('2024-11-15T15:00:00.000Z'),
+							created_at: new Date('2024-11-15T15:00:00.000Z'),
 							cost: 200,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
 							month: 8,
-							autoRenewal: false,
+							auto_renewal: false,
 						},
-					])
+					]) as ReminderHistoryRecord[]
 				);
 
 				expect(result.perCategoryCosts.get('4')).toEqual(
@@ -902,27 +905,27 @@ describe('graphs', () => {
 					2025,
 					generateReminderEvents([
 						{
-							createdAt: new Date('2024-08-15T15:00:00.000Z'),
-							operationType: OperationType.ReminderCreated,
+							created_at: new Date('2024-08-15T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
 							frequency: Frequency.Annual,
 							month: 8,
 						},
 						{
-							createdAt: new Date('2024-10-15T15:00:00.000Z'),
+							created_at: new Date('2024-10-15T15:00:00.000Z'),
 							cost: 200,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
 							month: 8,
 						},
 						{
-							createdAt: new Date('2024-11-15T15:00:00.000Z'),
+							created_at: new Date('2024-11-15T15:00:00.000Z'),
 							cost: 200,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
 							month: 8,
-							autoRenewal: false,
+							auto_renewal: false,
 						},
-					])
+					]) as ReminderHistoryRecord[]
 				);
 
 				expect(result.perCategoryCosts.get('4')).toEqual(
@@ -948,27 +951,27 @@ describe('graphs', () => {
 					2025,
 					generateReminderEvents([
 						{
-							createdAt: new Date('2024-08-15T15:00:00.000Z'),
-							operationType: OperationType.ReminderCreated,
+							created_at: new Date('2024-08-15T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
 							frequency: Frequency.Annual,
 							month: 8,
 						},
 						{
-							createdAt: new Date('2024-10-15T15:00:00.000Z'),
+							created_at: new Date('2024-10-15T15:00:00.000Z'),
 							cost: 200,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
 							month: 8,
 						},
 						{
-							createdAt: new Date('2025-04-15T15:00:00.000Z'),
+							created_at: new Date('2025-04-15T15:00:00.000Z'),
 							cost: 200,
-							operationType: OperationType.ReminderUpdated,
+							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
 							month: 8,
-							autoRenewal: false,
+							auto_renewal: false,
 						},
-					])
+					]) as ReminderHistoryRecord[]
 				);
 
 				expect(result.perCategoryCosts.get('4')).toEqual(
@@ -994,40 +997,43 @@ describe('graphs', () => {
 	describe('multiple reminders from different categories', () => {
 		const reminderEvents = generateReminderEvents([
 			{
-				createdAt: new Date('2024-06-17T15:00:00.000Z'),
-				startedAt: new Date('2024-07-15T15:00:00.000Z'),
-				operationType: OperationType.ReminderCreated,
+				created_at: new Date('2024-06-17T15:00:00.000Z'),
+				started_at: new Date('2024-07-15T15:00:00.000Z'),
+				operation_type: OperationType.ReminderCreated,
 				month: 7,
 				type: Type.Single,
-				categoryId: 9,
+				category_id: '9',
 			},
 			{
-				createdAt: new Date('2024-09-15T15:00:00.000Z'),
+				created_at: new Date('2024-09-15T15:00:00.000Z'),
 				cost: 200,
-				operationType: OperationType.ReminderUpdated,
+				operation_type: OperationType.ReminderUpdated,
 				type: Type.Single,
 				month: 7,
-				categoryId: 9,
+				category_id: '9',
 			},
 			{
-				reminderId: 5,
-				createdAt: new Date('2024-08-17T15:00:00.000Z'),
-				startedAt: new Date('2024-09-15T15:00:00.000Z'),
+				reminder_id: '5',
+				created_at: new Date('2024-08-17T15:00:00.000Z'),
+				started_at: new Date('2024-09-15T15:00:00.000Z'),
 				cost: 100,
-				operationType: OperationType.ReminderCreated,
+				operation_type: OperationType.ReminderCreated,
 			},
 			{
-				reminderId: 6,
-				createdAt: new Date('2024-03-17T15:00:00.000Z'),
-				startedAt: new Date('2024-04-15T15:00:00.000Z'),
+				reminder_id: '6',
+				created_at: new Date('2024-03-17T15:00:00.000Z'),
+				started_at: new Date('2024-04-15T15:00:00.000Z'),
 				month: 4,
 				cost: 100,
 				frequency: Frequency.Annual,
-				operationType: OperationType.ReminderCreated,
+				operation_type: OperationType.ReminderCreated,
 			},
 		]);
 		it('data for 2024', () => {
-			const result = calculateGraphData(2024, reminderEvents);
+			const result = calculateGraphData(
+				2024,
+				reminderEvents as ReminderHistoryRecord[]
+			);
 			expect(result.perCategoryCosts.get('9')).toEqual(
 				new Map([
 					['1', 0],
@@ -1063,7 +1069,10 @@ describe('graphs', () => {
 		});
 
 		it('data for 2025', () => {
-			const result = calculateGraphData(2025, reminderEvents);
+			const result = calculateGraphData(
+				2025,
+				reminderEvents as ReminderHistoryRecord[]
+			);
 			expect(result.perCategoryCosts.get('9')).toEqual(
 				new Map([
 					['1', 0],

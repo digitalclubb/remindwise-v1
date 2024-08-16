@@ -25,6 +25,9 @@ const config = {
 		Cursor: {
 			type: 'Cursor',
 		},
+		Datetime: {
+			type: 'string',
+		},
 	},
 };
 

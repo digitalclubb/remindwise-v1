@@ -1,20 +1,6 @@
-import { Frequency, Type, OperationType } from '@graphql/types';
+import { Frequency, Type, OperationType, type History } from '@graphql/types';
 
-export type ReminderHistoryRecord = {
-	id: number; // cant be changed
-	cost: number;
-	autoRenewal: boolean;
-	userId: number; // cant be changed
-	categoryId: number;
-	type: Type; // cant be changed
-	frequency: Frequency; // cant be changed
-	reminderId: number; // cant be changed
-	startedAt: Date; // cant be changed
-	createdAt: Date; // cant be changed
-	day?: number; // cant be changed
-	month?: number; // cant be changed
-	operationType: OperationType;
-};
+export type ReminderHistoryRecord = History;
 
 const getDateBuckets = (): Map<string, number> => {
 	return new Map([
@@ -41,7 +27,7 @@ type GraphData = {
 
 type AggregateData = {
 	monthCosts: Map<string, number>;
-	categoryId?: number;
+	categoryId?: string;
 	autoRenewal?: boolean; //TODO what are we doing with this
 	// A monthly reminder and I want to pause. That sets auto renewal to false. We don't keep track of values anymore. It's like deleted but keeping the data.
 };
@@ -52,12 +38,13 @@ const reduceReminderHistory = (
 	aggregateData: AggregateData
 ) => {
 	const cost = reminder.cost;
-	aggregateData.categoryId = reminder.categoryId;
-	aggregateData.autoRenewal = reminder.autoRenewal;
+	aggregateData.categoryId = reminder.category_id;
+	aggregateData.autoRenewal = reminder.auto_renewal;
 	const date =
-		reminder.operationType === OperationType.ReminderUpdated
-			? reminder.createdAt
-			: reminder.startedAt;
+		reminder.operation_type === OperationType.ReminderUpdated
+			? // &&reminder.created_at.getTime() > reminder.started_at.getTime()
+				reminder.created_at
+			: reminder.started_at;
 
 	// Is the year we're requesting the graphs for in a following year to when it was started?
 	const isItFutureYear = year > date.getFullYear();
@@ -71,12 +58,12 @@ const reduceReminderHistory = (
 		// If it's a future year, set the data from the first month of the year
 		const initialMonth = isItFutureYear ? 1 : date.getMonth() + 1;
 		// If auto renewal is off then we have an end month
-		const endMonth = reminder.autoRenewal ? 13 : date.getMonth() + 1;
+		const endMonth = reminder.auto_renewal ? 13 : date.getMonth() + 1;
 
 		for (let i = initialMonth; i < 13; i++) {
 			// if current month is greater than end month or autoRenewal is off and it's a future year
 			// set that month cost to 0
-			if (i > endMonth || (!reminder.autoRenewal && isItFutureYear)) {
+			if (i > endMonth || (!reminder.auto_renewal && isItFutureYear)) {
 				aggregateData?.monthCosts.set(i.toString(), 0);
 			} else {
 				// otherwise set it to the reminder current cost
@@ -91,13 +78,13 @@ const reduceReminderHistory = (
 		const month = reminder.month ?? 1;
 		// Is it an auto renewing reminder and the year it happened is less or equal to the requested year
 		// set that month cost to the reminder current cost
-		if (date.getFullYear() <= year && reminder.autoRenewal) {
+		if (date.getFullYear() <= year && reminder.auto_renewal) {
 			aggregateData?.monthCosts.set(month.toString(), cost);
 		} else if (
 			// Is it a future year and not auto renewing
-			(isItFutureYear && !reminder.autoRenewal) ||
+			(isItFutureYear && !reminder.auto_renewal) ||
 			// Or not auto renewing and the current month is before the reminder month
-			(!reminder.autoRenewal && date.getMonth() + 1 <= month)
+			(!reminder.auto_renewal && date.getMonth() + 1 <= month)
 		) {
 			// set that month cost to 0
 			aggregateData?.monthCosts.set(month.toString(), 0);
@@ -117,28 +104,30 @@ export const calculateGraphData = (
 		totalMonthCosts: getDateBuckets(),
 		perCategoryCosts: new Map(),
 	};
-	const bucketedReminders = new Map<number, ReminderHistoryRecord[]>();
+	const bucketedReminders = new Map<string, ReminderHistoryRecord[]>();
 
 	// creating map of reminder events by reminder id
 	for (const reminder of sortedReminders) {
-		const reminders = bucketedReminders.get(reminder.reminderId);
+		const reminders = bucketedReminders.get(reminder.reminder_id);
 		if (reminders) {
 			reminders.push(reminder);
 			continue;
 		}
-		bucketedReminders.set(reminder.reminderId, [reminder]);
+		bucketedReminders.set(reminder.reminder_id, [reminder]);
 	}
 
 	for (const [, reminders] of bucketedReminders) {
 		const aggregateData: AggregateData = {
 			monthCosts: getDateBuckets(),
-			categoryId: reminders[0].categoryId,
-			autoRenewal: reminders[0].autoRenewal,
+			categoryId: reminders[0].category_id,
+			autoRenewal: reminders[0].auto_renewal,
 		};
 		// reminder hasn't been updated at all, only created and nothing else happened
 		for (let i = 0; i < reminders.length; i++) {
 			if (
-				reminders.some((r) => r.operationType === OperationType.ReminderDeleted)
+				reminders.some(
+					(r) => r.operation_type === OperationType.ReminderDeleted
+				)
 			)
 				break;
 

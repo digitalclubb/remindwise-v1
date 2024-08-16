@@ -8,7 +8,7 @@
 
 	export let data;
 
-	$: ({ GetReminders, GetSettings } = data);
+	$: ({ GetReminders, GetSettings, graphData } = data);
 
 	$: upcoming = $GetReminders.data?.upcoming?.list || [];
 	$: reminders = $GetReminders.data?.reminders?.list || [];
@@ -19,6 +19,38 @@
 
 	$: upcomingFilter = '1';
 	$: numberOfRemindersFilter = '5';
+
+	const currentMonth = new Date().getMonth() + 1;
+	const currentYear = new Date().getFullYear();
+	const lineGraphData: { month: string; total: number }[] = [];
+
+	let totalSpentSoFar = 0,
+		totalUpcoming = 0;
+
+	let filteredUpcomingCosts = 0;
+	$: graphData?.totalMonthCosts.forEach((value, key) => {
+		if (parseInt(key) > currentMonth) {
+			totalUpcoming += value;
+		} else {
+			totalSpentSoFar += value;
+		}
+
+		if (parseInt(key) === currentMonth + 1) {
+			filteredUpcomingCosts = value;
+		}
+	});
+
+	$: categoryId = reminders[0]?.reminder.category?.id;
+	$: if (categoryId) {
+		graphData?.perCategoryCosts
+			.get(categoryId)
+			?.forEach((value: number, key: string) => {
+				lineGraphData.push({
+					month: key,
+					total: value,
+				});
+			});
+	}
 
 	const onUpcomingChange = async () => {
 		await GetReminders.fetch();
@@ -69,21 +101,22 @@
 <div class="body">
 	<section>
 		<h2 class="heading-3">
-			Total {$page.params.slug} spend this year <span>(Jan '23 - Jan '24)</span>
+			Total {$page.params.slug} spend this year
+			<span>(Jan {currentYear} - Jan {currentYear + 1})</span>
 		</h2>
 		<div class="charts">
 			<div class="donut">
-				<Donut />
+				<Donut spentSoFar={totalSpentSoFar} upcoming={totalUpcoming} />
 			</div>
 			<div class="costs-data">
 				<ul class="costs">
 					<li class="cost">
 						<h3 class="heading-5">Spent so far</h3>
-						<p>{currencySymbol}560</p>
+						<p>{currencySymbol}{totalSpentSoFar}</p>
 					</li>
 					<li class="cost cost-upcoming">
 						<h3 class="heading-5">Upcoming</h3>
-						<p>{currencySymbol}560</p>
+						<p>{currencySymbol}{totalUpcoming}</p>
 					</li>
 				</ul>
 				<div class="costs cost-upcoming">
@@ -94,12 +127,12 @@
 							<option value="3">3 months</option>
 							<option value="6">6 months</option>
 						</select>
-						<p>{currencySymbol}450</p>
+						<p>{currencySymbol}{filteredUpcomingCosts}</p>
 					</div>
 				</div>
 			</div>
 			<div class="line">
-				<Line />
+				<Line data={lineGraphData} />
 			</div>
 		</div>
 	</section>

@@ -5,10 +5,10 @@
 	import AxisX from './AxisX.svelte';
 	import AxisY from './AxisY.svelte';
 
-	import data from './data.js';
+	export let data;
 
-	const xKey = 'myX';
-	const yKey = 'myY';
+	const xKey = 'month';
+	const yKey = 'total';
 
 	data.forEach((d: Record<string, string | number>) => {
 		d[yKey] = +d[yKey];

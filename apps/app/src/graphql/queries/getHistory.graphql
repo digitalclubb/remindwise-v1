@@ -1,0 +1,21 @@
+query GetHistory @load {
+	history: historyCollection(orderBy: [{ created_at: AscNullsFirst }]) {
+		list: edges {
+			history: node {
+				id
+				cost
+				auto_renewal
+				user_id
+				category_id
+				type
+				frequency
+				reminder_id
+				started_at
+				created_at
+				day
+				month
+				operation_type
+			}
+		}
+	}
+}
