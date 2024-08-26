@@ -1,14 +1,15 @@
 import { AddCategoryStore, UpdateReminderStore } from '$houdini';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
-import { reminderSchema } from '../../schema.js';
+import { editReminderSchema } from '../../schema.js';
 import { zod } from 'sveltekit-superforms/adapters';
 
 export const actions: Actions = {
 	editReminder: async (event) => {
 		const formData = await event.request.formData();
-		const form = await superValidate(formData, zod(reminderSchema));
+		const form = await superValidate(formData, zod(editReminderSchema));
 		const files = formData.getAll('documents') as File[];
+		console.log('form', form);
 		const { valid, data } = form;
 
 		if (!valid) {

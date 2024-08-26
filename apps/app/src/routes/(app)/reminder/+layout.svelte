@@ -4,7 +4,7 @@
 	import { getCurrency } from '../../../utils/currency';
 	import type { LayoutData } from './$houdini';
 	import { superForm } from 'sveltekit-superforms/client';
-	import { reminderSchema } from './schema';
+	import { addReminderSchema } from './schema';
 	import Radio from '../../../components/radio/Radio.svelte';
 	import Input from '../../../components/input/Input.svelte';
 	import { zodClient } from 'sveltekit-superforms/adapters';
@@ -14,7 +14,7 @@
 	export let data: LayoutData;
 
 	const superform = superForm(data.form, {
-		validators: zodClient(reminderSchema),
+		validators: zodClient(addReminderSchema),
 	});
 
 	const { form, errors, constraints, enhance } = superform;
@@ -174,8 +174,7 @@
 					<fieldset class="date" id="date">
 						<span>
 							<input
-								readonly={$page.data.editing}
-								aria-disabled={$page.data.editing}
+								disabled={$page.data.editing}
 								required
 								type="number"
 								min="1"
@@ -193,8 +192,7 @@
 						{#if $form.frequency === 'ANNUAL'}
 							<span>
 								<input
-									readonly={$page.data.editing}
-									aria-disabled={$page.data.editing}
+									disabled={$page.data.editing}
 									required
 									type="number"
 									min="1"
@@ -272,7 +270,7 @@
 		border: solid 1px var(--red);
 	}
 
-	input[aria-disabled] {
+	input[disabled] {
 		opacity: 0.5;
 	}
 
