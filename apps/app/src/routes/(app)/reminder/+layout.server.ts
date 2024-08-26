@@ -1,6 +1,6 @@
 import type { LayoutServerLoad } from './$types';
 import { superValidate } from 'sveltekit-superforms/server';
-import { reminderSchema } from './schema';
+import { addReminderSchema } from './schema';
 import { GetReminderStore } from '$houdini';
 import { Frequency, Type } from '@graphql/types';
 import { zod } from 'sveltekit-superforms/adapters';
@@ -52,7 +52,7 @@ export const load: LayoutServerLoad = async (event) => {
 
 		if (reminder) {
 			const form = await superValidate(
-				zod(reminderSchema, {
+				zod(addReminderSchema, {
 					defaults: {
 						userId: userId || '',
 						categoryId: reminder.category?.id || '',
@@ -78,7 +78,7 @@ export const load: LayoutServerLoad = async (event) => {
 		}
 	}
 
-	const form = await superValidate(zod(reminderSchema));
+	const form = await superValidate(zod(addReminderSchema));
 	return {
 		files,
 		form,
