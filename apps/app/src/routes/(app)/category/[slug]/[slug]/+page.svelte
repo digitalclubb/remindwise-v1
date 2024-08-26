@@ -84,7 +84,7 @@
 			{/if}
 		</div>
 
-		<aside>
+		<aside role="region">
 			<h3 class="heading-5">Your documents</h3>
 			{#if data.files}
 				<ul class="documents">
