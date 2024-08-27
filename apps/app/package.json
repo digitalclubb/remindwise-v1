@@ -53,8 +53,8 @@
 		"@types/d3-scale": "4.0.8",
 		"@types/d3-shape": "3.1.6",
 		"@types/node": "20.16.1",
-		"@typescript-eslint/eslint-plugin": "8.2.0",
-		"@typescript-eslint/parser": "8.2.0",
+		"@typescript-eslint/eslint-plugin": "8.3.0",
+		"@typescript-eslint/parser": "8.3.0",
 		"dotenv": "16.4.5",
 		"eslint": "9.9.1",
 		"eslint-config-prettier": "9.1.0",
@@ -65,11 +65,11 @@
 		"svelte-check": "3.8.6",
 		"svelte-eslint-parser": "0.41.0",
 		"typescript": "5.5.4",
-		"typescript-eslint": "8.2.0",
+		"typescript-eslint": "8.3.0",
 		"vitest": "2.0.5"
 	},
 	"type": "module",
-	"packageManager": "pnpm@9.8.0",
+	"packageManager": "pnpm@9.9.0",
 	"msw": {
 		"workerDirectory": [
 			"static"
