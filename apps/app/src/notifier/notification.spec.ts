@@ -245,11 +245,6 @@ describe('notifier', async () => {
 	])('$description', async ({ description, data }) => {
 		const { emailSender, reminderNotificationStateStore, reminderStore } =
 			getMocks();
-		const handler = createNotificationHandler(
-			emailSender,
-			reminderNotificationStateStore,
-			reminderStore
-		);
 		const sendEmailSpy = vi.spyOn(emailSender, 'sendEmail');
 		const getRecurringRemindersSpy = vi.spyOn(
 			reminderStore,
@@ -262,6 +257,11 @@ describe('notifier', async () => {
 		const upsertNotificationStateSpy = vi.spyOn(
 			reminderNotificationStateStore,
 			'upsertReminderNotificationState'
+		);
+		const handler = createNotificationHandler(
+			emailSender,
+			reminderNotificationStateStore,
+			reminderStore
 		);
 
 		getRecurringRemindersSpy.mockImplementation(async () => data.reminders);
@@ -328,11 +328,6 @@ describe('notifier', async () => {
 		const fromDate = new Date('2024-06-20T10:00:00.000Z');
 		const { emailSender, reminderNotificationStateStore, reminderStore } =
 			getMocks();
-		const handler = createNotificationHandler(
-			emailSender,
-			reminderNotificationStateStore,
-			reminderStore
-		);
 		const sendEmailSpy = vi.spyOn(emailSender, 'sendEmail');
 		const getRecurringRemindersSpy = vi.spyOn(
 			reminderStore,
@@ -341,6 +336,11 @@ describe('notifier', async () => {
 		const upsertNotificationStateSpy = vi.spyOn(
 			reminderNotificationStateStore,
 			'upsertReminderNotificationState'
+		);
+		const handler = createNotificationHandler(
+			emailSender,
+			reminderNotificationStateStore,
+			reminderStore
 		);
 
 		getRecurringRemindersSpy.mockImplementation(
@@ -368,11 +368,6 @@ describe('notifier', async () => {
 		};
 		const { emailSender, reminderNotificationStateStore, reminderStore } =
 			getMocks();
-		const handler = createNotificationHandler(
-			emailSender,
-			reminderNotificationStateStore,
-			reminderStore
-		);
 		const sendEmailSpy = vi.spyOn(emailSender, 'sendEmail');
 		const getRecurringRemindersSpy = vi.spyOn(
 			reminderStore,
@@ -381,6 +376,11 @@ describe('notifier', async () => {
 		const upsertNotificationStateSpy = vi.spyOn(
 			reminderNotificationStateStore,
 			'upsertReminderNotificationState'
+		);
+		const handler = createNotificationHandler(
+			emailSender,
+			reminderNotificationStateStore,
+			reminderStore
 		);
 
 		getRecurringRemindersSpy.mockImplementation(async () => []);
@@ -404,12 +404,6 @@ describe('notifier', async () => {
 		};
 		const { emailSender, reminderNotificationStateStore, reminderStore } =
 			getMocks();
-
-		const handler = createNotificationHandler(
-			emailSender,
-			reminderNotificationStateStore,
-			reminderStore
-		);
 		const dueReminders = [
 			{
 				id: '123',
@@ -435,6 +429,11 @@ describe('notifier', async () => {
 		const upsertNotificationStateSpy = vi.spyOn(
 			reminderNotificationStateStore,
 			'upsertReminderNotificationState'
+		);
+		const handler = createNotificationHandler(
+			emailSender,
+			reminderNotificationStateStore,
+			reminderStore
 		);
 
 		getRecurringRemindersSpy.mockImplementation(async () => dueReminders);

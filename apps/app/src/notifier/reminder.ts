@@ -27,6 +27,7 @@ export const createReminderStore = (
 					auto_renewal: true,
 				});
 			const reminders = data || [];
+
 			for (const reminder of reminders) {
 				reminder.created_at =
 					reminder.created_at && new Date(reminder.created_at);
