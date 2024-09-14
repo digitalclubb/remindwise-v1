@@ -11,3 +11,4 @@
 **/playwright/.cache/
 $houdini
 **/.auth/
+.turbo
