@@ -50,19 +50,20 @@ type DueReminderDetails = {
 const getDueReminders = (
 	checkpointsByReminderId: Map<string, ReminderNotificationCheckpoint>,
 	reminders: Array<ReminderRecord>,
-	noticePeriod: number,
+	noticePeriodInDays: number,
 	fromDate: Date
 ): Array<DueReminderDetails> => {
 	const dueReminders: Array<DueReminderDetails> = [];
 
 	for (const reminder of reminders) {
+		const { id, name, cost } = reminder;
 		const renewalDate = getRenewalDate(reminder, fromDate);
 		if (!renewalDate) {
 			continue;
 		}
 
 		const daysUntilRenewal = differenceInCalendarDays(renewalDate, fromDate);
-		if (outsideNotificationWindow(daysUntilRenewal, noticePeriod)) {
+		if (outsideNotificationWindow(daysUntilRenewal, noticePeriodInDays)) {
 			continue;
 		}
 
@@ -74,16 +75,20 @@ const getDueReminders = (
 			: null;
 		if (
 			lastNotifiedDate &&
-			notifiedWithinNoticePeriod(lastNotifiedDate, renewalDate, noticePeriod)
+			notifiedWithinNoticePeriod(
+				lastNotifiedDate,
+				renewalDate,
+				noticePeriodInDays
+			)
 		) {
 			continue;
 		}
 
 		dueReminders.push({
-			id: reminder.id,
-			name: reminder.name,
-			cost: reminder.cost,
-			noticePeriodInDays: noticePeriod,
+			id,
+			name,
+			cost,
+			noticePeriodInDays,
 			daysUntilRenewal,
 			renewalDate,
 		});
@@ -108,7 +113,6 @@ export const createReminderNotificationStateStore = (
 			};
 			const command = new GetCommand(params);
 			const output = await dynamoDocClient.send(command);
-
 			if (output.Item) {
 				return output.Item as ReminderNotificationState;
 			}
@@ -177,18 +181,18 @@ const getCheckpointsByReminderId = (
 const notifiedWithinNoticePeriod = (
 	lastNotified: Date,
 	renewalDate: Date,
-	noticePeriod: number
+	noticePeriodInDays: number
 ): boolean => {
 	return isWithinInterval(lastNotified, {
-		start: sub(renewalDate, { days: noticePeriod }),
+		start: sub(renewalDate, { days: noticePeriodInDays }),
 		end: renewalDate,
 	});
 };
 
 const outsideNotificationWindow = (
 	daysUntilRenewal: number,
-	noticePeriod: number
-) => daysUntilRenewal <= 0 || daysUntilRenewal > noticePeriod;
+	noticePeriodInDays: number
+) => daysUntilRenewal <= 0 || daysUntilRenewal > noticePeriodInDays;
 
 const getUpdatedCheckpoints = (
 	checkpointsByReminderId: Map<string, ReminderNotificationCheckpoint>,
@@ -196,8 +200,9 @@ const getUpdatedCheckpoints = (
 	lastNotified: Date
 ): Array<ReminderNotificationCheckpoint> => {
 	for (const dueReminder of dueReminders) {
-		checkpointsByReminderId.set(dueReminder.id, {
-			reminderId: dueReminder.id,
+		const { id } = dueReminder;
+		checkpointsByReminderId.set(id, {
+			reminderId: id,
 			lastNotified: lastNotified.toISOString(),
 		});
 	}
@@ -247,11 +252,11 @@ export const createNotificationHandler = (
 			const checkpointsByReminderId = getCheckpointsByReminderId(
 				reminderNotificationState
 			);
-			const noticePeriod = notice_period ?? 5;
+			const noticePeriodInDays = notice_period ?? 5;
 			const dueReminders = getDueReminders(
 				checkpointsByReminderId,
 				reminders,
-				noticePeriod,
+				noticePeriodInDays,
 				today
 			);
 			if (!dueReminders.length) {

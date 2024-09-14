@@ -17,14 +17,14 @@ type Mocks = {
 
 const getMocks = (): Mocks => {
 	const reminderNotificationStateStore: ReminderNotificationStateStore = {
-		getReminderNotificationState: async (userId) => ({
+		getReminderNotificationState: async () => ({
 			userId: '123',
 			checkpoints: [],
 		}),
-		upsertReminderNotificationState: async (notificationState) => {},
+		upsertReminderNotificationState: async () => {},
 	};
 	const reminderStore: ReminderStore = {
-		getRecurringReminders: async (userId) => [],
+		getRecurringReminders: async () => [],
 	};
 	const emailSender: EmailSender = {
 		sendEmail: async () => {},
@@ -240,6 +240,8 @@ describe('notifier', async () => {
 				},
 			},
 		},
+		// The description property is being used in a template to provide a name for the test.
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	])('$description', async ({ description, data }) => {
 		const { emailSender, reminderNotificationStateStore, reminderStore } =
 			getMocks();
@@ -262,11 +264,9 @@ describe('notifier', async () => {
 			'upsertReminderNotificationState'
 		);
 
-		getRecurringRemindersSpy.mockImplementation(
-			async (userId) => data.reminders
-		);
+		getRecurringRemindersSpy.mockImplementation(async () => data.reminders);
 		getNotificationStateSpy.mockImplementation(
-			async (userId) => data.notificationState
+			async () => data.notificationState
 		);
 
 		vi.setSystemTime(data.fromDate);
@@ -344,7 +344,7 @@ describe('notifier', async () => {
 		);
 
 		getRecurringRemindersSpy.mockImplementation(
-			async (userId) => remindersThatAreNotDue
+			async () => remindersThatAreNotDue
 		);
 
 		vi.setSystemTime(fromDate);
@@ -383,7 +383,7 @@ describe('notifier', async () => {
 			'upsertReminderNotificationState'
 		);
 
-		getRecurringRemindersSpy.mockImplementation(async (userId) => []);
+		getRecurringRemindersSpy.mockImplementation(async () => []);
 
 		await handler.handleNotifications(userProfile);
 
@@ -437,8 +437,8 @@ describe('notifier', async () => {
 			'upsertReminderNotificationState'
 		);
 
-		getRecurringRemindersSpy.mockImplementation(async (userId) => dueReminders);
-		sendEmailSpy.mockImplementation(async (request) => {
+		getRecurringRemindersSpy.mockImplementation(async () => dueReminders);
+		sendEmailSpy.mockImplementation(async () => {
 			throw new Error('email error');
 		});
 
