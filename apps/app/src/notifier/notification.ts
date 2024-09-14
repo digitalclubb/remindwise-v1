@@ -57,13 +57,11 @@ const getDueReminders = (
 
 	for (const reminder of reminders) {
 		const renewalDate = getRenewalDate(reminder, fromDate);
-
 		if (!renewalDate) {
 			continue;
 		}
 
 		const daysUntilRenewal = differenceInCalendarDays(renewalDate, fromDate);
-
 		if (outsideNotificationWindow(daysUntilRenewal, noticePeriod)) {
 			continue;
 		}
@@ -71,11 +69,9 @@ const getDueReminders = (
 		const reminderNotificationCheckpoint = checkpointsByReminderId.get(
 			reminder.id
 		);
-
 		const lastNotifiedDate = reminderNotificationCheckpoint?.lastNotified
 			? new Date(reminderNotificationCheckpoint.lastNotified)
 			: null;
-
 		if (
 			lastNotifiedDate &&
 			notifiedWithinNoticePeriod(lastNotifiedDate, renewalDate, noticePeriod)
@@ -143,7 +139,6 @@ const getRenewalDate = (reminder: ReminderRecord, today: Date): Date | null => {
 		let monthlyRenewalDate = new Date(
 			Date.UTC(currentYear, currentMonth, reminderDay)
 		);
-
 		if (isAfter(today, monthlyRenewalDate)) {
 			monthlyRenewalDate = add(monthlyRenewalDate, { months: 1 });
 		}
@@ -155,7 +150,6 @@ const getRenewalDate = (reminder: ReminderRecord, today: Date): Date | null => {
 		let yearlyRenewalDate = new Date(
 			Date.UTC(currentYear, reminderMonth, reminderDay)
 		);
-
 		if (isAfter(today, yearlyRenewalDate)) {
 			yearlyRenewalDate = add(yearlyRenewalDate, { years: 1 });
 		}
@@ -207,7 +201,6 @@ const getUpdatedCheckpoints = (
 			lastNotified: lastNotified.toISOString(),
 		});
 	}
-
 	const updatedCheckpoints = Array.from(checkpointsByReminderId.values());
 
 	return updatedCheckpoints;
@@ -240,7 +233,6 @@ export const createNotificationHandler = (
 			const today = new Date();
 			const { id, email, notice_period } = userProfile;
 			const reminders = await reminderStore.getRecurringReminders(id);
-
 			if (!reminders.length) {
 				return;
 			}
@@ -262,7 +254,6 @@ export const createNotificationHandler = (
 				noticePeriod,
 				today
 			);
-
 			if (!dueReminders.length) {
 				return;
 			}

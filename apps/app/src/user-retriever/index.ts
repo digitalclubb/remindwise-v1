@@ -14,5 +14,6 @@ export const handler: Handler = async (
 	const userProfileStore = createUserProfileStore(supabase, {
 		userProfileTable,
 	});
+
 	return await userProfileStore.getAllUsers();
 };

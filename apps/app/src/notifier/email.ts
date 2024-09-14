@@ -10,7 +10,7 @@ export type EmailSenderRequest = {
 };
 
 export interface EmailSender {
-	sendEmail: (command: EmailSenderRequest) => Promise<void>;
+	sendEmail: (request: EmailSenderRequest) => Promise<void>;
 }
 
 export const createEmailSender = (
@@ -37,7 +37,6 @@ export const createEmailSender = (
 				},
 				Source: options.fromAddress,
 			};
-
 			const command = new SendEmailCommand(params);
 
 			await sesClient.send(command);

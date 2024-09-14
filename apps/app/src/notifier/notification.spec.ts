@@ -23,11 +23,9 @@ const getMocks = (): Mocks => {
 		}),
 		upsertReminderNotificationState: async (notificationState) => {},
 	};
-
 	const reminderStore: ReminderStore = {
 		getRecurringReminders: async (userId) => [],
 	};
-
 	const emailSender: EmailSender = {
 		sendEmail: async () => {},
 	};
@@ -245,13 +243,11 @@ describe('notifier', async () => {
 	])('$description', async ({ description, data }) => {
 		const { emailSender, reminderNotificationStateStore, reminderStore } =
 			getMocks();
-
 		const handler = createNotificationHandler(
 			emailSender,
 			reminderNotificationStateStore,
 			reminderStore
 		);
-
 		const sendEmailSpy = vi.spyOn(emailSender, 'sendEmail');
 		const getRecurringRemindersSpy = vi.spyOn(
 			reminderStore,
@@ -330,16 +326,13 @@ describe('notifier', async () => {
 			},
 		];
 		const fromDate = new Date('2024-06-20T10:00:00.000Z');
-
 		const { emailSender, reminderNotificationStateStore, reminderStore } =
 			getMocks();
-
 		const handler = createNotificationHandler(
 			emailSender,
 			reminderNotificationStateStore,
 			reminderStore
 		);
-
 		const sendEmailSpy = vi.spyOn(emailSender, 'sendEmail');
 		const getRecurringRemindersSpy = vi.spyOn(
 			reminderStore,
@@ -373,16 +366,13 @@ describe('notifier', async () => {
 			notice_period: 14,
 			interval: Interval.Days,
 		};
-
 		const { emailSender, reminderNotificationStateStore, reminderStore } =
 			getMocks();
-
 		const handler = createNotificationHandler(
 			emailSender,
 			reminderNotificationStateStore,
 			reminderStore
 		);
-
 		const sendEmailSpy = vi.spyOn(emailSender, 'sendEmail');
 		const getRecurringRemindersSpy = vi.spyOn(
 			reminderStore,
@@ -412,7 +402,6 @@ describe('notifier', async () => {
 			notice_period: 2,
 			interval: Interval.Days,
 		};
-
 		const { emailSender, reminderNotificationStateStore, reminderStore } =
 			getMocks();
 
@@ -438,7 +427,6 @@ describe('notifier', async () => {
 			},
 		];
 		const fromDate = new Date('2024-01-10T10:00:00.000Z');
-
 		const sendEmailSpy = vi.spyOn(emailSender, 'sendEmail');
 		const getRecurringRemindersSpy = vi.spyOn(
 			reminderStore,
