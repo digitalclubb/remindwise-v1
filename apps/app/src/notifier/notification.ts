@@ -192,7 +192,7 @@ const notifiedWithinNoticePeriod = (
 const outsideNotificationWindow = (
 	daysUntilRenewal: number,
 	noticePeriodInDays: number
-) => daysUntilRenewal <= 0 || daysUntilRenewal > noticePeriodInDays;
+): boolean => daysUntilRenewal <= 0 || daysUntilRenewal > noticePeriodInDays;
 
 const getUpdatedCheckpoints = (
 	checkpointsByReminderId: Map<string, ReminderNotificationCheckpoint>,
@@ -230,7 +230,7 @@ export const createNotificationHandler = (
 	emailSender: EmailSender,
 	reminderNotificationStateStore: ReminderNotificationStateStore,
 	reminderStore: ReminderStore
-) => {
+): NotificationHandler => {
 	return {
 		handleNotifications: async (
 			userProfile: UserProfileRecord
