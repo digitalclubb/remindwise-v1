@@ -252,7 +252,8 @@ export const createNotificationHandler = (
 			const checkpointsByReminderId = getCheckpointsByReminderId(
 				reminderNotificationState
 			);
-			const noticePeriodInDays = notice_period ?? 5;
+			const defaultNoticePeriodInDays = 2;
+			const noticePeriodInDays = notice_period ?? defaultNoticePeriodInDays;
 			const dueReminders = getDueReminders(
 				checkpointsByReminderId,
 				reminders,

@@ -18,8 +18,13 @@ export const createUserProfileStore = (
 			const { data } = await supabaseClient
 				.from(options.userProfileTable)
 				.select('*');
+			const users = data || [];
 
-			return data || [];
+			for (const user of users) {
+				user.updated_at = user.updated_at && new Date(user.updated_at);
+			}
+
+			return users;
 		},
 	};
 };
