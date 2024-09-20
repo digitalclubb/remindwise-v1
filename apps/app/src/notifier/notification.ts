@@ -121,7 +121,7 @@ export const createReminderNotificationStateStore = (
 		},
 		upsertReminderNotificationState: async (
 			reminderNotificationState: ReminderNotificationState
-		) => {
+		): Promise<void> => {
 			const params = {
 				TableName: options.reminderNotificationStateTable,
 				Item: reminderNotificationState,
