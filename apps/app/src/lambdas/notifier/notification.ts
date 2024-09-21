@@ -11,7 +11,7 @@ import {
 	isWithinInterval,
 } from 'date-fns';
 import { Currency, Frequency } from '@graphql/types';
-import type { ReminderRecord, UserProfileRecord } from '../types';
+import type { ReminderRecord, UserProfileRecord } from '../../types';
 import type { ReminderStore } from './reminder';
 import type { EmailSender } from './email';
 

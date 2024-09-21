@@ -1,5 +1,5 @@
 import { SupabaseClient } from '@supabase/supabase-js';
-import type { UserProfileRecord } from '../types';
+import type { UserProfileRecord } from '../../types';
 
 export type UserProfileStoreOptions = {
 	userProfileTable: string;

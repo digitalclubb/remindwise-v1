@@ -1,6 +1,6 @@
 import { SupabaseClient } from '@supabase/supabase-js';
 import { Type } from '@graphql/types';
-import type { ReminderRecord } from '../types';
+import type { ReminderRecord } from '../../types';
 
 export type ReminderStoreOptions = {
 	reminderTable: string;

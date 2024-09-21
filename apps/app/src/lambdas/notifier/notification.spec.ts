@@ -5,7 +5,7 @@ import type {
 } from './notification';
 import { createNotificationHandler } from './notification';
 import { Currency, Frequency, Interval, Type } from '@graphql/types';
-import type { ReminderRecord, UserProfileRecord } from '../types';
+import type { ReminderRecord, UserProfileRecord } from '../../types';
 import type { EmailSender } from './email';
 import type { ReminderStore } from './reminder';
 
