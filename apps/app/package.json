@@ -22,9 +22,9 @@
 	},
 	"dependencies": {
 		"@aptabase/web": "0.4.3",
-		"@aws-sdk/client-dynamodb": "^3.651.1",
-		"@aws-sdk/client-ses": "^3.651.1",
-		"@aws-sdk/lib-dynamodb": "^3.651.1",
+		"@aws-sdk/client-dynamodb": "3.651.1",
+		"@aws-sdk/client-ses": "3.651.1",
+		"@aws-sdk/lib-dynamodb": "3.651.1",
 		"@supabase/ssr": "0.5.1",
 		"@supabase/supabase-js": "2.45.2",
 		"@sveltejs/adapter-vercel": "5.4.3",
