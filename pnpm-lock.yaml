@@ -31,13 +31,13 @@ importers:
         specifier: 0.4.3
         version: 0.4.3
       '@aws-sdk/client-dynamodb':
-        specifier: ^3.651.1
+        specifier: 3.651.1
         version: 3.651.1
       '@aws-sdk/client-ses':
-        specifier: ^3.651.1
+        specifier: 3.651.1
         version: 3.651.1
       '@aws-sdk/lib-dynamodb':
-        specifier: ^3.651.1
+        specifier: 3.651.1
         version: 3.651.1(@aws-sdk/client-dynamodb@3.651.1)
       '@supabase/ssr':
         specifier: 0.5.1
