@@ -37,7 +37,6 @@
 
 	let showNavigation = false;
 	let navFullHeight = false;
-	let navHeight = 'auto';
 
 	let isDragging = false;
 	let startY: number;
@@ -53,7 +52,7 @@
 	const showNav = () => {
 		showNavigation = true;
 		document.body.style.overflowY = 'hidden';
-		updateNavHeight(90);
+		updateNavHeight(80);
 	};
 
 	const hideNav = () => {
@@ -63,7 +62,7 @@
 
 	// Update the height on show or drag2w
 	const updateNavHeight = (height: number) => {
-		navHeight = `${height}vh`;
+		if (navContent) navContent.style.height = `${height}vh`;
 		if (height === 100) navFullHeight = true;
 	};
 
@@ -89,12 +88,12 @@
 		isDragging = false;
 		const sheetHeight = parseInt(navContent?.style.height || '');
 
-		if (sheetHeight < 25) {
+		if (sheetHeight < 50) {
 			hideNav();
-		} else if (sheetHeight > 75) {
+		} else if (sheetHeight > 90) {
 			updateNavHeight(100);
 		} else {
-			updateNavHeight(90);
+			updateNavHeight(80);
 		}
 	};
 
@@ -160,7 +159,7 @@
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<div class="overlay" on:click={hideNav} hidden={!showNavigation}></div>
-		<div class="content" style="height:{navHeight};">
+		<div class="content">
 			<!-- svelte-ignore a11y-no-static-element-interactions -->
 			<div
 				class="drag-icon"
@@ -312,6 +311,8 @@
 <style>
 	.wrapper {
 		grid-area: navigation;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.header {
@@ -323,7 +324,6 @@
 		width: 100%;
 	}
 	.navigation {
-		background-color: var(--remindwise-grey);
 		position: fixed;
 		bottom: 0;
 		left: 0;
@@ -332,6 +332,9 @@
 		pointer-events: none;
 		transition: 0.1s linear;
 		z-index: 1;
+		flex: 1;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.navigation.show {
@@ -343,18 +346,21 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		z-index: -1;
+		z-index: 1;
 		width: 100%;
+		height: 100%;
 		opacity: 0.2;
 		background: #000000;
 	}
 
 	.content {
+		background-color: var(--remindwise-grey);
 		width: 100%;
 		position: relative;
 		transform: translateY(100%);
 		border-radius: 1.2rem 1.2rem 0 0;
 		transition: 0.3s ease;
+		z-index: 2;
 	}
 
 	.show .content {
@@ -440,7 +446,7 @@
 		overflow-y: auto;
 		display: flex;
 		flex-direction: column;
-		block-size: 100%;
+		flex: 1;
 	}
 
 	.overflow::-webkit-scrollbar {
@@ -487,6 +493,8 @@
 
 	.content {
 		padding-bottom: 3.5rem;
+		display: flex;
+		flex-direction: column;
 	}
 
 	.content a {
@@ -570,18 +578,26 @@
 		width: 100%;
 	}
 
-	@media screen and (min-width: 1024px) {
-		.wrapper {
-			display: flex;
-			flex-direction: column;
-		}
+	.sticky {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		justify-content: flex-end;
+	}
 
+	.settings {
+		position: sticky;
+		bottom: 0;
+	}
+
+	@media screen and (min-width: 1024px) {
 		.header {
 			justify-content: center;
 		}
 
 		.header button,
-		.drag-icon {
+		.drag-icon,
+		.overlay {
 			display: none;
 		}
 
@@ -589,9 +605,6 @@
 			position: static;
 			opacity: 1;
 			pointer-events: auto;
-			flex: 1;
-			display: flex;
-			flex-direction: column;
 		}
 
 		.content {
@@ -599,12 +612,6 @@
 			max-height: none;
 			border-radius: 0;
 			flex: 1;
-			display: flex;
-			flex-direction: column;
-		}
-
-		.overlay {
-			display: none;
 		}
 
 		.overflow {
@@ -621,15 +628,7 @@
 			padding: 1rem 0 1rem 4rem;
 		}
 
-		.sticky {
-			display: flex;
-			flex-direction: column;
-			flex: 1;
-			justify-content: flex-end;
-		}
-
 		.settings {
-			position: sticky;
 			bottom: 3.5rem;
 		}
 	}
