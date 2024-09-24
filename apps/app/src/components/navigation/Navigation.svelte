@@ -60,7 +60,7 @@
 		document.body.style.overflowY = 'auto';
 	};
 
-	// Update the height on show or drag2w
+	// Update the height on show or drag
 	const updateNavHeight = (height: number) => {
 		if (navContent) navContent.style.height = `${height}vh`;
 		if (height === 100) navFullHeight = true;
