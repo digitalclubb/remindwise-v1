@@ -1,5 +1,5 @@
 import type { SNSMessage, SQSEvent } from 'aws-lambda';
-import type { UserProfileRecord } from '../../types';
+import type { UserProfileRecord } from '../types';
 
 export const getUserProfile = (sqsEvent: SQSEvent): UserProfileRecord => {
 	const { body } = sqsEvent.Records[0];

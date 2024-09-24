@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Handler } from 'aws-lambda';
 import { createUserProfileStore } from './user';
-import type { UserProfileRecord } from '../../types';
+import type { UserProfileRecord } from '../types';
 
 const serviceRole = process.env.SUPABASE_SERVICE_ROLE as string;
 const supabaseUrl = process.env.SUPABASE_URL as string;
