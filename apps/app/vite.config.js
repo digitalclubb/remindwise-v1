@@ -23,6 +23,10 @@ const config = {
 		exclude: ['**/node_modules/**', '**/tests/**'],
 		environment: 'jsdom',
 		setupFiles: './vitest.setup.ts',
+		reporters: ['verbose'],
+		chaiConfig: {
+			truncateThreshold: 300,
+		},
 	},
 };
 
