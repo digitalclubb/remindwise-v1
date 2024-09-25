@@ -655,6 +655,7 @@ describe('graphs', () => {
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-08-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							operation_type: OperationType.ReminderCreated,
 						},
 						{
@@ -740,6 +741,7 @@ describe('graphs', () => {
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-08-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							operation_type: OperationType.ReminderCreated,
 						},
 						{
