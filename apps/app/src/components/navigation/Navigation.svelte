@@ -62,7 +62,7 @@
 
 	// Update the height on show or drag
 	const updateNavHeight = (height: number) => {
-		if (navContent) navContent.style.height = `${height}dvh`;
+		if (navContent) navContent.style.height = `${height}svh`;
 		if (height === 100) navFullHeight = true;
 	};
 
