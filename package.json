@@ -18,14 +18,14 @@
 		"types": "pnpm -r types"
 	},
 	"devDependencies": {
-		"@playwright/test": "1.46.1",
+		"@playwright/test": "1.47.2",
 		"@testing-library/jest-dom": "6.5.0",
 		"eslint-plugin-playwright": "1.6.2",
 		"globals": "15.9.0"
 	},
 	"prepare": "svelte-kit sync",
-	"packageManager": "pnpm@9.9.0",
+	"packageManager": "pnpm@9.11.0",
 	"dependencies": {
-		"@supabase/supabase-js": "2.45.2"
+		"@supabase/supabase-js": "2.45.4"
 	}
 }
