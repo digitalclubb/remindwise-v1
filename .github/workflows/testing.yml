@@ -3,6 +3,9 @@ name: Testing
 on:
   pull_request:
     branches: main
+    paths-ignore:
+      - '!**/lambdas/**'
+      - '!terraform/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
@@ -45,7 +48,7 @@ jobs:
     name: Accessibility tests
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.46.1-jammy
+      image: mcr.microsoft.com/playwright:v1.47.2-jammy
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
@@ -64,7 +67,7 @@ jobs:
     name: Functional tests
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.46.1-jammy
+      image: mcr.microsoft.com/playwright:v1.47.2-jammy
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
@@ -83,7 +86,7 @@ jobs:
     name: Visual tests
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.46.1-jammy
+      image: mcr.microsoft.com/playwright:v1.47.2-jammy
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
