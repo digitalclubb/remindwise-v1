@@ -4,6 +4,7 @@
 	"type": "module",
 	"scripts": {
 		"build": "pnpm -r build",
+		"build:lambdas": "pnpm -r build:lambdas",
 		"preview": "pnpm -r preview",
 		"dev": "pnpm -r --parallel dev",
 		"lint": "pnpm -r lint",

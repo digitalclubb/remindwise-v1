@@ -12,3 +12,4 @@
 $houdini
 **/.auth/
 .turbo
+dist
