@@ -8,6 +8,7 @@
 	import Line from '../../components/charts/line/Index.svelte';
 	import type { LayoutData } from './$types';
 	import { getCurrency } from '../../utils/currency';
+	import { formatDate } from '../../utils/date';
 
 	export let data: LayoutData & PageData;
 	$: ({ GetReminders, GetCategories, GetSettings, graphData } = data);
@@ -225,7 +226,11 @@
 									currencyDisplay: 'narrowSymbol',
 								}).format(reminder.reminder.cost || 0)}</td>
 							<td data-heading="Due date"
-								>{reminder.reminder.day} of {reminder.reminder.month}</td>
+								>{formatDate(
+									reminder.reminder.day || 0,
+									reminder.reminder.month || 0,
+									currentYear
+								)}</td>
 							<td data-heading="Auto renewal"
 								>{reminder.reminder.auto_renewal?.valueOf() === undefined
 									? '-'
