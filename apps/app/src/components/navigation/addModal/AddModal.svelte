@@ -20,6 +20,13 @@
 		| Pick<Category, 'id' | 'icon_id' | 'name'>
 		| undefined;
 
+	$: {
+		form.set({
+			category: currentCategory?.name || '',
+			icon: currentCategory?.icon_id || '',
+		});
+	}
+
 	const { form, errors, constraints, validateForm } = superForm(
 		defaults(zod(addCategorySchema)),
 		{
@@ -81,7 +88,7 @@
 		novalidate>
 		<Input
 			fullWidth
-			label={currentCategory ? 'Rename category' : 'Category name'}
+			label="Category name"
 			type="text"
 			name="category"
 			id="category"
@@ -93,11 +100,7 @@
 			<p class="error">{$errors.category}</p>
 		{/if}
 
-		<p class="selectIntro">
-			{currentCategory
-				? 'Select a new icon for your category  '
-				: 'Select an icon for your category'}
-		</p>
+		<p class="selectIntro">Select an icon for your category</p>
 		<div class="icons">
 			{#each icons as icon}
 				<input
@@ -118,7 +121,7 @@
 		{/if}
 	</form>
 	<Button slot="action" type="submit" form="category-actions"
-		>{currentCategory ? 'Change category' : 'Add category'}</Button>
+		>{currentCategory ? 'Update category' : 'Add category'}</Button>
 </Modal>
 
 <style>
