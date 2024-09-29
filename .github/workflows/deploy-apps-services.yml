@@ -28,7 +28,7 @@ env:
   TF_VAR_stage: ${{ github.event_name == 'pull_request' && format('pr{0}', github.event.pull_request.number) || 'prod' }}
   TF_VAR_test_users: ${{ secrets.TEST_USERS }}
   TF_VAR_supabase_url: ${{ secrets.PUBLIC_SUPABASE_URL }}
-  TF_VAR_supabase_service_role: ${{ secrets.PRIVATE_SUPABASE_KEY }}
+  TF_VAR_supabase_service_role: ${{ secrets.TF_VAR_supabase_private_key }}
   TF_VAR_notifications_from_address: ${{ secrets.NOTIFICATIONS_FROM_ADDRESS }}
   TF_VAR_supabase_user_profile_table: Settings
   TF_VAR_supabase_reminder_table: Reminder
