@@ -15,7 +15,6 @@ export const getReminder = graphql.query<GetReminderQuery>(
 									id: '1',
 									name: 'Example reminder',
 									type: Type.Ongoing,
-									company: 'Example company',
 									cost: 10,
 									day: 10,
 									frequency: Frequency.Monthly,

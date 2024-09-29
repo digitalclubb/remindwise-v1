@@ -59,7 +59,6 @@ export const load: LayoutServerLoad = async (event) => {
 						category: reminder.category?.name || '',
 						name: reminder.name,
 						type: reminder.type as Type, // Is there better way to do this?
-						company: reminder.company,
 						cost: reminder.cost,
 						frequency: reminder.frequency as Frequency,
 						day: reminder.day || undefined,

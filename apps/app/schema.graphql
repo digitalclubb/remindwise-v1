@@ -712,7 +712,6 @@ type Reminder implements Node {
   auto_renewal: Boolean!
   category: Category
   category_id: UUID
-  company: String!
   cost: Float!
   created_at: Datetime
   day: Int
@@ -758,7 +757,6 @@ input ReminderFilter {
   and: [ReminderFilter!]
   auto_renewal: BooleanFilter
   category_id: UUIDFilter
-  company: StringFilter
   cost: FloatFilter
   created_at: DatetimeFilter
   day: IntFilter
@@ -784,7 +782,6 @@ input ReminderFilter {
 input ReminderInsertInput {
   auto_renewal: Boolean
   category_id: UUID
-  company: String
   cost: Float
   created_at: Datetime
   day: Int
@@ -809,7 +806,6 @@ type ReminderInsertResponse {
 input ReminderOrderBy {
   auto_renewal: OrderByDirection
   category_id: OrderByDirection
-  company: OrderByDirection
   cost: OrderByDirection
   created_at: OrderByDirection
   day: OrderByDirection
@@ -826,7 +822,6 @@ input ReminderOrderBy {
 input ReminderUpdateInput {
   auto_renewal: Boolean
   category_id: UUID
-  company: String
   cost: Float
   created_at: Datetime
   day: Int

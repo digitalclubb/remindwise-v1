@@ -89,23 +89,6 @@
 
 		<div class="columns">
 			<div>
-				<Input
-					label="Company"
-					type="text"
-					name="company"
-					id="company"
-					fullWidth
-					placeholder="Enter the name of the company"
-					aria-invalid={$errors.company ? 'true' : undefined}
-					bind:value={$form.company}
-					{...$constraints.company} />
-
-				{#if $errors.company}
-					<p class="error">{$errors.company}</p>
-				{/if}
-			</div>
-
-			<div>
 				<label for="cost">
 					{#if $form.type === 'SINGLE'}
 						What is the total?<i aria-hidden="true">*</i>
@@ -129,9 +112,7 @@
 					<p class="error">{$errors.cost}</p>
 				{/if}
 			</div>
-		</div>
 
-		<div class="columns">
 			{#if $form.type === 'ONGOING'}
 				<div class="options-wrapper">
 					<Radio
@@ -151,7 +132,9 @@
 					{/if}
 				</div>
 			{/if}
+		</div>
 
+		<div class="columns">
 			<div>
 				{#if $form.type === 'SINGLE'}
 					<label for="date">What is the date?<i aria-hidden="true">*</i></label>

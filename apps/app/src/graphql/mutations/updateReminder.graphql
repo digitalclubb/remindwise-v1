@@ -3,7 +3,6 @@ mutation UpdateReminder(
 	$categoryId: UUID!
 	$name: String!
 	$type: Type!
-	$company: String
 	$cost: Float
 	$frequency: Frequency
 	$autoRenewal: Boolean
@@ -15,7 +14,6 @@ mutation UpdateReminder(
 			category_id: $categoryId
 			name: $name
 			type: $type
-			company: $company
 			cost: $cost
 			frequency: $frequency
 			auto_renewal: $autoRenewal

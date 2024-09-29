@@ -158,7 +158,6 @@
 			<thead>
 				<tr>
 					<th>Name</th>
-					<th>Company</th>
 					<th>Cost</th>
 					<th>Due date</th>
 					<th>Auto renewal</th>
@@ -185,7 +184,6 @@
 									><use
 										xlink:href="#{reminder.reminder.category?.icon_id}" /></svg
 								></td>
-							<td data-heading="Company">{reminder.reminder.company}</td>
 							<td data-heading="Cost"
 								>{new Intl.NumberFormat('en-GB', {
 									style: 'currency',
@@ -239,7 +237,6 @@
 			<thead>
 				<tr>
 					<th>Name</th>
-					<th>Company</th>
 					<th>Re-occuring cost</th>
 					<th>Total accured</th>
 					<th>View</th>
@@ -260,7 +257,6 @@
 									><use
 										xlink:href="#{reminder.reminder.category?.icon_id}" /></svg
 								></td>
-							<td data-heading="Company">{reminder.reminder.company}</td>
 							<td data-heading="Re-occuring cost"
 								>{new Intl.NumberFormat('en-GB', {
 									style: 'currency',
