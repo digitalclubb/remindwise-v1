@@ -1,10 +1,14 @@
 <script lang="ts">
 	import Link from '../../../../../components/link/Link.svelte';
 	import Header from '../../../../../components/header/Header.svelte';
+	import { formatDate } from '../../../../../utils/date';
 	import type { PageData } from './$houdini';
 	import { page } from '$app/stores';
 
 	export let data: PageData;
+
+	const currentYear = new Date().getFullYear();
+
 	$: ({ GetSettings } = data);
 
 	$: reminder = data?.data?.reminders?.list[0].reminder;
@@ -62,7 +66,12 @@
 				{:else}
 					due for renewal on
 				{/if}
-				<span class="highlight">{reminder.day} of {reminder.month}</span>
+				<span class="highlight"
+					>{formatDate(
+						reminder.day || 0,
+						reminder.month || 0,
+						currentYear
+					)}</span>
 				{#if reminder.type === 'ONGOING'}
 					<br />will be charged
 					<span class="highlight">{reminder.frequency?.toLowerCase()}</span>
