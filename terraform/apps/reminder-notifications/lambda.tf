@@ -14,6 +14,7 @@ resource "aws_lambda_function" "user_retriever" {
       SUPABASE_URL                = var.supabase_url
       SUPABASE_SERVICE_ROLE       = var.supabase_service_role
       SUPABASE_USER_PROFILE_TABLE = var.supabase_user_profile_table
+      TEST_USERS                  = var.test_users
     }
   }
 }

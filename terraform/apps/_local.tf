@@ -1,3 +1,3 @@
 locals {
-    resource_prefix = "${var.stage}-"
+  resource_prefix = "${var.stage}-"
 }

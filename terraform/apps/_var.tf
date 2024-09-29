@@ -1,9 +1,9 @@
 variable "stage" {
-  type    = string
+  type = string
 }
 
 variable "supabase_url" {
-  type    = string
+  type = string
 }
 
 variable "supabase_service_role" {
@@ -27,5 +27,9 @@ variable "reminder_notifications_cron" {
 }
 
 variable "notifications_from_address" {
-  type    = string
+  type = string
+}
+
+variable "test_users" {
+  type = string
 }

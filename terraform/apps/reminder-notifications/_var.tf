@@ -26,3 +26,7 @@ variable "reminder_notifications_cron" {
 variable "notifications_from_address" {
   type = string
 }
+
+variable "test_users" {
+  type = string
+}

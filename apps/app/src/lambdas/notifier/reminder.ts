@@ -20,7 +20,7 @@ export const createReminderStore = (
 		): Promise<Array<ReminderRecord>> => {
 			const { data } = await supabaseClient
 				.from(options.reminderTable)
-				.select('*')
+				.select()
 				.eq('user_id', userId)
 				.match({
 					type: Type.Ongoing,
