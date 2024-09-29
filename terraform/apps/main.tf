@@ -14,7 +14,7 @@ provider "aws" {}
 module "reminder_notifications" {
   source = "./reminder-notifications"
 
-  resource_prefix             = var.resource_prefix
+  resource_prefix             = local.resource_prefix
   supabase_url                = var.supabase_url
   supabase_service_role       = var.supabase_service_role
   supabase_user_profile_table = var.supabase_user_profile_table

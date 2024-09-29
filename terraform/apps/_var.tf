@@ -1,6 +1,5 @@
-variable "resource_prefix" {
+variable "stage" {
   type    = string
-  default = "test-"
 }
 
 variable "supabase_url" {
