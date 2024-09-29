@@ -5,7 +5,6 @@ query GetReminder($slug: UUID) @load {
 				id
 				name
 				type
-				company
 				cost
 				day
 				month

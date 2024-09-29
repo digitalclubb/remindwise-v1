@@ -55,8 +55,7 @@
 
 		<div class="content">
 			<p class="overview">
-				with <span class="highlight">{reminder.company}</span><br /> at a cost
-				of
+				at a cost of
 				<span class="highlight">{cost}</span><br />
 				{#if reminder.type === 'SINGLE'}
 					with a date of

@@ -10,7 +10,6 @@ query GetReminders(
 			reminder: node {
 				id
 				name
-				company
 				cost
 				day
 				month
@@ -40,7 +39,6 @@ query GetReminders(
 			reminder: node {
 				id
 				name
-				company
 				cost
 				category {
 					id

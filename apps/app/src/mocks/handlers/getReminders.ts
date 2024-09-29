@@ -13,7 +13,6 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 								reminder: {
 									id: '1',
 									name: 'Example upcoming reminder',
-									company: 'Example company',
 									cost: 10,
 									day: 10,
 									month: 10,
@@ -37,7 +36,6 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 								reminder: {
 									id: '2',
 									name: 'Example reminder 1',
-									company: 'Example company',
 									cost: 10,
 									category: {
 										id: '1',
@@ -50,7 +48,6 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 								reminder: {
 									id: '3',
 									name: 'Example reminder 2',
-									company: 'Example company',
 									cost: 10,
 									category: {
 										id: '1',
@@ -63,7 +60,6 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 								reminder: {
 									id: '4',
 									name: 'Example reminder 3',
-									company: 'Example company',
 									cost: 10,
 									category: {
 										id: '1',

@@ -64,7 +64,6 @@ export const actions: Actions = {
 				categoryId: newId || data.categoryId,
 				name: data.name,
 				type: data.type,
-				company: data.company,
 				cost: data.cost,
 				day: startedAtDate.getDate(),
 				month: startedAtDate.getMonth() + 1,

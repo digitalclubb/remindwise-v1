@@ -3,7 +3,6 @@ mutation AddReminder(
 	$categoryId: UUID!
 	$name: String!
 	$type: Type!
-	$company: String
 	$cost: Float
 	$day: Int
 	$month: Int
@@ -19,7 +18,6 @@ mutation AddReminder(
 				category_id: $categoryId
 				name: $name
 				type: $type
-				company: $company
 				cost: $cost
 				day: $day
 				month: $month

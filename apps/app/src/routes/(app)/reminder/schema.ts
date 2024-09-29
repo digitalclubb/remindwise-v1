@@ -9,7 +9,6 @@ export const editReminderSchema = z.object({
 	type: z.nativeEnum(Type, {
 		required_error: 'Select the type of your reminder',
 	}),
-	company: z.string().min(1, 'Company is required'),
 	cost: z.number().min(1, 'Cost is required'),
 	frequency: z.nativeEnum(Frequency).optional(),
 	date: z.string().optional(),

@@ -9,7 +9,6 @@ export const actions: Actions = {
 		const formData = await event.request.formData();
 		const form = await superValidate(formData, zod(editReminderSchema));
 		const files = formData.getAll('documents') as File[];
-		console.log('form', form);
 		const { valid, data } = form;
 
 		if (!valid) {
@@ -40,7 +39,6 @@ export const actions: Actions = {
 				categoryId: newId || data.categoryId,
 				name: data.name,
 				type: data.type,
-				company: data.company,
 				cost: data.cost,
 				frequency: data.frequency,
 				autoRenewal: data.autoRenew,
