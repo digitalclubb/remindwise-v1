@@ -4,6 +4,9 @@
 	"scripts": {
 		"dev": "vite dev --port 3000",
 		"build": "vite build",
+		"build:lambdas": "pnpm run build:notifier && pnpm run build:user-retriever",
+		"build:notifier": "esbuild src/lambdas/notifier/index.ts --bundle --minify --sourcemap --platform=node --target=es2020 --outfile=../../dist/notifier/index.js",
+		"build:user-retriever": "esbuild src/lambdas/user-retriever/index.ts --bundle --minify --sourcemap --platform=node --target=es2020 --outfile=../../dist/user-retriever/index.js",
 		"package": "vite package",
 		"prepare": "svelte-kit sync",
 		"preview": "vite preview --port 4174",
@@ -61,6 +64,7 @@
 		"@typescript-eslint/eslint-plugin": "8.7.0",
 		"@typescript-eslint/parser": "8.7.0",
 		"dotenv": "16.4.5",
+		"esbuild": "0.24.0",
 		"eslint": "9.11.1",
 		"eslint-config-prettier": "9.1.0",
 		"eslint-plugin-svelte": "2.44.1",
