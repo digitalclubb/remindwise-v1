@@ -22,7 +22,6 @@ on:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
-  cancel-in-progress: true
 
 env:
   TF_VAR_stage: ${{ github.event_name == 'pull_request' && format('pr{0}', github.event.pull_request.number) || 'prod' }}
