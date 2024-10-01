@@ -218,7 +218,7 @@ const getReminderNotificationMessage = (
 	dueReminders.reduce(
 		(message, dueReminder) =>
 			message +
-			`A payment of ${dueReminder.cost} ${currency} for ${dueReminder.name} is due in ${dueReminder.daysUntilRenewal} days on ${dueReminder.renewalDate.toDateString()}.\n`,
+			`A payment of ${dueReminder.cost} ${currency} for ${dueReminder.name} is due in ${dueReminder.daysUntilRenewal} day/s on ${dueReminder.renewalDate.toDateString()}.\n`,
 		''
 	);
 
