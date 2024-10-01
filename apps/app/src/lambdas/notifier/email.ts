@@ -6,6 +6,7 @@ export type EmailSenderOptions = {
 
 export type EmailSenderRequest = {
 	recipients: Array<string>;
+	subject: string;
 	message: string;
 };
 
@@ -32,7 +33,7 @@ export const createEmailSender = (
 					},
 					Subject: {
 						Charset: 'UTF-8',
-						Data: 'Upcoming payments',
+						Data: request.subject,
 					},
 				},
 				Source: options.fromAddress,
