@@ -42,6 +42,7 @@ type DueRemindersTestData = {
 	userProfile: UserProfileRecord;
 	reminders: Array<ReminderRecord>;
 	notificationState: ReminderNotificationState | null;
+	expectedSubject: string;
 	expectedMessage: string;
 	expectedNotificationState: ReminderNotificationState;
 };
@@ -83,7 +84,7 @@ describe('notifier', async () => {
 					{
 						id: '124',
 						created_at: new Date('2023-09-10T09:00:00.000Z'),
-						started_at: new Date('2023-09-12T09:00:00.000Z'),
+						started_at: new Date('2023-09-11T09:00:00.000Z'),
 						cost: 9,
 						user_id: '123',
 						category_id: '123',
@@ -101,7 +102,7 @@ describe('notifier', async () => {
 						user_id: '123',
 						category_id: '123',
 						notes: 't',
-						name: 'dorayaki',
+						name: 'tempura',
 						type: Type.Ongoing,
 						frequency: Frequency.Monthly,
 						auto_renewal: true,
@@ -117,8 +118,9 @@ describe('notifier', async () => {
 					notice_period: 7,
 					interval: Interval.Days,
 				},
+				expectedSubject: 'Upcoming payments',
 				expectedMessage:
-					'A payment of 11 GBP for mochi is due in 5 days on Sun Sep 15 2024.\nA payment of 9 GBP for dorayaki is due in 2 days on Thu Sep 12 2024.\n',
+					'A payment of 11 GBP for mochi is due in 5 days on Sun Sep 15 2024.\nA payment of 9 GBP for dorayaki is due in 1 day on Wed Sep 11 2024.\n',
 				notificationState: {
 					userId: '123',
 					checkpoints: [
@@ -177,6 +179,7 @@ describe('notifier', async () => {
 					notice_period: 10,
 					interval: Interval.Days,
 				},
+				expectedSubject: 'Upcoming payments',
 				expectedMessage:
 					'A payment of 11 CAD for mochi is due in 10 days on Sat Oct 05 2024.\n',
 				notificationState: null,
@@ -221,6 +224,7 @@ describe('notifier', async () => {
 					notice_period: 14,
 					interval: Interval.Days,
 				},
+				expectedSubject: 'Upcoming payments',
 				expectedMessage:
 					'A payment of 11 CAD for mochi is due in 14 days on Fri Jan 03 2025.\n',
 				notificationState: null,
@@ -271,6 +275,7 @@ describe('notifier', async () => {
 		expect(sendEmailSpy).toHaveBeenCalledOnce();
 		expect(sendEmailSpy).toHaveBeenCalledWith({
 			recipients: [data.userProfile.email],
+			subject: data.expectedSubject,
 			message: data.expectedMessage,
 		});
 		expect(upsertNotificationStateSpy).toHaveBeenCalledOnce();
