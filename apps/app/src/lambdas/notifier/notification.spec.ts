@@ -353,6 +353,93 @@ describe('notifier', async () => {
 		expect(upsertNotificationStateSpy).not.toBeCalled();
 	});
 
+	it('should not send notification when reminders have already been sent within the notice period', async () => {
+		const userProfile = {
+			id: '123',
+			updated_at: new Date('2024-09-10T09:00:00.000Z'),
+			first_name: 'test',
+			last_name: 'user',
+			email: 'test@example.com',
+			currency: Currency.Cad,
+			notice_period: 5,
+			interval: Interval.Days,
+		};
+		const remindersAlreadySent = [
+			{
+				id: '123',
+				created_at: new Date('2023-09-01T09:00:00.000Z'),
+				started_at: new Date('2023-09-11T09:00:00.000Z'),
+				cost: 11,
+				user_id: '123',
+				category_id: '123',
+				notes: 't',
+				name: 'mochi',
+				type: Type.Ongoing,
+				frequency: Frequency.Monthly,
+				auto_renewal: true,
+			},
+			{
+				id: '124',
+				created_at: new Date('2023-09-01T09:00:00.000Z'),
+				started_at: new Date('2023-09-11T09:00:00.000Z'),
+				cost: 9,
+				user_id: '123',
+				category_id: '123',
+				notes: 't',
+				name: 'dorayaki',
+				type: Type.Ongoing,
+				frequency: Frequency.Annual,
+				auto_renewal: true,
+			},
+		];
+		const notificationState = {
+			userId: '123',
+			checkpoints: [
+				{
+					reminderId: '123',
+					lastNotified: '2024-09-10T07:00:00.000Z',
+				},
+				{
+					reminderId: '124',
+					lastNotified: '2024-09-10T07:00:00.000Z',
+				},
+			],
+		};
+		const fromDate = new Date('2024-09-10T09:00:00.000Z');
+		const { emailSender, reminderNotificationStateStore, reminderStore } =
+			getMocks();
+		const sendEmailSpy = vi.spyOn(emailSender, 'sendEmail');
+		const getRecurringRemindersSpy = vi.spyOn(
+			reminderStore,
+			'getRecurringReminders'
+		);
+		const upsertNotificationStateSpy = vi.spyOn(
+			reminderNotificationStateStore,
+			'upsertReminderNotificationState'
+		);
+		const getNotificationStateSpy = vi.spyOn(
+			reminderNotificationStateStore,
+			'getReminderNotificationState'
+		);
+		const handler = createNotificationHandler(
+			emailSender,
+			reminderNotificationStateStore,
+			reminderStore
+		);
+
+		getRecurringRemindersSpy.mockImplementation(
+			async () => remindersAlreadySent
+		);
+		getNotificationStateSpy.mockImplementation(async () => notificationState);
+
+		vi.setSystemTime(fromDate);
+
+		await handler.handleNotifications(userProfile);
+
+		expect(sendEmailSpy).not.toBeCalled();
+		expect(upsertNotificationStateSpy).not.toBeCalled();
+	});
+
 	it('should not send notification or update state when user has no reminders', async () => {
 		const userProfile = {
 			id: '123',
