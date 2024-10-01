@@ -32,7 +32,7 @@ export const createEmailSender = (
 					},
 					Subject: {
 						Charset: 'UTF-8',
-						Data: 'Reminders due',
+						Data: 'Upcoming payments',
 					},
 				},
 				Source: options.fromAddress,

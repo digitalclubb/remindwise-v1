@@ -215,12 +215,15 @@ const getReminderNotificationMessage = (
 	dueReminders: Array<DueReminderDetails>,
 	currency: Currency
 ): string =>
-	dueReminders.reduce(
-		(message, dueReminder) =>
+	dueReminders.reduce((message, dueReminder) => {
+		const { cost, name, daysUntilRenewal, renewalDate } = dueReminder;
+		const daysUntilRenewalString = `${daysUntilRenewal} ${dueReminder.daysUntilRenewal > 1 ? 'days' : 'day'}`;
+
+		return (
 			message +
-			`A payment of ${dueReminder.cost} ${currency} for ${dueReminder.name} is due in ${dueReminder.daysUntilRenewal} days on ${dueReminder.renewalDate.toDateString()}.\n`,
-		''
-	);
+			`A payment of ${cost} ${currency} for ${name} is due in ${daysUntilRenewalString} on ${renewalDate.toDateString()}.\n`
+		);
+	}, '');
 
 export interface NotificationHandler {
 	handleNotifications(userProfile: UserProfileRecord): Promise<void>;
@@ -271,6 +274,7 @@ export const createNotificationHandler = (
 
 			await emailSender.sendEmail({
 				recipients: [email as string],
+				subject: 'Upcoming payments',
 				message,
 			});
 
