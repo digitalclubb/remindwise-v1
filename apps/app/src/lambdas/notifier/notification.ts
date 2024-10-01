@@ -76,6 +76,7 @@ const getDueReminders = (
 		if (
 			lastNotifiedDate &&
 			notifiedWithinNoticePeriod(
+				fromDate,
 				lastNotifiedDate,
 				renewalDate,
 				noticePeriodInDays
@@ -179,14 +180,18 @@ const getCheckpointsByReminderId = (
 };
 
 const notifiedWithinNoticePeriod = (
+	fromDate: Date,
 	lastNotified: Date,
 	renewalDate: Date,
 	noticePeriodInDays: number
 ): boolean => {
-	return isWithinInterval(lastNotified, {
-		start: sub(renewalDate, { days: noticePeriodInDays }),
-		end: renewalDate,
-	});
+	return (
+		isAfter(lastNotified, fromDate) ||
+		isWithinInterval(lastNotified, {
+			start: sub(renewalDate, { days: noticePeriodInDays }),
+			end: renewalDate,
+		})
+	);
 };
 
 const outsideNotificationWindow = (
