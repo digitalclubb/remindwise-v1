@@ -31,6 +31,8 @@ jobs:
   destroy:
     name: Destroy
     runs-on: ubuntu-latest
+    environment:
+      name: 'Preview - remindwise-apps-services'
     permissions:
       id-token: write
       contents: read
