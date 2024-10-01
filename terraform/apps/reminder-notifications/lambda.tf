@@ -11,6 +11,7 @@ resource "aws_lambda_function" "user_retriever" {
 
   environment {
     variables = {
+      STAGE                       = var.stage
       SUPABASE_URL                = var.supabase_url
       SUPABASE_SERVICE_ROLE       = var.supabase_service_role
       SUPABASE_USER_PROFILE_TABLE = var.supabase_user_profile_table
