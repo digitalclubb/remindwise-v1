@@ -22,7 +22,7 @@
 		"@playwright/test": "1.47.2",
 		"@testing-library/jest-dom": "6.5.0",
 		"eslint-plugin-playwright": "1.6.2",
-		"globals": "15.9.0"
+		"globals": "15.10.0"
 	},
 	"prepare": "svelte-kit sync",
 	"packageManager": "pnpm@9.11.0",
