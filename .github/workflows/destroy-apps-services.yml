@@ -31,6 +31,7 @@ jobs:
   destroy:
     name: Destroy
     runs-on: ubuntu-latest
+    if: ${{ github.actor != 'renovate[bot]' }}
     environment:
       name: 'Preview - remindwise-apps-services'
     permissions:
