@@ -261,7 +261,7 @@ export const createNotificationHandler = (
 		handleNotifications: async (
 			userProfile: UserProfileRecord
 		): Promise<void> => {
-			const today = new Date();
+			const today = new UTCDate();
 			const { id, email, notice_period } = userProfile;
 			const reminders = await reminderStore.getRecurringReminders(id);
 			if (!reminders.length) {
