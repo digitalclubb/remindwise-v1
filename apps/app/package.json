@@ -28,6 +28,7 @@
 		"@aws-sdk/client-dynamodb": "3.664.0",
 		"@aws-sdk/client-ses": "3.664.0",
 		"@aws-sdk/lib-dynamodb": "3.664.0",
+		"@date-fns/utc": "2.1.0",
 		"@supabase/ssr": "0.5.1",
 		"@supabase/supabase-js": "2.45.4",
 		"@sveltejs/adapter-vercel": "5.4.4",
