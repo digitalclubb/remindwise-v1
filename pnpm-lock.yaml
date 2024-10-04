@@ -39,6 +39,9 @@ importers:
       '@aws-sdk/lib-dynamodb':
         specifier: 3.664.0
         version: 3.664.0(@aws-sdk/client-dynamodb@3.664.0)
+      '@date-fns/utc':
+        specifier: 2.1.0
+        version: 2.1.0
       '@supabase/ssr':
         specifier: 0.5.1
         version: 0.5.1(@supabase/supabase-js@2.45.4)
@@ -738,6 +741,9 @@ packages:
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
+
+  '@date-fns/utc@2.1.0':
+    resolution: {integrity: sha512-176grgAgU2U303rD2/vcOmNg0kGPbhzckuH1TEP2al7n0AQipZIy9P15usd2TKQCG1g+E1jX/ZVQSzs4sUDwgA==}
 
   '@envelop/core@4.0.3':
     resolution: {integrity: sha512-O0Vz8E0TObT6ijAob8jYFVJavcGywKThM3UAsxUIBBVPYZTMiqI9lo2gmAnbMUnrDcAYkUTZEW9FDYPRdF5l6g==}
@@ -5686,6 +5692,8 @@ snapshots:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
     optional: true
+
+  '@date-fns/utc@2.1.0': {}
 
   '@envelop/core@4.0.3':
     dependencies:
