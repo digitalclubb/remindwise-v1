@@ -6,7 +6,6 @@
 	import Line from '../../../../components/charts/line/Index.svelte';
 	import Header from '../../../../components/header/Header.svelte';
 	import { getCurrency } from '../../../../utils/currency';
-	import { formatDate } from '../../../../utils/date';
 	import { getRenewalDate } from '../../../../lambdas/notifier/notification.js';
 
 	export let data;

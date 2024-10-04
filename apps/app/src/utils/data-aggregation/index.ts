@@ -143,7 +143,7 @@ export const calculateGraphData = (
 				aggregateData.categoryId?.toString() ?? ''
 			) ?? getDateBuckets();
 
-		let total = 0;
+		// let total = 0;
 		for (const [key, value] of aggregateData.monthCosts) {
 			// Update the total months cost for that account
 			graphData.totalMonthCosts.set(
@@ -151,7 +151,7 @@ export const calculateGraphData = (
 				(graphData.totalMonthCosts.get(key) ?? 0) + value
 			);
 
-			total += value;
+			// total += value;
 			// Update the per category months cost for that account
 			categoryData.set(key, (categoryData.get(key) ?? 0) + value);
 		}
