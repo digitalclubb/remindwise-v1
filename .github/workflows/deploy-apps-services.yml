@@ -64,7 +64,7 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     environment:
-      name: ${{ github.event_name == 'pull_request' && 'Preview — remindwiseapps-services' || 'Production — remindwise-apps-services' }}
+      name: ${{ github.event_name == 'pull_request' && 'Preview — remindwise-apps-services' || 'Production — remindwise-apps-services' }}
     needs: [quality-static, unit-tests]
     permissions:
       id-token: write
