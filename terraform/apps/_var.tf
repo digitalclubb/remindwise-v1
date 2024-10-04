@@ -31,7 +31,7 @@ variable "notifications_from_address" {
 }
 
 variable "notifications_display_name" {
-  type = string
+  type    = string
   default = "Remindwise"
 }
 
