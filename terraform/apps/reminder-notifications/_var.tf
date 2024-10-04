@@ -31,6 +31,10 @@ variable "notifications_from_address" {
   type = string
 }
 
+variable "notifications_display_name" {
+  type = string
+}
+
 variable "test_users" {
   type = string
 }

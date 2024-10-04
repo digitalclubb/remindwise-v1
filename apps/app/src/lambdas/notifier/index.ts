@@ -18,6 +18,7 @@ const reminderTable = env.SUPABASE_REMINDER_TABLE as string;
 const reminderNotificationStateTable =
 	env.DYNAMO_NOTIFICATION_STATE_TABLE as string;
 const notificationsFromAddress = env.NOTIFICATIONS_FROM_ADDRESS as string;
+const notificationsDisplayName = env.NOTIFICATIONS_DISPLAY_NAME as string;
 const supabase = createClient(supabaseUrl, serviceRole);
 const dynamo = DynamoDBDocumentClient.from(new DynamoDBClient());
 const ses = new SESClient();
@@ -30,6 +31,7 @@ export const handler: SQSHandler = async (event: SQSEvent): Promise<void> => {
 	const reminderStore = createReminderStore(supabase, { reminderTable });
 	const emailSender = createEmailSender(ses, {
 		fromAddress: notificationsFromAddress,
+		displayName: notificationsDisplayName,
 	});
 	const notificationHandler = createNotificationHandler(
 		emailSender,

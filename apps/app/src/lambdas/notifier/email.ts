@@ -2,6 +2,7 @@ import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
 
 export type EmailSenderOptions = {
 	fromAddress: string;
+	displayName: string;
 };
 
 export type EmailSenderRequest = {
@@ -36,7 +37,7 @@ export const createEmailSender = (
 						Data: request.subject,
 					},
 				},
-				Source: options.fromAddress,
+				Source: `${options.displayName} <${options.fromAddress}>`,
 			};
 			const command = new SendEmailCommand(params);
 

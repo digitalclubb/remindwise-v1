@@ -22,5 +22,6 @@ module "reminder_notifications" {
   supabase_reminder_table     = var.supabase_reminder_table
   reminder_notifications_cron = var.reminder_notifications_cron
   notifications_from_address  = var.notifications_from_address
+  notifications_display_name  = var.notifications_display_name
   test_users                  = var.test_users
 }

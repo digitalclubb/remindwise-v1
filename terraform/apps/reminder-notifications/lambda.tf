@@ -78,6 +78,7 @@ resource "aws_lambda_function" "reminder_notifications" {
       SUPABASE_REMINDER_TABLE         = var.supabase_reminder_table
       DYNAMO_NOTIFICATION_STATE_TABLE = aws_dynamodb_table.reminder_notifications.id
       NOTIFICATIONS_FROM_ADDRESS      = var.notifications_from_address
+      NOTIFICATIONS_DISPLAY_NAME      = var.notifications_display_name
     }
   }
 }
