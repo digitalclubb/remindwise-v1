@@ -157,7 +157,7 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.5rem;
-		max-height: 55rem;
+		max-height: 63rem;
 		overflow-y: auto;
 	}
 
@@ -173,8 +173,8 @@
 	}
 
 	.icons svg {
-		width: 2.6rem;
-		height: 2.6rem;
+		width: 3rem;
+		height: 3rem;
 	}
 
 	input[type='radio'] {
