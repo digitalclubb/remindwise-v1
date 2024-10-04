@@ -5,9 +5,20 @@ query GetReminders(
 	$after: Cursor
 	$before: Cursor
 ) {
-	upcoming: reminderCollection(filter: { category_id: { eq: $categoryId } }) {
+	upcomingReminders: reminderCollection(
+		filter: {
+			type: { eq: ONGOING }
+			auto_renewal: { eq: true }
+			category_id: { eq: $categoryId }
+		}
+	) {
 		list: edges {
 			reminder: node {
+				auto_renewal
+				started_at
+				created_at
+				frequency
+				type
 				id
 				name
 				cost
@@ -37,6 +48,10 @@ query GetReminders(
 		}
 		list: edges {
 			reminder: node {
+				started_at
+				created_at
+				frequency
+				type
 				id
 				name
 				cost

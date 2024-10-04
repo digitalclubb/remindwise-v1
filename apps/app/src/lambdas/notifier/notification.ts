@@ -134,7 +134,10 @@ export const createReminderNotificationStateStore = (
 	};
 };
 
-const getRenewalDate = (reminder: ReminderRecord, today: Date): Date | null => {
+export const getRenewalDate = (
+	reminder: ReminderRecord,
+	today: Date
+): Date | null => {
 	const reminderDay = (reminder.started_at as Date).getUTCDate();
 	const reminderMonth = (reminder.started_at as Date).getUTCMonth();
 	const currentYear = today.getUTCFullYear();

@@ -12,21 +12,18 @@ export const load: LayoutServerLoad = async (event) => {
 	const myQuery = new GetHistoryStore();
 	const { data } = await myQuery.fetch({ event });
 
-	const destructure = data?.history?.list.map((history) => {
-		return {
-			...history.history,
-			started_at: new Date(history.history.started_at),
-			created_at: new Date(history.history.created_at),
-		};
-	});
+	const historyEvents = data?.history?.list.flatMap(
+		(history) => history.history
+	);
 
-	// do we need to sort the reminders or do they come sorted from DB?
-	if (destructure) {
-		const list = destructure as History[];
-		const result = calculateGraphData(new Date().getFullYear(), list);
+	if (historyEvents) {
+		const graphData = calculateGraphData(
+			new Date().getFullYear(),
+			historyEvents as History[]
+		);
 
 		return {
-			graphData: result,
+			graphData,
 			session,
 			user,
 		};
