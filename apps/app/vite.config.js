@@ -1,3 +1,4 @@
+import { sentrySvelteKit } from '@sentry/sveltekit';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { vitePluginGraphqlLoader } from 'vite-plugin-graphql-loader';
 import houdini from 'houdini/vite';
@@ -8,7 +9,19 @@ const config = {
 	build: {
 		target: 'esnext',
 	},
-	plugins: [houdini(), sveltekit(), vitePluginGraphqlLoader()],
+
+	plugins: [
+		sentrySvelteKit({
+			sourceMapsUploadOptions: {
+				org: 'remindwise',
+				project: 'remindwise',
+			},
+		}),
+		houdini(),
+		sveltekit(),
+		vitePluginGraphqlLoader(),
+	],
+
 	resolve: {
 		alias: [
 			{
@@ -17,6 +30,7 @@ const config = {
 			},
 		],
 	},
+
 	test: {
 		globals: true,
 		include: ['**/*.{test,spec}.ts'],
