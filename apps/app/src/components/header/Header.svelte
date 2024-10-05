@@ -70,7 +70,7 @@
 		height: 3rem;
 	}
 
-	.notification span {
+	/* .notification span {
 		background-color: var(--orange);
 		border-radius: 50%;
 		font-size: 1.2rem;
@@ -84,7 +84,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-	}
+	} */
 
 	@media screen and (min-width: 1024px) {
 		header {
