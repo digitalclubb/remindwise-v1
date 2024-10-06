@@ -135,7 +135,7 @@ export const createReminderNotificationStateStore = (
 	};
 };
 
-const getRenewalDate = (
+export const getRenewalDate = (
 	reminder: ReminderRecord,
 	fromDate: Date
 ): Date | null => {

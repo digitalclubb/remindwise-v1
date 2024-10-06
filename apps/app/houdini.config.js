@@ -21,12 +21,18 @@ const config = {
 		},
 		Date: {
 			type: 'Date',
+			unmarshal(val) {
+				return val ? new Date(val) : null;
+			},
 		},
 		Cursor: {
 			type: 'Cursor',
 		},
 		Datetime: {
-			type: 'string',
+			type: 'Date',
+			unmarshal(val) {
+				return val ? new Date(val) : null;
+			},
 		},
 	},
 };

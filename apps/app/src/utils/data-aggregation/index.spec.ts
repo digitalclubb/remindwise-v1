@@ -298,6 +298,41 @@ describe('graphs', () => {
 				);
 			});
 
+			it('data for 2024 of a monthly reminder that starts in September and cost updated in August the month before', () => {
+				const result = calculateGraphData(
+					2024,
+					generateReminderEvents([
+						{
+							created_at: new Date('2024-08-26T15:00:00.000Z'),
+							started_at: new Date('2024-09-05T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
+						},
+						{
+							created_at: new Date('2024-08-27T15:00:00.000Z'),
+							started_at: new Date('2024-09-05T15:00:00.000Z'),
+							operation_type: OperationType.ReminderUpdated,
+							cost: 50,
+						},
+					]) as ReminderHistoryRecord[]
+				);
+				expect(result.totalMonthCosts).toEqual(
+					new Map([
+						['1', 0],
+						['2', 0],
+						['3', 0],
+						['4', 0],
+						['5', 0],
+						['6', 0],
+						['7', 0],
+						['8', 0],
+						['9', 50],
+						['10', 50],
+						['11', 50],
+						['12', 50],
+					])
+				);
+			});
+
 			it('data for 2025 of a monthly reminder that started in Feb and cost updated in April, June and September in 2024', () => {
 				const result = calculateGraphData(
 					2025,
@@ -385,6 +420,170 @@ describe('graphs', () => {
 						['10', 150],
 						['11', 150],
 						['12', 150],
+					])
+				);
+			});
+
+			it("data for 2024 of a yearly reminder that starts in April next year and we're in August", () => {
+				const result = calculateGraphData(
+					2024,
+					generateReminderEvents([
+						{
+							created_at: new Date('2024-08-12T15:00:00.000Z'),
+							started_at: new Date('2025-04-04T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
+							frequency: Frequency.Annual,
+							day: 4,
+							month: 4,
+						},
+					]) as ReminderHistoryRecord[]
+				);
+				expect(result.totalMonthCosts).toEqual(
+					new Map([
+						['1', 0],
+						['2', 0],
+						['3', 0],
+						['4', 0],
+						['5', 0],
+						['6', 0],
+						['7', 0],
+						['8', 0],
+						['9', 0],
+						['10', 0],
+						['11', 0],
+						['12', 0],
+					])
+				);
+			});
+
+			it('data for 2024 of a yearly reminder that starts in April 2025 year, got updated in September 2024', () => {
+				const result = calculateGraphData(
+					2024,
+					generateReminderEvents([
+						{
+							created_at: new Date('2024-08-12T15:00:00.000Z'),
+							started_at: new Date('2025-04-04T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
+							frequency: Frequency.Annual,
+							day: 4,
+							month: 4,
+						},
+						{
+							created_at: new Date('2024-09-02T15:00:00.000Z'),
+							started_at: new Date('2025-04-04T15:00:00.000Z'),
+							operation_type: OperationType.ReminderUpdated,
+							frequency: Frequency.Annual,
+							day: 4,
+							month: 4,
+							cost: 200,
+						},
+					]) as ReminderHistoryRecord[]
+				);
+				expect(result.totalMonthCosts).toEqual(
+					new Map([
+						['1', 0],
+						['2', 0],
+						['3', 0],
+						['4', 0],
+						['5', 0],
+						['6', 0],
+						['7', 0],
+						['8', 0],
+						['9', 0],
+						['10', 0],
+						['11', 0],
+						['12', 0],
+					])
+				);
+			});
+
+			it('data for 2025 of a yearly reminder that starts in April 2025 year, got updated in September 2024', () => {
+				const result = calculateGraphData(
+					2025,
+					generateReminderEvents([
+						{
+							created_at: new Date('2024-08-12T15:00:00.000Z'),
+							started_at: new Date('2025-04-04T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
+							frequency: Frequency.Annual,
+							day: 4,
+							month: 4,
+						},
+						{
+							created_at: new Date('2024-09-02T15:00:00.000Z'),
+							started_at: new Date('2025-04-04T15:00:00.000Z'),
+							operation_type: OperationType.ReminderUpdated,
+							frequency: Frequency.Annual,
+							day: 4,
+							month: 4,
+							cost: 200,
+						},
+					]) as ReminderHistoryRecord[]
+				);
+				expect(result.totalMonthCosts).toEqual(
+					new Map([
+						['1', 0],
+						['2', 0],
+						['3', 0],
+						['4', 200],
+						['5', 0],
+						['6', 0],
+						['7', 0],
+						['8', 0],
+						['9', 0],
+						['10', 0],
+						['11', 0],
+						['12', 0],
+					])
+				);
+			});
+
+			it('data for 2026 of a yearly reminder that starts in April 2025 year, got updated in September 2024 and September 2026', () => {
+				const result = calculateGraphData(
+					2026,
+					generateReminderEvents([
+						{
+							created_at: new Date('2024-08-12T15:00:00.000Z'),
+							started_at: new Date('2025-04-04T15:00:00.000Z'),
+							operation_type: OperationType.ReminderCreated,
+							frequency: Frequency.Annual,
+							day: 4,
+							month: 4,
+						},
+						{
+							created_at: new Date('2024-09-02T15:00:00.000Z'),
+							started_at: new Date('2025-04-04T15:00:00.000Z'),
+							operation_type: OperationType.ReminderUpdated,
+							frequency: Frequency.Annual,
+							day: 4,
+							month: 4,
+							cost: 200,
+						},
+						{
+							created_at: new Date('2026-09-02T15:00:00.000Z'),
+							started_at: new Date('2025-04-04T15:00:00.000Z'),
+							operation_type: OperationType.ReminderUpdated,
+							frequency: Frequency.Annual,
+							day: 4,
+							month: 4,
+							cost: 100,
+						},
+					]) as ReminderHistoryRecord[]
+				);
+				expect(result.totalMonthCosts).toEqual(
+					new Map([
+						['1', 0],
+						['2', 0],
+						['3', 0],
+						['4', 100],
+						['5', 0],
+						['6', 0],
+						['7', 0],
+						['8', 0],
+						['9', 0],
+						['10', 0],
+						['11', 0],
+						['12', 0],
 					])
 				);
 			});

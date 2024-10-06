@@ -23,11 +23,13 @@ const getDateBuckets = (): Map<string, number> => {
 type GraphData = {
 	totalMonthCosts: Map<string, number>;
 	perCategoryCosts: Map<string, Map<string, number>>;
+	perReminderCosts: Map<string, number>;
 };
 
 type AggregateData = {
 	monthCosts: Map<string, number>;
-	categoryId?: string;
+	reminderId: string;
+	categoryId: string;
 	autoRenewal?: boolean; //TODO what are we doing with this
 	// A monthly reminder and I want to pause. That sets auto renewal to false. We don't keep track of values anymore. It's like deleted but keeping the data.
 };
@@ -41,14 +43,13 @@ const reduceReminderHistory = (
 	aggregateData.categoryId = reminder.category_id;
 	aggregateData.autoRenewal = reminder.auto_renewal;
 	const date =
-		reminder.operation_type === OperationType.ReminderUpdated
-			? // &&reminder.created_at.getTime() > reminder.started_at.getTime()
-				reminder.created_at
+		reminder.operation_type === OperationType.ReminderUpdated &&
+		reminder.created_at.getTime() >= reminder.started_at.getTime()
+			? reminder.created_at
 			: reminder.started_at;
 
 	// Is the year we're requesting the graphs for in a following year to when it was started?
 	const isItFutureYear = year > date.getFullYear();
-
 	// Is it ongoing and monthly
 	if (
 		reminder.type === Type.Ongoing &&
@@ -103,6 +104,7 @@ export const calculateGraphData = (
 	const graphData: GraphData = {
 		totalMonthCosts: getDateBuckets(),
 		perCategoryCosts: new Map(),
+		perReminderCosts: new Map(),
 	};
 	const bucketedReminders = new Map<string, ReminderHistoryRecord[]>();
 
@@ -120,6 +122,7 @@ export const calculateGraphData = (
 		const aggregateData: AggregateData = {
 			monthCosts: getDateBuckets(),
 			categoryId: reminders[0].category_id,
+			reminderId: reminders[0].reminder_id,
 			autoRenewal: reminders[0].auto_renewal,
 		};
 		// reminder hasn't been updated at all, only created and nothing else happened
@@ -140,6 +143,7 @@ export const calculateGraphData = (
 				aggregateData.categoryId?.toString() ?? ''
 			) ?? getDateBuckets();
 
+		// let total = 0;
 		for (const [key, value] of aggregateData.monthCosts) {
 			// Update the total months cost for that account
 			graphData.totalMonthCosts.set(
@@ -147,6 +151,7 @@ export const calculateGraphData = (
 				(graphData.totalMonthCosts.get(key) ?? 0) + value
 			);
 
+			// total += value;
 			// Update the per category months cost for that account
 			categoryData.set(key, (categoryData.get(key) ?? 0) + value);
 		}
@@ -156,42 +161,11 @@ export const calculateGraphData = (
 			aggregateData.categoryId?.toString() ?? '',
 			categoryData
 		);
+
+		// TODO add tests, also this is wrong as it's the whole total
+		// we only want current total
+		// graphData.perReminderCosts.set(aggregateData.reminderId, total);
 	}
 
 	return graphData;
 };
-
-// Steps
-// Get reminders sorted from earliest to latest from history table
-// Set a date range e.g. 2024-01-01 => 2024-12-01
-// Bucket reminders by id
-// Loop through bucketed reminders, adding information to the following
-// Create buckets for: Category total by id per date range
-// Loop through reminder running total from the beginning of the date range until the either the end of the date range or if the reminder has an updated
-// date then loop until that instead
-// If a user deletes a category, that will result in multiple reminder deleted triggers and so will factor in to the existing reminder deleted workflow
-// Get the latest category for a given reminder id to ensure that we're calculating against the correct one
-// If a reminder comes out in a given month then just attribute it to that month
-// If for a given reoccurence window e.g. monthly reoccurring reminder's cost is updated multiple times within that month, make sure we use the latest
-// cost within that window
-// If a record has type as single then it can never auto renew and it will not have a frequency
-
-// Users can't modify reminder history
-// If a user updates the price of a reminder, only future months will be updated to reflect the new price
-// User can change the renewal date as it doesn't affect the history calculation
-// Users can delete reminders and they won't show up in the history anymore
-
-//UI TODO
-// deleted reminder, data is gone
-// reminder doesn't autorenew data stays
-// remove auto renew field from form and add alternative way of pausing/stopping ongoing reminder
-// on creating a reminder we use day and month they inserted to set the start date.
-// hide month field when it's a montlhy ongoing reminder
-// prevent month and day fields from being edited
-// alway fill in the month and day field
-
-// TODO
-// Drop all the tables
-// Create reminder history table and setup triggers
-// Update reminder table with startedAt field and calculate this on the UI
-// Update trigger function, on delete need to handle old not new. Also on delete what is the started date, it kinda needs to be created date?
