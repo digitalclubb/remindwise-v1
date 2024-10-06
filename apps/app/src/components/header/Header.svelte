@@ -18,11 +18,11 @@
 	{#if back}
 		<h2 class="heading-5"><a class="back" href={back.href}>{back.text}</a></h2>
 	{/if}
-	<a href="/notifications" class="notification">
+	<a href="/notifications" class="notification" title="Recent notifications">
 		<svg>
 			<use xlink:href="#icon-notification"></use>
 		</svg>
-		<span>3</span>
+		<!-- <span>3</span> -->
 	</a>
 </header>
 
@@ -70,7 +70,7 @@
 		height: 3rem;
 	}
 
-	.notification span {
+	/* .notification span {
 		background-color: var(--orange);
 		border-radius: 50%;
 		font-size: 1.2rem;
@@ -84,7 +84,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-	}
+	} */
 
 	@media screen and (min-width: 1024px) {
 		header {

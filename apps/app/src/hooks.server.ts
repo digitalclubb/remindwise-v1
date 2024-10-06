@@ -1,8 +1,14 @@
+import * as Sentry from '@sentry/sveltekit';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_KEY } from '$env/static/public';
 import { setSession } from '$houdini';
 import { createServerClient } from '@supabase/ssr';
 import { redirect, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
+
+Sentry.init({
+	dsn: 'https://a0daecb4b111f25f5a2bfaaef042a6cf@o4508071697645568.ingest.de.sentry.io/4508071703216208',
+	tracesSampleRate: 1,
+});
 
 const supabase: Handle = async ({ event, resolve }) => {
 	/**
@@ -105,4 +111,8 @@ const houdiniSession: Handle = async ({ event, resolve }) => {
 	return resolve(event);
 };
 
-export const handle: Handle = sequence(supabase, houdiniSession, authGuard);
+export const handle: Handle = sequence(
+	Sentry.sentryHandle(),
+	sequence(supabase, houdiniSession, authGuard)
+);
+export const handleError = Sentry.handleErrorWithSentry();

@@ -84,7 +84,7 @@ describe('notifier', async () => {
 					{
 						id: '124',
 						created_at: new Date('2023-09-10T09:00:00.000Z'),
-						started_at: new Date('2023-09-11T09:00:00.000Z'),
+						started_at: new Date('2023-09-10T10:00:00.000Z'),
 						cost: 9,
 						user_id: '123',
 						category_id: '123',
@@ -120,7 +120,7 @@ describe('notifier', async () => {
 				},
 				expectedSubject: 'Upcoming payments',
 				expectedMessage:
-					'A payment of 11 GBP for mochi is due in 5 days on Sun Sep 15 2024.\nA payment of 9 GBP for dorayaki is due in 1 day on Wed Sep 11 2024.\n',
+					'A payment of 11 GBP for mochi is due in 5 days on Sun Sep 15 2024.\nA payment of 9 GBP for dorayaki is due today on Tue Sep 10 2024.\n',
 				notificationState: {
 					userId: '123',
 					checkpoints: [
@@ -181,7 +181,7 @@ describe('notifier', async () => {
 				},
 				expectedSubject: 'Upcoming payments',
 				expectedMessage:
-					'A payment of 11 CAD for mochi is due in 10 days on Sat Oct 05 2024.\n',
+					'A payment of 11 CAD for mochi is due in 10 days on Sat Oct 5 2024.\n',
 				notificationState: null,
 				expectedNotificationState: {
 					userId: '123',
@@ -226,7 +226,7 @@ describe('notifier', async () => {
 				},
 				expectedSubject: 'Upcoming payments',
 				expectedMessage:
-					'A payment of 11 CAD for mochi is due in 14 days on Fri Jan 03 2025.\n',
+					'A payment of 11 CAD for mochi is due in 14 days on Fri Jan 3 2025.\n',
 				notificationState: null,
 				expectedNotificationState: {
 					userId: '123',

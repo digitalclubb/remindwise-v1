@@ -10,6 +10,7 @@ import {
 	isAfter,
 	isWithinInterval,
 } from 'date-fns';
+import { UTCDate } from '@date-fns/utc';
 import { Currency, Frequency } from '@graphql/types';
 import type { ReminderRecord, UserProfileRecord } from '../types';
 import type { ReminderStore } from './reminder';
@@ -136,18 +137,25 @@ export const createReminderNotificationStateStore = (
 
 export const getRenewalDate = (
 	reminder: ReminderRecord,
-	today: Date
+	fromDate: Date
 ): Date | null => {
 	const reminderDay = (reminder.started_at as Date).getUTCDate();
 	const reminderMonth = (reminder.started_at as Date).getUTCMonth();
-	const currentYear = today.getUTCFullYear();
-	const currentMonth = today.getUTCMonth();
+	const fromDateYearUtc = fromDate.getUTCFullYear();
+	const fromDateMonthUtc = fromDate.getUTCMonth();
+	const fromDateUtc = new UTCDate(
+		fromDateYearUtc,
+		fromDateMonthUtc,
+		fromDate.getUTCDate()
+	);
 
 	if (reminder.frequency === Frequency.Monthly) {
-		let monthlyRenewalDate = new Date(
-			Date.UTC(currentYear, currentMonth, reminderDay)
+		let monthlyRenewalDate = new UTCDate(
+			fromDateYearUtc,
+			fromDateMonthUtc,
+			reminderDay
 		);
-		if (isAfter(today, monthlyRenewalDate)) {
+		if (isAfter(fromDateUtc, monthlyRenewalDate)) {
 			monthlyRenewalDate = add(monthlyRenewalDate, { months: 1 });
 		}
 
@@ -155,10 +163,12 @@ export const getRenewalDate = (
 	}
 
 	if (reminder.frequency === Frequency.Annual) {
-		let yearlyRenewalDate = new Date(
-			Date.UTC(currentYear, reminderMonth, reminderDay)
+		let yearlyRenewalDate = new UTCDate(
+			fromDateYearUtc,
+			reminderMonth,
+			reminderDay
 		);
-		if (isAfter(today, yearlyRenewalDate)) {
+		if (isAfter(fromDateUtc, yearlyRenewalDate)) {
 			yearlyRenewalDate = add(yearlyRenewalDate, { years: 1 });
 		}
 
@@ -200,7 +210,7 @@ const notifiedWithinNoticePeriod = (
 const outsideNotificationWindow = (
 	daysUntilRenewal: number,
 	noticePeriodInDays: number
-): boolean => daysUntilRenewal <= 0 || daysUntilRenewal > noticePeriodInDays;
+): boolean => daysUntilRenewal < 0 || daysUntilRenewal > noticePeriodInDays;
 
 const getUpdatedCheckpoints = (
 	checkpointsByReminderId: Map<string, ReminderNotificationCheckpoint>,
@@ -225,11 +235,16 @@ const getReminderNotificationMessage = (
 ): string =>
 	dueReminders.reduce((message, dueReminder) => {
 		const { cost, name, daysUntilRenewal, renewalDate } = dueReminder;
-		const daysUntilRenewalString = `${daysUntilRenewal} ${dueReminder.daysUntilRenewal > 1 ? 'days' : 'day'}`;
+		const daysUntilRenewalString =
+			daysUntilRenewal == 0
+				? 'today'
+				: daysUntilRenewal > 1
+					? `in ${daysUntilRenewal} days`
+					: `in ${daysUntilRenewal} day`;
 
 		return (
 			message +
-			`A payment of ${cost} ${currency} for ${name} is due in ${daysUntilRenewalString} on ${renewalDate.toDateString()}.\n`
+			`A payment of ${cost} ${currency} for ${name} is due ${daysUntilRenewalString} on ${renewalDate.toDateString()}.\n`
 		);
 	}, '');
 
@@ -246,7 +261,7 @@ export const createNotificationHandler = (
 		handleNotifications: async (
 			userProfile: UserProfileRecord
 		): Promise<void> => {
-			const today = new Date();
+			const today = new UTCDate();
 			const { id, email, notice_period } = userProfile;
 			const reminders = await reminderStore.getRecurringReminders(id);
 			if (!reminders.length) {
