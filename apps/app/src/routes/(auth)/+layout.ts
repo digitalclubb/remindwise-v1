@@ -26,8 +26,8 @@ export const load = (async ({ data, depends, fetch }) => {
 					fetch,
 				},
 				cookies: {
-					get() {
-						return JSON.stringify(data.session);
+					getAll() {
+						return data.cookies || [];
 					},
 				},
 			});

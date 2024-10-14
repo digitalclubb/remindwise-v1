@@ -1,4 +1,4 @@
-query GetSettings {
+query GetSettings @cache(policy: NetworkOnly) {
 	settings: settingsCollection {
 		list: edges {
 			setting: node {

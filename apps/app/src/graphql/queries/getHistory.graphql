@@ -1,4 +1,4 @@
-query GetHistory @load {
+query GetHistory @cache(policy: NetworkOnly) {
 	history: historyCollection(orderBy: [{ created_at: AscNullsFirst }]) {
 		list: edges {
 			history: node {

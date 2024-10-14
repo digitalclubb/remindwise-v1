@@ -1,4 +1,4 @@
-query GetCategories @load {
+query GetCategories @cache(policy: NetworkOnly) {
 	categories: categoryCollection {
 		list: edges {
 			category: node {
