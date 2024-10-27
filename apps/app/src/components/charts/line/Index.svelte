@@ -18,24 +18,26 @@
 </script>
 
 <div class="chart-container">
-	<LayerCake
-		ssr={true}
-		percentRange={true}
-		padding={{ top: 8, right: 10, bottom: 20, left: 25 }}
-		x={xKey}
-		{y}
-		yNice={4}
-		xDomain={[1, 12]}
-		yDomain={[0, null]}
-		{data}>
-		<Html>
-			<AxisX />
-			<AxisY ticks={4} />
-		</Html>
-		<ScaledSvg>
-			<Line />
-		</ScaledSvg>
-	</LayerCake>
+	{#if data.length > 0}
+		<LayerCake
+			ssr={true}
+			percentRange={true}
+			padding={{ top: 8, right: 10, bottom: 20, left: 25 }}
+			x={xKey}
+			{y}
+			yNice={4}
+			xDomain={[1, 12]}
+			yDomain={[0, null]}
+			{data}>
+			<Html>
+				<AxisX />
+				<AxisY ticks={4} />
+			</Html>
+			<ScaledSvg>
+				<Line />
+			</ScaledSvg>
+		</LayerCake>
+	{/if}
 </div>
 
 <style>

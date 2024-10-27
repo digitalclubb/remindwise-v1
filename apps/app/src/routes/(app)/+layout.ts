@@ -1,4 +1,4 @@
-import { load_GetSettings, load_GetCategories } from '$houdini';
+import { load_GetSettings, load_GetCategories, loadAll } from '$houdini';
 
 import { PUBLIC_SUPABASE_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
 import type { LayoutLoad } from './$types';
@@ -26,8 +26,8 @@ export const load = (async (event) => {
 					fetch,
 				},
 				cookies: {
-					get() {
-						return JSON.stringify(event.data.session);
+					getAll() {
+						return event.data.cookies || [];
 					},
 				},
 			});
@@ -49,11 +49,13 @@ export const load = (async (event) => {
 		session,
 		user,
 		graphData: event.data.graphData,
-		...(await load_GetCategories({
-			event,
-		})),
-		...(await load_GetSettings({
-			event,
-		})),
+		...(await loadAll(
+			load_GetCategories({
+				event,
+			}),
+			load_GetSettings({
+				event,
+			})
+		)),
 	};
 }) satisfies LayoutLoad;

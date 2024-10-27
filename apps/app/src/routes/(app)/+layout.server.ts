@@ -6,6 +6,7 @@ import type { History } from '@graphql/types';
 export const load: LayoutServerLoad = async (event) => {
 	const {
 		locals: { safeGetSession },
+		cookies,
 	} = event;
 	const { session, user } = await safeGetSession();
 
@@ -32,5 +33,6 @@ export const load: LayoutServerLoad = async (event) => {
 	return {
 		session,
 		user,
+		cookies: cookies.getAll(),
 	};
 };

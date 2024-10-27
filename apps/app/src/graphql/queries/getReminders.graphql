@@ -4,7 +4,7 @@ query GetReminders(
 	$last: Int
 	$after: Cursor
 	$before: Cursor
-) {
+) @cache(policy: NetworkOnly) {
 	upcomingReminders: reminderCollection(
 		filter: {
 			type: { eq: ONGOING }

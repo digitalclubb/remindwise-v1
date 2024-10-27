@@ -46,7 +46,7 @@
 
 	const currentMonth = new Date().getMonth() + 1;
 	const currentYear = new Date().getFullYear();
-	const lineGraphData: { month: string; total: number }[] = [];
+	let lineGraphData: { month: string; total: number }[] = [];
 
 	let totalSpentSoFar = 0,
 		totalUpcoming = 0;
@@ -73,6 +73,8 @@
 					filteredUpcomingCosts = value;
 				}
 			});
+		// Trigger update on the array
+		lineGraphData = lineGraphData;
 	}
 
 	const onUpcomingChange = async () => {

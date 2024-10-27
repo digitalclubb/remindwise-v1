@@ -87,17 +87,20 @@
 			spentSoFar,
 			upcoming,
 		});
-
+		// Trigger update on the array
+		barChartData = barChartData;
 		iconsMap[category.category.name] = category.category.icon_id || '';
 	}
 
-	const lineGraphData: { month: string; total: number }[] = [];
+	let lineGraphData: { month: string; total: number }[] = [];
 
 	$: graphData?.totalMonthCosts.forEach((value: number, key: string) => {
 		lineGraphData.push({
 			month: key,
 			total: value,
 		});
+		// Trigger update on the array
+		lineGraphData = lineGraphData;
 	});
 
 	const onUpcomingChange = async () => {
