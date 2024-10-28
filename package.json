@@ -21,7 +21,7 @@
 	"devDependencies": {
 		"@playwright/test": "1.48.2",
 		"@testing-library/jest-dom": "6.6.2",
-		"eslint-plugin-playwright": "1.8.3",
+		"eslint-plugin-playwright": "2.0.0",
 		"globals": "15.11.0"
 	},
 	"prepare": "svelte-kit sync",
