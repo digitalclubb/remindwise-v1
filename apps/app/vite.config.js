@@ -3,6 +3,7 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import { vitePluginGraphqlLoader } from 'vite-plugin-graphql-loader';
 import houdini from 'houdini/vite';
 import path from 'path';
+import { svelteTesting } from '@testing-library/svelte/vite';
 
 /** @type {import('vite').UserConfig} */
 const config = {
@@ -19,6 +20,7 @@ const config = {
 		}),
 		houdini(),
 		sveltekit(),
+		svelteTesting(),
 		vitePluginGraphqlLoader(),
 	],
 
