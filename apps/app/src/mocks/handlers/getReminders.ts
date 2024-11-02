@@ -17,8 +17,8 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 									cost: 10,
 									type: Type.Ongoing,
 									auto_renewal: false,
-									started_at: new Date('01/01/24'),
-									created_at: new Date('01/01/24'),
+									started_at: new Date(),
+									created_at: new Date(),
 									category: {
 										id: '1',
 										icon_id: 'icon-help',
@@ -40,8 +40,8 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 									name: 'Example reminder 1',
 									cost: 10,
 									type: Type.Ongoing,
-									started_at: new Date('01/01/24'),
-									created_at: new Date('01/01/24'),
+									started_at: new Date(),
+									created_at: new Date(),
 									category: {
 										id: '1',
 										icon_id: 'icon-help',
@@ -55,8 +55,8 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 									name: 'Example reminder 2',
 									cost: 10,
 									type: Type.Ongoing,
-									started_at: new Date('01/01/24'),
-									created_at: new Date('01/01/24'),
+									started_at: new Date(),
+									created_at: new Date(),
 									category: {
 										id: '1',
 										icon_id: 'icon-help',
@@ -70,8 +70,8 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 									name: 'Example reminder 3',
 									cost: 10,
 									type: Type.Ongoing,
-									started_at: new Date('01/01/24'),
-									created_at: new Date('01/01/24'),
+									started_at: new Date(),
+									created_at: new Date(),
 									category: {
 										id: '1',
 										icon_id: 'icon-help',

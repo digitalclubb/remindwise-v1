@@ -37,7 +37,6 @@
 			const reminderType = reminder.reminder as Reminder;
 			const renewal = getRenewalDate(reminderType, minDate);
 			// Check if the new renewal is within our filter
-			console.log('yoypy', renewal);
 			if (
 				renewal &&
 				renewal?.getTime() > minDate.getTime() &&
