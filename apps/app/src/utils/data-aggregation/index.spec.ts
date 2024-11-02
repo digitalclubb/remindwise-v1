@@ -24,7 +24,7 @@ const generateReminderEvents = (
 	});
 };
 
-describe('graphs', () => {
+describe('data aggregation', () => {
 	describe('reminders that only have 1 created event history', () => {
 		it('data for 2024 of a monthly reminder that started in Feb', () => {
 			const result = calculateGraphData(
