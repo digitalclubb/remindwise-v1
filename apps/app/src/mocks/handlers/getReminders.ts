@@ -16,7 +16,7 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 								reminder: {
 									id: '1',
 									name: 'Example upcoming reminder',
-									cost: 10,
+									cost: 10.99,
 									type: Type.Ongoing,
 									auto_renewal: true,
 									started_at: upcomingDate,
@@ -41,7 +41,7 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 								reminder: {
 									id: '2',
 									name: 'Example reminder 1',
-									cost: 10,
+									cost: 15.98,
 									type: Type.Ongoing,
 									started_at: new Date(),
 									created_at: new Date(),
@@ -56,7 +56,7 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 								reminder: {
 									id: '3',
 									name: 'Example reminder 2',
-									cost: 10,
+									cost: 9.99,
 									type: Type.Ongoing,
 									started_at: new Date(),
 									created_at: new Date(),

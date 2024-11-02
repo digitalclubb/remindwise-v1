@@ -20,6 +20,10 @@ const getDateBuckets = (): Map<string, number> => {
 	]);
 };
 
+const formatPrice = (price: number) => {
+	return parseInt((Math.round(price * 100) / 100).toFixed(2));
+};
+
 type GraphData = {
 	totalMonthCosts: Map<string, number>;
 	perCategoryCosts: Map<string, Map<string, number>>;
@@ -148,7 +152,7 @@ export const calculateGraphData = (
 			// Update the total months cost for that account
 			graphData.totalMonthCosts.set(
 				key,
-				(graphData.totalMonthCosts.get(key) ?? 0) + value
+				(formatPrice(graphData.totalMonthCosts.get(key)!) ?? 0) + value
 			);
 
 			// total += value;

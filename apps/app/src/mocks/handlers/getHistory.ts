@@ -12,7 +12,7 @@ export const getHistory = graphql.query<GetHistoryQuery>('GetHistory', () => {
 						{
 							history: {
 								id: '1',
-								cost: 10,
+								cost: 10.99,
 								auto_renewal: true,
 								user_id: '',
 								category_id: '1',
@@ -30,7 +30,7 @@ export const getHistory = graphql.query<GetHistoryQuery>('GetHistory', () => {
 						{
 							history: {
 								id: '2',
-								cost: 10,
+								cost: 15.98,
 								auto_renewal: true,
 								user_id: '',
 								category_id: '1',
@@ -47,7 +47,7 @@ export const getHistory = graphql.query<GetHistoryQuery>('GetHistory', () => {
 						{
 							history: {
 								id: '3',
-								cost: 10,
+								cost: 9.99,
 								auto_renewal: true,
 								user_id: '',
 								category_id: '4',
