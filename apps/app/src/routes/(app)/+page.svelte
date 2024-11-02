@@ -69,29 +69,34 @@
 		}
 	});
 
-	$: for (const category of $GetCategories.data?.categories?.list || []) {
-		const categoryResults = graphData?.perCategoryCosts.get(
-			category.category.id
-		);
-		let spentSoFar = 0;
-		let upcoming = 0;
-		categoryResults?.forEach((value, key) => {
-			if (parseInt(key) > currentMonth) {
-				upcoming += value;
-			} else {
-				spentSoFar += value;
+	$: ($GetCategories.data?.categories?.list || []).forEach(
+		(category, index) => {
+			if (index === 0) {
+				barChartData = [];
 			}
-		});
+			const categoryResults = graphData?.perCategoryCosts.get(
+				category.category.id
+			);
+			let spentSoFar = 0;
+			let upcoming = 0;
+			categoryResults?.forEach((value, key) => {
+				if (parseInt(key) > currentMonth) {
+					upcoming += value;
+				} else {
+					spentSoFar += value;
+				}
+			});
 
-		barChartData.push({
-			category: category.category.name,
-			spentSoFar,
-			upcoming,
-		});
-		// Trigger update on the array
-		barChartData = barChartData;
-		iconsMap[category.category.name] = category.category.icon_id || '';
-	}
+			barChartData.push({
+				category: category.category.name,
+				spentSoFar,
+				upcoming,
+			});
+			// Trigger update on the array
+			barChartData = barChartData;
+			iconsMap[category.category.name] = category.category.icon_id || '';
+		}
+	);
 
 	let lineGraphData: { month: string; total: number }[] = [];
 
