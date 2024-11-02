@@ -859,11 +859,13 @@ describe('graphs', () => {
 						},
 						{
 							created_at: new Date('2024-10-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							cost: 200,
 							operation_type: OperationType.ReminderUpdated,
 						},
 						{
 							created_at: new Date('2024-10-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							cost: 200,
 							category_id: '5',
 							operation_type: OperationType.ReminderUpdated,
@@ -945,11 +947,13 @@ describe('graphs', () => {
 						},
 						{
 							created_at: new Date('2024-10-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							cost: 200,
 							operation_type: OperationType.ReminderUpdated,
 						},
 						{
 							created_at: new Date('2024-11-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							cost: 200,
 							operation_type: OperationType.ReminderUpdated,
 							auto_renewal: false,
