@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { render, screen } from '@testing-library/svelte/svelte5';
+import { render, screen } from '@testing-library/svelte';
 import Button from './Button.svelte';
 
 describe('Button', () => {
