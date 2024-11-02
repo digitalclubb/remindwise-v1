@@ -564,6 +564,7 @@
 	}
 
 	.options li:hover {
+		border-radius: 3px 0 3px 3px;
 		background-color: var(--orange-dark);
 	}
 
