@@ -20,13 +20,13 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "1.48.2",
-		"@testing-library/jest-dom": "6.6.2",
+		"@testing-library/jest-dom": "6.6.3",
 		"eslint-plugin-playwright": "2.0.0",
 		"globals": "15.11.0"
 	},
 	"prepare": "svelte-kit sync",
 	"packageManager": "pnpm@9.12.3",
 	"dependencies": {
-		"@supabase/supabase-js": "2.45.6"
+		"@supabase/supabase-js": "2.46.1"
 	}
 }

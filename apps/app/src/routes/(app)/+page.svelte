@@ -15,6 +15,7 @@
 	$: ({ GetReminders, GetCategories, GetSettings, graphData } = data);
 
 	type Upcoming = Reminder & { due_date: Date };
+
 	$: upcomingReminders = $GetReminders.data?.upcomingReminders?.list || [];
 	let filteredUpcomingReminders: Array<Upcoming>;
 	$: filteredUpcomingReminders = new Array<Upcoming>();
