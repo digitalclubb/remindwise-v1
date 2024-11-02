@@ -12,6 +12,7 @@ import { deleteReminder } from './handlers/deleteReminder';
 import { deleteCategory } from './handlers/deleteCategory';
 import { addReminder } from './handlers/addReminder';
 import { addCategory } from './handlers/addCategory';
+import { getHistory } from './handlers/getHistory';
 
 export const handlers = [
 	getCategories,
@@ -25,4 +26,5 @@ export const handlers = [
 	deleteCategory,
 	addReminder,
 	addCategory,
+	getHistory,
 ];
