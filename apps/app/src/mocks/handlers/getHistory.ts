@@ -3,7 +3,7 @@ import type { GetHistoryQuery } from '@graphql/types';
 import { Frequency, Type, OperationType } from '@graphql/types';
 
 const date = new Date();
-export const getHistory = graphql.query<GetHistoryQuery>('GetSettings', () => {
+export const getHistory = graphql.query<GetHistoryQuery>('GetHistory', () => {
 	return HttpResponse.json(
 		{
 			data: {
