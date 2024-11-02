@@ -1,5 +1,6 @@
 import { graphql, HttpResponse } from 'msw';
 import type { GetRemindersQuery } from '@graphql/types';
+import { Type } from '@graphql/types';
 
 export const getReminders = graphql.query<GetRemindersQuery>(
 	'GetReminders',
@@ -7,16 +8,17 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 		return HttpResponse.json(
 			{
 				data: {
-					upcoming: {
+					upcomingReminders: {
 						list: [
 							{
 								reminder: {
 									id: '1',
 									name: 'Example upcoming reminder',
 									cost: 10,
-									day: 10,
-									month: 10,
+									type: Type.Ongoing,
 									auto_renewal: false,
+									started_at: new Date('01/01/24'),
+									created_at: new Date('01/01/24'),
 									category: {
 										id: '1',
 										icon_id: 'icon-help',
@@ -37,6 +39,9 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 									id: '2',
 									name: 'Example reminder 1',
 									cost: 10,
+									type: Type.Ongoing,
+									started_at: new Date('01/01/24'),
+									created_at: new Date('01/01/24'),
 									category: {
 										id: '1',
 										icon_id: 'icon-help',
@@ -49,6 +54,9 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 									id: '3',
 									name: 'Example reminder 2',
 									cost: 10,
+									type: Type.Ongoing,
+									started_at: new Date('01/01/24'),
+									created_at: new Date('01/01/24'),
 									category: {
 										id: '1',
 										icon_id: 'icon-help',
@@ -61,6 +69,9 @@ export const getReminders = graphql.query<GetRemindersQuery>(
 									id: '4',
 									name: 'Example reminder 3',
 									cost: 10,
+									type: Type.Ongoing,
+									started_at: new Date('01/01/24'),
+									created_at: new Date('01/01/24'),
 									category: {
 										id: '1',
 										icon_id: 'icon-help',

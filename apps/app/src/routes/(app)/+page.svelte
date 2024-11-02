@@ -15,6 +15,7 @@
 	$: ({ GetReminders, GetCategories, GetSettings, graphData } = data);
 
 	type Upcoming = Reminder & { due_date: Date };
+
 	$: upcomingReminders = $GetReminders.data?.upcomingReminders?.list || [];
 	let filteredUpcomingReminders: Array<Upcoming>;
 	$: filteredUpcomingReminders = new Array<Upcoming>();
@@ -36,6 +37,7 @@
 			const reminderType = reminder.reminder as Reminder;
 			const renewal = getRenewalDate(reminderType, minDate);
 			// Check if the new renewal is within our filter
+			console.log('yoypy', renewal);
 			if (
 				renewal &&
 				renewal?.getTime() > minDate.getTime() &&
