@@ -54,7 +54,10 @@
 						<use xlink:href="#icon-pdf"></use>
 					</svg>
 					<span>{upload.name}</span>
-					<button type="button" on:click={() => deleteFile(upload.name)}
+					<button
+						aria-label="Delete file"
+						type="button"
+						on:click={() => deleteFile(upload.name)}
 						><svg>
 							<use xlink:href="#icon-bin"></use>
 						</svg></button>

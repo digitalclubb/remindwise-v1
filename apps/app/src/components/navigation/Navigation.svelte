@@ -515,10 +515,6 @@
 		background-color: var(--grey-dark);
 	}
 
-	.selected a img {
-		fill: var(--orange);
-	}
-
 	.add-category {
 		display: flex;
 		align-items: center;

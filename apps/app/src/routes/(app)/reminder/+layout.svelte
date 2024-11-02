@@ -204,7 +204,8 @@
 				placeholder="Enter things like policy number, quick contact details for the company etc."
 				aria-invalid={$errors.notes ? 'true' : undefined}
 				bind:value={$form.notes}
-				{...$constraints.notes} />
+				{...$constraints.notes}>
+			</textarea>
 
 			{#if $errors.notes}
 				<p class="error">{$errors.notes}</p>
