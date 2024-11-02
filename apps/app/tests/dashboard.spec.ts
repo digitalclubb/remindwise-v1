@@ -7,6 +7,7 @@ let dashboard: Dashboard;
 
 test.describe('Dashboard page', () => {
 	test.beforeEach(async ({ page, isMobile }) => {
+		await page.clock.setFixedTime(new Date('2024-06-01T09:00:00'));
 		dashboard = new Dashboard(page, isMobile);
 		await dashboard.goto();
 		await page.getByRole('heading', { level: 1, name: 'Dashboard' }).waitFor();

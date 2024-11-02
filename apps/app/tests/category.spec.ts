@@ -5,6 +5,7 @@ import { Category } from './pom/category';
 let category: Category;
 test.describe('Category page', () => {
 	test.beforeEach(async ({ page }) => {
+		await page.clock.setFixedTime(new Date('2024-06-01T09:00:00'));
 		category = new Category(page);
 		await category.goto();
 	});
