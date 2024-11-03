@@ -51,7 +51,8 @@
 	let iconsMap: Record<string, string> = {};
 
 	const currentMonth = new Date().getMonth() + 1;
-	const currentYear = new Date().getFullYear();
+	const currentYear = new Date().getFullYear().toString().substr(2, 2);
+	const nextYear = (new Date().getFullYear() + 1).toString().substr(2, 2);
 
 	let totalSpentSoFar = 0,
 		totalUpcoming = 0;
@@ -170,8 +171,7 @@
 <div class="body">
 	<section>
 		<h2 class="heading-3">
-			Total spend this year <span
-				>(Jan {currentYear} - Jan {currentYear + 1})</span>
+			Total spend this year <span>(Jan '{currentYear} - Jan '{nextYear})</span>
 		</h2>
 
 		<div class="charts">
@@ -219,8 +219,11 @@
 
 	<section>
 		<div class="header">
-			<h2 class="heading-3">
-				Upcoming renewals
+			<h2 class="heading-3 icon-heading">
+				<svg class="icon-table">
+					<use xlink:href="#icon-table" />
+				</svg>
+				Upcoming renewals&nbsp;
 				{#if filteredUpcomingReminders}
 					<span>({filteredUpcomingReminders.length})</span>
 				{/if}
@@ -397,6 +400,16 @@
 
 	h2 span {
 		font-weight: 300;
+	}
+
+	.icon-heading {
+		display: flex;
+	}
+
+	.icon-table {
+		width: 2.4rem;
+		height: 2.4rem;
+		margin-right: 0.8rem;
 	}
 
 	.costs {

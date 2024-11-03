@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { LayerCake, ScaledSvg, Html } from 'layercake';
+	import { formatLocale } from 'd3-format';
 
 	import Line from './Line.svelte';
 	import AxisX from './AxisX.svelte';
@@ -15,6 +16,14 @@
 	});
 
 	const y = (d: Record<string, string | number>) => d[yKey];
+
+	const gbp = formatLocale({
+		decimal: '.',
+		thousands: ',',
+		grouping: [],
+		currency: ['£', ''],
+	});
+	const formatTickY = (d: number) => gbp.format('$~s')(d);
 </script>
 
 <div class="chart-container">
@@ -31,7 +40,7 @@
 			{data}>
 			<Html>
 				<AxisX />
-				<AxisY ticks={4} />
+				<AxisY ticks={4} formatTick={formatTickY} />
 			</Html>
 			<ScaledSvg>
 				<Line />
