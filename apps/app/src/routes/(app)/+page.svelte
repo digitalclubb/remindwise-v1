@@ -51,7 +51,8 @@
 	let iconsMap: Record<string, string> = {};
 
 	const currentMonth = new Date().getMonth() + 1;
-	const currentYear = new Date().getFullYear();
+	const currentYear = new Date().getFullYear().toString().substr(2, 2);
+	const nextYear = (new Date().getFullYear() + 1).toString().substr(2, 2);
 
 	let totalSpentSoFar = 0,
 		totalUpcoming = 0;
@@ -170,8 +171,7 @@
 <div class="body">
 	<section>
 		<h2 class="heading-3">
-			Total spend this year <span
-				>(Jan {currentYear} - Jan {currentYear + 1})</span>
+			Total spend this year <span>(Jan '{currentYear} - Jan '{nextYear})</span>
 		</h2>
 
 		<div class="charts">
