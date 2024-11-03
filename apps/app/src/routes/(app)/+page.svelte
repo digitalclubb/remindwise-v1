@@ -219,8 +219,11 @@
 
 	<section>
 		<div class="header">
-			<h2 class="heading-3">
-				Upcoming renewals
+			<h2 class="heading-3 icon-heading">
+				<svg class="icon-table">
+					<use xlink:href="#icon-table" />
+				</svg>
+				Upcoming renewals&nbsp;
 				{#if filteredUpcomingReminders}
 					<span>({filteredUpcomingReminders.length})</span>
 				{/if}
@@ -397,6 +400,16 @@
 
 	h2 span {
 		font-weight: 300;
+	}
+
+	.icon-heading {
+		display: flex;
+	}
+
+	.icon-table {
+		width: 2.4rem;
+		height: 2.4rem;
+		margin-right: 0.8rem;
 	}
 
 	.costs {

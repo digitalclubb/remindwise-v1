@@ -5,7 +5,7 @@
 	const { padding, xRange, yScale } = getContext<LayerCakeContext>('LayerCake');
 
 	/* A function that passes the current tick value and expects a nicely formatted value in return. */
-	export let formatTick = (d: string) => d;
+	export let formatTick = (d: number) => d;
 	/* If this is a number, it passes that along to the [d3Scale.ticks](https://github.com/d3/d3-scale) function. If this is an array, hardcodes the ticks to those values. If it's a function, passes along the default tick values and expects an array of tick values in return. If nothing, it uses the default ticks supplied by the D3 function. */
 	export let ticks: number | [] | ((param: unknown) => void) | undefined = 4;
 
@@ -34,7 +34,7 @@
 				class="text"
 				style="
           top:{yTick}px;
-          left:{isBandwidth ? $padding.left + xTick - 4 : 0}px;
+          left:-10px;
           transform: translate({isBandwidth ? '-100%' : 0}, {isBandwidth
 					? -50 - Math.floor($yScale.bandwidth() / -2)
 					: '-100'}%);
