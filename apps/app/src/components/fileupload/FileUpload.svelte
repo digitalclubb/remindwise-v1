@@ -47,7 +47,7 @@
 		{/if}
 	</legend>
 	{#if uploads.length > 0}
-		<ul class="">
+		<ul>
 			{#each uploads as upload}
 				<li class="upload">
 					<svg>
