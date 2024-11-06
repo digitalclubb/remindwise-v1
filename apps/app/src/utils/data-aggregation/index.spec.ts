@@ -28,7 +28,7 @@ describe('data aggregation', () => {
 	describe('reminders that only have 1 created event history', () => {
 		it('data for 2024 of a monthly reminder that started in Feb', () => {
 			const result = calculateGraphData(
-				2024,
+				new Date('2024-12-30T15:00:00.000Z'),
 				generateReminderEvents([
 					{
 						type: Type.Ongoing,
@@ -37,6 +37,8 @@ describe('data aggregation', () => {
 					},
 				]) as ReminderHistoryRecord[]
 			);
+			expect(result.perReminderAccrued).toEqual(new Map([['3', 1100]]));
+
 			expect(result.totalMonthCosts).toEqual(
 				new Map([
 					['1', 0],
@@ -73,14 +75,18 @@ describe('data aggregation', () => {
 
 		it('data for 2025 of a monthly reminder that started in Feb of 2024', () => {
 			const result = calculateGraphData(
-				2025,
+				new Date('2025-12-30T15:00:00.000Z'),
 				generateReminderEvents([
 					{
 						type: Type.Ongoing,
 						created_at: new Date('2024-02-15T15:00:00.000Z'),
+						started_at: new Date('2024-02-15T15:00:00.000Z'),
 					},
 				]) as ReminderHistoryRecord[]
 			);
+
+			expect(result.perReminderAccrued).toEqual(new Map([['3', 2300]]));
+
 			expect(result.totalMonthCosts).toEqual(
 				new Map([
 					['1', 100],
@@ -101,16 +107,20 @@ describe('data aggregation', () => {
 
 		it('data for 2024 of a yearly reminder that started in June', () => {
 			const result = calculateGraphData(
-				2024,
+				new Date('2024-12-30T15:00:00.000Z'),
 				generateReminderEvents([
 					{
 						type: Type.Ongoing,
 						created_at: new Date('2024-06-02T15:00:00.000Z'),
+						started_at: new Date('2024-06-02T15:00:00.000Z'),
 						frequency: Frequency.Annual,
 						month: 6,
 					},
 				]) as ReminderHistoryRecord[]
 			);
+
+			expect(result.perReminderAccrued).toEqual(new Map([['3', 100]]));
+
 			expect(result.totalMonthCosts).toEqual(
 				new Map([
 					['1', 0],
@@ -131,16 +141,20 @@ describe('data aggregation', () => {
 
 		it('data for 2025 of a yearly reminder that started in June of 2024', () => {
 			const result = calculateGraphData(
-				2025,
+				new Date('2025-12-30T15:00:00.000Z'),
 				generateReminderEvents([
 					{
 						type: Type.Ongoing,
 						created_at: new Date('2024-06-02T15:00:00.000Z'),
+						started_at: new Date('2024-06-02T15:00:00.000Z'),
 						frequency: Frequency.Annual,
 						month: 6,
 					},
 				]) as ReminderHistoryRecord[]
 			);
+
+			expect(result.perReminderAccrued).toEqual(new Map([['3', 200]]));
+
 			expect(result.totalMonthCosts).toEqual(
 				new Map([
 					['1', 0],
@@ -161,7 +175,7 @@ describe('data aggregation', () => {
 
 		it('data for 2024 of a single reminder that happened in July', () => {
 			const result = calculateGraphData(
-				2024,
+				new Date('2024-12-30T15:00:00.000Z'),
 				generateReminderEvents([
 					{
 						type: Type.Single,
@@ -170,6 +184,9 @@ describe('data aggregation', () => {
 					},
 				]) as ReminderHistoryRecord[]
 			);
+
+			expect(result.perReminderAccrued).toEqual(new Map([['3', 100]]));
+
 			expect(result.totalMonthCosts).toEqual(
 				new Map([
 					['1', 0],
@@ -190,7 +207,7 @@ describe('data aggregation', () => {
 
 		it('data for 2025 of a single reminder that happened in July of 2024', () => {
 			const result = calculateGraphData(
-				2025,
+				new Date('2025-12-30T15:00:00.000Z'),
 				generateReminderEvents([
 					{
 						type: Type.Single,
@@ -199,6 +216,8 @@ describe('data aggregation', () => {
 					},
 				]) as ReminderHistoryRecord[]
 			);
+			expect(result.perReminderAccrued).toEqual(new Map([['3', 100]]));
+
 			expect(result.totalMonthCosts).toEqual(
 				new Map([
 					['1', 0],
@@ -222,7 +241,7 @@ describe('data aggregation', () => {
 		describe('cost updated', () => {
 			it('data for 2024 of a monthly reminder that started in Feb and got deleted', () => {
 				const result = calculateGraphData(
-					2024,
+					new Date('2024-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-02-15T15:00:00.000Z'),
@@ -234,6 +253,9 @@ describe('data aggregation', () => {
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 200]]));
+
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
 						['1', 0],
@@ -251,9 +273,10 @@ describe('data aggregation', () => {
 					])
 				);
 			});
+
 			it('data for 2024 of a monthly reminder that started in Feb and cost updated in April, June and September', () => {
 				const result = calculateGraphData(
-					2024,
+					new Date('2024-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-01-17T15:00:00.000Z'),
@@ -280,6 +303,9 @@ describe('data aggregation', () => {
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 1000]]));
+
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
 						['1', 0],
@@ -300,7 +326,7 @@ describe('data aggregation', () => {
 
 			it('data for 2024 of a monthly reminder that starts in September and cost updated in August the month before', () => {
 				const result = calculateGraphData(
-					2024,
+					new Date('2024-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-08-26T15:00:00.000Z'),
@@ -315,6 +341,9 @@ describe('data aggregation', () => {
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 200]]));
+
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
 						['1', 0],
@@ -335,29 +364,36 @@ describe('data aggregation', () => {
 
 			it('data for 2025 of a monthly reminder that started in Feb and cost updated in April, June and September in 2024', () => {
 				const result = calculateGraphData(
-					2025,
+					new Date('2025-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-02-15T15:00:00.000Z'),
+							started_at: new Date('2024-02-15T15:00:00.000Z'),
 							operation_type: OperationType.ReminderCreated,
 						},
 						{
 							created_at: new Date('2024-04-15T15:00:00.000Z'),
+							started_at: new Date('2024-02-15T15:00:00.000Z'),
 							cost: 200,
 							operation_type: OperationType.ReminderUpdated,
 						},
 						{
 							created_at: new Date('2024-06-15T15:00:00.000Z'),
+							started_at: new Date('2024-02-15T15:00:00.000Z'),
 							cost: 0,
 							operation_type: OperationType.ReminderUpdated,
 						},
 						{
 							created_at: new Date('2024-09-15T15:00:00.000Z'),
+							started_at: new Date('2024-02-15T15:00:00.000Z'),
 							cost: 100,
 							operation_type: OperationType.ReminderUpdated,
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 2200]]));
+
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
 						['1', 100],
@@ -378,34 +414,42 @@ describe('data aggregation', () => {
 
 			it('data for 2025 of a monthly reminder that started in Feb 2024 and cost updated in April, June and September in 2024 and March of 2025', () => {
 				const result = calculateGraphData(
-					2025,
+					new Date('2025-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-02-15T15:00:00.000Z'),
+							started_at: new Date('2024-02-15T15:00:00.000Z'),
 							operation_type: OperationType.ReminderCreated,
 						},
 						{
 							created_at: new Date('2024-04-15T15:00:00.000Z'),
+							started_at: new Date('2024-02-15T15:00:00.000Z'),
 							cost: 200,
 							operation_type: OperationType.ReminderUpdated,
 						},
 						{
 							created_at: new Date('2024-06-15T15:00:00.000Z'),
+							started_at: new Date('2024-02-15T15:00:00.000Z'),
 							cost: 0,
 							operation_type: OperationType.ReminderUpdated,
 						},
 						{
 							created_at: new Date('2024-09-15T15:00:00.000Z'),
+							started_at: new Date('2024-02-15T15:00:00.000Z'),
 							cost: 100,
 							operation_type: OperationType.ReminderUpdated,
 						},
 						{
-							created_at: new Date('2025-03-15T15:00:00.000Z'),
+							created_at: new Date('2025-03-16T15:00:00.000Z'),
+							started_at: new Date('2024-02-15T15:00:00.000Z'),
 							cost: 150,
 							operation_type: OperationType.ReminderUpdated,
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 2700]]));
+
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
 						['1', 100],
@@ -426,7 +470,7 @@ describe('data aggregation', () => {
 
 			it("data for 2024 of a yearly reminder that starts in April next year and we're in August", () => {
 				const result = calculateGraphData(
-					2024,
+					new Date('2024-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-08-12T15:00:00.000Z'),
@@ -438,6 +482,9 @@ describe('data aggregation', () => {
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 0]]));
+
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
 						['1', 0],
@@ -458,7 +505,7 @@ describe('data aggregation', () => {
 
 			it('data for 2024 of a yearly reminder that starts in April 2025 year, got updated in September 2024', () => {
 				const result = calculateGraphData(
-					2024,
+					new Date('2024-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-08-12T15:00:00.000Z'),
@@ -479,6 +526,9 @@ describe('data aggregation', () => {
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 0]]));
+
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
 						['1', 0],
@@ -499,7 +549,7 @@ describe('data aggregation', () => {
 
 			it('data for 2025 of a yearly reminder that starts in April 2025 year, got updated in September 2024', () => {
 				const result = calculateGraphData(
-					2025,
+					new Date('2025-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-08-12T15:00:00.000Z'),
@@ -520,6 +570,9 @@ describe('data aggregation', () => {
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 200]]));
+
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
 						['1', 0],
@@ -540,7 +593,7 @@ describe('data aggregation', () => {
 
 			it('data for 2026 of a yearly reminder that starts in April 2025 year, got updated in September 2024 and September 2026', () => {
 				const result = calculateGraphData(
-					2026,
+					new Date('2026-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-08-12T15:00:00.000Z'),
@@ -570,6 +623,9 @@ describe('data aggregation', () => {
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 300]]));
+
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
 						['1', 0],
@@ -590,7 +646,7 @@ describe('data aggregation', () => {
 
 			it('data for 2024 of a yearly reminder that happened in July and was updated in july', () => {
 				const result = calculateGraphData(
-					2024,
+					new Date('2024-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-07-02T15:00:00.000Z'),
@@ -607,6 +663,9 @@ describe('data aggregation', () => {
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 200]]));
+
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
 						['1', 0],
@@ -627,7 +686,7 @@ describe('data aggregation', () => {
 
 			it('data for 2024 of a yearly reminder that happened in July and was updated in september', () => {
 				const result = calculateGraphData(
-					2024,
+					new Date('2024-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-07-02T15:00:00.000Z'),
@@ -644,6 +703,9 @@ describe('data aggregation', () => {
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 200]]));
+
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
 						['1', 0],
@@ -664,16 +726,18 @@ describe('data aggregation', () => {
 
 			it('data for 2024 of a yearly reminder that happened in July and was updated in september 2025', () => {
 				const result = calculateGraphData(
-					2024,
+					new Date('2024-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-07-02T15:00:00.000Z'),
+							started_at: new Date('2024-07-02T15:00:00.000Z'),
 							operation_type: OperationType.ReminderCreated,
 							frequency: Frequency.Annual,
 							month: 7,
 						},
 						{
 							created_at: new Date('2025-09-02T15:00:00.000Z'),
+							started_at: new Date('2024-07-02T15:00:00.000Z'),
 							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
 							month: 7,
@@ -681,6 +745,9 @@ describe('data aggregation', () => {
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 100]]));
+
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
 						['1', 0],
@@ -701,10 +768,11 @@ describe('data aggregation', () => {
 
 			it('data for 2025 of a yearly reminder that happened in July 2024 and got updated in September 2024', () => {
 				const result = calculateGraphData(
-					2025,
+					new Date('2025-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-07-02T15:00:00.000Z'),
+							started_at: new Date('2024-07-02T15:00:00.000Z'),
 							operation_type: OperationType.ReminderCreated,
 							frequency: Frequency.Annual,
 							month: 7,
@@ -718,6 +786,9 @@ describe('data aggregation', () => {
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 400]]));
+
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
 						['1', 0],
@@ -738,10 +809,11 @@ describe('data aggregation', () => {
 
 			it('data for 2025 of a yearly reminder that happened in July 2024 and got updated in June of 2025', () => {
 				const result = calculateGraphData(
-					2025,
+					new Date('2025-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-07-02T15:00:00.000Z'),
+							started_at: new Date('2024-07-02T15:00:00.000Z'),
 							operation_type: OperationType.ReminderCreated,
 							frequency: Frequency.Annual,
 							month: 7,
@@ -755,6 +827,9 @@ describe('data aggregation', () => {
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 300]]));
+
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
 						['1', 0],
@@ -775,10 +850,11 @@ describe('data aggregation', () => {
 
 			it('data for 2024 of a single reminder that happened in July and was updated in September', () => {
 				const result = calculateGraphData(
-					2024,
+					new Date('2024-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-07-02T15:00:00.000Z'),
+							started_at: new Date('2024-07-02T15:00:00.000Z'),
 							operation_type: OperationType.ReminderCreated,
 							type: Type.Single,
 							month: 7,
@@ -792,6 +868,9 @@ describe('data aggregation', () => {
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 200]]));
+
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
 						['1', 0],
@@ -812,7 +891,7 @@ describe('data aggregation', () => {
 
 			it('data for 2025 of a single reminder that happened in July of 2024 and was updated in September', () => {
 				const result = calculateGraphData(
-					2025,
+					new Date('2025-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-07-02T15:00:00.000Z'),
@@ -829,6 +908,9 @@ describe('data aggregation', () => {
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 200]]));
+
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
 						['1', 0],
@@ -850,7 +932,7 @@ describe('data aggregation', () => {
 		describe('category updated', () => {
 			it('data for 2024 monthly reminder which updates category', () => {
 				const result = calculateGraphData(
-					2024,
+					new Date('2024-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-08-15T15:00:00.000Z'),
@@ -895,7 +977,7 @@ describe('data aggregation', () => {
 
 			it('data for 2025 monthly reminder which updates category', () => {
 				const result = calculateGraphData(
-					2025,
+					new Date('2025-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-08-15T15:00:00.000Z'),
@@ -938,7 +1020,7 @@ describe('data aggregation', () => {
 		describe('autoRenewal updated', () => {
 			it('data for 2024 monthly with auto renewal off from Nov 2024', () => {
 				const result = calculateGraphData(
-					2024,
+					new Date('2024-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-08-15T15:00:00.000Z'),
@@ -952,7 +1034,7 @@ describe('data aggregation', () => {
 							operation_type: OperationType.ReminderUpdated,
 						},
 						{
-							created_at: new Date('2024-11-15T15:00:00.000Z'),
+							created_at: new Date('2024-11-15T16:00:00.000Z'),
 							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							cost: 200,
 							operation_type: OperationType.ReminderUpdated,
@@ -960,6 +1042,8 @@ describe('data aggregation', () => {
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 600]]));
 
 				expect(result.perCategoryCosts.get('4')).toEqual(
 					new Map([
@@ -981,25 +1065,30 @@ describe('data aggregation', () => {
 
 			it('data for 2025 monthly with auto renewal off from Nov 2024', () => {
 				const result = calculateGraphData(
-					2025,
+					new Date('2025-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-08-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							operation_type: OperationType.ReminderCreated,
 						},
 						{
 							created_at: new Date('2024-10-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							cost: 200,
 							operation_type: OperationType.ReminderUpdated,
 						},
 						{
-							created_at: new Date('2024-11-15T15:00:00.000Z'),
+							created_at: new Date('2024-11-15T16:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							cost: 200,
 							operation_type: OperationType.ReminderUpdated,
 							auto_renewal: false,
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 600]]));
 
 				expect(result.perCategoryCosts.get('4')).toEqual(
 					new Map([
@@ -1021,25 +1110,30 @@ describe('data aggregation', () => {
 
 			it('data for 2025 monthly with auto renewal off from feb 2025', () => {
 				const result = calculateGraphData(
-					2025,
+					new Date('2025-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-08-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							operation_type: OperationType.ReminderCreated,
 						},
 						{
 							created_at: new Date('2024-10-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							cost: 200,
 							operation_type: OperationType.ReminderUpdated,
 						},
 						{
-							created_at: new Date('2025-02-15T15:00:00.000Z'),
+							created_at: new Date('2025-02-15T16:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							cost: 200,
 							operation_type: OperationType.ReminderUpdated,
 							auto_renewal: false,
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 1200]]));
 
 				expect(result.perCategoryCosts.get('4')).toEqual(
 					new Map([
@@ -1061,16 +1155,18 @@ describe('data aggregation', () => {
 
 			it('data for 2024 yearly with auto renewal off from Nov 2024', () => {
 				const result = calculateGraphData(
-					2024,
+					new Date('2024-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-08-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							operation_type: OperationType.ReminderCreated,
 							frequency: Frequency.Annual,
 							month: 8,
 						},
 						{
 							created_at: new Date('2024-10-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							cost: 200,
 							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
@@ -1078,6 +1174,7 @@ describe('data aggregation', () => {
 						},
 						{
 							created_at: new Date('2024-11-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							cost: 200,
 							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
@@ -1086,6 +1183,8 @@ describe('data aggregation', () => {
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 200]]));
 
 				expect(result.perCategoryCosts.get('4')).toEqual(
 					new Map([
@@ -1107,16 +1206,18 @@ describe('data aggregation', () => {
 
 			it('data for 2025 yearly with auto renewal off from Nov 2024', () => {
 				const result = calculateGraphData(
-					2025,
+					new Date('2025-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-08-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							operation_type: OperationType.ReminderCreated,
 							frequency: Frequency.Annual,
 							month: 8,
 						},
 						{
 							created_at: new Date('2024-10-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							cost: 200,
 							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
@@ -1124,6 +1225,7 @@ describe('data aggregation', () => {
 						},
 						{
 							created_at: new Date('2024-11-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							cost: 200,
 							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
@@ -1132,6 +1234,8 @@ describe('data aggregation', () => {
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 200]]));
 
 				expect(result.perCategoryCosts.get('4')).toEqual(
 					new Map([
@@ -1153,16 +1257,18 @@ describe('data aggregation', () => {
 
 			it('data for 2025 yearly with auto renewal off from April 2025', () => {
 				const result = calculateGraphData(
-					2025,
+					new Date('2025-12-30T15:00:00.000Z'),
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-08-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							operation_type: OperationType.ReminderCreated,
 							frequency: Frequency.Annual,
 							month: 8,
 						},
 						{
 							created_at: new Date('2024-10-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							cost: 200,
 							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
@@ -1170,6 +1276,7 @@ describe('data aggregation', () => {
 						},
 						{
 							created_at: new Date('2025-04-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							cost: 200,
 							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
@@ -1178,6 +1285,8 @@ describe('data aggregation', () => {
 						},
 					]) as ReminderHistoryRecord[]
 				);
+
+				expect(result.perReminderAccrued).toEqual(new Map([['3', 200]]));
 
 				expect(result.perCategoryCosts.get('4')).toEqual(
 					new Map([
@@ -1236,9 +1345,18 @@ describe('data aggregation', () => {
 		]);
 		it('data for 2024', () => {
 			const result = calculateGraphData(
-				2024,
+				new Date('2024-12-30T15:00:00.000Z'),
 				reminderEvents as ReminderHistoryRecord[]
 			);
+
+			expect(result.perReminderAccrued).toEqual(
+				new Map([
+					['3', 200],
+					['5', 400],
+					['6', 100],
+				])
+			);
+
 			expect(result.perCategoryCosts.get('9')).toEqual(
 				new Map([
 					['1', 0],
@@ -1255,6 +1373,7 @@ describe('data aggregation', () => {
 					['12', 0],
 				])
 			);
+
 			expect(result.perCategoryCosts.get('4')).toEqual(
 				new Map([
 					['1', 0],
@@ -1275,9 +1394,18 @@ describe('data aggregation', () => {
 
 		it('data for 2025', () => {
 			const result = calculateGraphData(
-				2025,
+				new Date('2025-12-30T15:00:00.000Z'),
 				reminderEvents as ReminderHistoryRecord[]
 			);
+
+			expect(result.perReminderAccrued).toEqual(
+				new Map([
+					['3', 200],
+					['5', 1600],
+					['6', 200],
+				])
+			);
+
 			expect(result.perCategoryCosts.get('9')).toEqual(
 				new Map([
 					['1', 0],
@@ -1294,6 +1422,7 @@ describe('data aggregation', () => {
 					['12', 0],
 				])
 			);
+
 			expect(result.perCategoryCosts.get('4')).toEqual(
 				new Map([
 					['1', 100],

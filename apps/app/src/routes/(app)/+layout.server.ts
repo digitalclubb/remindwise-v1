@@ -19,7 +19,7 @@ export const load: LayoutServerLoad = async (event) => {
 
 	if (historyEvents) {
 		const graphData = calculateGraphData(
-			new Date().getFullYear(),
+			new Date(),
 			historyEvents as History[]
 		);
 

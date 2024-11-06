@@ -353,7 +353,7 @@
 									currency: currency || undefined,
 									currencyDisplay: 'narrowSymbol',
 								}).format(
-									graphData?.perReminderCosts.get(reminder.reminder.id) ?? 0
+									graphData?.perReminderAccrued.get(reminder.reminder.id) ?? 0
 								)}</td>
 							<td data-heading="Type"
 								>{reminder.reminder.type} {reminder.reminder.frequency}</td>

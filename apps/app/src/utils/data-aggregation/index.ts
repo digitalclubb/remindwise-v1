@@ -1,4 +1,5 @@
 import { Frequency, Type, OperationType, type History } from '@graphql/types';
+import { differenceInMonths, differenceInYears, isAfter } from 'date-fns';
 
 export type ReminderHistoryRecord = History;
 
@@ -27,15 +28,17 @@ const formatPrice = (price: number) => {
 type GraphData = {
 	totalMonthCosts: Map<string, number>;
 	perCategoryCosts: Map<string, Map<string, number>>;
-	perReminderCosts: Map<string, number>;
+	perReminderAccrued: Map<string, number>;
 };
 
 type AggregateData = {
 	monthCosts: Map<string, number>;
 	reminderId: string;
 	categoryId: string;
-	autoRenewal?: boolean; //TODO what are we doing with this
-	// A monthly reminder and I want to pause. That sets auto renewal to false. We don't keep track of values anymore. It's like deleted but keeping the data.
+	previousDate: Date;
+	previousCost: number;
+	totalAccrued: number;
+	autoRenewal?: boolean;
 };
 
 const reduceReminderHistory = (
@@ -46,11 +49,12 @@ const reduceReminderHistory = (
 	const cost = reminder.cost;
 	aggregateData.categoryId = reminder.category_id;
 	aggregateData.autoRenewal = reminder.auto_renewal;
-	const date =
+	const isEventAfterStartDate =
 		reminder.operation_type === OperationType.ReminderUpdated &&
-		reminder.created_at.getTime() >= reminder.started_at.getTime()
-			? reminder.created_at
-			: reminder.started_at;
+		reminder.created_at.getTime() >= reminder.started_at.getTime();
+	const date = isEventAfterStartDate
+		? reminder.created_at
+		: reminder.started_at;
 
 	// Is the year we're requesting the graphs for in a following year to when it was started?
 	const isItFutureYear = year > date.getFullYear();
@@ -75,6 +79,23 @@ const reduceReminderHistory = (
 				aggregateData?.monthCosts.set(i.toString(), cost);
 			}
 		}
+
+		// If it's an updated event and the cost is different, then calculate the total accrued between created date and previous date
+		// By using the number of months that separate the two dates
+		if (
+			reminder.operation_type === OperationType.ReminderUpdated &&
+			isEventAfterStartDate
+		) {
+			const months = differenceInMonths(
+				reminder.created_at,
+				aggregateData.previousDate
+			);
+			if (aggregateData.autoRenewal) {
+				aggregateData.totalAccrued += aggregateData.previousCost * months;
+			} else {
+				aggregateData.totalAccrued += aggregateData.previousCost * (months + 1);
+			}
+		}
 		// Is it ongoing and yearly
 	} else if (
 		reminder.type === Type.Ongoing &&
@@ -94,21 +115,47 @@ const reduceReminderHistory = (
 			// set that month cost to 0
 			aggregateData?.monthCosts.set(month.toString(), 0);
 		}
+
+		// If it's an updated event and the cost is different, then calculate the total accrued between created date and previous date
+		// By using the number of years that separate the two dates
+		if (
+			reminder.operation_type === OperationType.ReminderUpdated &&
+			isEventAfterStartDate
+		) {
+			const years = differenceInYears(
+				reminder.created_at,
+				aggregateData.previousDate
+			);
+			if (aggregateData.autoRenewal) {
+				aggregateData.totalAccrued += aggregateData.previousCost * years;
+			} else {
+				aggregateData.totalAccrued += aggregateData.previousCost * (years + 1);
+			}
+		}
 		// Is it single record and in the year it was started
 	} else if (reminder.type === Type.Single && !isItFutureYear) {
 		const month = reminder.month ?? 1;
 		aggregateData?.monthCosts.set(month.toString(), cost);
 	}
+
+	if (reminder.type === Type.Single) {
+		aggregateData.totalAccrued = reminder.cost;
+	}
+
+	if (reminder.operation_type !== OperationType.ReminderCreated) {
+		aggregateData.previousDate = date;
+		aggregateData.previousCost = aggregateData.autoRenewal ? reminder.cost : 0;
+	}
 };
 
 export const calculateGraphData = (
-	year: number,
+	date: Date,
 	sortedReminders: ReminderHistoryRecord[]
 ): GraphData => {
 	const graphData: GraphData = {
 		totalMonthCosts: getDateBuckets(),
 		perCategoryCosts: new Map(),
-		perReminderCosts: new Map(),
+		perReminderAccrued: new Map(),
 	};
 	const bucketedReminders = new Map<string, ReminderHistoryRecord[]>();
 
@@ -128,6 +175,9 @@ export const calculateGraphData = (
 			categoryId: reminders[0].category_id,
 			reminderId: reminders[0].reminder_id,
 			autoRenewal: reminders[0].auto_renewal,
+			previousCost: reminders[0].cost,
+			previousDate: reminders[0].started_at,
+			totalAccrued: 0,
 		};
 		// reminder hasn't been updated at all, only created and nothing else happened
 		for (let i = 0; i < reminders.length; i++) {
@@ -139,23 +189,21 @@ export const calculateGraphData = (
 				break;
 
 			// reduce all of that reminders events into an aggregation which represents the latest data
-			reduceReminderHistory(reminders[i], year, aggregateData);
+			reduceReminderHistory(reminders[i], date.getFullYear(), aggregateData);
 		}
+
 		// get the perCategory data if it exists, otherwise create a new months map
 		const categoryData =
 			graphData.perCategoryCosts.get(
 				aggregateData.categoryId?.toString() ?? ''
 			) ?? getDateBuckets();
 
-		// let total = 0;
 		for (const [key, value] of aggregateData.monthCosts) {
 			// Update the total months cost for that account
 			graphData.totalMonthCosts.set(
 				key,
 				(formatPrice(graphData.totalMonthCosts.get(key)!) ?? 0) + value
 			);
-
-			// total += value;
 			// Update the per category months cost for that account
 			categoryData.set(key, (categoryData.get(key) ?? 0) + value);
 		}
@@ -166,9 +214,26 @@ export const calculateGraphData = (
 			categoryData
 		);
 
-		// TODO add tests, also this is wrong as it's the whole total
-		// we only want current total
-		// graphData.perReminderCosts.set(aggregateData.reminderId, total);
+		if (
+			reminders[0].type === Type.Ongoing &&
+			reminders[0].frequency === Frequency.Monthly &&
+			isAfter(date, aggregateData.previousDate)
+		) {
+			const months = differenceInMonths(date, aggregateData.previousDate) + 1;
+			aggregateData.totalAccrued += aggregateData.previousCost * months;
+		} else if (
+			reminders[0].type === Type.Ongoing &&
+			reminders[0].frequency === Frequency.Annual &&
+			isAfter(date, aggregateData.previousDate)
+		) {
+			const years = differenceInYears(date, aggregateData.previousDate) + 1;
+			aggregateData.totalAccrued += aggregateData.previousCost * years;
+		}
+
+		graphData.perReminderAccrued.set(
+			aggregateData.reminderId,
+			aggregateData.totalAccrued
+		);
 	}
 
 	return graphData;
