@@ -1,18 +1,29 @@
 <script lang="ts">
 	import Link from '../../../../../components/link/Link.svelte';
 	import Header from '../../../../../components/header/Header.svelte';
-	import { formatDate } from '../../../../../utils/date';
 	import type { PageData } from './$houdini';
 	import { page } from '$app/stores';
+	import { getRenewalDate } from '../../../../../lambdas/notifier/notification';
+	import type { Reminder } from '@graphql/types';
 
 	export let data: PageData;
 
-	const currentYear = new Date().getFullYear();
-
 	$: ({ GetSettings } = data);
-
-	$: reminder = data?.data?.reminders?.list[0].reminder;
+	type Upcoming = Reminder & { due_date: Date };
+	let reminder: Upcoming;
 	$: currency = $GetSettings.data?.settings?.list[0].setting.currency || '';
+
+	$: {
+		const reminderType = data?.data?.reminders?.list[0].reminder as Reminder;
+		const renewal = getRenewalDate(
+			data?.data?.reminders?.list[0].reminder as Reminder,
+			new Date()
+		);
+
+		if (renewal) {
+			reminder = { ...reminderType, due_date: renewal };
+		}
+	}
 
 	$: cost = reminder
 		? new Intl.NumberFormat('en-GB', {
@@ -67,11 +78,7 @@
 					due for renewal on
 				{/if}
 				<span class="highlight"
-					>{formatDate(
-						reminder.day || 0,
-						reminder.month || 0,
-						currentYear
-					)}</span>
+					>{new Intl.DateTimeFormat('en-GB').format(reminder.due_date)}</span>
 				{#if reminder.type === 'ONGOING'}
 					<br />will be charged
 					<span class="highlight">{reminder.frequency?.toLowerCase()}</span>

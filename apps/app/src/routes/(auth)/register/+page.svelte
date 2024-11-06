@@ -60,7 +60,7 @@
 	</div>
 	<div class="box box-social">
 		<h2 class="heading-5">Or</h2>
-		<ul class="">
+		<ul>
 			<li>
 				<!-- svelte-ignore a11y-invalid-attribute -->
 				<a href="" class="social-login">
