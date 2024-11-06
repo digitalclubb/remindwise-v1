@@ -5,6 +5,7 @@
 	import Donut from '../../../../components/charts/donut/Index.svelte';
 	import Line from '../../../../components/charts/line/Index.svelte';
 	import Header from '../../../../components/header/Header.svelte';
+	import Tooltip from '../../../../components/tooltip/Tooltip.svelte';
 	import { getCurrency } from '../../../../utils/currency';
 	import { getRenewalDate } from '../../../../lambdas/notifier/notification.js';
 
@@ -278,7 +279,8 @@
 				<tr>
 					<th>Name</th>
 					<th>Re-occuring cost</th>
-					<th>Total accured</th>
+					<th class="has-tooltip"
+						>Total accured <Tooltip text="Total spent since added" /></th>
 					<th>Type</th>
 					<th>View</th>
 				</tr>

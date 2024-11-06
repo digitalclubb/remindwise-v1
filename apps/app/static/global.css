@@ -269,6 +269,11 @@ th:has(.alert) {
 	margin-top: 1rem;
 }
 
+.has-tooltip {
+	display: flex;
+	align-items: center;
+}
+
 @media screen and (min-width: 1024px) {
 	.body {
 		padding-left: 4.2rem;
