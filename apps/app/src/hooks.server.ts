@@ -4,11 +4,14 @@ import { setSession } from '$houdini';
 import { createServerClient } from '@supabase/ssr';
 import { redirect, type Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
+import { dev } from '$app/environment';
 
-Sentry.init({
-	dsn: 'https://a0daecb4b111f25f5a2bfaaef042a6cf@o4508071697645568.ingest.de.sentry.io/4508071703216208',
-	tracesSampleRate: 1,
-});
+if (!dev) {
+	Sentry.init({
+		dsn: 'https://a0daecb4b111f25f5a2bfaaef042a6cf@o4508071697645568.ingest.de.sentry.io/4508071703216208',
+		tracesSampleRate: 1,
+	});
+}
 
 const supabase: Handle = async ({ event, resolve }) => {
 	/**
