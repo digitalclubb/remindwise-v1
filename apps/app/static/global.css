@@ -269,11 +269,6 @@ th:has(.alert) {
 	margin-top: 1rem;
 }
 
-.has-tooltip {
-	display: flex;
-	align-items: center;
-}
-
 @media screen and (min-width: 1024px) {
 	.body {
 		padding-left: 4.2rem;
@@ -295,6 +290,11 @@ th:has(.alert) {
 		padding: 1rem 2rem;
 		text-align: left;
 		font-weight: 500;
+	}
+
+	.has-tooltip {
+		display: flex;
+		align-items: center;
 	}
 
 	th:first-child {
