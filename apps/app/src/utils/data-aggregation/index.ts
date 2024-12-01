@@ -179,15 +179,15 @@ export const calculateGraphData = (
 			previousDate: reminders[0].started_at,
 			totalAccrued: 0,
 		};
+		// if it's deleted, do nothing
+		if (
+			reminders.some((r) => r.operation_type === OperationType.ReminderDeleted)
+		) {
+			break;
+		}
+
 		// reminder hasn't been updated at all, only created and nothing else happened
 		for (let i = 0; i < reminders.length; i++) {
-			if (
-				reminders.some(
-					(r) => r.operation_type === OperationType.ReminderDeleted
-				)
-			)
-				break;
-
 			// reduce all of that reminders events into an aggregation which represents the latest data
 			reduceReminderHistory(reminders[i], date.getFullYear(), aggregateData);
 		}

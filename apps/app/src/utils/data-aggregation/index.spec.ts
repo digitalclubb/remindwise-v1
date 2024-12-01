@@ -212,6 +212,7 @@ describe('data aggregation', () => {
 					{
 						type: Type.Single,
 						created_at: new Date('2024-07-02T15:00:00.000Z'),
+						started_at: new Date('2024-02-15T15:00:00.000Z'),
 						month: 7,
 					},
 				]) as ReminderHistoryRecord[]
@@ -245,16 +246,19 @@ describe('data aggregation', () => {
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-02-15T15:00:00.000Z'),
+							started_at: new Date('2024-02-15T15:00:00.000Z'),
+							month: 2,
 							operation_type: OperationType.ReminderCreated,
 						},
 						{
 							created_at: new Date('2024-04-15T15:00:00.000Z'),
+							started_at: new Date('2024-02-15T15:00:00.000Z'),
 							operation_type: OperationType.ReminderDeleted,
 						},
 					]) as ReminderHistoryRecord[]
 				);
 
-				expect(result.perReminderAccrued).toEqual(new Map([['3', 200]]));
+				expect(result.perReminderAccrued).toEqual(new Map());
 
 				expect(result.totalMonthCosts).toEqual(
 					new Map([
