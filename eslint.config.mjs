@@ -4,7 +4,7 @@ import globals from 'globals';
 import eslintJs from '@eslint/js';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import eslintPluginSvelte from 'eslint-plugin-svelte';
-import playwright from 'eslint-plugin-playwright'
+import playwright from 'eslint-plugin-playwright';
 
 export default [
 	eslintJs.configs.recommended,
@@ -64,7 +64,15 @@ export default [
 		rules: {
 			'@typescript-eslint/no-unused-vars': [
 				'warn',
-				{ varsIgnorePattern: '^\\$\\$(Props|Events|Slots)$' },
+				{
+					varsIgnorePattern: '^\\$\\$(Props|Events|Slots)$',
+				},
+			],
+			'@typescript-eslint/no-unused-expressions': [
+				'warn',
+				{
+					allowShortCircuit: true,
+				},
 			],
 		},
 	},
