@@ -22,11 +22,11 @@
 		"@playwright/test": "1.49.1",
 		"@testing-library/jest-dom": "6.6.3",
 		"eslint-plugin-playwright": "2.1.0",
-		"globals": "15.13.0"
+		"globals": "15.14.0"
 	},
 	"prepare": "svelte-kit sync",
 	"packageManager": "pnpm@9.15.0",
 	"dependencies": {
-		"@supabase/supabase-js": "2.47.3"
+		"@supabase/supabase-js": "2.47.10"
 	}
 }
