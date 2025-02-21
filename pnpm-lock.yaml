@@ -24,6 +24,9 @@ importers:
       globals:
         specifier: 15.15.0
         version: 15.15.0
+      svelte-eslint-parser:
+        specifier: 0.43.0
+        version: 0.43.0(svelte@5.20.2)
 
   apps/app:
     dependencies:
@@ -9921,9 +9924,9 @@ snapshots:
     dependencies:
       postcss: 8.4.47
 
-  postcss-scss@4.0.9(postcss@8.4.47):
+  postcss-scss@4.0.9(postcss@8.4.49):
     dependencies:
-      postcss: 8.4.47
+      postcss: 8.4.49
 
   postcss-selector-parser@6.1.2:
     dependencies:
@@ -10275,8 +10278,8 @@ snapshots:
       eslint-scope: 7.2.2
       eslint-visitor-keys: 3.4.3
       espree: 9.6.1
-      postcss: 8.4.47
-      postcss-scss: 4.0.9(postcss@8.4.47)
+      postcss: 8.4.49
+      postcss-scss: 4.0.9(postcss@8.4.49)
     optionalDependencies:
       svelte: 5.20.2
 
