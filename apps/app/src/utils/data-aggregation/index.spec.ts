@@ -55,6 +55,22 @@ describe('data aggregation', () => {
 					['12', 100],
 				])
 			);
+			expect(result.nextYearCosts).toEqual(
+				new Map([
+					['1', 100],
+					['2', 100],
+					['3', 100],
+					['4', 100],
+					['5', 100],
+					['6', 100],
+					['7', 100],
+					['8', 100],
+					['9', 100],
+					['10', 100],
+					['11', 100],
+					['12', 100],
+				])
+			);
 			expect(result.perCategoryCosts.get('4')).toEqual(
 				new Map([
 					['1', 0],
@@ -107,7 +123,7 @@ describe('data aggregation', () => {
 
 		it('data for 2024 of a yearly reminder that started in June', () => {
 			const result = calculateGraphData(
-				new Date('2024-12-30T15:00:00.000Z'),
+				new Date('2025-12-30T15:00:00.000Z'),
 				generateReminderEvents([
 					{
 						type: Type.Ongoing,
@@ -119,7 +135,24 @@ describe('data aggregation', () => {
 				]) as ReminderHistoryRecord[]
 			);
 
-			expect(result.perReminderAccrued).toEqual(new Map([['3', 100]]));
+			expect(result.perReminderAccrued).toEqual(new Map([['3', 200]]));
+
+			expect(result.nextYearCosts).toEqual(
+				new Map([
+					['1', 0],
+					['2', 0],
+					['3', 0],
+					['4', 0],
+					['5', 0],
+					['6', 100],
+					['7', 0],
+					['8', 0],
+					['9', 0],
+					['10', 0],
+					['11', 0],
+					['12', 0],
+				])
+			);
 
 			expect(result.totalMonthCosts).toEqual(
 				new Map([
@@ -654,12 +687,14 @@ describe('data aggregation', () => {
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-07-02T15:00:00.000Z'),
+							started_at: new Date('2024-07-02T15:00:00.000Z'),
 							operation_type: OperationType.ReminderCreated,
 							frequency: Frequency.Annual,
 							month: 7,
 						},
 						{
 							created_at: new Date('2024-07-02T15:00:00.000Z'),
+							started_at: new Date('2024-07-02T15:00:00.000Z'),
 							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
 							cost: 200,
@@ -694,12 +729,14 @@ describe('data aggregation', () => {
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-07-02T15:00:00.000Z'),
+							started_at: new Date('2024-07-02T15:00:00.000Z'),
 							operation_type: OperationType.ReminderCreated,
 							frequency: Frequency.Annual,
 							month: 7,
 						},
 						{
 							created_at: new Date('2024-09-02T15:00:00.000Z'),
+							started_at: new Date('2024-07-02T15:00:00.000Z'),
 							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
 							month: 7,
@@ -783,6 +820,7 @@ describe('data aggregation', () => {
 						},
 						{
 							created_at: new Date('2024-09-02T15:00:00.000Z'),
+							started_at: new Date('2024-09-02T15:00:00.000Z'),
 							operation_type: OperationType.ReminderUpdated,
 							frequency: Frequency.Annual,
 							month: 7,
@@ -899,12 +937,14 @@ describe('data aggregation', () => {
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-07-02T15:00:00.000Z'),
+							started_at: new Date('2024-07-02T15:00:00.000Z'),
 							operation_type: OperationType.ReminderCreated,
 							type: Type.Single,
 							month: 7,
 						},
 						{
 							created_at: new Date('2024-09-02T15:00:00.000Z'),
+							started_at: new Date('2024-07-02T15:00:00.000Z'),
 							operation_type: OperationType.ReminderUpdated,
 							type: Type.Single,
 							month: 7,
@@ -977,6 +1017,23 @@ describe('data aggregation', () => {
 						['12', 200],
 					])
 				);
+
+				expect(result.perCategoryNextYearCosts.get('5')).toEqual(
+					new Map([
+						['1', 200],
+						['2', 200],
+						['3', 200],
+						['4', 200],
+						['5', 200],
+						['6', 200],
+						['7', 200],
+						['8', 200],
+						['9', 200],
+						['10', 200],
+						['11', 200],
+						['12', 200],
+					])
+				);
 			});
 
 			it('data for 2025 monthly reminder which updates category', () => {
@@ -985,15 +1042,18 @@ describe('data aggregation', () => {
 					generateReminderEvents([
 						{
 							created_at: new Date('2024-08-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							operation_type: OperationType.ReminderCreated,
 						},
 						{
 							created_at: new Date('2024-10-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							cost: 200,
 							operation_type: OperationType.ReminderUpdated,
 						},
 						{
 							created_at: new Date('2024-10-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
 							cost: 200,
 							category_id: '5',
 							operation_type: OperationType.ReminderUpdated,
@@ -1324,6 +1384,7 @@ describe('data aggregation', () => {
 			},
 			{
 				created_at: new Date('2024-09-15T15:00:00.000Z'),
+				started_at: new Date('2024-07-15T15:00:00.000Z'),
 				cost: 200,
 				operation_type: OperationType.ReminderUpdated,
 				type: Type.Single,

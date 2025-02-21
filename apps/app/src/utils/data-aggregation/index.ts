@@ -25,9 +25,11 @@ const formatPrice = (price: number) => {
 	return parseInt((+price).toFixed(2));
 };
 
-type GraphData = {
+export type GraphData = {
 	totalMonthCosts: Map<string, number>;
+	nextYearCosts: Map<string, number>;
 	perCategoryCosts: Map<string, Map<string, number>>;
+	perCategoryNextYearCosts: Map<string, Map<string, number>>;
 	perReminderAccrued: Map<string, number>;
 };
 
@@ -148,13 +150,19 @@ const reduceReminderHistory = (
 	}
 };
 
+// At the end I populate a new array with the latest
+// I populate as we go along?
+// do we want to show upcoming for bar graph?
+
 export const calculateGraphData = (
 	date: Date,
 	sortedReminders: ReminderHistoryRecord[]
 ): GraphData => {
 	const graphData: GraphData = {
 		totalMonthCosts: getDateBuckets(),
+		nextYearCosts: getDateBuckets(),
 		perCategoryCosts: new Map(),
+		perCategoryNextYearCosts: new Map(),
 		perReminderAccrued: new Map(),
 	};
 	const bucketedReminders = new Map<string, ReminderHistoryRecord[]>();
@@ -229,6 +237,39 @@ export const calculateGraphData = (
 			const years = differenceInYears(date, aggregateData.previousDate) + 1;
 			aggregateData.totalAccrued += aggregateData.previousCost * years;
 		}
+
+		const nextYearCategoryData =
+			graphData.perCategoryNextYearCosts.get(
+				aggregateData.categoryId?.toString() ?? ''
+			) ?? getDateBuckets();
+
+		if (
+			reminders[0].type === Type.Ongoing &&
+			reminders[0].frequency === Frequency.Monthly
+		) {
+			graphData.nextYearCosts.forEach((value, key, map) =>
+				map.set(key, aggregateData.monthCosts.get('12')! + value)
+			);
+			nextYearCategoryData.forEach((value, key, map) =>
+				map.set(key, categoryData.get('12')! + value)
+			);
+		} else if (
+			reminders[0].type === Type.Ongoing &&
+			reminders[0].frequency === Frequency.Annual
+		) {
+			graphData.nextYearCosts.forEach((value, key, map) =>
+				map.set(key, aggregateData.monthCosts.get(key)! + value)
+			);
+			nextYearCategoryData.forEach((value, key, map) =>
+				map.set(key, categoryData.get(key)! + value)
+			);
+		}
+
+		// Update the category next year with the totals
+		graphData.perCategoryNextYearCosts.set(
+			aggregateData.categoryId?.toString() ?? '',
+			nextYearCategoryData
+		);
 
 		graphData.perReminderAccrued.set(
 			aggregateData.reminderId,
