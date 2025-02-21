@@ -29,7 +29,7 @@
 		"@aws-sdk/client-ses": "3.750.0",
 		"@aws-sdk/lib-dynamodb": "3.751.0",
 		"@date-fns/utc": "2.1.0",
-		"@sentry/sveltekit": "8.54.0",
+		"@sentry/sveltekit": "9.1.0",
 		"@supabase/ssr": "0.5.2",
 		"@supabase/supabase-js": "2.48.1",
 		"@sveltejs/adapter-vercel": "5.6.3",
