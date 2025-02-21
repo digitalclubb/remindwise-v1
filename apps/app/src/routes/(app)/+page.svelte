@@ -9,43 +9,42 @@
 	import Tooltip from '../../components/tooltip/Tooltip.svelte';
 	import type { LayoutData } from './$types';
 	import { getCurrency } from '../../utils/currency';
-	import { getRenewalDate } from '../../lambdas/notifier/notification';
-	import type { Reminder } from '@graphql/types';
+	import {
+		filterListUpcomingReminders,
+		filterUpcomingCosts,
+		type Upcoming,
+		type UpcomingList,
+	} from '../../utils/filters';
 
 	export let data: LayoutData & PageData;
 	$: ({ GetReminders, GetCategories, GetSettings, graphData } = data);
-
-	type Upcoming = Reminder & { due_date: Date };
 
 	$: upcomingReminders = $GetReminders.data?.upcomingReminders?.list || [];
 	let filteredUpcomingReminders: Array<Upcoming>;
 	$: filteredUpcomingReminders = new Array<Upcoming>();
 	$: reminders = $GetReminders.data?.reminders?.list || [];
 	$: pageInfo = $GetReminders.data?.reminders?.pageInfo;
+	$: filteredUpcomingCosts = 0;
 
 	$: currency = $GetSettings.data?.settings?.list[0].setting.currency || '';
 	$: currencySymbol = getCurrency(currency);
 
 	$: upcomingFilter = '1';
+	$: upcomingTableFilter = '1';
 	$: numberOfRemindersFilter = '5';
 
 	$: {
-		const minDate = new Date();
-		const maxDate = new Date();
-		maxDate.setMonth(minDate.getMonth() + parseInt(upcomingFilter));
-		filteredUpcomingReminders = [];
-		upcomingReminders.forEach((reminder) => {
-			const reminderType = reminder.reminder as Reminder;
-			const renewal = getRenewalDate(reminderType, minDate);
-			// Check if the new renewal is within our filter
-			if (
-				renewal &&
-				renewal?.getTime() > minDate.getTime() &&
-				renewal?.getTime() < maxDate.getTime()
-			) {
-				filteredUpcomingReminders.push({ ...reminderType, due_date: renewal });
-			}
-		});
+		filteredUpcomingReminders = filterListUpcomingReminders(
+			upcomingReminders as UpcomingList,
+			parseInt(upcomingFilter)
+		);
+
+		filteredUpcomingCosts = filterUpcomingCosts(
+			graphData?.totalMonthCosts,
+			graphData?.nextYearCosts,
+			currentMonth,
+			parseInt(upcomingFilter)
+		);
 	}
 
 	let barChartData: Record<string, number | string>[] = [];
@@ -58,16 +57,11 @@
 	let totalSpentSoFar = 0,
 		totalUpcoming = 0;
 
-	$: filteredUpcomingCosts = 0;
 	$: graphData?.totalMonthCosts.forEach((value, key) => {
 		if (parseInt(key) > currentMonth) {
 			totalUpcoming += value;
 		} else {
 			totalSpentSoFar += value;
-		}
-
-		if (parseInt(key) === currentMonth + 1) {
-			filteredUpcomingCosts = value;
 		}
 	});
 
@@ -111,18 +105,21 @@
 		lineGraphData = lineGraphData;
 	});
 
+	// TODO need to unit test this
 	const onUpcomingChange = async () => {
-		// TODO this is only working until the end of the year. How do we handle next years?
-		filteredUpcomingCosts = 0;
-		graphData?.totalMonthCosts.forEach((value, key) => {
-			const keyNumber = parseInt(key);
-			if (
-				keyNumber > currentMonth &&
-				keyNumber <= currentMonth + parseInt(upcomingFilter)
-			) {
-				filteredUpcomingCosts += value;
-			}
-		});
+		filteredUpcomingCosts = filterUpcomingCosts(
+			graphData?.totalMonthCosts,
+			graphData?.nextYearCosts,
+			currentMonth,
+			parseInt(upcomingFilter)
+		);
+	};
+
+	const onUpcomingTableChange = async () => {
+		filteredUpcomingReminders = filterListUpcomingReminders(
+			upcomingReminders as UpcomingList,
+			parseInt(upcomingFilter)
+		);
 	};
 
 	const onRemindersNumberChange = async () => {
@@ -231,8 +228,8 @@
 			</h2>
 			<select
 				aria-label="Filter upcoming renewals"
-				bind:value={upcomingFilter}
-				on:change={onUpcomingChange}>
+				bind:value={upcomingTableFilter}
+				on:change={onUpcomingTableChange}>
 				<option value="1">1 months</option>
 				<option value="3">3 months</option>
 				<option value="6">6 months</option>
@@ -253,10 +250,10 @@
 					<tr>
 						<td colspan="6" class="cell-no-data"
 							><p>
-								No upcoming reminders in the next {upcomingFilter !== '1'
-									? upcomingFilter
+								No upcoming reminders in the next {upcomingTableFilter !== '1'
+									? upcomingTableFilter
 									: ''}
-								{upcomingFilter !== '1' ? 'months' : 'month'}
+								{upcomingTableFilter !== '1' ? 'months' : 'month'}
 							</p></td>
 					</tr>
 				{:else}

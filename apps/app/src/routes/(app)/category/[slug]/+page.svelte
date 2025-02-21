@@ -7,7 +7,11 @@
 	import Header from '../../../../components/header/Header.svelte';
 	import Tooltip from '../../../../components/tooltip/Tooltip.svelte';
 	import { getCurrency } from '../../../../utils/currency';
-	import { getRenewalDate } from '../../../../lambdas/notifier/notification.js';
+	import {
+		filterListUpcomingReminders,
+		filterUpcomingCosts,
+		type UpcomingList,
+	} from '../../../../utils/filters';
 
 	export let data;
 
@@ -24,25 +28,24 @@
 	$: currencySymbol = getCurrency(currency);
 
 	$: upcomingFilter = '1';
+	$: upcomingTableFilter = '1';
 	$: numberOfRemindersFilter = '5';
 
+	$: filteredUpcomingCosts = 0;
+	$: categoryId = reminders[0]?.reminder.category?.id;
+
 	$: {
-		const minDate = new Date();
-		const maxDate = new Date();
-		maxDate.setMonth(minDate.getMonth() + parseInt(upcomingFilter));
-		filteredUpcomingReminders = [];
-		upcomingReminders.forEach((reminder) => {
-			const reminderType = reminder.reminder as Reminder;
-			const renewal = getRenewalDate(reminderType, minDate);
-			// Check if the new renewal is within our filter
-			if (
-				renewal &&
-				renewal?.getTime() > minDate.getTime() &&
-				renewal?.getTime() < maxDate.getTime()
-			) {
-				filteredUpcomingReminders.push({ ...reminderType, due_date: renewal });
-			}
-		});
+		filteredUpcomingReminders = filterListUpcomingReminders(
+			upcomingReminders as UpcomingList,
+			parseInt(upcomingFilter)
+		);
+
+		filteredUpcomingCosts = filterUpcomingCosts(
+			graphData?.perCategoryCosts.get(categoryId!),
+			graphData?.perCategoryNextYearCosts.get(categoryId!),
+			currentMonth,
+			parseInt(upcomingFilter)
+		);
 	}
 
 	const currentMonth = new Date().getMonth() + 1;
@@ -51,9 +54,6 @@
 
 	let totalSpentSoFar = 0,
 		totalUpcoming = 0;
-
-	$: filteredUpcomingCosts = 0;
-	$: categoryId = reminders[0]?.reminder.category?.id;
 
 	$: if (categoryId) {
 		graphData?.perCategoryCosts
@@ -69,26 +69,25 @@
 				} else {
 					totalSpentSoFar += value;
 				}
-
-				if (parseInt(key) === currentMonth + 1) {
-					filteredUpcomingCosts = value;
-				}
 			});
 		// Trigger update on the array
 		lineGraphData = lineGraphData;
 	}
 
 	const onUpcomingChange = async () => {
-		filteredUpcomingCosts = 0;
-		graphData?.totalMonthCosts.forEach((value, key) => {
-			const keyNumber = parseInt(key);
-			if (
-				keyNumber > currentMonth &&
-				keyNumber <= currentMonth + parseInt(upcomingFilter)
-			) {
-				filteredUpcomingCosts += value;
-			}
-		});
+		filteredUpcomingCosts = filterUpcomingCosts(
+			graphData?.perCategoryCosts.get(categoryId!),
+			graphData?.perCategoryNextYearCosts.get(categoryId!),
+			currentMonth,
+			parseInt(upcomingFilter)
+		);
+	};
+
+	const onUpcomingTableChange = async () => {
+		filteredUpcomingReminders = filterListUpcomingReminders(
+			upcomingReminders as UpcomingList,
+			parseInt(upcomingFilter)
+		);
 	};
 
 	const onRemindersNumberChange = async () => {
@@ -188,8 +187,8 @@
 			</h2>
 			<select
 				aria-label="Filter upcoming renewals"
-				bind:value={upcomingFilter}
-				on:change={onUpcomingChange}>
+				bind:value={upcomingTableFilter}
+				on:change={onUpcomingTableChange}>
 				<option value="1">1 months</option>
 				<option value="3">3 months</option>
 				<option value="6">6 months</option>
