@@ -1,4 +1,3 @@
-import type { GetReminder$result } from '$houdini';
 import type { Reminder } from '@graphql/types';
 import { addMonths } from 'date-fns/addMonths';
 import { getRenewalDate } from '../../lambdas/notifier/notification';
