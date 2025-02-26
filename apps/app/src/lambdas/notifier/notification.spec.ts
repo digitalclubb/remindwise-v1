@@ -493,7 +493,7 @@ describe('notifier', async () => {
 			{
 				id: '123',
 				created_at: new Date('2024-01-15T09:00:00.000Z'),
-				started_at: new Date('2024-05-12T09:00:00.000Z'),
+				started_at: new Date('2024-01-12T09:00:00.000Z'),
 				cost: 11,
 				user_id: '123',
 				category_id: '123',
@@ -514,6 +514,7 @@ describe('notifier', async () => {
 			reminderNotificationStateStore,
 			'upsertReminderNotificationState'
 		);
+		console.log('ola');
 		const handler = createNotificationHandler(
 			emailSender,
 			reminderNotificationStateStore,

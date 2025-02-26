@@ -141,6 +141,7 @@ export const getRenewalDate = (
 ): Date | null => {
 	const reminderDay = (reminder.started_at as Date).getUTCDate();
 	const reminderMonth = (reminder.started_at as Date).getUTCMonth();
+	const reminderYear = (reminder.started_at as Date).getUTCFullYear();
 	const fromDateYearUtc = fromDate.getUTCFullYear();
 	const fromDateMonthUtc = fromDate.getUTCMonth();
 	const fromDateUtc = new UTCDate(
@@ -151,8 +152,8 @@ export const getRenewalDate = (
 
 	if (reminder.frequency === Frequency.Monthly) {
 		let monthlyRenewalDate = new UTCDate(
-			fromDateYearUtc,
-			fromDateMonthUtc,
+			reminderYear > fromDateYearUtc ? reminderYear : fromDateYearUtc,
+			reminderMonth > fromDateMonthUtc ? reminderMonth : fromDateMonthUtc,
 			reminderDay
 		);
 		if (isAfter(fromDateUtc, monthlyRenewalDate)) {
@@ -164,7 +165,7 @@ export const getRenewalDate = (
 
 	if (reminder.frequency === Frequency.Annual) {
 		let yearlyRenewalDate = new UTCDate(
-			fromDateYearUtc,
+			reminderYear > fromDateYearUtc ? reminderYear : fromDateYearUtc,
 			reminderMonth,
 			reminderDay
 		);

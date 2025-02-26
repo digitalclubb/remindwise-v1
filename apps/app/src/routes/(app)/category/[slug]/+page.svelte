@@ -146,11 +146,25 @@
 				<ul class="costs">
 					<li class="cost">
 						<h3 class="heading-5">Spent so far</h3>
-						<p>{currencySymbol}{totalSpentSoFar}</p>
+						<p>
+							{new Intl.NumberFormat(currencySymbol, {
+								style: 'currency',
+								currency: currency || undefined,
+								currencyDisplay: 'narrowSymbol',
+								minimumFractionDigits: 2,
+							}).format(totalSpentSoFar)}
+						</p>
 					</li>
 					<li class="cost cost-upcoming">
 						<h3 class="heading-5">Upcoming</h3>
-						<p>{currencySymbol}{totalUpcoming}</p>
+						<p>
+							{new Intl.NumberFormat(currencySymbol, {
+								style: 'currency',
+								currency: currency || undefined,
+								currencyDisplay: 'narrowSymbol',
+								minimumFractionDigits: 2,
+							}).format(totalUpcoming)}
+						</p>
 					</li>
 				</ul>
 				<div class="costs cost-upcoming">
@@ -164,7 +178,14 @@
 							<option value="3">3 months</option>
 							<option value="6">6 months</option>
 						</select>
-						<p>{currencySymbol}{filteredUpcomingCosts}</p>
+						<p>
+							{new Intl.NumberFormat(currencySymbol, {
+								style: 'currency',
+								currency: currency || undefined,
+								currencyDisplay: 'narrowSymbol',
+								minimumFractionDigits: 2,
+							}).format(filteredUpcomingCosts)}
+						</p>
 					</div>
 				</div>
 			</div>
@@ -224,13 +245,14 @@
 									><use xlink:href="#{reminder.category?.icon_id}" /></svg
 								></td>
 							<td data-heading="Cost"
-								>{new Intl.NumberFormat('en-GB', {
+								>{new Intl.NumberFormat(currencySymbol, {
 									style: 'currency',
 									currency: currency || undefined,
 									currencyDisplay: 'narrowSymbol',
+									minimumFractionDigits: 2,
 								}).format(reminder.cost || 0)}</td>
 							<td data-heading="Due date"
-								>{new Intl.DateTimeFormat('en-GB').format(
+								>{new Intl.DateTimeFormat(currencySymbol).format(
 									reminder.due_date
 								)}</td>
 							<td data-heading="Auto renewal"
@@ -300,16 +322,18 @@
 										xlink:href="#{reminder.reminder.category?.icon_id}" /></svg
 								></td>
 							<td data-heading="Re-occuring cost"
-								>{new Intl.NumberFormat('en-GB', {
+								>{new Intl.NumberFormat(currencySymbol, {
 									style: 'currency',
 									currency: currency || undefined,
 									currencyDisplay: 'narrowSymbol',
+									minimumFractionDigits: 2,
 								}).format(reminder.reminder.cost || 0)}</td>
 							<td data-heading="Total accured"
-								>{new Intl.NumberFormat('en-GB', {
+								>{new Intl.NumberFormat(currencySymbol, {
 									style: 'currency',
 									currency: currency || undefined,
 									currencyDisplay: 'narrowSymbol',
+									minimumFractionDigits: 2,
 								}).format(
 									graphData?.perReminderAccrued.get(reminder.reminder.id) ?? 0
 								)}</td>

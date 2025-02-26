@@ -150,10 +150,6 @@ const reduceReminderHistory = (
 	}
 };
 
-// At the end I populate a new array with the latest
-// I populate as we go along?
-// do we want to show upcoming for bar graph?
-
 export const calculateGraphData = (
 	date: Date,
 	sortedReminders: ReminderHistoryRecord[]
@@ -250,8 +246,8 @@ export const calculateGraphData = (
 			graphData.nextYearCosts.forEach((value, key, map) =>
 				map.set(key, aggregateData.monthCosts.get('12')! + value)
 			);
-			nextYearCategoryData.forEach((value, key, map) =>
-				map.set(key, categoryData.get('12')! + value)
+			nextYearCategoryData.forEach((_, key, map) =>
+				map.set(key, categoryData.get('12')!)
 			);
 		} else if (
 			reminders[0].type === Type.Ongoing &&
@@ -260,8 +256,8 @@ export const calculateGraphData = (
 			graphData.nextYearCosts.forEach((value, key, map) =>
 				map.set(key, aggregateData.monthCosts.get(key)! + value)
 			);
-			nextYearCategoryData.forEach((value, key, map) =>
-				map.set(key, categoryData.get(key)! + value)
+			nextYearCategoryData.forEach((_, key, map) =>
+				map.set(key, categoryData.get(key)!)
 			);
 		}
 

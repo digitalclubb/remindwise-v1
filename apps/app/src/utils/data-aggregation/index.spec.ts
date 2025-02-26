@@ -996,6 +996,14 @@ describe('data aggregation', () => {
 							category_id: '5',
 							operation_type: OperationType.ReminderUpdated,
 						},
+						{
+							created_at: new Date('2024-10-15T15:00:00.000Z'),
+							started_at: new Date('2024-08-15T15:00:00.000Z'),
+							cost: 50,
+							category_id: '5',
+							reminder_id: '1',
+							operation_type: OperationType.ReminderCreated,
+						},
 					]) as ReminderHistoryRecord[]
 				);
 
@@ -1010,28 +1018,28 @@ describe('data aggregation', () => {
 						['5', 0],
 						['6', 0],
 						['7', 0],
-						['8', 100],
-						['9', 100],
-						['10', 200],
-						['11', 200],
-						['12', 200],
+						['8', 150],
+						['9', 150],
+						['10', 250],
+						['11', 250],
+						['12', 250],
 					])
 				);
 
 				expect(result.perCategoryNextYearCosts.get('5')).toEqual(
 					new Map([
-						['1', 200],
-						['2', 200],
-						['3', 200],
-						['4', 200],
-						['5', 200],
-						['6', 200],
-						['7', 200],
-						['8', 200],
-						['9', 200],
-						['10', 200],
-						['11', 200],
-						['12', 200],
+						['1', 250],
+						['2', 250],
+						['3', 250],
+						['4', 250],
+						['5', 250],
+						['6', 250],
+						['7', 250],
+						['8', 250],
+						['9', 250],
+						['10', 250],
+						['11', 250],
+						['12', 250],
 					])
 				);
 			});
