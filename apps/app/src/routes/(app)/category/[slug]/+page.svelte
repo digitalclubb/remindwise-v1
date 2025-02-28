@@ -6,7 +6,7 @@
 	import Line from '../../../../components/charts/line/Index.svelte';
 	import Header from '../../../../components/header/Header.svelte';
 	import Tooltip from '../../../../components/tooltip/Tooltip.svelte';
-	import { getCurrency } from '../../../../utils/currency';
+	import { formatPrice, getCurrency } from '../../../../utils/currency';
 	import {
 		filterListUpcomingReminders,
 		filterUpcomingCosts,
@@ -147,23 +147,13 @@
 					<li class="cost">
 						<h3 class="heading-5">Spent so far</h3>
 						<p>
-							{new Intl.NumberFormat(currencySymbol, {
-								style: 'currency',
-								currency: currency || undefined,
-								currencyDisplay: 'narrowSymbol',
-								minimumFractionDigits: 2,
-							}).format(totalSpentSoFar)}
+							{formatPrice(currency, totalSpentSoFar)}
 						</p>
 					</li>
 					<li class="cost cost-upcoming">
 						<h3 class="heading-5">Upcoming</h3>
 						<p>
-							{new Intl.NumberFormat(currencySymbol, {
-								style: 'currency',
-								currency: currency || undefined,
-								currencyDisplay: 'narrowSymbol',
-								minimumFractionDigits: 2,
-							}).format(totalUpcoming)}
+							{formatPrice(currency, totalUpcoming)}
 						</p>
 					</li>
 				</ul>
@@ -179,12 +169,7 @@
 							<option value="6">6 months</option>
 						</select>
 						<p>
-							{new Intl.NumberFormat(currencySymbol, {
-								style: 'currency',
-								currency: currency || undefined,
-								currencyDisplay: 'narrowSymbol',
-								minimumFractionDigits: 2,
-							}).format(filteredUpcomingCosts)}
+							{formatPrice(currency, filteredUpcomingCosts)}
 						</p>
 					</div>
 				</div>
@@ -244,15 +229,10 @@
 								<svg class="table-icon" fill="var(--cream-dark)"
 									><use xlink:href="#{reminder.category?.icon_id}" /></svg
 								></td>
-							<td data-heading="Cost"
-								>{new Intl.NumberFormat(currencySymbol, {
-									style: 'currency',
-									currency: currency || undefined,
-									currencyDisplay: 'narrowSymbol',
-									minimumFractionDigits: 2,
-								}).format(reminder.cost || 0)}</td>
+							<td data-heading="Cost">
+								{formatPrice(currency, reminder.cost || 0)}</td>
 							<td data-heading="Due date"
-								>{new Intl.DateTimeFormat(currencySymbol).format(
+								>{new Intl.DateTimeFormat('en-GB').format(
 									reminder.due_date
 								)}</td>
 							<td data-heading="Auto renewal"
@@ -321,20 +301,11 @@
 									><use
 										xlink:href="#{reminder.reminder.category?.icon_id}" /></svg
 								></td>
-							<td data-heading="Re-occuring cost"
-								>{new Intl.NumberFormat(currencySymbol, {
-									style: 'currency',
-									currency: currency || undefined,
-									currencyDisplay: 'narrowSymbol',
-									minimumFractionDigits: 2,
-								}).format(reminder.reminder.cost || 0)}</td>
-							<td data-heading="Total accured"
-								>{new Intl.NumberFormat(currencySymbol, {
-									style: 'currency',
-									currency: currency || undefined,
-									currencyDisplay: 'narrowSymbol',
-									minimumFractionDigits: 2,
-								}).format(
+							<td data-heading="Re-occuring cost">
+								{formatPrice(currency, reminder.reminder.cost || 0)}</td>
+							<td data-heading="Total accured">
+								{formatPrice(
+									currency,
 									graphData?.perReminderAccrued.get(reminder.reminder.id) ?? 0
 								)}</td>
 							<td data-heading="Type"

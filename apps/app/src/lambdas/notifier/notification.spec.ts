@@ -514,7 +514,7 @@ describe('notifier', async () => {
 			reminderNotificationStateStore,
 			'upsertReminderNotificationState'
 		);
-		console.log('ola');
+
 		const handler = createNotificationHandler(
 			emailSender,
 			reminderNotificationStateStore,

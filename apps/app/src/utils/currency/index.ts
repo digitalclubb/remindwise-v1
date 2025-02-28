@@ -14,3 +14,12 @@ export const getCurrency = (currency: string) => {
 			return 'ja-JP';
 	}
 };
+
+export const formatPrice = (currency: string, value: number) => {
+	return new Intl.NumberFormat(getCurrency(currency), {
+		style: 'currency',
+		currency: currency || undefined,
+		currencyDisplay: 'narrowSymbol',
+		minimumFractionDigits: 2,
+	}).format(value);
+};
