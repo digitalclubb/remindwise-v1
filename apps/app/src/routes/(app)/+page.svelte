@@ -27,7 +27,6 @@
 	$: filteredUpcomingCosts = 0;
 
 	$: currency = $GetSettings.data?.settings?.list[0].setting.currency || '';
-	$: currencySymbol = getCurrency(currency);
 
 	$: upcomingFilter = '1';
 	$: upcomingTableFilter = '1';

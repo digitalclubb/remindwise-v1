@@ -25,7 +25,6 @@
 	$: pageInfo = $GetReminders.data?.reminders?.pageInfo;
 
 	$: currency = $GetSettings.data?.settings?.list[0].setting.currency || '';
-	$: currencySymbol = getCurrency(currency);
 
 	$: upcomingFilter = '1';
 	$: upcomingTableFilter = '1';
