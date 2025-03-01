@@ -6,7 +6,7 @@
 	import Line from '../../../../components/charts/line/Index.svelte';
 	import Header from '../../../../components/header/Header.svelte';
 	import Tooltip from '../../../../components/tooltip/Tooltip.svelte';
-	import { getCurrency } from '../../../../utils/currency';
+	import { formatPrice } from '../../../../utils/currency';
 	import {
 		filterListUpcomingReminders,
 		filterUpcomingCosts,
@@ -25,7 +25,6 @@
 	$: pageInfo = $GetReminders.data?.reminders?.pageInfo;
 
 	$: currency = $GetSettings.data?.settings?.list[0].setting.currency || '';
-	$: currencySymbol = getCurrency(currency);
 
 	$: upcomingFilter = '1';
 	$: upcomingTableFilter = '1';
@@ -146,11 +145,15 @@
 				<ul class="costs">
 					<li class="cost">
 						<h3 class="heading-5">Spent so far</h3>
-						<p>{currencySymbol}{totalSpentSoFar}</p>
+						<p>
+							{formatPrice(currency, totalSpentSoFar)}
+						</p>
 					</li>
 					<li class="cost cost-upcoming">
 						<h3 class="heading-5">Upcoming</h3>
-						<p>{currencySymbol}{totalUpcoming}</p>
+						<p>
+							{formatPrice(currency, totalUpcoming)}
+						</p>
 					</li>
 				</ul>
 				<div class="costs cost-upcoming">
@@ -164,7 +167,9 @@
 							<option value="3">3 months</option>
 							<option value="6">6 months</option>
 						</select>
-						<p>{currencySymbol}{filteredUpcomingCosts}</p>
+						<p>
+							{formatPrice(currency, filteredUpcomingCosts)}
+						</p>
 					</div>
 				</div>
 			</div>
@@ -223,12 +228,8 @@
 								<svg class="table-icon" fill="var(--cream-dark)"
 									><use xlink:href="#{reminder.category?.icon_id}" /></svg
 								></td>
-							<td data-heading="Cost"
-								>{new Intl.NumberFormat('en-GB', {
-									style: 'currency',
-									currency: currency || undefined,
-									currencyDisplay: 'narrowSymbol',
-								}).format(reminder.cost || 0)}</td>
+							<td data-heading="Cost">
+								{formatPrice(currency, reminder.cost || 0)}</td>
 							<td data-heading="Due date"
 								>{new Intl.DateTimeFormat('en-GB').format(
 									reminder.due_date
@@ -299,18 +300,11 @@
 									><use
 										xlink:href="#{reminder.reminder.category?.icon_id}" /></svg
 								></td>
-							<td data-heading="Re-occuring cost"
-								>{new Intl.NumberFormat('en-GB', {
-									style: 'currency',
-									currency: currency || undefined,
-									currencyDisplay: 'narrowSymbol',
-								}).format(reminder.reminder.cost || 0)}</td>
-							<td data-heading="Total accured"
-								>{new Intl.NumberFormat('en-GB', {
-									style: 'currency',
-									currency: currency || undefined,
-									currencyDisplay: 'narrowSymbol',
-								}).format(
+							<td data-heading="Re-occuring cost">
+								{formatPrice(currency, reminder.reminder.cost || 0)}</td>
+							<td data-heading="Total accured">
+								{formatPrice(
+									currency,
 									graphData?.perReminderAccrued.get(reminder.reminder.id) ?? 0
 								)}</td>
 							<td data-heading="Type"

@@ -110,7 +110,7 @@ const authGuard: Handle = async ({ event, resolve }) => {
 
 const houdiniSession: Handle = async ({ event, resolve }) => {
 	const { session } = await event.locals.safeGetSession();
-	if (session) setSession(event, session);
+	if (session && setSession) setSession(event, session);
 	return resolve(event);
 };
 

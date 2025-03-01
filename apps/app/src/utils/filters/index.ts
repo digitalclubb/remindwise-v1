@@ -20,8 +20,8 @@ export const filterListUpcomingReminders = (
 		// Check if the new renewal is within our filter
 		if (
 			renewal &&
-			renewal?.getTime() > minDate.getTime() &&
-			renewal?.getTime() < maxDate.getTime()
+			renewal?.getTime() >= minDate.getTime() &&
+			renewal?.getTime() <= maxDate.getTime()
 		) {
 			filteredUpcomingReminders.push({ ...reminderType, due_date: renewal });
 		}
@@ -43,7 +43,7 @@ export const filterUpcomingCosts = (
 		const monthNumber = parseInt(month);
 		if (nextMonth >= 13 && monthNumber <= nextMonth - 12) {
 			filteredUpcomingCosts += nextYearCosts!.get(monthNumber.toString())!;
-		} else if (monthNumber > currentMonth) {
+		} else if (monthNumber > currentMonth && monthNumber <= nextMonth) {
 			filteredUpcomingCosts += value;
 		}
 	});

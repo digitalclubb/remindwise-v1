@@ -1,14 +1,25 @@
 export const getCurrency = (currency: string) => {
 	switch (currency) {
 		case 'GBP':
-			return '£';
+			return 'en-GB';
 		case 'USD':
+			return 'en-US';
 		case 'CAD':
+			return 'en-CA';
 		case 'AUD':
-			return '$';
+			return 'en-AU';
 		case 'EUR':
-			return '€';
+			return 'pt-PT';
 		case 'JPY':
-			return '¥';
+			return 'ja-JP';
 	}
+};
+
+export const formatPrice = (currency: string, value: number) => {
+	return new Intl.NumberFormat(getCurrency(currency), {
+		style: 'currency',
+		currency: currency || undefined,
+		currencyDisplay: 'narrowSymbol',
+		minimumFractionDigits: 2,
+	}).format(value);
 };
