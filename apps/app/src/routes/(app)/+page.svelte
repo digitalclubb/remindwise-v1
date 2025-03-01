@@ -8,7 +8,7 @@
 	import Line from '../../components/charts/line/Index.svelte';
 	import Tooltip from '../../components/tooltip/Tooltip.svelte';
 	import type { LayoutData } from './$types';
-	import { formatPrice, getCurrency } from '../../utils/currency';
+	import { formatPrice } from '../../utils/currency';
 	import {
 		filterListUpcomingReminders,
 		filterUpcomingCosts,

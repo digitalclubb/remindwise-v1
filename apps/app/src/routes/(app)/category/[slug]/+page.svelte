@@ -6,7 +6,7 @@
 	import Line from '../../../../components/charts/line/Index.svelte';
 	import Header from '../../../../components/header/Header.svelte';
 	import Tooltip from '../../../../components/tooltip/Tooltip.svelte';
-	import { formatPrice, getCurrency } from '../../../../utils/currency';
+	import { formatPrice } from '../../../../utils/currency';
 	import {
 		filterListUpcomingReminders,
 		filterUpcomingCosts,
