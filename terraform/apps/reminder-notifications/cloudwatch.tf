@@ -3,7 +3,7 @@ resource "aws_cloudwatch_log_group" "reminder_notifications_lambda" {
 }
 
 resource "aws_cloudwatch_log_group" "reminder_notifications_sfn" {
-  name = "/aws/sfn/${var.resource_prefix}reminder-notifications"
+  name = "/aws/vendedlogs/states/${var.resource_prefix}reminder-notifications"
 }
 
 resource "aws_cloudwatch_log_group" "user_retriever_lambda" {
