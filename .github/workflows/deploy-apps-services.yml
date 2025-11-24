@@ -40,7 +40,7 @@ jobs:
     name: Static code analysis
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install dependencies
         uses: ./.github/actions/install-dependencies
       - name: Check linting
@@ -55,7 +55,7 @@ jobs:
     name: Unit tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install dependencies
         uses: ./.github/actions/install-dependencies
       - name: Unit tests
@@ -74,7 +74,7 @@ jobs:
         working-directory: ./terraform/apps
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install dependencies
         uses: ./.github/actions/install-dependencies
       - name: Build
