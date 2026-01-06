@@ -8,7 +8,7 @@ runs:
     - uses: pnpm/action-setup@v4.1.0
 
     - name: node_modules cache
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       id: node_modules-cache
       with:
         path: ./node_modules
@@ -16,7 +16,7 @@ runs:
 
     - name: pnpm cache
       if: steps.node_modules-cache.outputs.cache-hit != 'true'
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       id: pnpm-store
       with:
         path: ~/.pnpm-store/v3
